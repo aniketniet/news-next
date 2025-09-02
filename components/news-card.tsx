@@ -1,16 +1,17 @@
-import Image from "next/image"
-import Link from "next/link"
-import { cn } from "@/lib/utils"
+import Image from "next/image";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 type NewsCardProps = {
-  title: string
-  category?: string
-  image?: string
-  byline?: string
-  time?: string
-  compact?: boolean
-  className?: string
-}
+  title: string;
+  category?: string;
+  image?: string;
+  byline?: string;
+  time?: string;
+  compact?: boolean;
+  className?: string;
+  id?: string;
+};
 
 export function NewsCard({
   title,
@@ -20,10 +21,22 @@ export function NewsCard({
   time,
   compact,
   className,
+  id,
 }: NewsCardProps) {
+  // Create a slug from the title for the URL
+  const slug =
+    id ||
+    title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "");
+
   return (
     <article className={cn("flex flex-col", className)}>
-      <Link href="#" className="relative block aspect-[16/9] w-full overflow-hidden rounded">
+      <Link
+        href={`/news/${slug}`}
+        className="relative block aspect-[16/9] w-full overflow-hidden rounded"
+      >
         <Image
           src={image || "/news-image.png"}
           alt={title}
@@ -38,8 +51,13 @@ export function NewsCard({
             {category}
           </span>
         ) : null}
-        <h3 className={cn("font-semibold leading-snug text-pretty", compact ? "text-sm" : "text-base")}>
-          <Link href="#" className="hover:underline">
+        <h3
+          className={cn(
+            "font-semibold leading-snug text-pretty",
+            compact ? "text-sm" : "text-base"
+          )}
+        >
+          <Link href={`/news/${slug}`} className="hover:underline">
             {title}
           </Link>
         </h3>
@@ -52,5 +70,5 @@ export function NewsCard({
         )}
       </div>
     </article>
-  )
+  );
 }

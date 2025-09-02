@@ -25,7 +25,6 @@ import { PopularPosts } from "@/components/popular-posts";
 import { StateEditions } from "@/components/state-editions";
 import PhotoGallery from "@/components/PhotoGallery";
 
-
 const breaking = [
   { title: "Parliament session adjourned till 2 PM after opposition uproar" },
   { title: "IMD issues heavy rainfall alert for coastal states" },
@@ -595,32 +594,37 @@ const analysisStories = [
 const videoStories = [
   {
     id: "video-1",
-    title: "In Telangana, from where Justice Reddy hails, the Bharat Rashtra Samithi said it was yet to decide",
+    title:
+      "In Telangana, from where Justice Reddy hails, the Bharat Rashtra Samithi said it was yet to decide",
     image: "/parliament-building.png",
     duration: "12:09",
   },
   {
     id: "video-2",
-    title: "In Telangana, from where Justice Reddy hails, the Bharat Rashtra Samithi said it was yet to decide",
+    title:
+      "In Telangana, from where Justice Reddy hails, the Bharat Rashtra Samithi said it was yet to decide",
     image: "/world-summit.png",
     duration: "12:09",
   },
   {
     id: "video-3",
-    title: "In Telangana, from where Justice Reddy hails, the Bharat Rashtra Samithi said it was yet to decide its stand",
+    title:
+      "In Telangana, from where Justice Reddy hails, the Bharat Rashtra Samithi said it was yet to decide its stand",
     image: "/video-news.png",
     duration: "12:09",
     featured: true,
   },
   {
     id: "video-4",
-    title: "In Telangana, from where Justice Reddy hails, the Bharat Rashtra Samithi said it was yet to decide",
+    title:
+      "In Telangana, from where Justice Reddy hails, the Bharat Rashtra Samithi said it was yet to decide",
     image: "/business-meeting-diversity.png",
     duration: "12:09",
   },
   {
     id: "video-5",
-    title: "In Telangana, from where Justice Reddy hails, the Bharat Rashtra Samithi said it was yet to decide",
+    title:
+      "In Telangana, from where Justice Reddy hails, the Bharat Rashtra Samithi said it was yet to decide",
     image: "/world.png",
     duration: "12:09",
   },
@@ -728,17 +732,19 @@ const podcastStories = [
     id: "podcast-1",
     title: "Fashion Scoop",
     description: "Cara membuat asap dan memfoto menjadi penuh warna.",
-    subtitle: "In Telangana, from where Justice Reddy hails, the Bharat Rashtra Samithi (BRS) said it was yet to decide its stand",
+    subtitle:
+      "In Telangana, from where Justice Reddy hails, the Bharat Rashtra Samithi (BRS) said it was yet to decide its stand",
     image: "/placeholder.svg?height=200&width=200&query=fashion%20scoop",
     category: "LIFESTYLE",
     host: "Fashion Expert",
     duration: "45:30",
   },
   {
-    id: "podcast-2", 
+    id: "podcast-2",
     title: "Right Swipe",
     description: "Cara membuat asap dan memfoto menjadi penuh warna.",
-    subtitle: "In Telangana, from where Justice Reddy hails, the Bharat Rashtra Samithi (BRS) said it was yet to decide its stand",
+    subtitle:
+      "In Telangana, from where Justice Reddy hails, the Bharat Rashtra Samithi (BRS) said it was yet to decide its stand",
     image: "/placeholder.svg?height=200&width=200&query=right%20swipe",
     category: "RELATIONSHIPS",
     host: "Dating Coach",
@@ -748,7 +754,8 @@ const podcastStories = [
     id: "podcast-3",
     title: "Nothing But the Truth",
     description: "Cara membuat asap dan memfoto menjadi penuh warna.",
-    subtitle: "In Telangana, from where Justice Reddy hails, the Bharat Rashtra Samithi (BRS) said it was yet to decide its stand",
+    subtitle:
+      "In Telangana, from where Justice Reddy hails, the Bharat Rashtra Samithi (BRS) said it was yet to decide its stand",
     image: "/placeholder.svg?height=200&width=200&query=truth%20podcast",
     category: "NEWS",
     host: "Raj Chengappa",
@@ -758,8 +765,9 @@ const podcastStories = [
     id: "podcast-4",
     title: "In Our Defence",
     description: "Cara membuat asap dan memfoto menjadi penuh warna.",
-    subtitle: "In Telangana, from where Justice Reddy hails, the Bharat Rashtra Samithi (BRS) said it was yet to decide its stand",
-    image: "/placeholder.svg?height=200&width=200&query=defence%20podcast", 
+    subtitle:
+      "In Telangana, from where Justice Reddy hails, the Bharat Rashtra Samithi (BRS) said it was yet to decide its stand",
+    image: "/placeholder.svg?height=200&width=200&query=defence%20podcast",
     category: "POLITICS",
     host: "Defense Analyst",
     duration: "41:20",
@@ -767,8 +775,10 @@ const podcastStories = [
 ];
 
 const horoscopeData = {
-  title: "Weekly Horoscope, 18-August To 24-August-2025: Explore Our Weekly Horoscope And Navigate The Week Ahead With Confidence",
-  description: "Weekly Horoscope, 18-August To 24-August-2025. Stay ahead with our weekly horoscope from our astrology experts. This week brings unique planetary alignments that will discover how the stars have aligned for you this week.",
+  title:
+    "Weekly Horoscope, 18-August To 24-August-2025: Explore Our Weekly Horoscope And Navigate The Week Ahead With Confidence",
+  description:
+    "Weekly Horoscope, 18-August To 24-August-2025. Stay ahead with our weekly horoscope from our astrology experts. This week brings unique planetary alignments that will discover how the stars have aligned for you this week.",
   date: "December 09, 2020",
   signs: [
     { name: "Aries", icon: "♈" },
@@ -790,15 +800,17 @@ const technologyStories = [
   {
     id: "tech-1",
     title: "Tips And Trick Make Notes To Do List Plan Good",
-    description: "Maecenas accumsan tortor ut velit pharetra mollis. Proin eu nisl et arcu iaculis placerat sollicitudin ut est. In fringilla dui dui.",
+    description:
+      "Maecenas accumsan tortor ut velit pharetra mollis. Proin eu nisl et arcu iaculis placerat sollicitudin ut est. In fringilla dui dui.",
     image: "/placeholder.svg?height=200&width=200&query=tech%20notes",
     category: "TRAVEL",
     date: "December 09, 2020",
   },
   {
-    id: "tech-2", 
+    id: "tech-2",
     title: "Exercitation Ullamco Laboris Nisl Ut Aliquip",
-    description: "Maecenas accumsan tortor ut velit pharetra mollis. Proin eu nisl et arcu iaculis placerat sollicitudin ut est. In fringilla dui dui.",
+    description:
+      "Maecenas accumsan tortor ut velit pharetra mollis. Proin eu nisl et arcu iaculis placerat sollicitudin ut est. In fringilla dui dui.",
     image: "/placeholder.svg?height=200&width=200&query=tech%20vr",
     category: "TRAVEL",
     date: "December 09, 2020",
@@ -806,7 +818,8 @@ const technologyStories = [
   {
     id: "tech-3",
     title: "Akhirnya Instagram Di Beli Oleh Facebook",
-    description: "Maecenas accumsan tortor ut velit pharetra mollis. Proin eu nisl et arcu iaculis placerat sollicitudin ut est. In fringilla dui dui.",
+    description:
+      "Maecenas accumsan tortor ut velit pharetra mollis. Proin eu nisl et arcu iaculis placerat sollicitudin ut est. In fringilla dui dui.",
     image: "/placeholder.svg?height=200&width=200&query=instagram%20phone",
     category: "TRAVEL",
     date: "December 09, 2020",
@@ -814,7 +827,8 @@ const technologyStories = [
   {
     id: "tech-4",
     title: "Laptop Murah Yang Super Komplit Cocok Untuk Anak Di Tahun 2020.",
-    description: "Maecenas accumsan tortor ut velit pharetra mollis. Proin eu nisl et arcu iaculis placerat sollicitudin ut est. In fringilla dui dui.",
+    description:
+      "Maecenas accumsan tortor ut velit pharetra mollis. Proin eu nisl et arcu iaculis placerat sollicitudin ut est. In fringilla dui dui.",
     image: "/placeholder.svg?height=200&width=200&query=laptop%20tech",
     category: "TRAVEL",
     date: "December 09, 2020",
@@ -952,7 +966,10 @@ export default function HomePage() {
         {/* Business & Money Slider */}
         <section className="px-3 md:px-6 py-6">
           <div className="mx-auto w-full max-w-6xl">
-            <BusinessSlider stories={businessStories}  title = "Business & Money" />
+            <BusinessSlider
+              stories={businessStories}
+              title="Business & Money"
+            />
           </div>
         </section>
 
@@ -963,16 +980,16 @@ export default function HomePage() {
           </div>
         </section>
 
-         <section className="px-3 md:px-6 py-6">
+        <section className="px-3 md:px-6 py-6">
           <div className="mx-auto w-full max-w-6xl">
-            <BusinessSlider stories={businessStories}  title = "Law & Justice" />
+            <BusinessSlider stories={businessStories} title="Law & Justice" />
           </div>
         </section>
 
         {/* Category Sections: Entertainment, Travel, Food & Wellness */}
         <section className="px-3 md:px-6 py-6">
           <div className="mx-auto w-full max-w-6xl">
-            <CategorySections 
+            <CategorySections
               entertainment={entertainmentStories}
               travel={travelStories}
               foodWellness={foodWellnessStories}
@@ -983,7 +1000,7 @@ export default function HomePage() {
         {/* Sports Sections: Cricket, Football, Other Sports */}
         <section className="px-3 md:px-6 py-6">
           <div className="mx-auto w-full max-w-6xl">
-            <SportsSections 
+            <SportsSections
               cricket={cricketStories}
               football={footballStories}
               otherSports={otherSportsStories}
@@ -994,7 +1011,7 @@ export default function HomePage() {
         {/* Opinion & Analysis Sections with Advertisement */}
         <section className="px-3 md:px-6 py-6">
           <div className="mx-auto w-full max-w-6xl">
-            <OpinionAnalysisSections 
+            <OpinionAnalysisSections
               opinion={opinionStories}
               analysis={analysisStories}
             />
@@ -1027,14 +1044,10 @@ export default function HomePage() {
             </div>
           </div>
         </section>
-
-      
       </main>
 
-      <PhotoGallery/>
-      
+      <PhotoGallery />
 
-       
       <SiteFooter />
     </div>
   );
