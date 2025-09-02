@@ -3,10 +3,12 @@
 import Link from "next/link"
 import { useState } from "react"
 import Image from "next/image"
+import { useAuth } from "@/contexts/AuthContext"
 
 export function SiteHeader() {
   const [query, setQuery] = useState("")
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const { user, logout } = useAuth()
 
   const categories = [
     "HOME",
@@ -53,9 +55,21 @@ export function SiteHeader() {
             Monday, March 22, 2020
           </div>
           <div className="flex items-center gap-4">
-            <Link href="#" className="hover:underline">
-              Login / Register
-            </Link>
+            {user ? (
+              <div className="flex items-center gap-2">
+                <span className="text-sm">Welcome, {user.name}</span>
+                <button 
+                  onClick={logout}
+                  className="hover:underline text-sm"
+                >
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <Link href="/login" className="hover:underline">
+                Login / Register
+              </Link>
+            )}
             <div className="flex items-center gap-2 text-white/80">
               {/* Social Icons */}
               <a href="#" aria-label="Facebook" className="hover:text-white">
