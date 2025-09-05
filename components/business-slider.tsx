@@ -23,9 +23,10 @@ type BusinessSliderProps = {
 export function BusinessSlider({ stories, title }: BusinessSliderProps) {
   return (
     <section className="w-full">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold text-gray-900 border-b-2 border-blue-600 pb-2">
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-bold text-gray-900 pb-2">
           {title}
+        
         </h2>
         <div className="flex items-center gap-2">
           <button className="p-1 hover:bg-gray-100 rounded">
@@ -40,6 +41,9 @@ export function BusinessSlider({ stories, title }: BusinessSliderProps) {
           </button>
         </div>
       </div>
+         <div className="mt-2 h-1 w-full bg-gray-200 rounded mb-6">
+            <div className="h-full bg-[#FCCD04] rounded" style={{ width: '20%' }} />
+          </div>
       
       <Carousel
         opts={{

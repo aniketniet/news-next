@@ -44,9 +44,9 @@ export function NewsDetailContent({ article }: NewsDetailContentProps) {
         </h1>
         
         {/* Subtitle */}
-        <p className="text-lg text-gray-600 leading-relaxed">
+        {/* <p className="text-lg text-gray-600 leading-relaxed">
           {article.subtitle}
-        </p>
+        </p> */}
         
         {/* Author and Read Time */}
         <div className="flex items-center justify-between text-sm text-gray-500 border-b border-gray-200 pb-4">
@@ -58,16 +58,19 @@ export function NewsDetailContent({ article }: NewsDetailContentProps) {
       </div>
 
       {/* Featured Image */}
-      <div className="relative aspect-[16/9] w-full overflow-hidden">
-        <Image
-          src={article.image}
-          alt={article.title}
-          fill
+      {article.image ? (
+        <div className="relative aspect-[16/9] w-full overflow-hidden">
+          <Image
+            src={article.image}
+            alt={article.title}
+            fill
           className="object-cover"
           sizes="(max-width: 768px) 100vw, 66vw"
           priority
         />
       </div>
+      ) : null}
+
 
       {/* Social Share Buttons */}
       <div className="flex items-center gap-2 py-4 border-y border-gray-200">
@@ -115,7 +118,7 @@ export function NewsDetailContent({ article }: NewsDetailContentProps) {
       />
 
       {/* Tags */}
-      <div className="pt-6 border-t border-gray-200">
+      {/* <div className="pt-6 border-t border-gray-200">
         <div className="flex flex-wrap items-center gap-2">
           <span className="text-sm font-medium text-gray-700">Tags:</span>
           {article.tags.map((tag) => (
@@ -128,7 +131,7 @@ export function NewsDetailContent({ article }: NewsDetailContentProps) {
             </Link>
           ))}
         </div>
-      </div>
+      </div> */}
     </article>
   );
 }

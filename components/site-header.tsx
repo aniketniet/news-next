@@ -1,9 +1,10 @@
 "use client"
 
 import Link from "next/link"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image"
 import { useAuth } from "@/contexts/AuthContext"
+import { fetchBreakingNews, mapBreakingTitles } from "@/lib/api/breakingNews"
 
 export function SiteHeader() {
   const [query, setQuery] = useState("")
@@ -38,13 +39,26 @@ export function SiteHeader() {
     "ROBOT OLYMPICS",
   ]
 
-  const breakingItems = [
-    "Shubman Gill Hits A Century",
-    "India Alliance Holds Press Conference", 
-    "Supreme Court Lashes Out A ECI",
-    "Tsunami Hits In Uttarakhan",
-    "Shub",
-  ]
+  const [breakingItems, setBreakingItems] = useState<string[]>([])
+  const [breakingLoading, setBreakingLoading] = useState(false)
+
+  useEffect(() => {
+    let cancelled = false
+    async function load() {
+      setBreakingLoading(true)
+      const data = await fetchBreakingNews(10,0)
+      if (!cancelled) {
+        const titles = mapBreakingTitles(data)
+        if (titles.length) setBreakingItems(titles)
+        else setBreakingItems(["No breaking news available right now"])
+        setBreakingLoading(false)
+      }
+    }
+    load()
+    // refresh every 5 minutes
+    const id = setInterval(load, 5 * 60 * 1000)
+    return () => { cancelled = true; clearInterval(id) }
+  }, [])
 
   return (
     <header className="sticky top-0 z-50 w-full bg-white shadow-sm">
@@ -119,16 +133,20 @@ export function SiteHeader() {
               BREAKING NEWS
             </span>
             <div className="flex-1 relative overflow-hidden">
-              <ul className="flex animate-[ticker_30s_linear_infinite] gap-8 whitespace-nowrap text-sm text-gray-700">
-                {breakingItems.concat(breakingItems).map((item, i) => (
-                  <li key={i}>
-                    <a href="#" className="hover:underline">
-                      {item}
-                    </a>
-                    {i < breakingItems.length - 1 && <span className="mx-4">•</span>}
-                  </li>
-                ))}
-              </ul>
+              {breakingLoading && !breakingItems.length ? (
+                <div className="text-xs text-gray-500 animate-pulse">Loading breaking news...</div>
+              ) : (
+                <ul className="flex animate-[ticker_30s_linear_infinite] gap-8 whitespace-nowrap text-sm text-gray-700">
+                  {(breakingItems.length ? breakingItems : ["No breaking news"]).concat(breakingItems).map((item, i) => (
+                    <li key={i}>
+                      <a href="#" className="hover:underline">
+                        {item}
+                      </a>
+                      {i < breakingItems.length - 1 && breakingItems.length > 1 && <span className="mx-4">•</span>}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </div>
         </div>
@@ -180,7 +198,7 @@ export function SiteHeader() {
       </div>
 
       {/* Category Navigation */}
-      <nav className="hidden lg:block bg-yellow-400">
+      <nav className="hidden lg:block bg-[#FCCD04]">
         <div className="mx-auto max-w-7xl">
           <ul className="flex items-center px-4 text-sm font-bold text-black">
             {categories.map((category, index) => (

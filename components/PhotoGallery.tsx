@@ -53,7 +53,9 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({
       {/* Header */}
       <div className="mb-8">
         <h2 className="text-2xl font-bold text-gray-800 mb-2">Photo Gallery</h2>
-        <div className="w-16 h-1 bg-yellow-400"></div>
+          <div className="mt-2 h-1 w-full bg-gray-200 rounded">
+            <div className="h-full bg-[#FCCD04] rounded" style={{ width: '20%' }} />
+          </div>
       </div>
 
       {/* Photo Grid */}

@@ -17,10 +17,13 @@ interface TechnologySectionProps {
 export function TechnologySection({ stories }: TechnologySectionProps) {
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-gray-900 border-b-2 border-yellow-400 pb-1">
+      <div >
+        <h2 className="text-2xl font-bold text-gray-900 pb-1">
           Technology
         </h2>
+           <div className="mt-2 h-1 w-full bg-gray-200 rounded">
+            <div className="h-full bg-[#FCCD04] rounded" style={{ width: '20%' }} />
+          </div>
         {/* <div className="flex items-center gap-4">
           <input
             type="email"
@@ -49,7 +52,7 @@ export function TechnologySection({ stories }: TechnologySectionProps) {
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="inline-block px-2 py-1 text-xs font-semibold text-white bg-yellow-500 rounded">
+                    <span className="inline-block px-2 py-1 text-xs font-semibold text-white bg-[#FCCD04] rounded">
                       {story.category}
                     </span>
                     <span className="text-xs text-gray-500">{story.date}</span>

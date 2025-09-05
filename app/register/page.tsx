@@ -1,63 +1,73 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useAuth } from '@/contexts/AuthContext';
+import { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/contexts/AuthContext";
+import Image from "next/image";
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
-  const [message, setMessage] = useState('');
-  const [messageType, setMessageType] = useState<'success' | 'error' | ''>('');
-  
+  const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState<"success" | "error" | "">("");
+
   const { register, loading } = useAuth();
   const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setMessage('');
-    
-    if (!formData.name || !formData.email || !formData.password || !formData.confirmPassword) {
-      setMessage('Please fill in all fields');
-      setMessageType('error');
+    setMessage("");
+
+    if (
+      !formData.name ||
+      !formData.email ||
+      !formData.password ||
+      !formData.confirmPassword
+    ) {
+      setMessage("Please fill in all fields");
+      setMessageType("error");
       return;
     }
 
     if (formData.password !== formData.confirmPassword) {
-      setMessage('Passwords do not match');
-      setMessageType('error');
+      setMessage("Passwords do not match");
+      setMessageType("error");
       return;
     }
 
     if (formData.password.length < 6) {
-      setMessage('Password must be at least 6 characters long');
-      setMessageType('error');
+      setMessage("Password must be at least 6 characters long");
+      setMessageType("error");
       return;
     }
 
-    const result = await register(formData.name, formData.email, formData.password);
-    
+    const result = await register(
+      formData.name,
+      formData.email,
+      formData.password
+    );
+
     if (result.success) {
       setMessage(result.message);
-      setMessageType('success');
+      setMessageType("success");
       setTimeout(() => {
-        router.push('/');
+        router.push("/");
       }, 1500);
     } else {
       setMessage(result.message);
-      setMessageType('error');
+      setMessageType("error");
     }
   };
 
@@ -66,181 +76,228 @@ export default function RegisterPage() {
       {/* Header */}
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <Link href="/" className="flex justify-center">
-          <div className="text-3xl font-bold text-gray-900" style={{ fontFamily: 'serif' }}>
-            The Pioneer
-          </div>
+          <Image src="/logo.png" alt="The Pioneer" width={150} height={50} />
         </Link>
         <h2 className="mt-6 text-center text-3xl font-bold text-gray-900">
           Create your account
         </h2>
         <p className="mt-2 text-center text-sm text-gray-600">
-          Or{' '}
-          <Link href="/login" className="font-medium text-orange-600 hover:text-orange-500">
+          Or{" "}
+          <Link href="/login" className="font-medium text-[#FCCD04]">
             sign in to your existing account
           </Link>
         </p>
       </div>
 
       {/* Form */}
-    <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-      <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-        <form onSubmit={handleSubmit}>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {/* Name */}
-          <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-            Full Name
-            </label>
-            <div className="mt-1">
-            <input
-              id="name"
-              name="name"
-              type="text"
-              autoComplete="name"
-              required
-              value={formData.name}
-              onChange={handleChange}
-              className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
-              placeholder="Enter your full name"
-            />
-            </div>
-          </div>
-
-          {/* Email */}
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-            Email address
-            </label>
-            <div className="mt-1">
-            <input
-              id="email"
-              name="email"
-              type="email"
-              autoComplete="email"
-              required
-              value={formData.email}
-              onChange={handleChange}
-              className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
-              placeholder="Enter your email"
-            />
-            </div>
-          </div>
-
-          {/* Password */}
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-            Password
-            </label>
-            <div className="mt-1">
-            <input
-              id="password"
-              name="password"
-              type="password"
-              autoComplete="new-password"
-              required
-              value={formData.password}
-              onChange={handleChange}
-              className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
-              placeholder="Enter your password"
-            />
-            </div>
-            <p className="mt-1 text-xs text-gray-500">
-            Must be at least 6 characters long
-            </p>
-          </div>
-
-          {/* Confirm Password */}
-          <div>
-            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
-            Confirm Password
-            </label>
-            <div className="mt-1">
-            <input
-              id="confirmPassword"
-              name="confirmPassword"
-              type="password"
-              autoComplete="new-password"
-              required
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
-              placeholder="Confirm your password"
-            />
-            </div>
-          </div>
-
-          {/* Terms and Conditions */}
-          <div className="flex items-center sm:col-span-2">
-            <input
-            id="terms"
-            name="terms"
-            type="checkbox"
-            required
-            className="h-4 w-4 text-orange-600 focus:ring-orange-500 border-gray-300 rounded"
-            />
-            <label htmlFor="terms" className="ml-2 block text-sm text-gray-900">
-            I agree to the{' '}
-            <Link href="/terms" className="text-orange-600 hover:text-orange-500">
-              Terms and Conditions
-            </Link>{' '}
-            and{' '}
-            <Link href="/privacy" className="text-orange-600 hover:text-orange-500">
-              Privacy Policy
-            </Link>
-            </label>
-          </div>
-
-          {/* Message */}
-          {message && (
-            <div className={`rounded-md p-4 sm:col-span-2 ${
-            messageType === 'success' 
-              ? 'bg-green-50 text-green-800 border border-green-200' 
-              : 'bg-red-50 text-red-800 border border-red-200'
-            }`}>
-            <div className="flex">
-              <div className="flex-shrink-0">
-                {messageType === 'success' ? (
-                <svg className="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </svg>
-                ) : (
-                <svg className="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-                </svg>
-                )}
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+          <form onSubmit={handleSubmit}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {/* Name */}
+              <div>
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Full Name
+                </label>
+                <div className="mt-1">
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    autoComplete="name"
+                    required
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
+                    placeholder="Enter your full name"
+                  />
+                </div>
               </div>
-              <div className="ml-3">
-                <p className="text-sm font-medium">{message}</p>
+
+              {/* Email */}
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Email address
+                </label>
+                <div className="mt-1">
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    required
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
+                    placeholder="Enter your email"
+                  />
+                </div>
+              </div>
+
+              {/* Password */}
+              <div>
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Password
+                </label>
+                <div className="mt-1">
+                  <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    autoComplete="new-password"
+                    required
+                    value={formData.password}
+                    onChange={handleChange}
+                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
+                    placeholder="Enter your password"
+                  />
+                </div>
+                <p className="mt-1 text-xs text-gray-500">
+                  Must be at least 6 characters long
+                </p>
+              </div>
+
+              {/* Confirm Password */}
+              <div>
+                <label
+                  htmlFor="confirmPassword"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Confirm Password
+                </label>
+                <div className="mt-1">
+                  <input
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    type="password"
+                    autoComplete="new-password"
+                    required
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
+                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
+                    placeholder="Confirm your password"
+                  />
+                </div>
+              </div>
+
+              {/* Terms and Conditions */}
+              <div className="flex items-center sm:col-span-2">
+                <input
+                  id="terms"
+                  name="terms"
+                  type="checkbox"
+                  required
+                  className="h-4 w-4 text-orange-600 focus:ring-orange-500 border-gray-300 rounded"
+                />
+                <label
+                  htmlFor="terms"
+                  className="ml-2 block text-sm text-gray-900"
+                >
+                  I agree to the{" "}
+                  <Link href="/terms" className="text-[#FCCD04]">
+                    Terms and Conditions
+                  </Link>{" "}
+                  and{" "}
+                  <Link href="/privacy" className="text-[#FCCD04]">
+                    Privacy Policy
+                  </Link>
+                </label>
+              </div>
+
+              {/* Message */}
+              {message && (
+                <div
+                  className={`rounded-md p-4 sm:col-span-2 ${
+                    messageType === "success"
+                      ? "bg-green-50 text-green-800 border border-green-200"
+                      : "bg-red-50 text-red-800 border border-red-200"
+                  }`}
+                >
+                  <div className="flex">
+                    <div className="flex-shrink-0">
+                      {messageType === "success" ? (
+                        <svg
+                          className="h-5 w-5 text-green-400"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      ) : (
+                        <svg
+                          className="h-5 w-5 text-red-400"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      )}
+                    </div>
+                    <div className="ml-3">
+                      <p className="text-sm font-medium">{message}</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Submit Button */}
+              <div className="sm:col-span-2">
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-black bg-[#FCCD04] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {loading ? (
+                    <div className="flex items-center">
+                      <svg
+                        className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        ></circle>
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        ></path>
+                      </svg>
+                      Creating account...
+                    </div>
+                  ) : (
+                    "Create account"
+                  )}
+                </button>
               </div>
             </div>
-            </div>
-          )}
+          </form>
 
-          {/* Submit Button */}
-          <div className="sm:col-span-2">
-            <button
-            type="submit"
-            disabled={loading}
-            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-            {loading ? (
-              <div className="flex items-center">
-                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                Creating account...
-              </div>
-            ) : (
-              'Create account'
-            )}
-            </button>
-          </div>
-        </div>
-        </form>
-
-        {/* Social Login */}
-        {/* <div className="mt-8">
+          {/* Social Login */}
+          {/* <div className="mt-8">
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
             <div className="w-full border-t border-gray-300" />

@@ -1,65 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 
-interface Article {
-  id: string;
-  title: string;
-  image: string;
-  category: string;
-  publishedAt: string;
-}
+interface ArticleItem { id: string; title: string; image: string; category: string; publishedAt: string }
+interface RelatedArticlesProps { articles: ArticleItem[]; topNews: ArticleItem[] }
 
-interface RelatedArticlesProps {
-  articles: Article[];
-}
-
-export function RelatedArticles({ articles }: RelatedArticlesProps) {
-  // Split articles into related news (left) and top news (right)
-  const relatedNews = articles.slice(0, 6); // First 6 for related news grid
-  const topNews = [
-    {
-      id: "top-1",
-      title: "Government announces major infrastructure development plan",
-      image: "/parliament-building.png",
-      category: "POLITICS",
-      publishedAt: "1 hour ago"
-    },
-    {
-      id: "top-2",
-      title: "Stock market reaches new heights amid economic optimism",
-      image: "/business-market.png",
-      category: "BUSINESS",
-      publishedAt: "2 hours ago"
-    },
-    {
-      id: "top-3",
-      title: "Revolutionary AI technology unveiled by tech giants",
-      image: "/interconnected-technology.png",
-      category: "TECHNOLOGY",
-      publishedAt: "3 hours ago"
-    },
-    {
-      id: "top-4",
-      title: "International climate summit reaches historic agreement",
-      image: "/world-summit.png",
-      category: "WORLD",
-      publishedAt: "4 hours ago"
-    },
-    {
-      id: "top-5",
-      title: "National cricket team wins championship series",
-      image: "/vibrant-cricket-match.png",
-      category: "SPORTS",
-      publishedAt: "5 hours ago"
-    },
-    {
-      id: "top-6",
-      title: "Health ministry launches nationwide vaccination drive",
-      image: "/news-thumbnail.png",
-      category: "HEALTH",
-      publishedAt: "6 hours ago"
-    }
-  ];
+export function RelatedArticles({ articles, topNews }: RelatedArticlesProps) {
+  const relatedNews = articles.slice(0, 6)
 
   return (
     <section className="space-y-6">
@@ -67,8 +13,14 @@ export function RelatedArticles({ articles }: RelatedArticlesProps) {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Related News - Left Side (2/3 width) */}
           <div className="lg:col-span-2">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Related News</h2>
-            
+            <h2 className="text-2xl font-bold text-gray-900">Related News</h2>
+            <div className="mt-2 h-1 w-full mb-6 bg-gray-200 rounded">
+              <div
+                className="h-full bg-[#FCCD04] rounded"
+                style={{ width: "20%" }}
+              />
+            </div>
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {relatedNews.map((article) => (
                 <article key={article.id} className="group">
@@ -88,12 +40,14 @@ export function RelatedArticles({ articles }: RelatedArticlesProps) {
                           </span>
                         </div>
                       </div>
-                      
+
                       <div className="p-4">
                         <h3 className="font-bold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2 mb-2">
                           {article.title}
                         </h3>
-                        <p className="text-sm text-gray-500">{article.publishedAt}</p>
+                        <p className="text-sm text-gray-500">
+                          {article.publishedAt}
+                        </p>
                       </div>
                     </div>
                   </Link>
@@ -104,17 +58,26 @@ export function RelatedArticles({ articles }: RelatedArticlesProps) {
 
           {/* Top News - Right Side (1/3 width) */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg border border-gray-200 overflow-hidden sticky top-6">
+            <div className="bg-white erflow-hidden sticky top-6">
               <div className="bg-gray-50 px-4 py-3 border-b border-gray-200">
                 <h2 className="text-lg font-bold text-gray-900">Top News</h2>
+                <div className="mt-2 h-1 w-full bg-gray-200 rounded">
+                  <div
+                    className="h-full bg-[#FCCD04] rounded"
+                    style={{ width: "20%" }}
+                  />
+                </div>
               </div>
-              
-              <div className="divide-y divide-gray-200">
+
+              <div>
                 {topNews.map((news) => (
-                  <article key={news.id} className="p-4 hover:bg-gray-50 transition-colors">
+                  <article
+                    key={news.id}
+                    className="p-4 hover:bg-gray-50 transition-colors"
+                  >
                     <Link href={`/news/${news.id}`} className="block group">
                       <div className="flex gap-3">
-                        <div className="relative w-20 h-16 flex-shrink-0 overflow-hidden rounded">
+                        <div className="relative w-20 h-16 flex-shrink-0 overflow-hidden ">
                           <Image
                             src={news.image}
                             alt={news.title}
@@ -132,7 +95,9 @@ export function RelatedArticles({ articles }: RelatedArticlesProps) {
                           <h3 className="font-semibold text-sm text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2 mb-1">
                             {news.title}
                           </h3>
-                          <p className="text-xs text-gray-500">{news.publishedAt}</p>
+                          <p className="text-xs text-gray-500">
+                            {news.publishedAt}
+                          </p>
                         </div>
                       </div>
                     </Link>
@@ -145,11 +110,11 @@ export function RelatedArticles({ articles }: RelatedArticlesProps) {
       </div>
 
       {/* Load More Button */}
-      <div className="text-center pt-6">
+      {/* <div className="text-center pt-6">
         <button className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">
           Load More Articles
         </button>
-      </div>
+      </div> */}
     </section>
   );
 }

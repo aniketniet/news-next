@@ -20,13 +20,13 @@ interface TarotSectionProps {
 export function TarotSection({ data }: TarotSectionProps) {
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-gray-900 border-b-2 border-yellow-400 pb-1">
+      <div>
+        <h2 className="text-2xl font-bold text-gray-900 pb-1">
           Tarot
         </h2>
-        <Link href="#" className="text-sm text-gray-600 hover:underline">
-          See all
-        </Link>
+          <div className="mt-2 h-1 w-full bg-gray-200 rounded">
+            <div className="h-full bg-[#FCCD04] rounded" style={{ width: '20%' }} />
+          </div>
       </div>
 
       <div className="space-y-4">

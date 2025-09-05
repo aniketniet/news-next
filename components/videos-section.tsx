@@ -22,14 +22,17 @@ export function VideosSection({ videos }: VideosSectionProps) {
   return (
     <section className="w-full">
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-gray-900 border-b-2 border-yellow-400 pb-2 inline-block">
+        <h2 className="text-2xl font-bold text-gray-900 pb-2 inline-block">
           Videos
         </h2>
+           <div className="mt-2 h-1 w-full bg-gray-200 rounded">
+            <div className="h-full bg-[#FCCD04] rounded" style={{ width: '20%' }} />
+          </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Left Column - Side Videos */}
-        <div className="space-y-4">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
+        {/* Left Column - Side Videos (vertically centered) */}
+        <div className="flex flex-col justify-center space-y-4">
           {sideVideos.slice(0, 2).map((video) => (
             <VideoCard
               key={video.id}
@@ -78,8 +81,8 @@ export function VideosSection({ videos }: VideosSectionProps) {
           </article>
         </div>
 
-        {/* Right Column - Side Videos */}
-        <div className="space-y-4">
+  {/* Right Column - Side Videos (vertically centered) */}
+  <div className="flex flex-col justify-center space-y-4">
           {sideVideos.slice(2, 4).map((video) => (
             <VideoCard
               key={video.id}

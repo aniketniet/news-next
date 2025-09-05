@@ -19,8 +19,8 @@ export function SportsSection({ title, stories }: SportsSectionProps) {
   return (
     <div className="border border-gray-200 rounded-lg overflow-hidden bg-white">
       {/* Header with title and navigation */}
-      <div className="flex items-center justify-between p-4 border-b border-gray-200">
-        <h3 className="text-lg font-bold text-gray-900 border-b-2 border-yellow-400 pb-1">
+      <div className="flex items-center justify-between px-4 py-2 ">
+        <h3 className="text-lg font-bold text-gray-900 ">
           {title}
         </h3>
         <div className="flex items-center gap-1">
@@ -32,6 +32,9 @@ export function SportsSection({ title, stories }: SportsSectionProps) {
           </button>
         </div>
       </div>
+         <div className="mt-2 h-1 w-full bg-gray-200 rounded">
+            <div className="h-full bg-[#FCCD04] rounded" style={{ width: '20%' }} />
+          </div>
 
       {/* Stories list */}
       <div className="p-4 space-y-4">

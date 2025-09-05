@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-interface RelatedNewsItem {
+interface SidebarItem {
   id: string;
   title: string;
   image: string;
@@ -10,24 +10,30 @@ interface RelatedNewsItem {
 }
 
 interface NewsDetailSidebarProps {
-  relatedNews: RelatedNewsItem[];
+  latestNews: SidebarItem[];
+  popularNews: SidebarItem[];
 }
 
-export function NewsDetailSidebar({ relatedNews }: NewsDetailSidebarProps) {
+export function NewsDetailSidebar({ latestNews, popularNews }: NewsDetailSidebarProps) {
+  console.log(latestNews,"latestNews in sidebar");
   return (
     <aside className="space-y-8">
       {/* Related News Section */}
-      <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
-        <div className="bg-gray-50 px-4 py-3 border-b border-gray-200">
+      <div className="bg-white  overflow-hidden">
+        <div className="bg-gray-50 px-4 pt-3 pb-2 border-b border-gray-200">
           <h2 className="text-lg font-bold text-gray-900">Latest News</h2>
+          {/* Underline bar with 20% filled segment */}
+          <div className="mt-2 h-1 w-full bg-gray-200 rounded">
+            <div className="h-full bg-[#FCCD04] rounded" style={{ width: '20%' }} />
+          </div>
         </div>
         
-        <div className="divide-y divide-gray-200">
-          {relatedNews.map((news) => (
+        <div className="">
+          {latestNews.map((news) => (
             <article key={news.id} className="p-4 hover:bg-gray-50 transition-colors">
               <Link href={`/news/${news.id}`} className="block group">
                 <div className="flex gap-3">
-                  <div className="relative w-20 h-16 flex-shrink-0 overflow-hidden rounded">
+                  <div className="relative w-20 h-16 flex-shrink-0 overflow-hidden">
                     <Image
                       src={news.image}
                       alt={news.title}
@@ -69,53 +75,20 @@ export function NewsDetailSidebar({ relatedNews }: NewsDetailSidebarProps) {
       </div>
 
       {/* Popular Posts Section */}
-      <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+      <div className="bg-white  overflow-hidden">
         <div className="bg-gray-50 px-4 py-3 border-b border-gray-200">
           <h2 className="text-lg font-bold text-gray-900">Popular News</h2>
+           <div className="mt-2 h-1 w-full bg-gray-200 rounded">
+            <div className="h-full bg-[#FCCD04] rounded" style={{ width: '20%' }} />
+          </div>
         </div>
         
-        <div className="divide-y divide-gray-200">
-          {[
-            {
-              id: "popular-1",
-              title: "Breaking: Major political development shapes national discourse",
-              image: "/parliament-building.png",
-              category: "POLITICS",
-              publishedAt: "2 hours ago"
-            },
-            {
-              id: "popular-2", 
-              title: "Economic reforms show promising results in key sectors",
-              image: "/business-market.png",
-              category: "BUSINESS",
-              publishedAt: "4 hours ago"
-            },
-            {
-              id: "popular-3",
-              title: "Technology breakthrough announced by leading research institute",
-              image: "/interconnected-technology.png",
-              category: "TECHNOLOGY",
-              publishedAt: "6 hours ago"
-            },
-            {
-              id: "popular-4",
-              title: "International summit addresses global climate concerns",
-              image: "/world-summit.png",
-              category: "WORLD",
-              publishedAt: "8 hours ago"
-            },
-            {
-              id: "popular-5",
-              title: "Sports federation announces new championship format",
-              image: "/sports-football.png",
-              category: "SPORTS",
-              publishedAt: "10 hours ago"
-            }
-          ].map((news, index) => (
+        <div>
+          {popularNews.map((news) => (
             <article key={news.id} className="p-4 hover:bg-gray-50 transition-colors">
               <Link href={`/news/${news.id}`} className="block group">
                 <div className="flex gap-3">
-                  <div className="relative w-20 h-16 flex-shrink-0 overflow-hidden rounded">
+                  <div className="relative w-20 h-16 flex-shrink-0 overflow-hidden">
                     <Image
                       src={news.image}
                       alt={news.title}

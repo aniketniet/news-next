@@ -21,9 +21,12 @@ const popularPosts = [
 
 export function PopularPosts() {
   return (
-    <div className="border rounded">
-      <div className="px-3 py-2 border-b bg-gray-50">
+    <div >
+      <div className="px-3 py-2">
         <h3 className="font-semibold text-lg">Popular Post</h3>
+         <div className="mt-2 h-1 w-full bg-gray-200 rounded">
+            <div className="h-full bg-[#FCCD04] rounded" style={{ width: '20%' }} />
+          </div>
       </div>
       <div className="p-3 space-y-4">
         {popularPosts.map((post, index) => (

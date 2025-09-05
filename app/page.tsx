@@ -25,12 +25,7 @@ import { PopularPosts } from "@/components/popular-posts";
 import { StateEditions } from "@/components/state-editions";
 import PhotoGallery from "@/components/PhotoGallery";
 
-const breaking = [
-  { title: "Parliament session adjourned till 2 PM after opposition uproar" },
-  { title: "IMD issues heavy rainfall alert for coastal states" },
-  { title: "Markets extend gains for third straight day" },
-  { title: "National team announces provisional squad for qualifiers" },
-];
+
 
 const businessStories = [
   {
@@ -630,6 +625,7 @@ const videoStories = [
   },
 ];
 
+
 const latest = Array.from({ length: 8 }).map((_, i) => ({
   title: `Latest update headline number ${i + 1} goes here in one or two lines`,
   category: i % 2 === 0 ? "Nation" : "States",
@@ -871,35 +867,13 @@ export default function HomePage() {
       <main id="main" className="pb-10">
         <Hero />
 
-        {/* Latest News */}
-
-        <Section
-          title="Latest News"
-          action={
-            <a href="#" className="text-sm text-gray-600 hover:underline">
-              See all
-            </a>
-          }
-        >
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {latest.map((p, i) => (
-              <NewsCard key={i} {...p} />
-            ))}
-          </div>
-        </Section>
-
         {/* Trending News */}
         <Section
           title="Trending News"
-          action={
-            <a href="#" className="text-sm text-gray-600 hover:underline">
-              See all
-            </a>
-          }
         >
+         
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Left: Featured + Secondary stories */}
-
             <div className="lg:col-span-2 space-y-6">
               {/* Featured (top) */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -907,7 +881,7 @@ export default function HomePage() {
                   <article key={i} className="relative group">
                     <Link
                       href="#"
-                      className="relative block aspect-[4/3] w-full overflow-hidden rounded"
+                      className="relative block aspect-[4/3] w-full overflow-hidden"
                     >
                       <Image
                         src={story.image}
