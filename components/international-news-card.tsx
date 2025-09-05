@@ -3,6 +3,7 @@ import Link from "next/link"
 import { cn } from "@/lib/utils"
 
 type InternationalNewsCardProps = {
+  id: string
   title: string
   description: string
   image: string
@@ -12,6 +13,7 @@ type InternationalNewsCardProps = {
 }
 
 export function InternationalNewsCard({
+  id,
   title,
   description,
   image,
@@ -19,10 +21,11 @@ export function InternationalNewsCard({
   source,
   className,
 }: InternationalNewsCardProps) {
+
   return (
     <article className={cn("group", className)}>
-      <Link href="#" className="block">
-        <div className="relative aspect-[16/10] w-full overflow-hidden rounded-lg mb-3">
+      <Link href={`/news/${id}`} className="block">
+        <div className="relative aspect-[16/10] w-full overflow-hidden  mb-3">
           <Image
             src={image}
             alt={title}

@@ -40,7 +40,7 @@ export function SportsSection({ title, stories }: SportsSectionProps) {
       <div className="p-4 space-y-4">
         {stories.map((story) => (
           <SecondaryStory
-            key={story.id}
+            id={story.id}
             title={story.title}
             category={story.category}
             image={story.image}

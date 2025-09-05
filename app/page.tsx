@@ -23,181 +23,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { PopularPosts } from "@/components/popular-posts";
 import { StateEditions } from "@/components/state-editions";
+
 import PhotoGallery from "@/components/PhotoGallery";
+import { fetchStories } from "@/lib/api/stories";
+import { getCategoriesNormalized } from "@/lib/api/categories";
 
+// (Deprecated) static businessStories removed – now populated from API
 
-
-const businessStories = [
-  {
-    id: "1",
-    title: "Household energy bills to rise by 2% in October",
-    category: "BUSINESS",
-    image: "/business-market.png",
-    date: "December 09, 2020",
-  },
-  {
-    id: "2",
-    title: "Rise in government borrowing costs puts chancellor in a bind",
-    category: "ECONOMY",
-    image: "/business-meeting-diversity.png",
-    date: "December 09, 2020",
-  },
-  {
-    id: "3",
-    title: "Profit remains elusive for Victoria Beckham despite sales rise",
-    category: "BUSINESS",
-    image: "/markets.png",
-    date: "December 09, 2020",
-  },
-  {
-    id: "4",
-    title: "FT owner sues Perplexity AI for copyright infringement",
-    category: "TECHNOLOGY",
-    image: "/interconnected-technology.png",
-    date: "December 09, 2020",
-  },
-  {
-    id: "5",
-    title: "Global markets rally on positive economic indicators",
-    category: "MARKETS",
-    image: "/business-market.png",
-    date: "December 09, 2020",
-  },
-  {
-    id: "6",
-    title: "Tech stocks surge following earnings reports",
-    category: "TECHNOLOGY",
-    image: "/interconnected-technology.png",
-    date: "December 09, 2020",
-  },
-];
-
-const internationalNews = [
-  // USA News
-  {
-    id: "usa-1",
-    title: "Sheff Wed show 'togetherness' amid protests at owner",
-    description:
-      "In Telangana, from where Justice Reddy hails, the Bharat Rashtra Samithi said it was yet to decide",
-    image: "/world-summit.png",
-    timeAgo: "7 hrs ago",
-    source: "BRITIAN",
-    country: "USA",
-  },
-  {
-    id: "usa-2",
-    title: "Sheff Wed show 'togetherness' amid protests at owner",
-    description:
-      "In Telangana, from where Justice Reddy hails, the Bharat Rashtra Samithi said it was yet to decide",
-    image: "/world.png",
-    timeAgo: "7 hrs ago",
-    source: "BRITIAN",
-    country: "USA",
-  },
-  {
-    id: "usa-3",
-    title: "Sheff Wed show 'togetherness' amid protests at owner",
-    description:
-      "In Telangana, from where Justice Reddy hails, the Bharat Rashtra Samithi said it was yet to decide",
-    image: "/world-summit.png",
-    timeAgo: "7 hrs ago",
-    source: "BRITIAN",
-    country: "USA",
-  },
-  {
-    id: "usa-4",
-    title: "Sheff Wed show 'togetherness' amid protests at owner",
-    description:
-      "In Telangana, from where Justice Reddy hails, the Bharat Rashtra Samithi said it was yet to decide",
-    image: "/parliament-building.png",
-    timeAgo: "7 hrs ago",
-    source: "BRITIAN",
-    country: "USA",
-  },
-  {
-    id: "usa-5",
-    title: "Sheff Wed show 'togetherness' amid protests at owner",
-    description:
-      "In Telangana, from where Justice Reddy hails, the Bharat Rashtra Samithi said it was yet to decide",
-    image: "/world.png",
-    timeAgo: "7 hrs ago",
-    source: "BRITIAN",
-    country: "USA",
-  },
-  {
-    id: "usa-6",
-    title: "Sheff Wed show 'togetherness' amid protests at owner",
-    description:
-      "In Telangana, from where Justice Reddy hails, the Bharat Rashtra Samithi said it was yet to decide",
-    image: "/world-summit.png",
-    timeAgo: "7 hrs ago",
-    source: "BRITIAN",
-    country: "USA",
-  },
-  // China News
-  {
-    id: "china-1",
-    title: "China's economic growth shows resilience",
-    description:
-      "Latest economic indicators suggest China's economy is maintaining steady growth despite global challenges",
-    image: "/business-market.png",
-    timeAgo: "5 hrs ago",
-    source: "REUTERS",
-    country: "China",
-  },
-  {
-    id: "china-2",
-    title: "Technology sector developments in Beijing",
-    description:
-      "Major tech companies announce new initiatives as government support continues for innovation",
-    image: "/interconnected-technology.png",
-    timeAgo: "6 hrs ago",
-    source: "REUTERS",
-    country: "China",
-  },
-  // UK News
-  {
-    id: "uk-1",
-    title: "Parliament debates new economic measures",
-    description:
-      "MPs discuss proposed legislation aimed at addressing cost of living concerns across the country",
-    image: "/parliament-building.png",
-    timeAgo: "4 hrs ago",
-    source: "BBC",
-    country: "UK",
-  },
-  {
-    id: "uk-2",
-    title: "London markets respond to policy changes",
-    description:
-      "Financial markets show positive reaction to government's latest economic announcements",
-    image: "/business-market.png",
-    timeAgo: "3 hrs ago",
-    source: "BBC",
-    country: "UK",
-  },
-  // Europe News
-  {
-    id: "europe-1",
-    title: "EU leaders convene for summit discussions",
-    description:
-      "European Union officials gather to address regional challenges and cooperation initiatives",
-    image: "/world-summit.png",
-    timeAgo: "2 hrs ago",
-    source: "EURONEWS",
-    country: "Europe",
-  },
-  {
-    id: "europe-2",
-    title: "Continental markets show stability",
-    description:
-      "European financial markets demonstrate resilience amid ongoing global economic uncertainties",
-    image: "/business-meeting-diversity.png",
-    timeAgo: "1 hr ago",
-    source: "EURONEWS",
-    country: "Europe",
-  },
-];
 
 const entertainmentStories = [
   {
@@ -331,260 +163,11 @@ const foodWellnessStories = [
   },
 ];
 
-const cricketStories = [
-  {
-    id: "cricket-1",
-    title: "Meeting Room Is Empty Because Of The Covid-19",
-    category: "CRICKET",
-    image: "/vibrant-cricket-match.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-  {
-    id: "cricket-2",
-    title: "Meeting Room Is Empty Because Of The Covid-19",
-    category: "CRICKET",
-    image: "/sports-football.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-  {
-    id: "cricket-3",
-    title: "Meeting Room Is Empty Because Of The Covid-19",
-    category: "CRICKET",
-    image: "/vibrant-cricket-match.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-  {
-    id: "cricket-4",
-    title: "Meeting Room Is Empty Because Of The Covid-19",
-    category: "CRICKET",
-    image: "/sports-football.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-  {
-    id: "cricket-5",
-    title: "Meeting Room Is Empty Because Of The Covid-19",
-    category: "CRICKET",
-    image: "/vibrant-cricket-match.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-  {
-    id: "cricket-6",
-    title: "Meeting Room Is Empty Because Of The Covid-19",
-    category: "CRICKET",
-    image: "/sports-football.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-];
+// Static sports placeholders removed – dynamic mapping from API
 
-const footballStories = [
-  {
-    id: "football-1",
-    title: "Meeting Room Is Empty Because Of The Covid-19",
-    category: "FOOTBALL",
-    image: "/sports-football.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-  {
-    id: "football-2",
-    title: "Meeting Room Is Empty Because Of The Covid-19",
-    category: "FOOTBALL",
-    image: "/vibrant-cricket-match.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-  {
-    id: "football-3",
-    title: "Meeting Room Is Empty Because Of The Covid-19",
-    category: "FOOTBALL",
-    image: "/sports-football.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-  {
-    id: "football-4",
-    title: "Meeting Room Is Empty Because Of The Covid-19",
-    category: "FOOTBALL",
-    image: "/vibrant-cricket-match.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-  {
-    id: "football-5",
-    title: "Meeting Room Is Empty Because Of The Covid-19",
-    category: "FOOTBALL",
-    image: "/sports-football.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-  {
-    id: "football-6",
-    title: "Meeting Room Is Empty Because Of The Covid-19",
-    category: "FOOTBALL",
-    image: "/vibrant-cricket-match.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-];
 
-const otherSportsStories = [
-  {
-    id: "other-1",
-    title: "Meeting Room Is Empty Because Of The Covid-19",
-    category: "OTHER SPORTS",
-    image: "/diverse-group-playing-various-sports.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-  {
-    id: "other-2",
-    title: "Meeting Room Is Empty Because Of The Covid-19",
-    category: "OTHER SPORTS",
-    image: "/sports-football.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-  {
-    id: "other-3",
-    title: "Meeting Room Is Empty Because Of The Covid-19",
-    category: "OTHER SPORTS",
-    image: "/diverse-group-playing-various-sports.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-  {
-    id: "other-4",
-    title: "Meeting Room Is Empty Because Of The Covid-19",
-    category: "OTHER SPORTS",
-    image: "/vibrant-cricket-match.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-  {
-    id: "other-5",
-    title: "Meeting Room Is Empty Because Of The Covid-19",
-    category: "OTHER SPORTS",
-    image: "/diverse-group-playing-various-sports.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-  {
-    id: "other-6",
-    title: "Meeting Room Is Empty Because Of The Covid-19",
-    category: "OTHER SPORTS",
-    image: "/sports-football.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-];
 
-const opinionStories = [
-  {
-    id: "opinion-1",
-    title: "Meeting Room Is Empty Because Of The Covid-19",
-    category: "OPINION",
-    image: "/parliament-building.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-  {
-    id: "opinion-2",
-    title: "Meeting Room Is Empty Because Of The Covid-19",
-    category: "OPINION",
-    image: "/world-summit.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-  {
-    id: "opinion-3",
-    title: "Meeting Room Is Empty Because Of The Covid-19",
-    category: "OPINION",
-    image: "/business-market.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-  {
-    id: "opinion-4",
-    title: "Meeting Room Is Empty Because Of The Covid-19",
-    category: "OPINION",
-    image: "/world.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-  {
-    id: "opinion-5",
-    title: "Meeting Room Is Empty Because Of The Covid-19",
-    category: "OPINION",
-    image: "/parliament-building.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-  {
-    id: "opinion-6",
-    title: "Meeting Room Is Empty Because Of The Covid-19",
-    category: "OPINION",
-    image: "/business-meeting-diversity.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-];
 
-const analysisStories = [
-  {
-    id: "analysis-1",
-    title: "Meeting Room Is Empty Because Of The Covid-19",
-    category: "ANALYSIS",
-    image: "/business-market.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-  {
-    id: "analysis-2",
-    title: "Meeting Room Is Empty Because Of The Covid-19",
-    category: "ANALYSIS",
-    image: "/interconnected-technology.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-  {
-    id: "analysis-3",
-    title: "Meeting Room Is Empty Because Of The Covid-19",
-    category: "ANALYSIS",
-    image: "/world-summit.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-  {
-    id: "analysis-4",
-    title: "Meeting Room Is Empty Because Of The Covid-19",
-    category: "ANALYSIS",
-    image: "/parliament-building.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-  {
-    id: "analysis-5",
-    title: "Meeting Room Is Empty Because Of The Covid-19",
-    category: "ANALYSIS",
-    image: "/business-meeting-diversity.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-  {
-    id: "analysis-6",
-    title: "Meeting Room Is Empty Because Of The Covid-19",
-    category: "ANALYSIS",
-    image: "/markets.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-];
 
 const videoStories = [
   {
@@ -626,102 +209,6 @@ const videoStories = [
 ];
 
 
-const latest = Array.from({ length: 8 }).map((_, i) => ({
-  title: `Latest update headline number ${i + 1} goes here in one or two lines`,
-  category: i % 2 === 0 ? "Nation" : "States",
-  image: `/placeholder.svg?height=200&width=320&query=latest%20${i + 1}`,
-  time: `${(i + 1) * 10}m ago`,
-}));
-
-const nation = Array.from({ length: 6 }).map((_, i) => ({
-  title: `National story ${i + 1} with concise headline`,
-  category: "Nation",
-  image: `/placeholder.svg?height=200&width=320&query=nation%20${i + 1}`,
-  time: "Today",
-}));
-
-const world = Array.from({ length: 6 }).map((_, i) => ({
-  title: `Global roundup ${i + 1}: leaders meet, decisions due`,
-  category: "World",
-  image: `/placeholder.svg?height=200&width=320&query=world%20${i + 1}`,
-  time: "Today",
-}));
-
-const opinion = Array.from({ length: 4 }).map((_, i) => ({
-  title: `Opinion: Perspective ${i + 1} on current affairs`,
-  category: "Opinion",
-  image: `/placeholder.svg?height=200&width=320&query=opinion%20${i + 1}`,
-  time: "This week",
-}));
-
-const trendingNews = [
-  {
-    title: "Republican Senator Vital to Health Indonesia.",
-    category: "POLITICS",
-    image: "/news-lead-image.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-    featured: true,
-  },
-  {
-    title: "A classic and sturdy building with history.",
-    category: "POLITICS",
-    image: "/parliament-building.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-    featured: true,
-  },
-  {
-    title: "6 Best Tips For Building A Good Shipping Boat",
-    category: "BUSINESS",
-    image: "/business-meeting-diversity.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-  {
-    title: "Meeting Room Is Empty Because Of The Covid-19",
-    category: "HEALTH",
-    image: "/business-market.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-  {
-    title: "Many Flag Have A Spirit Freedom Placerat Solution Ut Est",
-    category: "POLITICS",
-    image: "/world-summit.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-  {
-    title: "Sovenir Miniature President All Country",
-    category: "WORLD",
-    image: "/world.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-];
-
-const popularPosts = [
-  {
-    title:
-      "Gegera Corona, Kekayaan Bos Zoom Nambah Rp 64 T Dalam 3 Bulan - CNBC Indonesia",
-    category: "COVID-19",
-  },
-  {
-    title:
-      "The West Had A Head Start On Virus Preparations. Why Didn't It Take It?",
-    category: "STARTUP",
-  },
-  {
-    title: "America's Social-Distancing Deniers Have Become",
-    category: "COVID-19",
-  },
-  {
-    title:
-      "Egypt's Soap Operas Defy A Deadly Virus For Ramadan Prime Time. But At What Cost?",
-    category: "STARTUP",
-  },
-];
 
 const podcastStories = [
   {
@@ -792,44 +279,7 @@ const horoscopeData = {
   ],
 };
 
-const technologyStories = [
-  {
-    id: "tech-1",
-    title: "Tips And Trick Make Notes To Do List Plan Good",
-    description:
-      "Maecenas accumsan tortor ut velit pharetra mollis. Proin eu nisl et arcu iaculis placerat sollicitudin ut est. In fringilla dui dui.",
-    image: "/placeholder.svg?height=200&width=200&query=tech%20notes",
-    category: "TRAVEL",
-    date: "December 09, 2020",
-  },
-  {
-    id: "tech-2",
-    title: "Exercitation Ullamco Laboris Nisl Ut Aliquip",
-    description:
-      "Maecenas accumsan tortor ut velit pharetra mollis. Proin eu nisl et arcu iaculis placerat sollicitudin ut est. In fringilla dui dui.",
-    image: "/placeholder.svg?height=200&width=200&query=tech%20vr",
-    category: "TRAVEL",
-    date: "December 09, 2020",
-  },
-  {
-    id: "tech-3",
-    title: "Akhirnya Instagram Di Beli Oleh Facebook",
-    description:
-      "Maecenas accumsan tortor ut velit pharetra mollis. Proin eu nisl et arcu iaculis placerat sollicitudin ut est. In fringilla dui dui.",
-    image: "/placeholder.svg?height=200&width=200&query=instagram%20phone",
-    category: "TRAVEL",
-    date: "December 09, 2020",
-  },
-  {
-    id: "tech-4",
-    title: "Laptop Murah Yang Super Komplit Cocok Untuk Anak Di Tahun 2020.",
-    description:
-      "Maecenas accumsan tortor ut velit pharetra mollis. Proin eu nisl et arcu iaculis placerat sollicitudin ut est. In fringilla dui dui.",
-    image: "/placeholder.svg?height=200&width=200&query=laptop%20tech",
-    category: "TRAVEL",
-    date: "December 09, 2020",
-  },
-];
+// Static technology placeholder removed – dynamic mapping from API
 
 const tarotData = {
   signs: [
@@ -851,7 +301,96 @@ const tarotData = {
   promoSubtitle: "Discover your inner power with our tarot readings",
 };
 
-export default function HomePage() {
+export default async function HomePage() {
+  // Fetch grouped stories (top + latest) and category news in parallel
+  // NOTE: Increased limit & disabled cache for category news so that
+  // sections like Technology & Impact (which may have older dates and
+  // were previously missing due to cached / truncated responses) appear
+  // consistently with what you see in Postman.
+  const [{ latest, top, stateEditions }, categories] = await Promise.all([
+    fetchStories({ limit: 20, offset: 0 }),
+    getCategoriesNormalized({ limit: 12, offset: 0, noCache: true })
+  ]);
+
+  console.log("Fetched Categories:", categories);
+
+  const trendingNews = latest; // repurpose latest as "Trending News" section per request
+
+  // Map Business category stories -> BusinessSlider shape
+  const businessStoriesMapped = categories.business.map(s => ({
+    id: String(s.story_id),
+    title: s.story_title,
+    category: s.section_name || s.category_name || "Business",
+    image: s.image_url_medium || s.image_url_big || "/leaderboard-ad.png",
+    date: new Date(s.published_date).toLocaleDateString(undefined, { day: "2-digit", month: "short", year: "numeric" })
+  }));
+
+  // Sports mapping (split into three buckets for existing layout)
+  const sportsStoriesAll = categories.sports.map(s => ({
+    id: String(s.story_id),
+    title: s.story_title,
+    category: s.section_name || "Sports",
+    image: s.image_url_medium || s.image_url_big || "/diverse-group-playing-various-sports.png",
+    byline: s.author_name || "",
+    time: new Date(s.published_date).toLocaleDateString(undefined, { day: "2-digit", month: "short", year: "numeric" })
+  }));
+  const sportsThird = Math.ceil(sportsStoriesAll.length / 3) || 1;
+  const cricketStories = sportsStoriesAll.slice(0, sportsThird);
+  const footballStories = sportsStoriesAll.slice(sportsThird, sportsThird * 2);
+  const otherSportsStories = sportsStoriesAll.slice(sportsThird * 2);
+
+  // Technology mapping
+  const technologyStories = categories.technology.map(s => ({
+    id: String(s.story_id),
+    title: s.story_title,
+    description: "", // no description in payload
+    image: s.image_url_medium || s.image_url_big || "/interconnected-technology.png",
+    category: s.section_name || "TECHNOLOGY",
+    date: new Date(s.published_date).toLocaleDateString(undefined, { day: "2-digit", month: "short", year: "numeric" })
+  }));
+
+  // Impact mapping -> reuse BusinessSlider component as a horizontal carousel
+  const impactStoriesMapped = categories.impact.map(s => ({
+    id: String(s.story_id),
+    title: s.story_title,
+    category: s.section_name || "Impact",
+    image: s.image_url_medium || s.image_url_big || "/abstract-feature.png",
+    date: new Date(s.published_date).toLocaleDateString(undefined, { day: "2-digit", month: "short", year: "numeric" })
+  }));
+
+  // Map World category stories -> InternationalNews shape (single country: World)
+  const internationalWorldStories = categories.world.map(s => ({
+    id: String(s.story_id),
+    title: s.story_title,
+    description: "", // API does not supply short description
+    image: s.image_url_medium || s.image_url_big || "/world.png",
+    timeAgo: new Date(s.published_date).toLocaleDateString(undefined, { day: "2-digit", month: "short", year: "numeric" }),
+    source: s.author_name || "",
+    country: "USA" // re-using existing tab system; could be adapted to 'World'
+  }));
+
+  // Split Opinion stories into Opinion (first half) & Analysis (second half) for existing component contract
+  const opinionStoriesAll = categories.opinion.map(s => ({
+    id: String(s.story_id),
+    title: s.story_title,
+    category: "OPINION",
+    image: s.image_url_medium || s.image_url_big || "",
+    byline: s.author_name || "",
+    time: new Date(s.published_date).toLocaleDateString(undefined, { day: "2-digit", month: "short", year: "numeric" })
+  }));
+  // Use dedicated Analysis array if provided; fallback to split
+  const analysisStoriesAll = categories.analysis.length ? categories.analysis.map(s => ({
+    id: String(s.story_id),
+    title: s.story_title,
+    category: "ANALYSIS",
+    image: s.image_url_medium || s.image_url_big || "",
+    byline: s.author_name || "",
+    time: new Date(s.published_date).toLocaleDateString(undefined, { day: "2-digit", month: "short", year: "numeric" })
+  })) : [];
+  const mid = Math.ceil(opinionStoriesAll.length / 2);
+  const dynamicOpinion = opinionStoriesAll;
+  const dynamicAnalysis = analysisStoriesAll.length ? analysisStoriesAll : opinionStoriesAll.slice(mid);
+
   return (
     <div className="min-h-screen bg-white">
       <a
@@ -862,16 +401,12 @@ export default function HomePage() {
       </a>
 
       <SiteHeader />
-      {/* <BreakingTicker items={breaking} /> */}
 
       <main id="main" className="pb-10">
         <Hero />
 
         {/* Trending News */}
-        <Section
-          title="Trending News"
-        >
-         
+        <Section title="Trending News">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Left: Featured + Secondary stories */}
             <div className="lg:col-span-2 space-y-6">
@@ -880,11 +415,15 @@ export default function HomePage() {
                 {trendingNews.slice(0, 2).map((story, i) => (
                   <article key={i} className="relative group">
                     <Link
-                      href="#"
+                      href={`/news/${story.id || story.id}`}
                       className="relative block aspect-[4/3] w-full overflow-hidden"
                     >
                       <Image
-                        src={story.image}
+                        src={
+                          story.image_url_medium ||
+                          (story as any).image ||
+                          "/news-lead-image.png"
+                        }
                         alt={story.title}
                         fill
                         className="object-cover transition-transform duration-300 group-hover:scale-105"
@@ -893,13 +432,17 @@ export default function HomePage() {
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
                       <div className="absolute bottom-4 left-4 right-4 text-white">
                         <span className="inline-flex items-center text-[10px] uppercase tracking-wide font-bold bg-yellow-400 text-black px-2 py-1 rounded mb-2">
-                          {story.category}
+                          {story.category || "NEWS"}
                         </span>
                         <h3 className="text-lg font-bold leading-tight mb-2">
                           {story.title}
                         </h3>
                         <p className="text-xs opacity-90">
-                          By {story.byline} • {story.time}
+                          {story.author ? `By ${story.author} • ` : ""}
+                          {new Date(story.publishedDate).toLocaleDateString(
+                            undefined,
+                            { day: "2-digit", month: "short", year: "numeric" }
+                          )}
                         </p>
                       </div>
                     </Link>
@@ -908,20 +451,23 @@ export default function HomePage() {
               </div>
               {/* Secondary (below) */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {trendingNews.slice(2).map((story, i) => (
+                {trendingNews.slice(2, 10).map((story, i) => (
                   <SecondaryStory
-                    key={i}
+                    id={story.id}
                     title={story.title}
-                    category={story.category}
-                    image={story.image}
-                    byline={story.byline}
-                    time={story.time}
+                    category={story.category || "NEWS"}
+                    image={story.image_url_medium || (story as any).image || ""}
+                    byline={story.author || ""}
+                    time={new Date(story.publishedDate).toLocaleDateString(
+                      undefined,
+                      { day: "2-digit", month: "short", year: "numeric" }
+                    )}
                   />
                 ))}
               </div>
             </div>
             {/* Right: Sidebar */}
-            <PopularPosts />
+            <PopularPosts top={top} offset={8} />
           </div>
         </Section>
 
@@ -929,10 +475,10 @@ export default function HomePage() {
         <section className="px-3 md:px-6 py-6">
           <div className="mx-auto w-full max-w-6xl">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              <MainContent nation={nation} world={world} opinion={opinion} />
-              {/* <StateEditions /> */}
-              {/* Right Sidebar */}
-              <Sidebar />
+              {/* <MainContent nation={nation} world={world} opinion={opinion} /> */}
+              <StateEditions stateEditions={stateEditions || {}} />
+              {/* Right: Sidebar */}
+              <PopularPosts top={top} />
             </div>
           </div>
         </section>
@@ -941,7 +487,7 @@ export default function HomePage() {
         <section className="px-3 md:px-6 py-6">
           <div className="mx-auto w-full max-w-6xl">
             <BusinessSlider
-              stories={businessStories}
+              stories={businessStoriesMapped}
               title="Business & Money"
             />
           </div>
@@ -950,15 +496,18 @@ export default function HomePage() {
         {/* International News */}
         <section className="px-3 md:px-6 py-6">
           <div className="mx-auto w-full max-w-6xl">
-            <InternationalNews stories={internationalNews} />
+            <InternationalNews stories={internationalWorldStories} />
           </div>
         </section>
 
-        <section className="px-3 md:px-6 py-6">
-          <div className="mx-auto w-full max-w-6xl">
-            <BusinessSlider stories={businessStories} title="Law & Justice" />
-          </div>
-        </section>
+        {/* Impact Slider (repurposed carousel) */}
+        {impactStoriesMapped.length > 0 && (
+          <section className="px-3 md:px-6 py-6">
+            <div className="mx-auto w-full max-w-6xl">
+              <BusinessSlider stories={impactStoriesMapped} title="Impact" />
+            </div>
+          </section>
+        )}
 
         {/* Category Sections: Entertainment, Travel, Food & Wellness */}
         <section className="px-3 md:px-6 py-6">
@@ -971,7 +520,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Sports Sections: Cricket, Football, Other Sports */}
+  {/* Sports Sections: Cricket, Football, Other Sports (dynamic) */}
         <section className="px-3 md:px-6 py-6">
           <div className="mx-auto w-full max-w-6xl">
             <SportsSections
@@ -986,8 +535,8 @@ export default function HomePage() {
         <section className="px-3 md:px-6 py-6">
           <div className="mx-auto w-full max-w-6xl">
             <OpinionAnalysisSections
-              opinion={opinionStories}
-              analysis={analysisStories}
+              opinion={dynamicOpinion}
+              analysis={dynamicAnalysis}
             />
           </div>
         </section>

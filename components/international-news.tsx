@@ -28,7 +28,10 @@ const countries = [
 export function InternationalNews({ stories }: InternationalNewsProps) {
   const [activeCountry, setActiveCountry] = useState("USA")
 
+  // console.log("International News Stories:", stories)
+// 
   const filteredStories = stories.filter(story => story.country === activeCountry)
+  // console.log("Filtered Stories for country", activeCountry, ":", filteredStories)
 
   return (
     <section className="w-full">
@@ -63,7 +66,7 @@ export function InternationalNews({ stories }: InternationalNewsProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredStories.slice(0, 6).map((story) => (
               <InternationalNewsCard
-                key={story.id}
+                id={story.id}
                 title={story.title}
                 description={story.description}
                 image={story.image}

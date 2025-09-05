@@ -39,7 +39,7 @@ export function SiteHeader() {
     "ROBOT OLYMPICS",
   ]
 
-  const [breakingItems, setBreakingItems] = useState<string[]>([])
+  const [breakingItems, setBreakingItems] = useState<{ id: number; title: string; urlKey: string }[]>([])
   const [breakingLoading, setBreakingLoading] = useState(false)
 
   useEffect(() => {
@@ -48,9 +48,9 @@ export function SiteHeader() {
       setBreakingLoading(true)
       const data = await fetchBreakingNews(10,0)
       if (!cancelled) {
-        const titles = mapBreakingTitles(data)
-        if (titles.length) setBreakingItems(titles)
-        else setBreakingItems(["No breaking news available right now"])
+  const titles = mapBreakingTitles(data)
+  if (titles.length) setBreakingItems(titles)
+  else setBreakingItems([])
         setBreakingLoading(false)
       }
     }
@@ -135,17 +135,19 @@ export function SiteHeader() {
             <div className="flex-1 relative overflow-hidden">
               {breakingLoading && !breakingItems.length ? (
                 <div className="text-xs text-gray-500 animate-pulse">Loading breaking news...</div>
-              ) : (
+              ) : breakingItems.length ? (
                 <ul className="flex animate-[ticker_30s_linear_infinite] gap-8 whitespace-nowrap text-sm text-gray-700">
-                  {(breakingItems.length ? breakingItems : ["No breaking news"]).concat(breakingItems).map((item, i) => (
-                    <li key={i}>
-                      <a href="#" className="hover:underline">
-                        {item}
-                      </a>
-                      {i < breakingItems.length - 1 && breakingItems.length > 1 && <span className="mx-4">•</span>}
+                  {breakingItems.concat(breakingItems).map((item, i) => (
+                    <li key={`${item.id}-${i}`} className="flex items-center">
+                      <Link href={`/news/${item.id}`} className="hover:underline">
+                        {item.title}
+                      </Link>
+                      {i % breakingItems.length !== breakingItems.length - 1 && <span className="mx-4">•</span>}
                     </li>
                   ))}
                 </ul>
+              ) : (
+                <div className="text-xs text-gray-500">No breaking news</div>
               )}
             </div>
           </div>

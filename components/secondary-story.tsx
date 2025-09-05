@@ -13,12 +13,13 @@ export function SecondaryStory({
   title,
   category,
   image,
+  id,
   byline,
   time,
 }: SecondaryStoryProps) {
   return (
     <article className="flex gap-4 group">
-      <Link href="#" className="relative block w-24 h-16 flex-shrink-0 overflow-hidden ">
+      <Link href={`/news/${id}`} className="relative block w-24 h-16 flex-shrink-0 overflow-hidden ">
         <Image
           src={image}
           alt={title}
@@ -32,7 +33,7 @@ export function SecondaryStory({
           {category}
         </span>
         <h4 className="text-sm font-semibold leading-tight mb-1 line-clamp-2">
-          <Link href="#" className="hover:underline">
+          <Link href={`/news/${id}`} className="hover:underline">
             {title}
           </Link>
         </h4>

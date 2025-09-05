@@ -48,7 +48,7 @@ export function NewsDetailSidebar({ latestNews, popularNews }: NewsDetailSidebar
                         {news.category}
                       </span>
                     </div>
-                    <h3 className="font-semibold text-sm text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2 mb-1">
+                    <h3 className="font-semibold text-sm text-gray-900 group-hover:text-[#FCCD04] transition-colors line-clamp-2 mb-1">
                       {news.title}
                     </h3>
                     <p className="text-xs text-gray-500">{news.publishedAt}</p>
@@ -103,7 +103,7 @@ export function NewsDetailSidebar({ latestNews, popularNews }: NewsDetailSidebar
                         {news.category}
                       </span>
                     </div>
-                    <h3 className="font-semibold text-sm text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2 mb-1">
+                    <h3 className="font-semibold text-sm text-gray-900 group-hover:text-[#FCCD04] transition-colors line-clamp-2 mb-1">
                       {news.title}
                     </h3>
                     <p className="text-xs text-gray-500">{news.publishedAt}</p>

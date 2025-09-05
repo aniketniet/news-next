@@ -11,6 +11,7 @@ type BusinessCardProps = {
 }
 
 export function BusinessCard({
+  id,
   title,
   category,
   image,
@@ -19,8 +20,8 @@ export function BusinessCard({
 }: BusinessCardProps) {
   return (
     <article className={cn("group", className)}>
-      <Link href="#" className="block">
-        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg mb-3">
+      <Link href={`/news/${id}`} className="block">
+        <div className="relative aspect-[4/3] w-full overflow-hidden mb-3">
           <Image
             src={image}
             alt={title}

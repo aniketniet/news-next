@@ -1,7 +1,8 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { fetchGalleryImages, mapGalleryImagesToPhotos } from '@/lib/api/images';
 
 
 interface Photo {
@@ -21,12 +22,37 @@ interface PhotoGalleryProps {
 }
 
 const PhotoGallery: React.FC<PhotoGalleryProps> = ({ 
-  photos = defaultPhotos, 
+  photos: initialPhotos = defaultPhotos, 
   itemsPerPage = 6 
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  
-  const totalPages = Math.ceil(photos.length / itemsPerPage);
+  const [photos, setPhotos] = useState(initialPhotos);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let active = true;
+    (async () => {
+      try {
+        setLoading(true);
+        const items = await fetchGalleryImages({ limit: 50, offset: 0 });
+        console.log('Fetched gallery images:', items);
+        if (!active) return;
+        const mapped = mapGalleryImagesToPhotos(items);
+        setPhotos(mapped.length ? mapped : initialPhotos);
+      } catch (e: any) {
+        if (!active) return;
+        console.error('Photo gallery fetch error', e);
+        setError(e?.message || 'Failed to load');
+        setPhotos(initialPhotos);
+      } finally {
+        if (active) setLoading(false);
+      }
+    })();
+    return () => { active = false; };
+  }, [initialPhotos]);
+
+  const totalPages = Math.ceil(photos.length / itemsPerPage) || 1;
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentPhotos = photos.slice(startIndex, startIndex + itemsPerPage);
 
@@ -58,6 +84,14 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({
           </div>
       </div>
 
+      {/* Loading / Error */}
+      {loading && (
+        <div className="py-8 text-center text-sm text-gray-500">Loading photos…</div>
+      )}
+      {error && !loading && (
+        <div className="py-4 mb-4 text-center text-xs text-red-500">{error}</div>
+      )}
+
       {/* Photo Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         {currentPhotos.map((photo) => (
@@ -70,7 +104,7 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({
             {/* Image Container */}
             <div className="relative aspect-[4/3] w-full">
               <Image
-                src={photo.src}
+                src={`${photo.src}`}
                 alt={photo.alt}
                 fill
                 className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -81,11 +115,11 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
               
               {/* Category Tag */}
-              <div className="absolute top-4 left-4">
+              {/* <div className="absolute top-4 left-4">
                 <span className="bg-yellow-400 text-black text-xs font-semibold px-3 py-1 rounded uppercase tracking-wide">
                   {photo.category}
                 </span>
-              </div>
+              </div> */}
 
               {/* Content */}
               <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
@@ -104,7 +138,7 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({
       </div>
 
       {/* Pagination */}
-      {totalPages > 1 && (
+  {!loading && totalPages > 1 && (
         <div className="flex justify-center items-center space-x-1">
           {/* Previous Button */}
           <button

@@ -34,6 +34,10 @@ export async function fetchBreakingNews(limit = 10, offset = 0): Promise<Breakin
   }
 }
 
-export function mapBreakingTitles(items: BreakingStoryRaw[]): string[] {
-  return items.map(i => i.story_title).filter(Boolean)
+export interface BreakingSimpleItem { id: number; title: string; urlKey: string }
+
+export function mapBreakingTitles(items: BreakingStoryRaw[]): BreakingSimpleItem[] {
+  return items
+    .filter(i => !!i.story_title)
+    .map(i => ({ id: i.story_id, title: i.story_title, urlKey: i.url_key }))
 }

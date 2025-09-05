@@ -15,6 +15,7 @@ interface TechnologySectionProps {
 }
 
 export function TechnologySection({ stories }: TechnologySectionProps) {
+  console.log("Technology Stories:", stories);
   return (
     <div className="space-y-6">
       <div >
@@ -39,7 +40,7 @@ export function TechnologySection({ stories }: TechnologySectionProps) {
       <div className="space-y-4">
         {stories.map((story) => (
           <article key={story.id} className="group cursor-pointer">
-            <Link href={`/technology/${story.id}`} className="block">
+            <Link href={`/news/${story.id}`} className="block">
               <div className="flex gap-4 p-4 rounded-lg hover:bg-gray-50 transition-colors duration-200">
                 <div className="relative w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden">
                   <Image
