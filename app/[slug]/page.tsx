@@ -1,9 +1,11 @@
-import SiteHeader from "@/components/pioneer/site-header"
+
+import { SiteFooter } from "@/components/footer"
 import BreakingTicker from "@/components/pioneer/breaking-ticker"
 import Hero from "@/components/pioneer/hero"
 import Section from "@/components/pioneer/section"
 import Sidebar from "@/components/pioneer/sidebar"
-import SiteFooter from "@/components/pioneer/site-footer"
+import { SiteHeader } from "@/components/site-header"
+
 
 export default function PioneerHome() {
   // Data mocks (replace with CMS/API later)
@@ -46,13 +48,7 @@ export default function PioneerHome() {
   return (
     <main>
       <SiteHeader />
-      <BreakingTicker
-        items={[
-          "Breaking: Parliament passes key reform bill",
-          "Alert: Heavy rain forecast across multiple states",
-          "Update: Markets end higher for third straight session",
-        ]}
-      />
+    
 
       <div className="mx-auto w-full max-w-6xl px-4 md:px-6">
         <div className="grid grid-cols-1 gap-6 py-6 lg:grid-cols-12">

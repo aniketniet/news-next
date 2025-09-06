@@ -27,8 +27,9 @@ import { StateEditions } from "@/components/state-editions";
 import PhotoGallery from "@/components/PhotoGallery";
 import { fetchStories } from "@/lib/api/stories";
 import { getCategoriesNormalized } from "@/lib/api/categories";
+import { EPaperDownload } from "@/components/epaper-download";
 
-// (Deprecated) static businessStories removed – now populated from API
+
 
 
 const entertainmentStories = [
@@ -453,7 +454,7 @@ export default async function HomePage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {trendingNews.slice(2, 10).map((story, i) => (
                   <SecondaryStory
-                    id={story.id}
+                    id={String(story.id)}
                     title={story.title}
                     category={story.category || "NEWS"}
                     image={story.image_url_medium || (story as any).image || ""}
@@ -478,7 +479,8 @@ export default async function HomePage() {
               {/* <MainContent nation={nation} world={world} opinion={opinion} /> */}
               <StateEditions stateEditions={stateEditions || {}} />
               {/* Right: Sidebar */}
-              <PopularPosts top={top} />
+              {/* <PopularPosts top={top} /> */}
+              <EPaperDownload />
             </div>
           </div>
         </section>

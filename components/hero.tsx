@@ -9,6 +9,10 @@ export async function Hero() {
   const topStories = rest.slice(0, 2)
   const bottomStories = rest.slice(2, 6)
 
+  console.log(mainStory,"mainStory");
+  console.log(topStories,"topStories");
+  console.log(bottomStories,"bottomStories");
+
   return (
     <section className="bg-white">
       <div className="mx-auto max-w-7xl px-4 py-6">

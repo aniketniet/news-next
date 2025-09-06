@@ -13,20 +13,20 @@ export function SiteHeader() {
   const { user, logout } = useAuth()
 
   const categories = [
-    "HOME",
-    "INDIA", 
-    "DELHI",
-    "BUSINESS",
-    "WORLD",
-    "SPORTS",
-    "OPINION",
-    "ANALYTICS",
-    "POLITICS",
-    "EDUCATION",
-    "E-PAPER",
-    "TECH",
-    "STATE EDITIONS",
-  ]
+    { label: "HOME", href: "/" },
+    { label: "INDIA", href: "/section/india" },
+    { label: "DELHI", href: "/category/delhi" },
+    { label: "BUSINESS", href: "/section/business" },
+    { label: "WORLD", href: "/section/world" },
+    { label: "SPORTS", href: "/section/sport" },
+    { label: "OPINION", href: "/category/opinion" },
+    { label: "ANALYTICS", href: "/category/analysis" },
+    { label: "POLITICS", href: "/politics" },
+    { label: "EDUCATION", href: "/education" },
+    { label: "E-PAPER", href: "/e-paper" },
+    { label: "TECH", href: "/section/tech" },
+    { label: "STATE EDITIONS", href: "/state-editions" },
+  ] as const
 
   const trending = [
     "LATEST CRICKET NEWS",
@@ -175,18 +175,33 @@ export function SiteHeader() {
 
             {/* States Dropdown */}
             <div className="flex items-center">
-              <select className="appearance-none bg-white border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-gray-500 w-32 lg:w-40">
-                <option>States</option>
-                <option>Delhi</option>
-                <option>Uttar Pradesh</option> 
-                <option>Maharashtra</option>
-                <option>Tamil Nadu</option>
-                <option>Karnataka</option>
-                <option>West Bengal</option>
-              </select>
-              <svg className="w-4 h-4 -ml-6 pointer-events-none text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
+              <form
+              onSubmit={(e) => {
+                e.preventDefault()
+                const q = query.trim()
+                if (q) window.location.href = `/search?q=${encodeURIComponent(q)}`
+              }}
+              role="search"
+              className="flex items-center overflow-hidden rounded-full border border-gray-300 bg-white text-black w-48 sm:w-64 lg:w-80"
+              >
+              <input
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search news, topics..."
+                className="flex-1 bg-transparent px-3 py-2 text-sm outline-none placeholder:text-gray-400"
+                aria-label="Search news"
+              />
+              <button
+                type="submit"
+                className="bg-gray-100 px-3 py-2 text-sm font-medium text-black hover:bg-gray-200"
+                aria-label="Search"
+              >
+                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+                <circle cx="11" cy="11" r="8" />
+                <path d="M21 21l-4.35-4.35" />
+                </svg>
+              </button>
+              </form>
             </div>
           </div>
         </div>
@@ -196,13 +211,13 @@ export function SiteHeader() {
       <nav className="hidden lg:block bg-[#FCCD04]">
         <div className="mx-auto max-w-7xl">
           <ul className="flex items-center px-4 text-sm font-bold text-black">
-            {categories.map((category, index) => (
-              <li key={category}>
+            {categories.map((category) => (
+              <li key={category.label}>
                 <Link
-                  href="#"
+                  href={category.href}
                   className="block px-4 py-3 hover:bg-yellow-300 transition-colors whitespace-nowrap"
                 >
-                  {category}
+                  {category.label}
                 </Link>
               </li>
             ))}
@@ -254,13 +269,13 @@ export function SiteHeader() {
           <nav className="px-4 py-2">
             <ul className="space-y-1">
               {categories.map((category) => (
-                <li key={category}>
+                <li key={category.label}>
                   <Link
-                    href="#"
+                    href={category.href}
                     className="block py-3 text-gray-800 font-medium border-b border-gray-100 last:border-b-0"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    {category}
+                    {category.label}
                   </Link>
                 </li>
               ))}

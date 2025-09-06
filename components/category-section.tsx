@@ -72,6 +72,7 @@ export function CategorySection({
         {secondaryStories.map((story) => (
           <SecondaryStory
             key={story.id}
+            id={story.id}
             title={story.title}
             category={story.category}
             image={story.image}

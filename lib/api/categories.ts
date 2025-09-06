@@ -10,6 +10,7 @@ export interface Story {
     story_date?: string;          // Some new endpoints may omit
     published_date: string;      // YYYY-MM-DD
     image_name: string | null;
+    
     url_key: string;
     category_id?: number;        // In section arrays often 0 / omitted
     section_id?: number;

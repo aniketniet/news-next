@@ -2,6 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 
 type SecondaryStoryProps = {
+  id: string
   title: string
   category: string
   image: string

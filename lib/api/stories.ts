@@ -126,6 +126,58 @@ export interface StorySummary {
     image_url_medium?: string | null
     urlKey: string
 }
+
+interface ListEnvelope<T = any[]> {
+    success: boolean
+    message: string
+    data: T
+}
+
+export async function fetchSectionList(sectionId: number, { limit = 10, offset = 0 }: { limit?: number; offset?: number } = {}): Promise<StorySummary[]> {
+    try {
+        const { data } = await axios.get<ListEnvelope>(
+            `${BASE}/news/section/${sectionId}?limit=${limit}&offset=${offset}`,
+            { timeout: 15000 }
+        )
+        const arr = Array.isArray(data?.data) ? data.data : []
+        return arr.map((item: any) => ({
+            id: item.story_id,
+            title: item.story_title,
+            category: item.section_name || item.category_name || undefined,
+            author: item.author_name || undefined,
+            publishedDate: item.published_date || item.story_date,
+            image: item.image_name ? `${item.image_name}` : null,
+            image_url_medium: item.image_url_medium || null,
+            urlKey: item.url_key,
+        }))
+    } catch (e) {
+        console.error('fetchSectionList error', e)
+        return []
+    }
+}
+
+export async function fetchCategoryList(categoryId: number, { limit = 10, offset = 0 }: { limit?: number; offset?: number } = {}): Promise<StorySummary[]> {
+    try {
+        const { data } = await axios.get<ListEnvelope>(
+            `${BASE}/news/category/${categoryId}?limit=${limit}&offset=${offset}`,
+            { timeout: 15000 }
+        )
+        const arr = Array.isArray(data?.data) ? data.data : []
+        return arr.map((item: any) => ({
+            id: item.story_id,
+            title: item.story_title,
+            category: item.category_name || item.section_name || undefined,
+            author: item.author_name || undefined,
+            publishedDate: item.published_date || item.story_date,
+            image: item.image_name ? `${item.image_name}` : null,
+            image_url_medium: item.image_url_medium || null,
+            urlKey: item.url_key,
+        }))
+    } catch (e) {
+        console.error('fetchCategoryList error', e)
+        return []
+    }
+}
 // Return both latest_news and top_stories
 export interface StoriesGrouped {
     latest: StorySummary[]
@@ -151,10 +203,12 @@ export async function fetchStories(
             `${BASE}/news/web/top-stories?limit=${limit}&offset=${offset}`,
             { timeout: 15000 }
         )
-
+        console.log(data,"data");
     const latestRaw = data?.data?.latest_news ?? []
     const topRaw = data?.data?.top_stories ?? []
     const stateRaw = data?.data?.state_editions ?? {}
+
+    
 
         const mapItem = (item: any): StorySummary => ({
             id: item.story_id,

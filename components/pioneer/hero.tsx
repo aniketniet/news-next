@@ -9,7 +9,7 @@ export default function Hero({ lead, side }: { lead: Card; side: Card[] }) {
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         {/* Lead story */}
         <article className="md:col-span-2">
-          <a href="#" className="group block overflow-hidden rounded bg-gray-100">
+          <a href="#" className="group block overflow-hidden bg-gray-100">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={lead.image || "/placeholder.svg"}
@@ -18,7 +18,7 @@ export default function Hero({ lead, side }: { lead: Card; side: Card[] }) {
             />
           </a>
           <div className="mt-3">
-            <span className="inline-block rounded bg-yellow-400 px-2 py-0.5 text-xs font-medium text-black">
+            <span className="inline-block  bg-yellow-400 px-2 py-0.5 text-xs font-medium text-black">
               {lead.tag}
             </span>
             <h3 className="mt-2 text-pretty text-2xl font-bold leading-snug hover:underline">

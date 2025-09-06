@@ -1,5 +1,7 @@
+'use client'
+import { useRef } from "react"
 import { SecondaryStory } from "./secondary-story"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { ChevronUp, ChevronDown } from "lucide-react"
 
 type OpinionStory = {
   id: string
@@ -16,6 +18,14 @@ type OpinionSectionProps = {
 }
 
 export function OpinionSection({ title, stories }: OpinionSectionProps) {
+  const listRef = useRef<HTMLDivElement | null>(null)
+
+  const scrollByAmount = (amount: number) => {
+    const el = listRef.current
+    if (!el) return
+    el.scrollBy({ top: amount, behavior: "smooth" })
+  }
+
   return (
     <div className="border border-gray-200 rounded-lg overflow-hidden bg-white">
       {/* Header with title and navigation */}
@@ -24,19 +34,31 @@ export function OpinionSection({ title, stories }: OpinionSectionProps) {
           {title}
         </h3>
         <div className="flex items-center gap-1">
-          <button className="p-1 hover:bg-gray-100 rounded transition-colors">
-            <ChevronLeft className="w-4 h-4 text-gray-600" />
+          <button
+            className="p-1 hover:bg-gray-100 rounded transition-colors"
+            aria-label="Scroll up"
+            onClick={() => scrollByAmount(-300)}
+          >
+            <ChevronUp className="w-4 h-4 text-gray-600" />
           </button>
-          <button className="p-1 hover:bg-gray-100 rounded transition-colors">
-            <ChevronRight className="w-4 h-4 text-gray-600" />
+          <button
+            className="p-1 hover:bg-gray-100 rounded transition-colors"
+            aria-label="Scroll down"
+            onClick={() => scrollByAmount(300)}
+          >
+            <ChevronDown className="w-4 h-4 text-gray-600" />
           </button>
         </div>
       </div>
 
       {/* Stories list */}
-      <div className="p-4 space-y-4">
+      <div
+        ref={listRef}
+        className="p-4 space-y-4 max-h-96 overflow-y-auto scroll-smooth"
+      >
         {stories.map((story) => (
           <SecondaryStory
+            key={story.id}
             id={story.id}
             title={story.title}
             category={story.category}
