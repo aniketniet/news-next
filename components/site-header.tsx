@@ -5,6 +5,7 @@ import { useState, useEffect } from "react"
 import Image from "next/image"
 import { useAuth } from "@/contexts/AuthContext"
 import { fetchBreakingNews, mapBreakingTitles } from "@/lib/api/breakingNews"
+import { ProfileDropdown } from "./ProfileDropdown"
 
 export function SiteHeader() {
   const [query, setQuery] = useState("")
@@ -70,15 +71,7 @@ export function SiteHeader() {
           </div>
           <div className="flex items-center gap-4">
             {user ? (
-              <div className="flex items-center gap-2">
-                <span className="text-sm">Welcome, {user.name}</span>
-                <button 
-                  onClick={logout}
-                  className="hover:underline text-sm"
-                >
-                  Logout
-                </button>
-              </div>
+              <ProfileDropdown />
             ) : (
               <Link href="/login" className="hover:underline">
                 Login / Register
@@ -292,9 +285,15 @@ export function SiteHeader() {
           {/* Mobile Social & Login */}
           <div className="border-t p-4">
             <div className="flex items-center justify-between">
-              <Link href="#" className="text-sm text-blue-600 font-medium">
-                Login / Register
-              </Link>
+              {user ? (
+                <div className="text-sm text-gray-700">
+                  Welcome, {user.name}
+                </div>
+              ) : (
+                <Link href="/login" className="text-sm text-blue-600 font-medium">
+                  Login / Register
+                </Link>
+              )}
               <div className="flex items-center gap-3">
                 <a href="#" aria-label="Facebook" className="text-gray-600">
                   <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">

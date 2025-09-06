@@ -10,6 +10,7 @@ import React, {
 } from "react";
 import axios, { AxiosInstance } from "axios";
 import Cookies from "js-cookie";
+import { fetchProfile, updateProfile, UpdateProfileData } from "@/lib/api/profile";
 
 interface User {
   id: string;
@@ -37,6 +38,8 @@ interface AuthContextType {
     otp: string,
     password: string
   ) => Promise<ApiResult>;
+  updateProfile: (profileData: UpdateProfileData) => Promise<ApiResult>;
+  refreshProfile: () => Promise<void>;
   logout: () => void;
 }
 
@@ -285,6 +288,48 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(null);
   };
 
+  const refreshProfile = async (): Promise<void> => {
+    const token = Cookies.get("auth_token");
+    if (!token || !user) return;
+    
+    try {
+      const profileData = await fetchProfile(token);
+      const updatedUser: User = {
+        id: String(profileData.id),
+        name: profileData.name,
+        email: profileData.email,
+      };
+      setUser(updatedUser);
+      localStorage.setItem("user_data", JSON.stringify(updatedUser));
+    } catch (err) {
+      console.error("Failed to refresh profile:", err);
+    }
+  };
+
+  const updateUserProfile = async (profileData: UpdateProfileData): Promise<ApiResult> => {
+    const token = Cookies.get("auth_token");
+    if (!token) {
+      return { success: false, message: "Not authenticated" };
+    }
+
+    setLoading(true);
+    try {
+      const result = await updateProfile(token, profileData);
+      if (result.success) {
+        // Refresh profile data after successful update
+        await refreshProfile();
+      }
+      return result;
+    } catch (err: any) {
+      return {
+        success: false,
+        message: err?.message || "Failed to update profile",
+      };
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -294,6 +339,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         register,
         forgotPassword,
         resetPassword,
+        updateProfile: updateUserProfile,
+        refreshProfile,
         logout,
       }}
     >
