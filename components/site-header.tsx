@@ -82,7 +82,7 @@ export function SiteHeader() {
       {/* Top Black Bar - Desktop Only */}
       <div className=" bg-black text-white text-xs">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 h-9">
-          <div className="whitespace-nowrap">Monday, March 22, 2020</div>
+          <div className="whitespace-nowrap hidden lg:block">Monday, March 22, 2020</div>
           <div className="flex items-center gap-4">
             {ready &&
               (user ? (
