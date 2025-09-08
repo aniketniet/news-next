@@ -1,8 +1,8 @@
-'use client'
+"use client"
 
-import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
-import { fetchGalleryImages, mapGalleryImagesToPhotos } from '@/lib/api/images';
+import React, { useState, useEffect, useRef } from "react";
+import Image from "next/image";
+import { fetchGalleryImages, mapGalleryImagesToPhotos } from "@/lib/api/images";
 
 
 interface Photo {
@@ -21,10 +21,11 @@ interface PhotoGalleryProps {
   itemsPerPage?: number;
 }
 
-const PhotoGallery: React.FC<PhotoGalleryProps> = ({ 
-  photos: initialPhotos = defaultPhotos, 
-  itemsPerPage = 6 
+const PhotoGallery: React.FC<PhotoGalleryProps> = ({
+  photos: initialPhotos = defaultPhotos,
+  itemsPerPage = 6,
 }) => {
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [photos, setPhotos] = useState(initialPhotos);
   const [loading, setLoading] = useState(true);
@@ -40,6 +41,7 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({
         if (!active) return;
         const mapped = mapGalleryImagesToPhotos(items);
         setPhotos(mapped.length ? mapped : initialPhotos);
+        setCurrentPage(1);
       } catch (e: any) {
         if (!active) return;
         console.error('Photo gallery fetch error', e);
@@ -57,7 +59,50 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({
   const currentPhotos = photos.slice(startIndex, startIndex + itemsPerPage);
 
   const handlePageChange = (page: number) => {
+    if (page === currentPage) return;
     setCurrentPage(page);
+  };
+
+  // Smooth scroll to top of gallery on page change (helps on mobile)
+  useEffect(() => {
+    if (containerRef.current) {
+      try {
+        containerRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } catch {
+        // no-op
+      }
+    }
+  }, [currentPage]);
+
+  // Build a condensed, responsive page list with ellipses for larger screens
+  const getVisiblePages = (total: number, current: number): Array<number | 'ellipsis'> => {
+    const pages: Array<number | 'ellipsis'> = [];
+    const showWindow = 1; // number of neighbors to show around current
+    const first = 1;
+    const last = total;
+    const start = Math.max(first + 1, current - showWindow);
+    const end = Math.min(last - 1, current + showWindow);
+
+    pages.push(first);
+    if (start > first + 1) pages.push('ellipsis');
+    for (let p = start; p <= end; p++) pages.push(p);
+    if (end < last - 1) pages.push('ellipsis');
+    if (last > first) pages.push(last);
+
+    // Ensure current is included if it's first/last
+    if (!pages.includes(current)) {
+      const insertAt = pages[1] === 'ellipsis' ? 1 : 0;
+      pages.splice(insertAt + 1, 0, current);
+    }
+    // Deduplicate and sort order as they were pushed logically
+    const seen = new Set<string>();
+    const normalized = pages.filter((p) => {
+      const key = typeof p === 'number' ? String(p) : p;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+    return normalized;
   };
 
   const renderPaginationButton = (page: number, isActive: boolean = false) => (
@@ -75,7 +120,7 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({
   );
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
+    <div ref={containerRef} className="max-w-7xl mx-auto px-4 py-8">
       {/* Header */}
       <div className="mb-8">
         <h2 className="text-2xl font-bold text-gray-800 mb-2">Photo Gallery</h2>
@@ -92,8 +137,8 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({
         <div className="py-4 mb-4 text-center text-xs text-red-500">{error}</div>
       )}
 
-      {/* Photo Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+  {/* Photo Grid */}
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8">
         {currentPhotos.map((photo) => (
           <div
             key={photo.id}
@@ -138,31 +183,76 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({
       </div>
 
       {/* Pagination */}
-  {!loading && totalPages > 1 && (
-        <div className="flex justify-center items-center space-x-1">
-          {/* Previous Button */}
-          <button
-            onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
-            disabled={currentPage === 1}
-            className="px-3 py-2 mx-1 text-gray-600 disabled:text-gray-300 hover:text-gray-800 transition-colors duration-200"
-          >
-            ‹
-          </button>
+      {!loading && totalPages > 1 && (
+        <nav
+          aria-label="Photo gallery pagination"
+          className="flex flex-col items-center gap-3"
+        >
+          {/* Mobile (compact) */}
+          <div className="flex w-full items-center justify-between sm:hidden">
+            <button
+              onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
+              disabled={currentPage === 1}
+              className="px-4 py-2 rounded border border-gray-200 text-gray-700 disabled:text-gray-300 disabled:border-gray-100"
+              aria-label="Previous page"
+            >
+              Prev
+            </button>
+            <span className="text-sm text-gray-600">
+              Page {currentPage} of {totalPages}
+            </span>
+            <button
+              onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
+              disabled={currentPage === totalPages}
+              className="px-4 py-2 rounded border border-gray-200 text-gray-700 disabled:text-gray-300 disabled:border-gray-100"
+              aria-label="Next page"
+            >
+              Next
+            </button>
+          </div>
 
-          {/* Page Numbers */}
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => 
-            renderPaginationButton(page, page === currentPage)
-          )}
+          {/* Desktop/Tablet (detailed) */}
+          <div className="hidden sm:flex items-center">
+            <button
+              onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
+              disabled={currentPage === 1}
+              className="px-3 py-2 mx-1 text-gray-600 disabled:text-gray-300 hover:text-gray-800 transition-colors duration-200"
+              aria-label="Previous page"
+            >
+              ‹
+            </button>
 
-          {/* Next Button */}
-          <button
-            onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
-            disabled={currentPage === totalPages}
-            className="px-3 py-2 mx-1 text-gray-600 disabled:text-gray-300 hover:text-gray-800 transition-colors duration-200"
-          >
-            ›
-          </button>
-        </div>
+            {getVisiblePages(totalPages, currentPage).map((p, idx) =>
+              p === 'ellipsis' ? (
+                <span key={`el-${idx}`} className="mx-1 text-gray-400">
+                  …
+                </span>
+              ) : (
+                <button
+                  key={p}
+                  onClick={() => handlePageChange(p)}
+                  aria-current={p === currentPage ? 'page' : undefined}
+                  className={`px-3 py-2 mx-1 rounded ${
+                    p === currentPage
+                      ? 'bg-yellow-400 text-black font-semibold'
+                      : 'bg-white text-gray-600 hover:bg-gray-100'
+                  } transition-colors duration-200`}
+                >
+                  {p}
+                </button>
+              )
+            )}
+
+            <button
+              onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
+              disabled={currentPage === totalPages}
+              className="px-3 py-2 mx-1 text-gray-600 disabled:text-gray-300 hover:text-gray-800 transition-colors duration-200"
+              aria-label="Next page"
+            >
+              ›
+            </button>
+          </div>
+        </nav>
       )}
     </div>
   );
