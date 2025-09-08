@@ -135,7 +135,7 @@ export function SiteHeader() {
                 </svg>
               </a>
             </div>
-            <form
+            {/* <form
               onSubmit={onSearchSubmit}
               role="search"
               className="hidden md:flex items-center overflow-hidden rounded-full bg-white text-black"
@@ -153,7 +153,7 @@ export function SiteHeader() {
                   <path d="M21 21l-4.35-4.35" />
                 </svg>
               </button>
-            </form>
+            </form> */}
           </div>
         </div>
       </div>
@@ -349,7 +349,7 @@ export function SiteHeader() {
                 <li key={category.label}>
                   <Link
                     href={category.href}
-                    className="block px-4 py-3 hover:bg-yellow-300 transition-colors whitespace-nowrap"
+                    className="block px-4 py-3 hover:bg-[#FCCD04] transition-colors whitespace-nowrap"
                   >
                     {category.label}
                   </Link>

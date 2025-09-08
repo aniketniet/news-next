@@ -1,17 +1,39 @@
+"use client"
+
 import Image from "next/image"
 import Link from "next/link"
-import { fetchStories } from "@/lib/api/stories"
+import { fetchStories, type StorySummary } from "@/lib/api/stories"
+import { useEffect, useState } from "react"
+import Skeleton from "react-loading-skeleton"
 
-// Hero now self-fetches top stories (first used for main + side + bottom)
-export async function Hero() {
-  const { top } = await fetchStories({ limit: 12, offset: 0 })
+// Hero now client-fetches top stories and shows skeletons while loading
+export function Hero() {
+  const [top, setTop] = useState<StorySummary[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    let alive = true
+    ;(async () => {
+      try {
+        setLoading(true)
+        const { top } = await fetchStories({ limit: 12, offset: 0 })
+        if (!alive) return
+        setTop(top)
+      } catch (e) {
+        if (!alive) return
+        setTop([])
+      } finally {
+        if (alive) setLoading(false)
+      }
+    })()
+    return () => {
+      alive = false
+    }
+  }, [])
+
   const [mainStory, ...rest] = top
   const topStories = rest.slice(0, 2)
   const bottomStories = rest.slice(2, 6)
-
-  console.log(mainStory,"mainStory");
-  console.log(topStories,"topStories");
-  console.log(bottomStories,"bottomStories");
 
   return (
     <section className="bg-white">
@@ -24,8 +46,23 @@ export async function Hero() {
           </div>
         </div>
 
+        {/* Loading skeleton */}
+        {loading && (
+          <div className="grid grid-cols-1 lg:grid-cols-3 mb-8 gap-6">
+            {/* Large Featured */}
+            <div className="lg:col-span-2">
+              <Skeleton height={0} style={{ paddingBottom: '62.5%' }} />
+            </div>
+            {/* Side Stories */}
+            <div className="grid grid-rows-2 gap-6">
+              <Skeleton height={0} style={{ paddingBottom: '62.5%' }} />
+              <Skeleton height={0} style={{ paddingBottom: '62.5%' }} />
+            </div>
+          </div>
+        )}
+
         {/* Main Content Grid */}
-        {mainStory && (
+        {!loading && mainStory && (
           <div className="grid grid-cols-1 lg:grid-cols-3 mb-8">
             {/* Large Featured Article */}
             <article className="lg:col-span-2 relative">
@@ -39,13 +76,13 @@ export async function Hero() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                 <div className="absolute top-4 left-4">
-                  <span className="bg-yellow-400 text-black px-3 py-1 text-xs font-semibold uppercase tracking-wide">
+                  <span className="bg-[#FCCD04] text-black px-3 py-1 text-xs font-semibold uppercase tracking-wide">
                     {mainStory.category || 'NEWS'}
                   </span>
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                   <h3 className="text-2xl lg:text-3xl font-bold leading-tight mb-2">
-                    <Link href={`/news/${mainStory.id || mainStory.id}`} className="hover:text-yellow-400 transition-colors">
+                    <Link href={`/news/${mainStory.id || mainStory.id}`} className="hover:text-[#FCCD04] transition-colors">
                       {mainStory.title}
                     </Link>
                   </h3>
@@ -72,7 +109,7 @@ export async function Hero() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                     <div className="absolute top-3 left-3">
-                      <span className="bg-yellow-400 text-black px-2 py-1 text-xs font-semibold uppercase tracking-wide">
+                      <span className="bg-[#FCCD04] text-black px-2 py-1 text-xs font-semibold uppercase tracking-wide">
                         {story.category || 'NEWS'}
                       </span>
                     </div>
@@ -96,7 +133,7 @@ export async function Hero() {
         )}
 
         {/* Bottom Stories Grid */}
-        {bottomStories.length > 0 && (
+        {!loading && bottomStories.length > 0 && (
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
             {bottomStories.map((story) => (
               <article key={story.id} className="group flex flex-col overflow-hidden bg-white transition">
@@ -114,7 +151,7 @@ export async function Hero() {
                     {story.category || 'NEWS'}
                   </span>
                   <h4 className="mb-2 line-clamp-2 text-base font-semibold leading-snug text-gray-900">
-                    <Link href={`/news/${story.id || story.id}`} className="transition-colors hover:text-yellow-500">
+                    <Link href={`/news/${story.id || story.id}`} className="transition-colors hover:text-[#FCCD04]">
                       {story.title}
                     </Link>
                   </h4>

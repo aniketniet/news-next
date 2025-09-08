@@ -44,7 +44,7 @@ export function NewsDetailSidebar({ latestNews, popularNews }: NewsDetailSidebar
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="mb-1">
-                      <span className="inline-block px-2 py-0.5 text-xs font-semibold text-white bg-red-600 rounded">
+                      <span className="inline-block px-2 py-0.5 text-xs font-semibold text-white bg-[#FCCD04]">
                         {news.category}
                       </span>
                     </div>
@@ -61,14 +61,14 @@ export function NewsDetailSidebar({ latestNews, popularNews }: NewsDetailSidebar
       </div>
 
       {/* Advertisement Section */}
-      <div className="bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg p-6 text-white text-center">
+      <div className="bg-gradient-to-br from-blue-500 to-purple-600  p-6 text-white text-center">
         <h3 className="text-lg font-bold mb-2">Advertisement</h3>
         <p className="text-sm opacity-90 mb-4">
           Your ad could be here. Contact us for advertising opportunities.
         </p>
         <Link 
           href="/advertise" 
-          className="inline-block px-4 py-2 bg-white text-blue-600 font-semibold rounded hover:bg-gray-100 transition-colors"
+          className="inline-block px-4 py-2 bg-white text-blue-600 font-semibold  hover:bg-gray-100 transition-colors"
         >
           Learn More
         </Link>
@@ -99,7 +99,7 @@ export function NewsDetailSidebar({ latestNews, popularNews }: NewsDetailSidebar
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="mb-1">
-                      <span className="inline-block px-2 py-0.5 text-xs font-semibold text-white bg-green-600 rounded">
+                      <span className="inline-block px-2 py-0.5 text-xs font-semibold text-white bg-[#FCCD04] ">
                         {news.category}
                       </span>
                     </div>
@@ -116,7 +116,7 @@ export function NewsDetailSidebar({ latestNews, popularNews }: NewsDetailSidebar
       </div>
 
       {/* Newsletter Signup */}
-      <div className="bg-yellow-50 rounded-lg border border-yellow-200 p-6">
+      <div className="bg-yellow-50  border border-yellow-200 p-6">
         <h3 className="text-lg font-bold text-gray-900 mb-2">Stay Updated</h3>
         <p className="text-sm text-gray-600 mb-4">
           Get the latest news delivered directly to your inbox.
@@ -125,11 +125,11 @@ export function NewsDetailSidebar({ latestNews, popularNews }: NewsDetailSidebar
           <input
             type="email"
             placeholder="Your email address"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#FCCD04] focus:border-transparent"
           />
           <button
             type="submit"
-            className="w-full px-4 py-2 bg-yellow-500 text-white font-semibold rounded-md hover:bg-yellow-600 transition-colors"
+            className="w-full px-4 py-2 bg-[#FCCD04] text-white font-semibold rounded-md hover:bg-yellow-600 transition-colors"
           >
             Subscribe
           </button>

@@ -32,9 +32,9 @@ export function NewsDetailContent({ article }: NewsDetailContentProps) {
       {/* Category and Meta Info */}
       <div className="space-y-4">
         <div className="flex items-center gap-2">
-          <span className="inline-block px-3 py-1 text-xs font-semibold text-white bg-blue-600 rounded">
+          {/* <span className="inline-block px-3 py-1 text-xs font-semibold text-white bg-blue-600 rounded">
             {article.category}
-          </span>
+          </span> */}
           <span className="text-sm text-gray-500">{article.publishedAt}</span>
         </div>
         

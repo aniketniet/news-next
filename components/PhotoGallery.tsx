@@ -31,6 +31,7 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({
   const [photos, setPhotos] = useState(initialPhotos);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const didMountRef = useRef(false);
 
   useEffect(() => {
     let active = true;
@@ -65,7 +66,12 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({
   };
 
   // Smooth scroll to top of gallery on page change (helps on mobile)
+  // Skip on initial mount to avoid auto-scrolling the homepage.
   useEffect(() => {
+    if (!didMountRef.current) {
+      didMountRef.current = true;
+      return;
+    }
     if (containerRef.current) {
       try {
         containerRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });

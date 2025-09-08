@@ -88,11 +88,11 @@ export function RelatedArticles({ articles, topNews }: RelatedArticlesProps) {
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="mb-1">
-                            <span className="inline-block px-2 py-0.5 text-xs font-semibold text-white bg-orange-600 rounded">
+                            <span className="inline-block px-2 py-0.5 text-xs font-semibold text-white bg-[#FCCD04]">
                               {news.category}
                             </span>
                           </div>
-                          <h3 className="font-semibold text-sm text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2 mb-1">
+                          <h3 className="font-semibold text-sm text-gray-900 group-hover:text-[#FCCD04] transition-colors line-clamp-2 mb-1">
                             {news.title}
                           </h3>
                           <p className="text-xs text-gray-500">
