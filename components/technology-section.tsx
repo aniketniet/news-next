@@ -41,7 +41,7 @@ export function TechnologySection({ stories }: TechnologySectionProps) {
         {stories.map((story) => (
           <article key={story.id} className="group cursor-pointer">
             <Link href={`/news/${story.id}`} className="block">
-              <div className="flex gap-4 p-4 rounded-lg hover:bg-gray-50 transition-colors duration-200">
+              <div className="flex gap-4 p-4  hover:bg-gray-50 transition-colors duration-200">
                 <div className="relative w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden">
                   <Image
                     src={story.image}
@@ -58,7 +58,7 @@ export function TechnologySection({ stories }: TechnologySectionProps) {
                     </span>
                     <span className="text-xs text-gray-500">{story.date}</span>
                   </div>
-                  <h3 className="font-bold text-gray-900 group-hover:text-yellow-600 transition-colors duration-200 line-clamp-2 mb-2">
+                  <h3 className="font-bold text-gray-900 group-hover:text-[#FCCD04] transition-colors duration-200 line-clamp-2 mb-2">
                     {story.title}
                   </h3>
                   <p className="text-sm text-gray-600 line-clamp-2">

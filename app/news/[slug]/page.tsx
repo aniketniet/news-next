@@ -7,6 +7,8 @@ import { NewsDetailSidebar } from "@/components/news-detail-sidebar";
 import { RelatedArticles } from "@/components/related-articles";
 import { fetchStory } from "@/lib/api/stories";
 
+export const dynamic = "force-dynamic";
+
 // Mock data - in real app, this would come from API/database
 // Build an Article object (matching NewsDetailContent) from API story
 function mapStoryToArticle(story: Awaited<ReturnType<typeof fetchStory>>) {
@@ -35,7 +37,7 @@ function mapStoryToArticle(story: Awaited<ReturnType<typeof fetchStory>>) {
 function mapList(list?: { story_id: number; story_title: string; published_date: string; image_url_medium: string | null; url_key: string }[]) {
   // console.log(list,"list");
   return (list || []).map(i => ({
-    id: i.story_id || String(i.story_id),
+  id: String(i.story_id),
     title: i.story_title,
     image: i.image_url_medium ? `${i.image_url_medium}` : '',
     category: 'NEWS',

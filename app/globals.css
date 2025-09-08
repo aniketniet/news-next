@@ -138,4 +138,7 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+  
+  /* react-loading-skeleton styles */
+  @import 'react-loading-skeleton/dist/skeleton.css';
 }

@@ -302,6 +302,8 @@ const tarotData = {
   promoSubtitle: "Discover your inner power with our tarot readings",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function HomePage() {
   // Fetch grouped stories (top + latest) and category news in parallel
   // NOTE: Increased limit & disabled cache for category news so that

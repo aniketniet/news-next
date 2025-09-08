@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { fetchGalleryImages, mapGalleryImagesToPhotos } from "@/lib/api/images";
+import Skeleton from "react-loading-skeleton";
 
 
 interface Photo {
@@ -131,7 +132,21 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({
 
       {/* Loading / Error */}
       {loading && (
-        <div className="py-8 text-center text-sm text-gray-500">Loading photos…</div>
+        <div className="mb-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          {Array.from({ length: itemsPerPage }).map((_, i) => (
+            <div key={i} className="rounded overflow-hidden">
+              <Skeleton height={0} style={{ paddingBottom: '75%' }} />
+              <div className="p-4">
+                <Skeleton height={20} width="80%" />
+                <div className="mt-2 flex items-center gap-2">
+                  <Skeleton height={12} width={80} />
+                  <Skeleton height={12} width={12} circle />
+                  <Skeleton height={12} width={80} />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       )}
       {error && !loading && (
         <div className="py-4 mb-4 text-center text-xs text-red-500">{error}</div>
@@ -142,7 +157,7 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({
         {currentPhotos.map((photo) => (
           <div
             key={photo.id}
-            className={`relative group overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ${
+            className={`relative group overflow-hidden hover:shadow-xl transition-shadow duration-300 ${
               photo.featured ? 'md:col-span-2 lg:col-span-1' : ''
             }`}
           >
