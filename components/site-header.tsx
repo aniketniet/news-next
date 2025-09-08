@@ -10,7 +10,7 @@ import { ProfileDropdown } from "./ProfileDropdown"
 export function SiteHeader() {
   const [query, setQuery] = useState("")
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const { user, logout } = useAuth()
+  const { user, logout, ready } = useAuth()
 
   const categories = [
     { label: "HOME", href: "/" },
@@ -70,13 +70,13 @@ export function SiteHeader() {
             Monday, March 22, 2020
           </div>
           <div className="flex items-center gap-4">
-            {user ? (
+            {ready && (user ? (
               <ProfileDropdown />
             ) : (
               <Link href="/login" className="hover:underline">
                 Login / Register
               </Link>
-            )}
+            ))}
             <div className="flex items-center gap-2 text-white/80">
               {/* Social Icons */}
               <a href="#" aria-label="Facebook" className="hover:text-white">
@@ -300,7 +300,7 @@ export function SiteHeader() {
           {/* Mobile Social & Login */}
           <div className="border-t p-4">
             <div className="flex items-center justify-between">
-              {user ? (
+              {ready && (user ? (
                 <div className="text-sm text-gray-700">
                   Welcome, {user.name}
                 </div>
@@ -308,7 +308,7 @@ export function SiteHeader() {
                 <Link href="/login" className="text-sm text-blue-600 font-medium">
                   Login / Register
                 </Link>
-              )}
+              ))}
               <div className="flex items-center gap-3">
                 <a href="#" aria-label="Facebook" className="text-gray-600">
                   <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">

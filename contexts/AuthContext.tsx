@@ -26,6 +26,7 @@ interface ApiResult {
 interface AuthContextType {
   user: User | null;
   loading: boolean;
+  ready: boolean;
   login: (email: string, password: string) => Promise<ApiResult>;
   register: (
     name: string,
@@ -59,6 +60,7 @@ function resolveBaseUrl(): string {
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(false);
+  const [ready, setReady] = useState(false);
 
   const api: AxiosInstance = useMemo(() => {
     const instance = axios.create({
@@ -90,18 +92,42 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return instance;
   }, []);
 
-  // Load stored user
+  // Load stored user (hydrate on app start)
   useEffect(() => {
-    const token = Cookies.get("auth_token");
-    const userData = localStorage.getItem("user_data");
-    if (token && userData) {
+    let cancelled = false
+    async function hydrate() {
       try {
-        setUser(JSON.parse(userData));
-      } catch {
-        Cookies.remove("auth_token");
-        localStorage.removeItem("user_data");
+        const token = Cookies.get("auth_token");
+        const userData = localStorage.getItem("user_data");
+        if (userData) {
+          try {
+            const parsed = JSON.parse(userData)
+            if (!cancelled) setUser(parsed)
+            return
+          } catch {
+            // fall through to refetch below
+            localStorage.removeItem("user_data")
+          }
+        }
+        if (token) {
+          try {
+            const profile = await fetchProfile(token)
+            const u: User = { id: String(profile.id), name: profile.name, email: profile.email }
+            if (!cancelled) {
+              setUser(u)
+              localStorage.setItem("user_data", JSON.stringify(u))
+            }
+          } catch (e) {
+            // token invalid; clear
+            Cookies.remove("auth_token")
+          }
+        }
+      } finally {
+        if (!cancelled) setReady(true)
       }
     }
+    hydrate()
+    return () => { cancelled = true }
   }, []);
 
   const persistSession = (
@@ -335,6 +361,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       value={{
         user,
         loading,
+  ready,
         login,
         register,
         forgotPassword,

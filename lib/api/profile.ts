@@ -35,6 +35,8 @@ export async function fetchProfile(token: string): Promise<ProfileData> {
     },
   });
 
+  console.log('fetchProfile response status:', res);
+
   if (!res.ok) {
     throw new Error(`Profile fetch failed: ${res.status}`);
   }

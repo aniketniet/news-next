@@ -34,6 +34,7 @@ export interface PaymentVerification {
   razorpay_signature: string;
   user_id: string;
   subscription_id: string;
+  amount: string; // in paise
 }
 
 import Cookies from 'js-cookie';
@@ -128,6 +129,7 @@ export async function verifyPayment(paymentData: PaymentVerification): Promise<b
         razorpay_signature: paymentData.razorpay_signature,
         user_id: paymentData.user_id,
         subscription_id: paymentData.subscription_id,
+        amount: paymentData.amount,
       }),
     });
 

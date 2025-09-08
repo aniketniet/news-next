@@ -21,7 +21,7 @@ declare global {
 }
 
 export default function SubscriptionPage() {
-  const { user } = useAuth();
+  const { user, ready } = useAuth();
   const router = useRouter();
   const [plans, setPlans] = useState<ParsedSubscriptionPlan[]>([]);
   const [loading, setLoading] = useState(true);
@@ -30,6 +30,7 @@ export default function SubscriptionPage() {
   const [success, setSuccess] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!ready) return;
     if (!user) {
       router.push("/login");
       return;
@@ -69,7 +70,7 @@ export default function SubscriptionPage() {
       setError(null);
 
       // Convert selling price to smallest currency unit (paise for INR)
-      const amount = Math.round(parseFloat(plan.selling_price) * 100);
+      const amount = Math.round(parseFloat(plan.selling_price));
 
       // Create Razorpay order
       const order = await createRazorpayOrder(amount);
@@ -95,6 +96,7 @@ export default function SubscriptionPage() {
               razorpay_signature: response.razorpay_signature,
               user_id: user.id.toString(),
               subscription_id: plan.id.toString(),
+              amount: amount.toString(),
             });
 
             if (verified) {
@@ -135,7 +137,7 @@ export default function SubscriptionPage() {
     }
   };
 
-  if (!user) {
+  if (!ready || !user) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">

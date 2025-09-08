@@ -8,7 +8,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/footer";
 
 export default function ProfilePage() {
-  const { user, updateProfile, loading } = useAuth();
+  const { user, updateProfile, loading, ready } = useAuth();
   const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
@@ -17,7 +17,10 @@ export default function ProfilePage() {
   });
   const [message, setMessage] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
 
+  console.log('Rendering ProfilePage, user:', user);
+
   useEffect(() => {
+    if (!ready) return;
     if (!user) {
       router.push("/login");
       return;
@@ -26,7 +29,7 @@ export default function ProfilePage() {
       name: user.name,
       email: user.email,
     });
-  }, [user, router]);
+  }, [user, ready, router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -55,7 +58,7 @@ export default function ProfilePage() {
     setMessage(null);
   };
 
-  if (!user) {
+  if (!ready || !user) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
