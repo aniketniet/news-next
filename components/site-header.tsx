@@ -7,12 +7,18 @@ import { useAuth } from "@/contexts/AuthContext";
 import { fetchBreakingNews, mapBreakingTitles } from "@/lib/api/breakingNews";
 import { ProfileDropdown } from "./ProfileDropdown";
 import { useRouter } from "next/navigation";
+import { fetchEpaper, type EpaperLanguage } from "@/lib/api/epaper";
 
 export function SiteHeader() {
   const [query, setQuery] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, logout, ready } = useAuth();
   const router = useRouter();
+  const [epaperOpen, setEpaperOpen] = useState(false);
+  const [mobileEpaperOpen, setMobileEpaperOpen] = useState(false);
+  const [epaperLoading, setEpaperLoading] = useState(false);
+  const [epaperError, setEpaperError] = useState<string | null>(null);
+  const [epaperData, setEpaperData] = useState<EpaperLanguage[] | null>(null);
 
   const onSearchSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -20,6 +26,20 @@ export function SiteHeader() {
     if (q) {
       router.push(`/search?q=${encodeURIComponent(q)}`);
       setIsMenuOpen(false);
+    }
+  };
+
+  const ensureEpaperLoaded = async () => {
+    if (epaperData || epaperLoading) return;
+    try {
+      setEpaperLoading(true);
+      setEpaperError(null);
+      const data = await fetchEpaper();
+      setEpaperData(data);
+    } catch (e: any) {
+      setEpaperError(e?.message || "Failed to load e-paper");
+    } finally {
+      setEpaperLoading(false);
     }
   };
 
@@ -80,9 +100,9 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 w-full bg-white shadow-sm">
       {/* Top Black Bar - Desktop Only */}
-      <div className=" bg-black text-white text-xs">
+      <div className="hidden lg:block bg-black text-white text-xs">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 h-9">
-          <div className="whitespace-nowrap hidden lg:block">Monday, March 22, 2020</div>
+          <div className="flex-1" />
           <div className="flex items-center gap-4">
             {ready &&
               (user ? (
@@ -277,16 +297,76 @@ export function SiteHeader() {
       <nav className="hidden lg:block bg-[#FCCD04]">
         <div className="mx-auto max-w-7xl">
           <ul className="flex items-center px-4 text-sm font-bold text-black">
-            {categories.map((category) => (
-              <li key={category.label}>
-                <Link
-                  href={category.href}
-                  className="block px-4 py-3 hover:bg-yellow-300 transition-colors whitespace-nowrap"
-                >
-                  {category.label}
-                </Link>
-              </li>
-            ))}
+            {categories.map((category) => {
+              if (category.label === "E-PAPER") {
+                return (
+                  <li
+                    key={category.label}
+                    className="relative"
+                    onMouseEnter={() => {
+                      setEpaperOpen(true);
+                      void ensureEpaperLoaded();
+                    }}
+                    onMouseLeave={() => setEpaperOpen(false)}
+                  >
+                    <button
+                      type="button"
+                      className="block px-4 py-3 hover:bg-yellow-300 transition-colors whitespace-nowrap"
+                      aria-haspopup="menu"
+                      aria-expanded={epaperOpen}
+                    >
+                      {category.label}
+                    </button>
+
+                    {epaperOpen && (
+                      <div className="absolute left-0 top-full mt-0.5 w-[min(92vw,480px)] max-h-[70vh] overflow-auto bg-white border shadow-lg rounded-md p-4 z-50">
+                        {epaperLoading && (
+                          <div className="text-sm text-gray-500 px-2 py-4">Loading editions…</div>
+                        )}
+                        {epaperError && !epaperLoading && (
+                          <div className="text-xs text-red-500 px-2 py-2">{epaperError}</div>
+                        )}
+                        {epaperData && epaperData.length > 0 && (
+          <div className="space-y-4">
+                            {epaperData.map((lang) => (
+                              <div key={lang.language}>
+                                <div className="text-gray-800 font-semibold mb-2">{lang.language}</div>
+            <div className="flex flex-col gap-1">
+                                  {lang.locations.map((loc) => (
+                                    <a
+                                      key={`${lang.language}-${loc.location}-${loc.published_date}`}
+                                      href={loc.pdf_url}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+              className="flex items-center gap-3 rounded border border-gray-100 hover:border-gray-200 hover:bg-gray-50 px-3 py-2 text-sm"
+                                    >
+              <span className="text-gray-700">{loc.location}</span>
+                                    </a>
+                                  ))}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                        {!epaperLoading && (!epaperData || epaperData.length === 0) && !epaperError && (
+                          <div className="text-sm text-gray-500 px-2 py-4">No editions available</div>
+                        )}
+                      </div>
+                    )}
+                  </li>
+                );
+              }
+              return (
+                <li key={category.label}>
+                  <Link
+                    href={category.href}
+                    className="block px-4 py-3 hover:bg-yellow-300 transition-colors whitespace-nowrap"
+                  >
+                    {category.label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </nav>
@@ -333,17 +413,74 @@ export function SiteHeader() {
           {/* Mobile Navigation */}
           <nav className="px-4 py-2">
             <ul className="space-y-1">
-              {categories.map((category) => (
-                <li key={category.label}>
-                  <Link
-                    href={category.href}
-                    className="block py-3 text-gray-800 font-medium border-b border-gray-100 last:border-b-0"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {category.label}
-                  </Link>
-                </li>
-              ))}
+              {categories.map((category) => {
+                if (category.label === "E-PAPER") {
+                  return (
+                    <li key={category.label} className="border-b border-gray-100">
+                      <button
+                        type="button"
+                        className="w-full flex items-center justify-between py-3 text-gray-800 font-medium"
+                        onClick={async () => {
+                          const open = !mobileEpaperOpen;
+                          setMobileEpaperOpen(open);
+                          if (open) await ensureEpaperLoaded();
+                        }}
+                        aria-expanded={mobileEpaperOpen}
+                        aria-controls="mobile-epaper-panel"
+                      >
+                        <span>{category.label}</span>
+                        <span className="text-gray-500">{mobileEpaperOpen ? "−" : "+"}</span>
+                      </button>
+          {mobileEpaperOpen && (
+                        <div id="mobile-epaper-panel" className="pb-3">
+                          {epaperLoading && (
+                            <div className="text-sm text-gray-500 py-2">Loading editions…</div>
+                          )}
+                          {epaperError && !epaperLoading && (
+                            <div className="text-xs text-red-500 py-2">{epaperError}</div>
+                          )}
+                          {epaperData && epaperData.length > 0 && (
+            <div className="space-y-3">
+                              {epaperData.map((lang) => (
+                                <div key={`m-${lang.language}`} className="">
+                                  <div className="text-gray-800 font-semibold mb-1">{lang.language}</div>
+              <div className="flex flex-col gap-1">
+                                    {lang.locations.map((loc) => (
+                                      <a
+                                        key={`m-${lang.language}-${loc.location}-${loc.published_date}`}
+                                        href={loc.pdf_url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                className="flex items-center gap-3 rounded border border-gray-100 hover:border-gray-200 px-3 py-2 text-sm"
+                                      >
+                <span className="text-gray-700">{loc.location}</span>
+                                      </a>
+                                    ))}
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                          {!epaperLoading && (!epaperData || epaperData.length === 0) && !epaperError && (
+                            <div className="text-sm text-gray-500 py-2">No editions available</div>
+                          )}
+                        </div>
+                      )}
+                    </li>
+                  );
+                }
+                return (
+                  <li key={category.label}>
+                    <Link
+                      href={category.href}
+                      className="block py-3 text-gray-800 font-medium border-b border-gray-100 last:border-b-0"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {category.label}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </nav>
 
