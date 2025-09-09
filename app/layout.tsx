@@ -7,9 +7,13 @@ import './globals.css'
 import { ScrollToTop } from '@/components/scroll-to-top'
 
 export const metadata: Metadata = {
-  title: 'Daily Pioneer',
+  title:"English News Paper | Breaking News | Latest Today News in English | News Headlines India - The Pioneer",
   description: 'Created with Daily Pioneer',
   generator: 'Daily Pioneer',
+  icons: {
+    icon: '/logo.png',
+  },
+  manifest: '/site.webmanifest',
 }
 
 export default function RootLayout({
