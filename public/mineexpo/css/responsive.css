@@ -1,0 +1,2813 @@
+
+
+
+
+/*
+  Template Name: Eventador - Premium Event, Conference & Meeting Landing Pages Pack
+  Theme URL: https://themeforest.net/user/dsathemes
+  Description: Eventador - Premium Event, Conference & Meeting Landing Pages Pack
+  Author: DSAThemes
+  Author URL: https://themeforest.net/user/dsathemes
+  Version: 1.1.0
+  Website: www.dsathemes.com
+  Tags: Responsive, HTML5, DSAThemes, Conference, Meeting, Event, One Page, Landing
+*/
+
+
+
+
+/* ------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------ */
+
+@media (min-width: 1921px) {
+
+
+
+
+}
+
+
+
+/* ------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------ */
+
+@media (min-width: 1200px) {
+
+
+
+}
+
+
+
+
+/* ------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------ */
+
+@media (min-width: 992px) and (max-width: 1199.99px) {
+
+    html { font-size: 15px; } 
+ 
+    /*------------------------------------------*/
+    /*   BASE
+    /*------------------------------------------*/
+
+    .wide-120 { padding-top: 100px; padding-bottom: 100px; }
+    .wide-110 { padding-top: 100px; padding-bottom: 100px; }
+    .wide-100 { padding-top: 80px; padding-bottom: 80px; }
+    .wide-90 { padding-top: 80px; padding-bottom: 70px; }
+    .wide-80 { padding-top: 80px; padding-bottom: 60px; }
+    .wide-70 { padding-top: 80px; padding-bottom: 50px; }
+    .wide-60 { padding-top: 80px; padding-bottom: 40px; }
+    .wide-50 { padding-top: 80px; padding-bottom: 30px; }
+    .wide-40 { padding-top: 80px; padding-bottom: 20px; }
+    .wide-30 { padding-top: 80px; padding-bottom: 10px; }
+
+    .p-left-0, .p-left-5, .p-left-10, .p-left-15, .p-left-20, .p-left-25, .p-left-30, .p-left-35 { padding-left: 8px; }
+    .p-left-40, .p-left-45, .p-left-50 { padding-left: 20px; }
+
+    .p-right-0, .p-right-5, .p-right-10, .p-right-15, .p-right-20, .p-right-25, .p-right-30, .p-right-35 { padding-right: 8px; }
+    .p-right-40, .p-right-45, .p-right-50 { padding-right: 20px; }
+
+    /* Header H5 */
+    h5.h5-small { font-size: 0.95rem; }
+    h5 { font-size: 1rem;}
+    h5.h5-medium { font-size: 1.05rem; }
+    h5.h5-lg { font-size: 1.05rem; }
+
+    /* Header H4 */
+    h4.h4-small { font-size: 1.15rem; }
+    h4 { font-size: 1.2rem; }
+    h4.h4-medium { font-size: 1.35rem; }
+    h4.h4-lg { font-size: 1.45rem; }
+
+    /* Header H3 */
+    h3.h3-small {font-size: 1.6rem; }
+    h3 { font-size: 1.75rem; }
+    h3.h3-medium { font-size: 1.85rem; }
+    h3.h3-lg { font-size: 2rem; }
+
+    /* Header H2 */
+    h2.h2-small { font-size: 2.15rem; }
+    h2 { font-size: 2.25rem; margin-bottom: 1.35rem; }
+    h2.h2-medium { font-size: 2.35rem; }
+    h2.h2-lg { font-size: 2.4rem; }
+
+    /* Header H2 Banner */
+    h2.banner-small { font-size: 2.65rem; }
+    h2.banner-regular { font-size: 2.9rem; line-height: 1.2; letter-spacing: -1px; }
+    h2.banner-medium { font-size: 3.15rem; }
+    h2.banner-lg { font-size: 3.15rem; letter-spacing: -2px; }
+
+    /* Paragraphs */
+    p.p-medium {font-size: 1.05rem; line-height: 1.5; }
+    p.p-lg { font-size: 1.05rem; }
+
+    /* Button */
+    .btn { font-size: 0.95rem; padding: 0.85rem 1.75rem; margin-top: 1.15rem; }
+
+    .btn.btn-medium { padding: 0.95rem 2rem; }
+    .btn.btn-lg { font-size: 1.15rem;  padding: 1.15rem 2.35rem;  }
+
+    /* Countdown Element */
+    #clock .cbox { padding: 0 30px; }
+    #banner-4 #clock .cbox { padding: 25px; margin-right: 10px; }
+
+    #clock span.cbox-digit { font-size: 3.85rem; }
+
+    /* Section ID */
+    span.section-id { font-size: 0.85rem; margin-bottom: 2rem;  }
+
+    /* Section Title */
+    .section-title { margin-bottom: 3rem; }
+    .section-title p { font-size: 1.1rem; margin-top: 1.05rem; }
+
+    /*------------------------------------------*/
+    /*   NAVIGATION MENU    
+    /*------------------------------------------*/
+
+    .navbar-expand-lg .navbar-nav .nav-link { font-size: 1rem; padding: 0.65rem 1.1rem; }
+    .navbar .btn {  font-size: 0.95rem;}
+
+    /*------------------------------------------*/
+    /*   HERO
+    /*------------------------------------------*/
+
+    .hero-row-220 { padding-top: 220px; padding-bottom: 180px; }
+    .hero-row-200 { padding-top: 200px; padding-bottom: 160px; }
+    .hero-row-180 { padding-top: 180px; padding-bottom: 140px; }
+    .hero-row-160 { padding-top: 160px; padding-bottom: 120px; }
+
+    #hero-1 .hero-row-200 { padding-bottom: 90px; }
+    #hero-4 .hero-row-200 { padding-bottom: 80px; }
+    #hero-6 .hero-row-160 { padding-bottom: 240px; }
+    #hero-11 .hero-row-200 { padding-bottom: 110px; }
+    #hero-12 .hero-row-220 { padding-bottom: 90px; }
+
+    /* Hero Text */
+    #hero-2 .hero-txt { padding: 100px 0 100px 50px; }
+    .square { width: 50%; }
+    .inner { border-left: 6px solid #e35029; border-bottom: 6px solid #e35029; border-top: 6px solid #e35029; }
+    .inner:before, .inner:after { border-right: 6px solid #e35029; }
+
+    #hero-6 .hero-txt:before { width: 400px; height: 80px;border: 10px solid #feca16; border-bottom: 0; }
+    #hero-6 .hero-txt:after { width: 400px; height: 80px;border: 10px solid #feca16; border-top: 0; bottom: -95px; }
+
+    #hero-10 .hero-txt { padding: 60px; }
+
+    /* Hero H4 Header */
+    #hero-3 h4 { font-size: 1.75rem; }
+    #hero-4 h4 { font-size: 1.15em; }
+    #hero-5 h4 { font-size: 1.75rem; }
+    #hero-5 span { font-size: 1.5rem; }
+    #hero-6 h4 { font-size: 1.25rem; }
+    #hero-7 h4 { font-size: 1.1rem; }
+    #hero-8 h4 { font-size: 1.4rem; }
+    #hero-9 h4 { font-size: 1.25rem; margin-bottom: 40px; }
+    #hero-10 h4 { font-size: 1.2rem; }
+    #hero-11 h4 {  font-size: 1.35rem; }
+    #hero-12 h4 { font-size: 1.05em; }
+
+    /* Hero H3 Header */
+    #hero-2 h3 { font-size: 0.8rem; }
+    #hero-3 h3 { font-size: 2.75rem; letter-spacing: 10px; }
+    #hero-4 h3 { font-size: 1.45rem; }
+    #hero-5 h3 { font-size: 3rem; }
+    #hero-6 h3 { font-size: 1.5rem; padding: 0 15%; }
+    #hero-7 span { font-size: 1.4rem; }
+    #hero-8 h3 { font-size: 1.35rem; }
+    #hero-9 h3 { font-size: 1.25rem; margin-top: 45px; padding: 0 12%; }
+    #hero-10 h3 { font-size: 1.05rem; }
+    #hero-11 h3 { font-size: 1.85rem; padding: 0.9rem 2.25rem; margin-top: 3rem; }
+    #hero-12 h3 { font-size: 2.25rem; letter-spacing: 23px; }
+
+    /* Hero H2 Header */
+    #hero-1 h2 { font-size: 6.15rem; letter-spacing: -2px; margin-bottom: 15px; }
+    #hero-2 h2 { font-size: 5.25rem; }
+    #hero-3 h2 { font-size: 6.75rem; letter-spacing: 5px; margin-bottom: 15px; }
+    #hero-4 h2 { font-size: 5.25rem; }
+    #hero-5 h2 { font-size: 4.5rem; }
+    #hero-5 h2.io { font-size: 12rem; letter-spacing: -13px; }
+    #hero-6 h2 { font-size: 5.25rem; }
+    #hero-7 h2 { font-size: 5.25rem; }
+    #hero-8 h2 { font-size: 5.25rem; }
+    #hero-10 h2 { font-size: 5.25rem; letter-spacing: 1px; margin-bottom: 10px; }
+    #hero-11 h2 { font-size: 7.75rem; letter-spacing: 4px; }
+    #hero-11 h2:after { left: 15px; top: 40px;  }
+    #hero-11 h2:before {left: 5px; bottom: 15px; }
+    #hero-12 h2 { font-size: 6.25rem; }
+
+    /* Hero Paragraphs */
+    #hero-1 p { font-size: 1.25rem; padding-right: 15%; }
+    #hero-2 p { font-size: 1.25rem; padding-right: 0; }
+    #hero-3 p { font-size: 1.25rem; }
+    #hero-4 p { font-size: 1.25rem; padding-right: 15%; }
+
+    /* Hero Badge */
+    .hero-badge { right: 13% ;bottom: 2%; }
+    .hero-badge-text { padding: 35px 30px; }
+    .hero-badge .hero-badge-text span {font-size: 2.15rem; letter-spacing: 0; }
+    .hero-badge-text h5 {font-size: 1.15rem; }
+
+    /* Hero Data */
+    #hero-1 .hero-data, #hero-11 .hero-data, #hero-12 .hero-data { padding: 0 10px 90px; }
+    #hero-4 .hero-data { padding: 0 0 90px; }
+
+    #hero-4 .hero-data span { font-size: 1.1rem; }
+    #hero-11 .event-data span { display: block; font-size: 1.1rem; }
+    #hero-12 .hero-data span { font-size: 1.25rem; }
+
+    /* Hero Socials */
+    .hero-social span { font-size: 1rem; line-height: 1.45rem; }
+    .hero-social a { font-size: 1.45rem; margin: 0 5px; }
+
+    /*------------------------------------------*/
+    /*   INNER PAGE HERO
+    /*------------------------------------------*/
+
+    .page-hero-section { padding-top: 150px; padding-bottom: 130px; }
+    .page-hero-section h2.banner-medium { font-size: 2.75rem; }
+    .page-hero-section span { font-size: 1.5rem; }
+
+    .inner-page-title.m-bottom-80 { margin-bottom: 60px; }
+    .inner-page-title p { font-size: 1.15rem; font-weight: 500; line-height: 1.4; }
+
+    /*------------------------------------------*/
+    /*   CONTENT
+    /*------------------------------------------*/
+
+    /* About */
+    #about-3 { padding-top: 100px; }
+    #about-5 .section-id { margin-bottom: 2.5rem; }
+
+    .singnature { margin-top: 30px; }
+    .singnature p.p-small { margin-bottom: 15px; }
+
+    #about-2 .about-txt p.m-bottom-30 { margin-bottom: 25px; }
+
+    #about-1 .about-img.grey-bg { padding-left: 50px; }
+    #about-2 .about-img.grey-bg { padding-right: 40px; }
+
+    #inner-page-about h4.h4-lg.m-bottom-20 { margin-bottom: 15px; }
+    #inner-page-about h4.h4-lg.m-top-30 { margin-top: 18px; }
+
+    #inner-page-about .about-info.m-bottom-35 { margin-bottom: 25px; }
+    .about-info span { font-size: 1.05rem; }
+
+    /* Features */
+    .fbox h4, .features-txt h4 { margin-bottom: 15px; }
+    .features-txt h4.m-top-30 { margin-top: 20px; }
+    .fbox p.m-bottom-25 { margin-bottom: 20px; }
+
+    ul.features-list li { margin-bottom: 10px; }
+
+    .fea-social { margin-top: 25px; margin-right: 0; }
+
+    /* Banner */
+    #banner-1 { padding-top: 60px; padding-bottom: 60px; }
+    #banner-2 { padding-top: 100px; padding-bottom: 100px; }
+    #banner-3 { padding-top: 50px; padding-bottom: 50px; }
+    #banner-4 { padding-top: 80px; padding-bottom: 80px; }
+    #banner-5 { padding-top: 110px; padding-bottom: 110px; }
+
+    #banner-4 .countdown { margin-top: 25px; margin-bottom: 15px; }
+
+    #banner-1 h3 { margin-bottom: 5px; }
+    #banner-4 h2 { margin-bottom: 5px; }
+
+    #banner-2 p { font-size: 1.25rem; margin-top: 15px; margin-bottom: 10px; padding-right: 10%; }
+    #banner-5 p { font-size: 1.15rem; padding-right: 0; }
+
+    /* Media */
+    #media-4 { padding-top: 180px; padding-bottom: 180px; }
+
+    .media-txt h2 { margin-bottom: 15px; }
+    .media-txt p.m-bottom-30, .media-txt p.m-bottom-35 { margin-bottom: 25px; }
+
+    .play-icon-red, .play-icon-white { margin-top: -55px; margin-left: -55px; }
+
+    /* Schedule */
+    .nav-tabs { margin-bottom: 50px; }
+    .nav-tabs .nav-link { font-size: 1.05rem; padding: 0.75rem 0; }
+
+    .schedule-buttons.m-top-20, .schedule-buttons.m-top-30 { margin-top: 10px; }
+
+    .agenda-tittle { margin-top: 20px; margin-bottom: 60px; padding: 20px 30px; }
+    .agenda-tittle span { font-size: 1rem; }
+
+    /* Pricing */
+    .pricing-table { padding: 40px 40px 10px; }
+
+    .pricing-plan span { font-size: 4.15rem; margin-left: 4px; }
+    .pricing-table sup { font-size: 2rem; top: -20px; }
+
+    .pricing-table ul.features { padding: 20px 0; }
+    .pricing-table .btn { padding: 0.75rem 0; margin-top: 10px; margin-bottom: 30px; }
+
+    .pricing-discount { margin-top: 0; }
+
+    /* Sponsors */
+    #sponsors-3 .col-md-12.m-bottom-40 { margin-bottom: 30px; }
+    #sponsors-3 .col-md-12.m-top-40.m-bottom-40 { margin-top: 10px; margin-bottom: 30px; }
+    #sponsors-2 .col-lg-12.m-bottom-45 { margin-bottom: 30px; } 
+    .become-a-sponsor { margin-top: 30px; }
+
+    .sponsor { width: 25%; }
+    .become-a-sponsor .btn.m-right-20 { margin-right: 15px; }
+
+    /* Blog */
+    #single-post-page { padding-top: 140px;padding-bottom: 70px; }
+    .blog-post-img.m-top-50.m-bottom-50 { margin-top: 40px; margin-bottom: 40px; }
+
+    p.psub-t { margin-top: 25px; margin-bottom: 25px; }
+    .psub-h { padding-top: 30px; padding-bottom: 30px; margin-top: 30px; margin-bottom: 30px; }
+
+    .post-tags-list { margin-top: 50px; margin-bottom: 30px; }
+
+    .single-post-comments { margin-top: 60px; padding-top: 50px; padding-bottom: 50px; margin-bottom: 60px; }
+
+    .all-posts-btn.m-top-20 { margin-top: 0; }
+    .all-posts-btn .btn { margin-top: 10px; }
+
+    /* Venue */
+    #venue-1 .venue-info { margin-top: 0; }
+    #venue-1 .venue-info h3 { margin-bottom: 15px; }
+
+    #venue-1 .maps-link { margin-top: 20px; }
+    #venue-1 .venue-add-info { margin-top: 35px; }
+
+    #venue-1 .transport { margin: 60px 15px 0; }
+    #venue-2 .transport-data { margin-bottom: 30px; }
+
+    .transport-data h4 { margin-bottom: 10px; }
+    #venue-2 .venue-add-info h4 { margin-bottom: 10px; }
+    .transport-data p { margin-bottom: 15px; }
+
+    #gmap { height: 340px; }
+    .gmap { margin-bottom: 25px; }
+    #inner-page-venue .gmap { margin-bottom: 70px; }
+
+    /* Hotels */  
+    #hotels-1 h2 { font-size: 4.75rem; }
+    #hotels-1 p { font-size: 1.2rem; }
+
+    .find-hotels-btn { margin-top: 30px; }
+    .find-hotels-btn .btn { margin-top: 0; }
+    .find-hotels-btn .btn.m-right-20 { margin-right: 15px; }
+
+    #hotels-2 .find-hotels { margin-top: 10px; }
+    #hotels-2 .find-hotels-btn { margin-top: 25px; }
+
+    /* Community */
+    #community p { font-size: 1.2rem; padding: 0 12%; margin-bottom: 25px;  }
+    .community-icons a { width: 60px; height: 60px; font-size: 23px; line-height: 56px !important; margin: 0 3px; }
+
+    /* Newsletter */
+    #newsletter-1, #newsletter-2 { padding-top: 80px; padding-bottom: 60px; } 
+    #newsletter-1 .newsletter-txt { margin-bottom: 50px; }
+    #newsletter-2 .newsletter-txt { margin-bottom: 20px; }
+    #newsletter-1 h2.h2-lg { font-size: 2.35rem; }
+
+    .newsletter-form .form-control { height: 48px; font-size: 1.5rem; padding: 0px 5px; }
+    #newsletter-1 .newsletter-form .btn { height: 48px; padding: 0.95rem 5rem; }
+    #newsletter-2 .newsletter-form .btn { height: 48px; padding: 0.5rem 4rem;}
+
+    /* Register Form */
+    #register-form .form-control { height: 46px; font-size: 1.05rem; }
+    #register-form #form_register_btn .btn { height: 46px; }
+
+    /* Footer */
+    .footer { padding-top: 80px; padding-bottom: 50px; }
+    .footer h4 { margin-bottom: 20px; }
+    .footer-info p { font-size: 1.1rem; margin-bottom: 3px; }
+
+    /* Event Statistic */
+    #event-statistic { padding-top: 60px; padding-bottom: 60px; }
+    #event-statistic .statistic-block { padding: 0 15%; }
+    .s-number { font-size: 3.15rem; letter-spacing: 0; margin-bottom: 8px; }
+
+
+
+}
+
+
+
+/* ------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------ */
+
+@media (min-width: 768px) and (max-width: 991.99px) {	
+
+    html { font-size: 14px; } 
+
+    /* PRELOAD ANIMATION */
+    #loader { margin: -30px 0 0 -30px; }
+    .sk-folding-cube { display: block;width: 60px; height: 60px; }
+
+    /*------------------------------------------*/
+    /*   BASE
+    /*------------------------------------------*/
+
+    .wide-120 { padding-top: 100px; padding-bottom: 100px; }
+    .wide-110 { padding-top: 100px; padding-bottom: 100px; }
+    .wide-100 { padding-top: 80px; padding-bottom: 80px; }
+    .wide-90 { padding-top: 80px; padding-bottom: 70px; }
+    .wide-80 { padding-top: 80px; padding-bottom: 60px; }
+    .wide-70 { padding-top: 80px; padding-bottom: 50px; }
+    .wide-60 { padding-top: 80px; padding-bottom: 40px; }
+    .wide-50 { padding-top: 80px; padding-bottom: 30px; }
+    .wide-40 { padding-top: 80px; padding-bottom: 20px; }
+    .wide-30 { padding-top: 80px; padding-bottom: 10px; }
+
+    .p-left-0, .p-left-5, .p-left-10, .p-left-15, .p-left-20, .p-left-25, .p-left-30, .p-left-35 { padding-left: 0; }
+    .p-left-40, .p-left-45, .p-left-50 { padding-left: 5px; }
+
+    .p-right-0, .p-right-5, .p-right-10, .p-right-15, .p-right-20, .p-right-25, .p-right-30, .p-right-35 { padding-right: 0; }
+    .p-right-40, .p-right-45, .p-right-50 { padding-right: 5px; }
+
+    /* Header H5 */
+    h5.h5-small { font-size: 0.9rem; }
+    h5 { font-size: 1rem;}
+    h5.h5-medium { font-size: 1.1rem; }
+    h5.h5-lg { font-size: 1.1rem; }
+
+    /* Header H4 */
+    h4.h4-small { font-size: 1.175rem; }
+    h4 { font-size: 1.215rem; }
+    h4.h4-medium { font-size: 1.2875rem; }
+    h4.h4-lg { font-size: 1.35rem; }
+
+    /* Header H3 */
+    h3.h3-small {font-size: 1.4125rem; }
+    h3 { font-size: 1.4825rem; }
+    h3.h3-medium { font-size: 1.55rem; }
+    h3.h3-lg { font-size: 1.625rem; }
+
+    /* Header H2 */
+    h2.h2-small { font-size: 1.7rem; }
+    h2 { font-size: 1.85rem; margin-bottom: 1.35rem; }
+    h2.h2-medium { font-size: 2rem; }
+    h2.h2-lg { font-size: 2rem; }
+
+    /* Header H2 Banner */
+    h2.banner-small { font-size: 2.3rem; }
+    h2.banner-regular { font-size: 2.6rem; line-height: 1.2; letter-spacing: -1px; }
+    h2.banner-medium { font-size: 2.6rem; }
+    h2.banner-lg { font-size: 2.6rem; letter-spacing: -2px; }
+
+    /* Paragraphs */
+    p.p-medium {font-size: 1rem; line-height: 1.5; }
+    p.p-lg { font-size: 1rem; }
+
+    /* Button */
+    .btn { font-size: 0.9rem; padding: 0.85rem 1.7rem; margin-top: 1rem; }
+
+    .btn.btn-medium { padding: 0.9rem 1.8rem; }
+    .btn.btn-lg { font-size: 1rem;  padding: 1rem 2.15rem;  }
+
+    /* Countdown Element */
+    #clock .cbox { padding: 0 20px; }
+    #hero-12 #clock .cbox { padding: 0 25px; }
+    #banner-4 #clock .cbox { padding: 20px; margin-right: 10px; }
+
+    #clock span.cbox-digit { font-size: 2.85rem; }
+    #hero-12 #clock span.cbox-digit { font-size: 3.15rem; }
+    #clock span.cbox-txt { font-size: 12px; line-height: 12px; padding-top: 10px; }
+
+    /* Section ID */
+    span.section-id { font-size: 0.8rem; margin-bottom: 1.75rem;  }
+
+    /* Section Title */
+    .section-title { margin-bottom: 2.5rem; }
+    .section-title p { font-size: 1.1rem; margin-top: 1.05rem; }
+
+    /*------------------------------------------*/
+    /*   NAVIGATION MENU    
+    /*------------------------------------------*/
+
+    .bg-light { background-color: #fff!important; box-shadow: 0 0 2px rgba(50, 50, 50, 0.4); }
+    .navbar { text-align: center; }
+    .dropdown-menu { text-align: center; padding: 0; margin-top: 0; border-top: none; -webkit-border-radius: 0; -moz-border-radius: 0; border-radius: 0; }
+    .dropdown-divider { margin: 5px 0; }
+    .dropdown-item { padding: 10px 0; }
+
+    .navbar.bg-tra  { padding: 0.75rem 1rem; background-color: #fff!important; box-shadow: 0 0 2px rgba(50, 50, 50, 0.4); }
+
+    .logo-white, .navbar-light.bg-tra .logo-white, .navbar-light.bg-light .logo-white, 
+    .navbar-dark.bg-tra .logo-white, .navbar-dark.bg-dark .logo-white { display: none; }
+
+    .navbar-dark.bg-tra .logo-black, .navbar-light.bg-tra .logo-black, 
+    .logo-black, .navbar-light.bg-light .logo-black { display: block; }
+
+    .bg-tra.navbar-dark .nav-link { color: #333; }
+    .bg-tra.navbar-dark .navbar-nav .active > .nav-link { color: rgba(0,0,0,.9); }
+    .navbar-dark .nav-link:focus, .navbar-dark .nav-link:hover { color: #333; background-color: rgba(200, 200, 200, 0.35); }
+    .navbar-dark .navbar-nav .nav-link:focus, .navbar-dark .navbar-nav .nav-link:hover { color: #333; }
+
+    .navbar-nav { padding-top: 15px; }
+    .navbar-expand-lg .navbar-nav .nav-link { padding: 10px 0; margin-left: 0; -webkit-border-radius: 0;-moz-border-radius: 0; border-radius: 0; }
+    .navbar-text { padding: 10px 0; margin-top: 2px; }
+ 
+    .navbar .btn { width: 100%; margin-top: 5px; margin-left: 0; }
+    .navbar .btn-tra-white { color: #444; border-color: #444; }
+    .navbar .btn-tra-white:before { background-color: rgba(0, 0, 0, 0.75); }
+    .navbar .btn-tra-white:hover { color: #fff;}
+
+    .navbar.scroll.bg-tra { padding: 0.75rem 0; }
+
+    /*------------------------------------------*/
+    /*   HERO
+    /*------------------------------------------*/
+
+    .hero-section { margin-top: 60px; }
+
+    .hero-row-220 { padding-top: 170px; padding-bottom: 170px; }
+    .hero-row-200 { padding-top: 150px; padding-bottom: 150px; }
+    .hero-row-180 { padding-top: 130px; padding-bottom: 130px; }
+    .hero-row-160 { padding-top: 120px; padding-bottom: 120px; }
+
+    #hero-1 .hero-row-200 { padding-bottom: 70px; }
+    #hero-4 .hero-row-200 { padding-bottom: 70px; }
+    #hero-6 .hero-row-160 { padding-bottom: 220px; }
+    #hero-11 .hero-row-200 { padding-bottom: 100px; }
+    #hero-12 .hero-row-220 { padding-bottom: 70px; }
+
+    /* Hero Text */
+    #hero-2 .hero-txt { padding: 80px 0 80px 40px; }
+    .square { width: 48%; }
+    .inner { border-left: 5px solid #e35029; border-bottom: 5px solid #e35029; border-top: 5px solid #e35029; }
+    .inner:before, .inner:after { height: 14%; border-right: 5px solid #e35029; }
+
+    #hero-6 .hero-txt:before { width: 350px; height: 70px; border: 8px solid #feca16; border-bottom: 0; }
+    #hero-6 .hero-txt:after { width: 350px; height: 70px; border: 8px solid #feca16; border-top: 0; bottom: -90px; }
+
+    #hero-10 .hero-txt { padding: 50px; }
+
+    /* Hero H4 Header */
+    #hero-3 h4 { font-size: 1.35rem; }
+    #hero-4 h4 { font-size: 1.05em; }
+    #hero-5 h4 { font-size: 1.6rem; }
+    #hero-5 span { font-size: 1.5rem; }
+    #hero-6 h4 { font-size: 1.2rem; }
+    #hero-7 h4 { font-size: 1.05rem; }
+    #hero-8 h4 { font-size: 1.3rem; }
+    #hero-9 h4 { font-size: 1.2rem; margin-bottom: 40px; }
+    #hero-10 h4 { font-size: 1.1rem; }
+    #hero-11 h4 {  font-size: 1.25rem; }
+    #hero-12 h4 { font-size: 1.05em; }
+
+    /* Hero H3 Header */
+    #hero-2 h3 { font-size: 0.8rem; }
+    #hero-3 h3 { font-size: 2.25rem; letter-spacing: 10px; }
+    #hero-4 h3 { font-size: 1.3rem; margin-bottom: 28px; }
+    #hero-5 h3 { font-size: 2.75rem; }
+    #hero-6 h3 { font-size: 1.35rem; padding: 0 10%; }
+    #hero-7 span { font-size: 1.25rem; }
+    #hero-8 h3 { font-size: 1.25rem; }
+    #hero-9 h3 { font-size: 1.2rem; margin-top: 45px; padding: 0 3%; }
+    #hero-10 h3 { font-size: 1rem; }
+    #hero-11 h3 { font-size: 1.75rem; padding: 0.9rem 2.25rem; margin-top: 3rem; }
+    #hero-12 h3 { font-size: 1.85rem; letter-spacing: 20px; }
+
+    /* Hero H2 Header */
+    #hero-1 h2 { font-size: 5rem; letter-spacing: -2px; margin-bottom: 15px; }
+    #hero-2 h2 { font-size: 4.75rem; }
+    #hero-3 h2 { font-size: 6rem; letter-spacing: 5px; margin-bottom: 15px; }
+    #hero-4 h2 { font-size: 4.75rem; }
+    #hero-5 h2 { font-size: 4rem; }
+    #hero-5 h2.io { font-size: 10rem; letter-spacing: -10px; }
+    #hero-6 h2 { font-size: 4.75rem; }
+    #hero-7 h2 { font-size: 4.75rem; }
+    #hero-8 h2 { font-size: 4.75rem; }
+    #hero-10 h2 { font-size: 4.75rem; letter-spacing: 1px; margin-bottom: 10px; }
+    #hero-10 .hero-title { margin-top: 25px; }
+    #hero-10 .hero-title:after { width: 120px; margin: 20px auto 25px; }
+    #hero-11 h2 { font-size: 6.75rem; letter-spacing: 3px; }
+    #hero-11 h2:after { left: 5px; top: 35px;  }
+    #hero-11 h2:before {right: 2px; bottom: 11px; }
+    #hero-12 h2 { font-size: 5.65rem; }
+
+    /* Hero Paragraphs */
+    #hero-1 p { font-size: 1.15rem; padding-right: 5%; }
+    #hero-2 p { font-size: 1.15rem; padding-right: 15%; }
+    #hero-3 p { font-size: 1.15rem; }
+    #hero-4 p { font-size: 1.15rem; padding-right: 5%; }
+
+    /* Hero Badge */
+    .hero-badge { right: 10% ; bottom: 5%; }
+    .hero-badge-text { padding: 30px; }
+    .hero-badge .hero-badge-text span {font-size: 1.85rem; letter-spacing: 0; }
+    .hero-badge-text h5 {font-size: 1.05rem; }
+
+    /* Hero Data */
+    #hero-1 .hero-data, #hero-11 .hero-data, #hero-12 .hero-data { padding: 0 10px 80px; }
+    #hero-4 .hero-data { padding: 0 0 90px; }
+
+    #hero-4 .hero-data span { font-size: 1rem; margin-bottom: 7px; }
+    #hero-11 .event-data span { display: block; font-size: 1rem; }
+    #hero-12 .hero-data span { font-size: 1.25rem; }
+
+    /* Hero Socials */
+    .hero-social span { font-size: 1rem; line-height: 1.45rem; }
+    .hero-social a { font-size: 1.45rem; margin: 0 5px; }
+
+    /*------------------------------------------*/
+    /*   INNER PAGE HERO
+    /*------------------------------------------*/
+
+    .page-hero-section { margin-top: 60px; padding-top: 80px; padding-bottom: 80px; }
+    .page-hero-section span { font-size: 1.35rem; }
+
+    .inner-page-title.m-bottom-80 { margin-bottom: 60px; }
+    .inner-page-title p { font-size: 1.15rem; font-weight: 500; line-height: 1.4; }
+
+    /*------------------------------------------*/
+    /*   CONTENT
+    /*------------------------------------------*/
+
+    /* About */
+    #about-3 { padding-top: 80px; }
+    #about-5 .section-id { margin-bottom: 1.75rem; }
+
+    #about-4 .section-title { margin-bottom: 1.4rem; }
+
+    .singnature { margin-top: 20px; }
+    .singnature p.p-small { margin-bottom: 10px; }
+
+    #about-2 h4 { margin-bottom: 8px; }
+    #about-2 .about-txt p.m-bottom-30 { margin-bottom: 20px; }
+    #about-2 .about-btn { margin-top: 0; }
+
+    #about-1 .about-img.grey-bg { padding-left: 0; }
+    #about-2 .about-img.grey-bg { padding-right: 0; }
+    #about-4 .about-img { margin-top: 10px; }
+
+    #inner-page-about h4.h4-lg.m-bottom-20 { margin-bottom: 15px; }
+    #inner-page-about h4.h4-lg.m-top-30 { margin-top: 18px; }
+
+    #inner-page-about .about-info.m-bottom-35 { margin-bottom: 25px; }
+    .about-info span { font-size: 1.05rem; }
+
+    /* Features */
+    .fbox h4, .features-txt h4 { margin-bottom: 10px; }
+    .features-txt h4.m-top-30 { margin-top: 20px; }
+    .fbox p.m-bottom-25 { margin-bottom: 15px; }
+
+    ul.features-list li { margin-bottom: 10px; }
+
+    .fea-social a { font-size: 1.5rem; margin: 0 7px; }
+    .fea-social { margin-top: 25px; margin-right: 0; }
+
+    /* Banner */
+    #banner-1 { padding-top: 50px; padding-bottom: 50px; }
+    #banner-2 { padding-top: 80px; padding-bottom: 80px; }
+    #banner-3 { padding-top: 40px; padding-bottom: 40px; }
+    #banner-4 { padding-top: 60px; padding-bottom: 60px; }
+    #banner-5 { padding-top: 80px; padding-bottom: 80px; }
+    #banner-6 { padding-top: 60px; padding-bottom: 60px; }
+
+    #banner-4 .countdown { margin-top: 15px; margin-bottom: 10px; }
+
+    #banner-1 h3 { margin-bottom: 3px; }
+    #banner-4 h2 { margin-bottom: 5px; }
+    #banner-6 h2 { margin-bottom: 0; }
+
+    #banner-2 p { font-size: 1.1rem; margin-top: 10px; margin-bottom: 0; padding-right: 5%; }
+    #banner-2 .banner-btn { margin-top: 10px; }
+
+    #banner-5 p { font-size: 1.15rem; padding-right: 10%; }
+    #banner-6 p { font-size: 1.25rem; margin-bottom: 2px; padding: 0; }
+
+    /* Media */
+    #media-4 { padding-top: 140px; padding-bottom: 140px; }
+
+    .media-txt h2 { margin-bottom: 10px; }
+    .media-txt p.m-bottom-30, .media-txt p.m-bottom-35 { margin-bottom: 15px; }
+    .media-txt a { font-size: 1rem; line-height: 1.3; font-weight: 600;letter-spacing: 0; }
+
+    .play-icon-red, .play-icon-white { width: 80px; height: 80px; background: url(../images/play-icon-reds.png); margin-top: -55px; margin-left: -40px; }
+    .play-icon-white { background: url(../images/play-icon-whites.png); }
+    #banner-4 #play-icon-red, .play-icon-white { margin-top: -45px; }
+
+    .statistic-number { font-size: 2.65rem; margin-bottom: 8px; }
+    .statistic-block h5 { letter-spacing: 0; }
+
+    .owl-theme .owl-nav [class*='owl-'] { font-size: 1.25rem; margin: 0 2px; padding: 7px 14px; }
+
+    /* Schedule */
+    .nav-tabs { margin-bottom: 40px; }
+    .nav-tabs .nav-link { font-size: 1rem; padding: 0.75rem 0; }
+
+    .schedule-event { margin-bottom: 5px; }
+    .event-time span { font-size: 1rem; padding-left: 10px; }
+
+    .schedule-buttons.m-top-20, .schedule-buttons.m-top-30 { margin-top: 10px; }
+
+    .agenda-tittle { margin-top: 20px; margin-bottom: 50px; padding: 20px 30px; }
+    .agenda-tittle span { font-size: 1rem; }
+
+    /* Pricing */
+    .pricing-row .col-md-4 { padding-left: 5px; padding-right: 5px; }
+    .pricing-table { padding: 40px 20px 10px; }
+
+    .pricing-plan span { font-size: 3.85rem; margin-left: 5px; }
+    .pricing-table sup { font-size: 1.85rem; top: -18px; }
+
+    .pricing-table ul.features { padding: 20px 0; }
+    .pricing-table .btn { padding: 0.75rem 0; margin-top: 10px; margin-bottom: 30px; }
+
+    .pricing-discount { margin-top: 0; }
+    .event-description hr { margin-top: 15px; margin-right: 15px; }
+
+    /* Sponsors */
+    #sponsors-2 .col-lg-12.m-bottom-45 { margin-bottom: 25px; } 
+    #sponsors-3 .col-md-12.m-bottom-40 { margin-bottom: 25px; }
+    #sponsors-3 .col-md-12.m-top-40.m-bottom-40 { margin-top: 10px; margin-bottom: 25px; }
+    .become-a-sponsor { margin-top: 30px; }
+
+    .sponsor { width: 25%; }
+    .become-a-sponsor .btn.m-right-20 { margin-right: 15px; }
+
+    /* Blog */
+    #single-post-page { padding-top: 120px;padding-bottom: 70px; }
+    .blog-post-img.m-top-50.m-bottom-50 { margin-top: 30px; margin-bottom: 30px; }
+
+    p.psub-t { margin-top: 25px; margin-bottom: 25px; }
+    .psub-h { padding-top: 25px; padding-bottom: 25px; margin-top: 30px; margin-bottom: 30px; }
+
+    .post-tags-list { margin-top: 50px; margin-bottom: 30px; }
+
+    .single-post-comments { margin-top: 40px; padding-top: 40px; padding-bottom: 40px; margin-bottom: 40px; }
+
+    .all-posts-btn.m-top-20 { margin-top: 0; }
+    .all-posts-btn .btn { margin-top: 10px; }
+
+    .post-tags-list span a { font-size: 0.9rem; padding: 4px 12px; margin-right: 4px; }
+    a.share-ico { width: 100px; height: 30px; font-size: 0.95rem; line-height: 30px !important; margin-right: 4px; }
+
+    /* Venue */
+    #venue-1 .venue-info { margin-top: 20px; }
+    #venue-1 .venue-info h3 { margin-bottom: 15px; }
+
+    #venue-1 .maps-link { margin-top: 20px; }
+    #venue-1 .venue-add-info { margin-top: 35px; }
+
+    #venue-1 .transport { margin: 70px 0 0; }
+    #venue-2 .transport-data { margin-bottom: 30px; }
+
+    .transport-data h4 { margin-bottom: 10px; }
+    #venue-2 .venue-add-info h4 { margin-bottom: 10px; }
+    .transport-data p { margin-bottom: 15px; }
+
+    #gmap { height: 300px; }
+    .gmap { margin-bottom: 30px; }
+    #inner-page-venue .gmap { margin-bottom: 70px; }
+
+    /* Hotels */  
+    #hotels-1 h2 { font-size: 4rem; }
+    #hotels-1 p { font-size: 1.1rem; }
+
+    .hotel-data span.hotel-price {
+      background-color: transparent;
+      position: relative;
+      display: block;
+      color: #e35029;
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: 0;
+      padding: 0;  
+      -webkit-border-radius: 0;
+      -moz-border-radius: 0;
+      border-radius: 0;
+      margin-bottom: 15px;
+      margin-left: 10px; 
+    }
+
+    .find-hotels-btn { margin-top: 25px; }
+    .find-hotels-btn .btn { margin-top: 0; }
+    .find-hotels-btn .btn.m-right-20 { margin-right: 15px; }
+
+    #hotels-2 .find-hotels { margin-top: 10px; }
+    #hotels-2 .find-hotels-btn { margin-top: 25px; }
+
+    /* Community */
+    #community p { font-size: 1.1rem; padding: 0 15%; margin-bottom: 22px;  }
+    .community-icons a { width: 52px; height: 52px; font-size: 20px; line-height: 48px !important; margin: 0 3px; }
+
+    /* Newsletter */
+    #newsletter-1, #newsletter-2 { padding-top: 80px; padding-bottom: 60px; } 
+    #newsletter-1 .newsletter-txt { margin-bottom: 40px; }
+    #newsletter-2 .newsletter-txt { margin-bottom: 10px; }
+
+    .newsletter-form .form-control { height: 48px; font-size: 1.35rem; padding: 0px 5px; }
+    .newsletter-form .btn { height: 48px; padding: 0.95rem 4rem; }
+    #newsletter-2 .newsletter-form .btn { height: 44px; padding: 0.5rem 4rem; }
+
+    /* Register Form */
+    #register-form .form-control { height: 44px; font-size: 1rem; }
+    #register-form #form_register_btn .btn { height: 44px; font-size: 0.9rem; padding: 0.5rem 0.75rem; }
+
+    /* Footer */
+    .footer { padding-top: 80px; padding-bottom: 50px; }
+    .footer-about, .footer-info, .footer-socials-links { margin-bottom: 25px; }
+    .footer-copyright { padding-top: 20px; }
+    
+    .footer h4 { margin-bottom: 20px; }
+    .footer-about p { margin-bottom: 0; }
+    .footer-info p { font-size: 1rem; margin-bottom: 3px; }
+    .footer-social a { font-size: 1.3rem; margin: 0 4px; }
+
+    /* Event Statistic */
+    #event-statistic { padding-top: 60px; padding-bottom: 60px; }
+    #event-statistic .statistic-block { padding: 0; }
+    .s-number { font-size: 3.15rem; letter-spacing: 0; margin-bottom: 8px; }
+
+ 
+
+}
+
+
+
+/* ------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------ */
+
+@media (min-width: 576px) and (max-width: 767.99px) {	
+
+    html { font-size: 14px; } 
+
+    #stlChanger { display: none; }
+
+    /* PRELOAD ANIMATION */
+    #loader { margin: -30px 0 0 -30px; }
+    .sk-folding-cube { display: block;width: 60px; height: 60px; }
+
+    /*------------------------------------------*/
+    /*   BASE
+    /*------------------------------------------*/
+
+    .wide-120 { padding-top: 100px; padding-bottom: 100px; }
+    .wide-110 { padding-top: 100px; padding-bottom: 100px; }
+    .wide-100 { padding-top: 80px; padding-bottom: 80px; }
+    .wide-90 { padding-top: 80px; padding-bottom: 70px; }
+    .wide-80 { padding-top: 80px; padding-bottom: 60px; }
+    .wide-70 { padding-top: 80px; padding-bottom: 50px; }
+    .wide-60 { padding-top: 80px; padding-bottom: 40px; }
+    .wide-50 { padding-top: 80px; padding-bottom: 30px; }
+    .wide-40 { padding-top: 80px; padding-bottom: 20px; }
+    .wide-30 { padding-top: 80px; padding-bottom: 10px; }
+
+    .p-left-0, .p-left-5, .p-left-10, .p-left-15, .p-left-20, .p-left-25, .p-left-30, .p-left-35 { padding-left: 0; }
+    .p-left-40, .p-left-45, .p-left-50 { padding-left: 5px; }
+
+    .p-right-0, .p-right-5, .p-right-10, .p-right-15, .p-right-20, .p-right-25, .p-right-30, .p-right-35 { padding-right: 0; }
+    .p-right-40, .p-right-45, .p-right-50 { padding-right: 5px; }
+
+    /* Header H5 */
+    h5.h5-small { font-size: 0.9rem; }
+    h5 { font-size: 1rem;}
+    h5.h5-medium { font-size: 1.1rem; }
+    h5.h5-lg { font-size: 1.1rem; }
+
+    /* Header H4 */
+    h4.h4-small { font-size: 1.175rem; }
+    h4 { font-size: 1.215rem; }
+    h4.h4-medium { font-size: 1.2875rem; }
+    h4.h4-lg { font-size: 1.35rem; }
+
+    /* Header H3 */
+    h3.h3-small {font-size: 1.4125rem; }
+    h3 { font-size: 1.4825rem; }
+    h3.h3-medium { font-size: 1.55rem; }
+    h3.h3-lg { font-size: 1.625rem; }
+
+    /* Header H2 */
+    h2.h2-small { font-size: 1.7rem; }
+    h2 { font-size: 1.85rem; margin-bottom: 1.35rem; }
+    h2.h2-medium { font-size: 2rem; }
+    h2.h2-lg { font-size: 2rem; }
+
+    /* Header H2 Banner */
+    h2.banner-small { font-size: 2.15rem; }
+    h2.banner-regular { font-size: 2.25rem; line-height: 1.2; letter-spacing: -1px; }
+    h2.banner-medium { font-size: 2.25rem; }
+    h2.banner-lg { font-size: 2.25rem; letter-spacing: -2px; }
+
+    /* Paragraphs */
+    p.p-medium {font-size: 1rem; line-height: 1.5; }
+    p.p-lg { font-size: 1rem; }
+
+    /* Button */
+    .btn { font-size: 0.9rem; padding: 0.85rem 1.7rem; margin-top: 1rem; }
+
+    .btn.btn-medium { padding: 0.9rem 1.8rem; }
+    .btn.btn-lg { font-size: 1rem;  padding: 1rem 2.15rem;  }
+
+    /* Countdown Element */
+    #clock .cbox { padding: 0 20px; }
+    #hero-12 #clock .cbox { padding: 0 20px; }
+    #banner-4 #clock .cbox { padding: 20px; margin-right: 10px; }
+
+    #clock span.cbox-digit { font-size: 2.85rem; }
+    #hero-12 #clock span.cbox-digit { font-size: 2.85rem; }
+    #clock span.cbox-txt { font-size: 12px; line-height: 12px; padding-top: 10px; }
+
+    /* Section ID */
+    span.section-id { font-size: 0.8rem; margin-bottom: 1.75rem;  }
+
+    /* Section Title */
+    .section-title { margin-bottom: 2.5rem; }
+    .section-title p { font-size: 1.1rem; margin-top: 1.05rem; }
+
+    /*------------------------------------------*/
+    /*   NAVIGATION MENU    
+   /*------------------------------------------*/
+
+    .bg-light { background-color: #fff!important; box-shadow: 0 0 2px rgba(50, 50, 50, 0.4); }
+    .navbar { text-align: center; }
+    .dropdown-menu { text-align: center; padding: 0; margin-top: 0; border-top: none; -webkit-border-radius: 0; -moz-border-radius: 0; border-radius: 0; }
+    .dropdown-divider { margin: 5px 0; }
+    .dropdown-item { padding: 10px 0; }
+
+    .navbar.bg-tra { padding: 0.75rem 1rem; background-color: #fff!important; box-shadow: 0 0 2px rgba(50, 50, 50, 0.4); }
+
+    .logo-white, .navbar-light.bg-tra .logo-white, .navbar-light.bg-light .logo-white, 
+    .navbar-dark.bg-tra .logo-white, .navbar-dark.bg-dark .logo-white { display: none; }
+
+    .navbar-dark.bg-tra .logo-black, .navbar-light.bg-tra .logo-black, 
+    .logo-black, .navbar-light.bg-light .logo-black { display: block; }
+
+    .bg-tra.navbar-dark .nav-link { color: #333; }
+    .bg-tra.navbar-dark .navbar-nav .active > .nav-link { color: rgba(0,0,0,.9); }
+    .navbar-dark .nav-link:focus, .navbar-dark .nav-link:hover { color: #333; background-color: rgba(200, 200, 200, 0.35); }
+    .navbar-dark .navbar-nav .nav-link:focus, .navbar-dark .navbar-nav .nav-link:hover { color: #333; }
+
+    .navbar-nav { padding-top: 15px; }
+    .navbar-expand-lg .navbar-nav .nav-link { padding: 10px 0; margin-left: 0; -webkit-border-radius: 0;-moz-border-radius: 0; border-radius: 0; }
+    .navbar-text { padding: 10px 0; margin-top: 2px; }
+    .navbar .btn { width: 100%; margin-top: 5px; margin-left: 0; }
+
+    .navbar .btn-tra-white { color: #444; border-color: #444; }
+    .navbar .btn-tra-white:before { background-color: rgba(0, 0, 0, 0.75); }
+    .navbar .btn-tra-white:hover { color: #fff;}
+
+    .navbar.scroll.bg-tra { padding: 0.75rem 1rem; }
+
+    /*------------------------------------------*/
+    /*   HERO
+    /*------------------------------------------*/
+
+    .hero-section { margin-top: 60px; text-align: center; }
+
+    .hero-row-220 { padding-top: 130px; padding-bottom: 130px; }
+    .hero-row-200 { padding-top: 130px; padding-bottom: 130px; }
+    .hero-row-180 { padding-top: 120px; padding-bottom: 120px; }
+    .hero-row-160 { padding-top: 100px; padding-bottom: 100px; }
+
+    #hero-1 .hero-row-200 { padding-bottom: 0; }
+    #hero-2 .hero-row-180 { padding-top: 150px; padding-bottom: 150px; }
+    #hero-4 .hero-row-200 { padding-bottom: 30px; }
+    #hero-6 .hero-row-160 { padding-bottom: 180px; }
+    #hero-11 .hero-row-200 { padding-bottom: 30px; }
+    #hero-12 .hero-row-220 { padding-bottom: 30px; }
+
+    /* Hero Text */
+    #hero-2 .hero-txt { padding: 0; }
+    .square, .inner { display: none;  }
+
+    #hero-6 .hero-txt:before { width: 280px; height: 55px; border: 6px solid #feca16; border-bottom: 0; top: -85px; }
+    #hero-6 .hero-txt:after { width: 280px; height: 55px; border: 6px solid #feca16; border-top: 0; bottom: -80px; }
+
+    #hero-7 .hero-img { margin: 30px 25% 0; }
+    #hero-10 .hero-txt { padding: 40px; }
+
+    /* Hero H4 Header */
+    #hero-3 h4 { font-size: 1.2rem; }
+    #hero-4 h4 { font-size: 1.05em; margin: 0 20% 15px; }
+    #hero-5 h4 { font-size: 1.45rem; }
+    #hero-5 span { font-size: 1.25rem; }
+    #hero-6 h4 { font-size: 1.1rem; }
+    #hero-7 h4 { font-size: 1rem; }
+    #hero-8 h4 { font-size: 1.15rem; }
+    #hero-9 h4 { font-size: 1.1rem; margin-bottom: 35px; }
+    #hero-10 h4 { font-size: 1rem; }
+    #hero-11 h4 {  font-size: 1.15rem; margin-bottom: 20px; }
+    #hero-12 h4 { font-size: 1.05em; margin-bottom: 5px;  }
+
+    /* Hero H3 Header */
+    #hero-2 h3 { font-size: 0.75rem; }
+    #hero-3 h3 { font-size: 2rem; letter-spacing: 7px; }
+    #hero-4 h3 { font-size: 1.2rem; margin-bottom: 22px; }
+    #hero-5 h3 { font-size: 2.5rem; padding: 0 5%; }
+    #hero-6 h3 { font-size: 1.2rem; padding: 0 10%; }
+    #hero-7 span { font-size: 1.15rem; }
+    #hero-8 h3 { font-size: 1.05rem; padding: 0; }
+    #hero-9 h3 { font-size: 1.1rem; margin-top: 35px; padding: 0 3%; }
+    #hero-10 h3 { font-size: 1rem; }
+    #hero-11 h3 { font-size: 1.35rem; letter-spacing: -0.5px; padding: 0.75rem 2rem; margin-top: 2.25rem; }
+    #hero-12 h3 { font-size: 1.5rem; letter-spacing: 15px; }
+
+    /* Hero H2 Header */
+    #hero-1 h2 { font-size: 4.5rem; letter-spacing: -2px; margin-bottom: 15px; }
+    #hero-2 h2 { font-size: 4.5rem; margin-bottom: 15px; }
+    #hero-3 h2 { font-size: 4.5rem; letter-spacing: 3px; margin-bottom: 15px; }
+    #hero-4 h2 { font-size: 4rem; }
+    #hero-5 h2 { font-size: 3.3rem; margin-bottom: 5px; }
+    #hero-5 h2.io { font-size: 9rem; letter-spacing: -7px; }
+    #hero-5 h2.io:after { width: 180px; margin: 5px auto 20px; }
+    #hero-6 h2 { font-size: 4rem; }
+    #hero-7 h2 { font-size: 4.5rem; margin-bottom: 20px; }
+    #hero-8 h2 { font-size: 3.75rem; }
+    #hero-10 h2 { font-size: 4.5rem; letter-spacing: 1px; margin-bottom: 5px; }
+    #hero-10 .hero-title { margin-top: 25px; }
+    #hero-10 .hero-title:after { width: 100px; margin: 15px auto 20px; }
+    #hero-11 h2 { font-size: 5rem; letter-spacing: 2px; }
+    #hero-11 h2:after { left: 5px; top: 25px; }
+    #hero-11 h2:before { right: 2px; bottom: 8px; }
+    #hero-12 h2 { font-size: 4.25rem; margin-bottom: 10px; }
+
+    /* Hero Paragraphs */
+    #hero-1 p { font-size: 1.1rem; padding: 0; }
+    #hero-2 p, #hero-3 p, #hero-4 p { font-size: 1.1rem; padding: 0 5%; }
+
+    /* Hero Badge */
+    .hero-badge { position: relative; display: inline-block; right: 0; bottom: 0; margin: 25px auto; }
+    .hero-badge-text { padding: 10px 30px; }
+    .hero-badge .hero-badge-text span { font-size: 1.4rem; letter-spacing: -0.5px; display: inline-block; }
+    .hero-badge-text h5 { font-size: 1.3rem; font-weight: 300; padding: 0 5px; margin: 0; border: none; }
+
+    /* Hero Data */
+    #hero-1 .hero-data { padding: 0 0 120px; }
+    #hero-4 .hero-data { padding: 0 0 90px; }
+    #hero-6 .hero-data { margin-bottom: 110px; }
+    #hero-11 .hero-data { padding: 0 0 120px; }    
+    #hero-12 .hero-data { padding: 0 0 100px; }  
+    #hero-4 .hero-data .col-md-4 { margin-bottom: 25px; }
+    #hero-12 .hero-data .col-md-4 { margin-top: 25px; }
+
+    #hero-4 .hero-data span { font-size: 1rem; margin-bottom: 8px; }   
+    #hero-11 .event-data span { display: block; font-size: 1rem; }
+    #hero-12 .hero-data span { font-size: 1.15rem; }
+
+    /* Hero Socials */
+    #hero-1 .hero-social, #hero-11 .hero-social { position: relative; display: inline-block; right: 0; bottom: 0; margin: 30px auto 0; }
+    .hero-social span { font-size: 1rem; line-height: 1.45rem; }
+    .hero-social a { font-size: 1.45rem; margin: 0 4px; }
+
+    /*------------------------------------------*/
+    /*   INNER PAGE HERO
+    /*------------------------------------------*/
+
+    .page-hero-section { margin-top: 60px; padding-top: 70px; padding-bottom: 70px; }
+    .page-hero-section span { font-size: 1.25rem; }
+
+    .inner-page-title.m-bottom-80 { margin-bottom: 40px; }
+    .inner-page-title p { font-size: 1.05rem; font-weight: 500; line-height: 1.4; }
+
+    /*------------------------------------------*/
+    /*   CONTENT
+    /*------------------------------------------*/
+
+    /* About */
+    #about-3 { padding-top: 80px; }
+    #about-5 .section-id { margin-bottom: 1.75rem; }
+
+    #about-4 .section-title { margin-bottom: 1.4rem; }
+
+    .singnature { margin-top: 20px; }
+    .singnature p.p-small { margin-bottom: 10px; }
+
+    #about-2 h4 { margin-bottom: 8px; }
+    #about-2 .about-txt p.m-bottom-30 { margin-bottom: 20px; }
+    #about-2 .about-btn { margin-top: 0; }
+
+    #about-1 .about-img.grey-bg { padding-left: 0; }
+    #about-2 .about-img.grey-bg { padding-right: 0; }
+    #about-4 .about-img { margin-top: 10px; }
+
+    #inner-page-about h4.h4-lg.m-bottom-20 { margin-bottom: 15px; }
+    #inner-page-about h4.h4-lg.m-top-30 { margin-top: 18px; }
+
+    #inner-page-about .about-info.m-bottom-35 { margin-bottom: 25px; }
+    #inner-page-about .about-info.m-bottom-20 { margin-bottom: 15px; }
+    .about-info span { font-size: 1.05rem; }
+
+    /* Features */
+    .fbox h4, .features-txt h4 { margin-bottom: 10px; }
+    .features-txt h4.m-top-30 { margin-top: 20px; }
+    .fbox p.m-bottom-25 { margin-bottom: 15px; }
+
+    ul.features-list li { margin-bottom: 10px; }
+
+    .fea-social a { font-size: 1.5rem; margin: 0 7px; }
+    .fea-social { margin-top: 25px; margin-right: 0; }
+
+    /* Banner */
+    #banner-1 { padding-top: 50px; padding-bottom: 50px; }
+    #banner-2 { padding-top: 80px; padding-bottom: 80px; }
+    #banner-3 { padding-top: 40px; padding-bottom: 40px; text-align: center;  }
+    #banner-4 { padding-top: 60px; padding-bottom: 60px; }
+
+    #banner-5 { padding-top: 80px; padding-bottom: 80px; text-align: center; }
+    #banner-6 { padding-top: 60px; padding-bottom: 60px; }
+
+    #banner-1 .banner-txt { margin-bottom: 20px; text-align: center; }
+    #banner-4 .countdown { margin-top: 15px; margin-bottom: 10px; }
+
+    #banner-1 h3 { margin-bottom: 10px; }
+    #banner-3 h2 { margin-bottom: 15px; }
+    #banner-4 h2 { margin-bottom: 5px; }
+    #banner-5 h2 { padding: 0 5%; }
+    #banner-6 h2 { margin-bottom: 0; }
+
+    #banner-1 .banner-txt p { padding: 0 15%; }
+    #banner-2 p { font-size: 1.1rem; margin-top: 10px; margin-bottom: 0; padding-right: 5%; }
+    #banner-2 .banner-btn { margin-top: 10px; }
+
+    #banner-5 p { font-size: 1.05rem; padding: 0 5%; margin-bottom: 0; }
+    #banner-6 p { font-size: 1.15rem; margin-bottom: 2px; padding: 0; }
+
+    /* Media */
+    #media-4 { padding-top: 140px; padding-bottom: 140px; }
+
+    .media-3-1.m-bottom-40, .media-3-1.m-bottom-60 { margin-bottom: 0; }
+
+    .media-txt h2 { margin-bottom: 10px; }
+    .media-txt p.m-bottom-30, .media-txt p.m-bottom-35 { margin-bottom: 15px; }
+    .media-txt a { font-size: 1rem; line-height: 1.3; font-weight: 600;letter-spacing: 0; }
+
+    .play-icon-red, .play-icon-white { width: 80px; height: 80px; background: url(../images/play-icon-reds.png); margin-top: -55px; margin-left: -40px; }
+    .play-icon-white { background: url(../images/play-icon-whites.png); }
+    #banner-4 #play-icon-red, .play-icon-white { margin-top: -45px; }
+
+    .owl-theme .owl-nav [class*='owl-'] { font-size: 1.25rem; margin: 0 2px; padding: 7px 14px; }
+
+    /* Schedule */
+    .nav-tabs { margin-bottom: 40px; border-bottom: none; }
+    .nav-tabs .nav-item { margin-bottom: 4px;  }
+    .nav-tabs .nav-link { font-size: 1rem; padding: 0.75rem 0; background-color: rgba(220, 220, 220, 0.6); border-top-left-radius: 0; border-top-right-radius: 0; }
+
+    .schedule-event { margin-bottom: 5px; }
+    .event-time span { font-size: 1rem; padding-left: 10px; }
+
+    .lrow { border-bottom: 1px solid #ccc; margin-bottom: 15px; }
+
+    .schedule-buttons.m-top-20, .schedule-buttons.m-top-30 { margin-top: 10px; }
+
+    .agenda-tittle { margin-top: 20px; margin-bottom: 60px; padding: 20px 30px; }
+    .agenda-tittle span { font-size: 1rem; }
+
+    /* Pricing */
+    .pricing-row .col-md-4 { padding-left: 15px; padding-right: 15px; }
+    .pricing-table { padding: 40px 20px 10px; }
+
+    .pricing-plan span { font-size: 3.85rem; margin-left: 5px; }
+    .pricing-table sup { font-size: 1.85rem; top: -18px; }
+
+    .pricing-table ul.features { padding: 20px 0; }
+    .pricing-table .btn { padding: 0.75rem 0; margin-top: 10px; margin-bottom: 30px; }
+
+    .pricing-discount { margin-top: 0; }
+    .event-description hr { margin-top: 15px; margin-right: 15px; }
+
+    /* Sponsors */
+    #sponsors-2 .col-lg-12.m-bottom-45 { margin-bottom: 25px; } 
+    #sponsors-3 .col-md-12.m-bottom-40 { margin-bottom: 25px; }
+    #sponsors-3 .col-md-12.m-top-40.m-bottom-40 { margin-top: 10px; margin-bottom: 25px; }
+    .become-a-sponsor { margin-top: 30px; }
+
+    .sponsor { width: 33.333333%; }
+    .become-a-sponsor .btn.m-right-20 { margin-right: 15px; }
+
+    #sponsors-3 .brand-holder { text-align: center; padding: 20px 15px; margin-bottom: 30px; }
+
+    /* Blog */
+    #single-post-page { padding-top: 120px;padding-bottom: 70px; }
+    .post-holder { margin-top: 40px; }
+    .blog-post-img.m-top-50.m-bottom-50 { margin-top: 30px; margin-bottom: 30px; }
+
+    p.psub-t { margin-top: 25px; margin-bottom: 25px; }
+    .psub-h { padding-top: 20px; padding-bottom: 20px; margin-top: 20px; margin-bottom: 20px; }
+
+    .post-tags-list { margin-top: 40px; margin-bottom: 30px; }
+
+    .single-post-comments { margin-top: 60px; padding-top: 50px; padding-bottom: 50px; margin-bottom: 60px; }
+
+    .all-posts-btn.m-top-20 { margin-top: 0; }
+    .all-posts-btn .btn { margin-top: 10px; }
+
+    .post-tags-list span a { font-size: 0.9rem; padding: 4px 12px; margin-right: 4px; }
+    a.share-ico { width: 100px; height: 30px; font-size: 0.95rem; line-height: 30px !important; margin-right: 4px; }
+    .share-social-icons .svg-inline--fa { margin-right: 8px; }
+
+    .comment-form .form-control { height: 42px; font-size: 14px; }
+
+    .post-author-meta { margin-bottom: 10px; }
+
+    /* Venue */
+    #inner-page-venue { padding-bottom: 20px; }
+    #venue-1 .venue-info { margin-top: 0; }
+    #venue-1 .venue-info h3 { margin-bottom: 15px; }
+
+    #venue-1 .maps-link { margin-top: 20px; }
+    #venue-1 .venue-add-info { margin-top: 35px; }
+
+    #venue-1 .transport { margin: 40px 0 0; }
+    #venue-1 .transport-data { margin-top: 40px; }
+    #venue-2 .transport-data, #inner-page-venue .transport-data { margin-bottom: 30px; }
+
+    .transport-data h4 { margin-bottom: 10px; }
+    #venue-2 .venue-add-info h4 { margin-bottom: 10px; }
+    .transport-data p { margin-bottom: 15px; }
+
+    #gmap { height: 300px; }
+    .gmap { margin-bottom: 30px; }
+    #inner-page-venue .gmap { margin-bottom: 70px; }
+
+    /* Hotels */  
+    #hotels-1 h2 { font-size: 3.25rem; }
+    #hotels-1 p { font-size: 1rem; }
+
+    .hotel-data span.hotel-price {
+      background-color: transparent;
+      position: relative;
+      display: block;
+      color: #e35029;
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: 0;
+      padding: 0;  
+      -webkit-border-radius: 0;
+      -moz-border-radius: 0;
+      border-radius: 0;
+      margin-bottom: 15px;
+      margin-left: 10px; 
+    }
+
+    .find-hotels-btn { margin-top: 25px; }
+    .find-hotels-btn .btn { margin-top: 0; }
+    .find-hotels-btn .btn.m-right-20 { margin-right: 15px; }
+
+    #hotels-2 .find-hotels { margin-top: 10px; }
+    #hotels-2 .find-hotels-btn { margin-top: 25px; }
+
+    /* Community */
+    #community p { font-size: 1.1rem; padding: 0 15%; margin-bottom: 22px;  }
+    .community-icons a { width: 52px; height: 52px; font-size: 20px; line-height: 48px !important; margin: 0 3px; }
+
+    /* Newsletter */
+    #newsletter-1, #newsletter-2 { padding-top: 80px; padding-bottom: 60px; } 
+
+    #newsletter-1 .newsletter-txt { margin-bottom: 40px; }
+    #newsletter-2 .newsletter-txt { margin-bottom: 10px; }
+    #newsletter-1 h2, #newsletter-2 h2 { font-size: 1.75rem; line-height: 1.3; }
+
+    .newsletter-form .form-control { height: 48px; font-size: 1.35rem; padding: 0px 5px; }
+    .newsletter-form .btn { height: 48px; padding: 0.95rem 3.5rem; }
+     #newsletter-2 .newsletter-form .btn { height: 42px; padding: 0.5rem 4rem; }
+
+    .newsletter-form .form-notification { font-size: 1.15rem; margin-top: 15px; }
+
+    /* Register Form */
+    #register .section-title { margin-bottom: 0.75rem; } 
+
+    #register-form .form-control { height: 44px; font-size: 1rem; margin-bottom: 25px; }
+    #register-form #form_register_btn .btn { height: 44px; font-size: 0.9rem; padding: 0.5rem 0.75rem; }
+
+    .register-form-msg .loading { font-size: 1.15rem; line-height: 1; }
+
+    /* Footer */
+    .footer { padding-top: 80px; padding-bottom: 50px; }
+    #footer-2 .footer-socials-links.text-right { text-align: left!important; }
+
+    .footer-about, .footer-info, .footer-socials-links { margin-bottom: 25px; }
+    .footer-copyright { padding-top: 20px; }
+    
+    .footer h4 { margin-bottom: 20px; }
+    .footer-about p { margin-bottom: 0; }
+    .footer-info p { font-size: 1rem; margin-bottom: 3px; }
+    .footer-social a { font-size: 1.3rem; margin: 0 4px; }
+
+    /* Event Statistic */
+    #event-statistic { padding-top: 70px; padding-bottom: 30px; }
+    #event-statistic .statistic-block { padding: 0; margin-bottom: 40px; }
+    .s-number { font-size: 3.35rem; letter-spacing: 0; margin-bottom: 8px; }
+
+
+
+}
+
+
+
+/* ------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------ */
+
+@media (min-width: 416px) and (max-width: 575.99px) { 
+
+    html { font-size: 14px; } 
+
+    #stlChanger { display: none; }
+
+    /* PRELOAD ANIMATION */
+    #loader { margin: -30px 0 0 -30px; }
+    .sk-folding-cube { display: block;width: 60px; height: 60px; }
+
+    /*------------------------------------------*/
+    /*   BASE
+    /*------------------------------------------*/
+
+    .wide-120 { padding-top: 100px; padding-bottom: 100px; }
+    .wide-110 { padding-top: 100px; padding-bottom: 100px; }
+    .wide-100 { padding-top: 80px; padding-bottom: 80px; }
+    .wide-90 { padding-top: 80px; padding-bottom: 70px; }
+    .wide-80 { padding-top: 80px; padding-bottom: 60px; }
+    .wide-70 { padding-top: 80px; padding-bottom: 50px; }
+    .wide-60 { padding-top: 80px; padding-bottom: 40px; }
+    .wide-50 { padding-top: 80px; padding-bottom: 30px; }
+    .wide-40 { padding-top: 80px; padding-bottom: 20px; }
+    .wide-30 { padding-top: 80px; padding-bottom: 10px; }
+
+    .p-left-0, .p-left-5, .p-left-10, .p-left-15, .p-left-20, .p-left-25, .p-left-30, .p-left-35 { padding-left: 0; }
+    .p-left-40, .p-left-45, .p-left-50 { padding-left: 0; }
+
+    .p-right-0, .p-right-5, .p-right-10, .p-right-15, .p-right-20, .p-right-25, .p-right-30, .p-right-35 { padding-right: 0; }	
+    .p-right-40, .p-right-45, .p-right-50 { padding-right: 0; }
+	
+    /* Header H5 */
+    h5.h5-small { font-size: 0.9rem; }
+    h5 { font-size: 1rem;}
+    h5.h5-medium { font-size: 1.1rem; }
+    h5.h5-lg { font-size: 1.1rem; }
+
+    /* Header H4 */
+    h4.h4-small { font-size: 1.215rem; }
+    h4 { font-size: 1.215rem; }
+    h4.h4-medium { font-size: 1.2875rem; }
+    h4.h4-lg { font-size: 1.2875rem; }
+
+    /* Header H3 */
+    h3.h3-small {font-size: 1.4125rem; }
+    h3 { font-size: 1.4825rem; }
+    h3.h3-medium { font-size: 1.5rem; }
+    h3.h3-lg { font-size: 1.5rem; }
+
+    /* Header H2 */
+    h2.h2-small { font-size: 1.575rem; line-height: 1.3; }
+    h2 { font-size: 1.7125rem; margin-bottom: 1.3rem; line-height: 1.3; }
+    h2.h2-medium { font-size: 1.7125rem; line-height: 1.3; }
+    h2.h2-lg { font-size: 1.7125rem; line-height: 1.3; }
+
+    /* Header H2 Banner */
+    h2.banner-small { font-size: 1.875rem; line-height: 1.3; }
+    h2.banner-regular { font-size: 2rem; line-height: 1.3; letter-spacing: -1px; }
+    h2.banner-medium { font-size: 2rem; line-height: 1.3; }
+    h2.banner-lg { font-size: 2rem; letter-spacing: -2px; line-height: 1.3; }
+
+    /* Paragraphs */
+    p.p-medium {font-size: 1rem; line-height: 1.5; }
+    p.p-lg { font-size: 1rem; }
+
+    /* Button */
+    .btn { font-size: 0.9rem; padding: 0.85rem 1.7rem; margin-top: 1rem; }
+
+    .btn.btn-medium { padding: 0.85rem 1.7rem; }
+    .btn.btn-lg { font-size: 1rem;  padding: 1rem 2.15rem;  }
+
+    /* Countdown Element */
+    #clock .cbox { padding: 0 20px; }
+    #hero-12 .countdown { margin-top: 25px; }
+    #hero-12 #clock .cbox { padding: 0 20px; }
+    #banner-4 #clock .cbox { padding: 15px; margin-right: 7px; }
+
+    #clock span.cbox-digit { font-size: 2.85rem; }
+    #hero-12 #clock span.cbox-digit { font-size: 2.5rem; letter-spacing: 0; }
+    #clock span.cbox-txt { font-size: 12px; line-height: 12px; padding-top: 10px; }
+
+    /* Section ID */
+    span.section-id { font-size: 0.8rem; margin-bottom: 1.5rem;  }
+
+    /* Section Title */
+    .section-title { margin-bottom: 2.5rem; }
+    .section-title p { font-size: 1rem; margin-top: 1rem; }
+
+    /*------------------------------------------*/
+    /*   NAVIGATION MENU    
+    /*------------------------------------------*/
+
+    .navbar-brand { margin-left: 15px; }
+    .navbar-toggler { margin-right: 15px; }
+    .navbar.scroll .navbar-brand { margin-left: 15px; margin-right: 0; padding-right: 0; padding-left: 0; }
+    .navbar.scroll .navbar-toggler { margin-right: 15px; }
+
+    .bg-light { background-color: #fff!important; box-shadow: 0 0 2px rgba(50, 50, 50, 0.4); }
+    .navbar { text-align: center; }
+    .dropdown-menu { text-align: center; padding: 0; margin-top: 0; border-top: none; -webkit-border-radius: 0; -moz-border-radius: 0; border-radius: 0; }
+    .dropdown-divider { margin: 5px 0; }
+    .dropdown-item { padding: 10px 0; }
+
+    .navbar.bg-tra  { padding: 0.75rem 1rem; background-color: #fff!important; box-shadow: 0 0 2px rgba(50, 50, 50, 0.4); }
+
+    .logo-white, .navbar-light.bg-tra .logo-white, .navbar-light.bg-light .logo-white, 
+    .navbar-dark.bg-tra .logo-white, .navbar-dark.bg-dark .logo-white { display: none; }
+
+    .navbar-dark.bg-tra .logo-black, .navbar-light.bg-tra .logo-black, 
+    .logo-black, .navbar-light.bg-light .logo-black { display: block; }
+
+    .bg-tra.navbar-dark .nav-link { color: #333; }
+    .bg-tra.navbar-dark .navbar-nav .active > .nav-link { color: rgba(0,0,0,.9); }
+    .navbar-dark .nav-link:focus, .navbar-dark .nav-link:hover { color: #333; background-color: rgba(200, 200, 200, 0.35); }
+    .navbar-dark .navbar-nav .nav-link:focus, .navbar-dark .navbar-nav .nav-link:hover { color: #333; }
+
+    .navbar-nav { padding-top: 15px; }
+    .navbar-expand-lg .navbar-nav .nav-link { padding: 10px 0; margin-left: 0; -webkit-border-radius: 0;-moz-border-radius: 0; border-radius: 0; }
+
+    .navbar .btn { width: 100%; margin-top: 5px; margin-left: 0; }
+
+    .navbar .btn-tra-white { color: #444; border-color: #444; }
+    .navbar .btn-tra-white:before { background-color: rgba(0, 0, 0, 0.75); }
+    .navbar .btn-tra-white:hover { color: #fff;}
+
+    .navbar.scroll.bg-tra { padding: 0.75rem 1rem; }
+
+    /*------------------------------------------*/
+    /*   HERO
+    /*------------------------------------------*/
+
+    .hero-section { margin-top: 60px; text-align: center; }
+
+    .hero-row-220 { padding-top: 110px; padding-bottom: 110px; }
+    .hero-row-200 { padding-top: 110px; padding-bottom: 110px; }
+    .hero-row-180 { padding-top: 110px; padding-bottom: 110px; }
+    .hero-row-160 { padding-top: 110px; padding-bottom: 110px; }
+
+    #hero-1 .hero-row-200 { padding-bottom: 0; }
+    #hero-2 .hero-row-180 { padding-top: 130px; padding-bottom: 130px; }
+    #hero-4 .hero-row-200 { padding-bottom: 30px; }
+    #hero-6 .hero-row-160 { padding-bottom: 165px; }
+    #hero-11 .hero-row-200 { padding-bottom: 30px; }
+    #hero-12 .hero-row-220 { padding-bottom: 30px; }
+
+    /* Hero Text */
+    #hero-2 .hero-txt { padding: 0; }
+    .square, .inner { display: none;  }
+
+    #hero-6 .hero-txt:before { width: 250px; height: 45px; border: 6px solid #feca16; border-bottom: 0; top: -65px; }
+    #hero-6 .hero-txt:after { width: 250px; height: 45px; border: 6px solid #feca16; border-top: 0; bottom: -65px; }
+
+    #hero-7 .hero-img { margin: 30px 25% 0; }
+    #hero-10 .hero-txt { padding: 40px 30px; }
+
+    /* Hero H4 Header */
+    #hero-3 h4 { font-size: 1.1rem; }
+    #hero-4 h4 { font-size: 1em; margin: 0 20% 15px; }
+    #hero-5 h4 { font-size: 1.25rem; margin-bottom: 5px; }
+    #hero-5 span { font-size: 1.1rem; }
+    #hero-6 h4 { font-size: 1.05rem; }
+    #hero-7 h4 { font-size: 0.95rem; }
+    #hero-8 h4 { font-size: 1.05rem; }
+    #hero-9 h4 { font-size: 1rem; margin-bottom: 30px; }
+    #hero-10 h4 { font-size: 0.95rem; }
+    #hero-11 h4 {  font-size: 1rem; margin-bottom: 20px; }
+    #hero-12 h4 { font-size: 1.05em; margin-bottom: 5px;  }
+
+    /* Hero H3 Header */
+    #hero-2 h3 { font-size: 0.75rem; }
+    #hero-3 h3 { font-size: 1.75rem; letter-spacing: 5px; }
+    #hero-4 h3 { font-size: 1.15rem; margin-bottom: 20px; }
+    #hero-5 h3 { font-size: 2.15rem; padding: 0 5%; }
+    #hero-6 h3 { font-size: 1.1rem; padding: 0 5%; }
+    #hero-7 span { font-size: 1.1rem; }
+    #hero-8 h3 { font-size: 1rem; padding: 0; }
+    #hero-9 h3 { font-size: 1rem; margin-top: 30px; padding: 0; }
+    #hero-10 h3 { font-size: 0.95rem; }
+    #hero-11 h3 { font-size: 1.15rem; letter-spacing: -0.5px; padding: 0.75rem 2rem; margin-top: 2rem; }
+    #hero-12 h3 { font-size: 1.25rem; letter-spacing: 12px; }
+
+    /* Hero H2 Header */
+    #hero-1 h2 { font-size: 3.5rem; letter-spacing: -2px; margin-bottom: 15px; }
+    #hero-2 h2 { font-size: 3.5rem; margin-bottom: 15px; }
+    #hero-3 h2 { font-size: 3.5rem; letter-spacing: 3px; margin-bottom: 10px; }
+    #hero-4 h2 { font-size: 2.75rem; margin-bottom: 15px; }
+    #hero-5 h2 { font-size: 3rem; margin-bottom: 5px; }
+    #hero-5 h2.io { font-size: 8rem; letter-spacing: -7px; }
+    #hero-5 h2.io:after { width: 150px; margin: 10px auto 20px; }
+    #hero-6 h2 { font-size: 3rem; }
+    #hero-7 h2 { font-size: 3.5rem; margin-bottom: 20px; }
+    #hero-8 h2 { font-size: 2.75rem; }
+    #hero-10 h2 { font-size: 3.5rem; letter-spacing: 1px; margin-bottom: 5px; }
+    #hero-10 .hero-title { margin-top: 25px; }
+    #hero-10 .hero-title:after { width: 100px; margin: 15px auto 20px; }
+    #hero-11 h2 { font-size: 3.75rem; letter-spacing: 2px; }
+    #hero-11 h2:after { left: 5px; top: 20px; }
+    #hero-11 h2:before { left: 3px; bottom: 8px; }
+    #hero-12 h2 { font-size: 3rem; letter-spacing: 3px; margin-bottom: 10px; }
+
+    /* Hero Paragraphs */
+    #hero-1 p, #hero-2 p, #hero-3 p, #hero-4 p { font-size: 1rem; padding: 0 5%; }
+
+    /* Herp Buttons */
+    .hero-btn .btn.m-right-20 { margin-right: 10px; }
+
+    /* Hero Badge */
+    .hero-badge { position: relative; display: inline-block; right: 0; bottom: 0; margin: 25px auto; }
+    .hero-badge-text { padding: 8px 30px; }
+    .hero-badge .hero-badge-text span { font-size: 1.15rem; letter-spacing: -0.5px; display: inline-block; }
+    .hero-badge-text h5 { font-size: 1.15rem; font-weight: 300; padding: 0 5px; margin: 0; border: none; }
+
+    /* Hero Data */
+    #hero-1 .hero-data { padding: 0 0 110px; }
+    #hero-4 .hero-data { padding: 0 0 80px; }
+    #hero-6 .hero-data { margin-bottom: 90px; }
+    #hero-11 .hero-data { padding: 0 0 100px; }     
+    #hero-12 .hero-data { padding: 0 0 100px; }   
+    #hero-4 .hero-data .col-md-4 { margin-bottom: 25px; }
+    #hero-12 .hero-data .col-md-4 { margin-top: 25px; }
+
+    #hero-4 .hero-data span { font-size: 0.95rem; margin-bottom: 8px; }   
+    #hero-11 .event-data span { display: block; font-size: 1rem; }
+    #hero-12 .hero-data span { font-size: 1.15rem; }
+
+    /* Hero Socials */
+    #hero-1 .hero-social, #hero-11 .hero-social { position: relative; display: inline-block; right: 0; bottom: 0; margin: 30px auto 0; }
+    .hero-social span { font-size: 1rem; line-height: 1.45rem; }
+    .hero-social a { font-size: 1.45rem; margin: 0 4px; }
+
+    /*------------------------------------------*/
+    /*   INNER PAGE HERO
+    /*------------------------------------------*/
+
+    .page-hero-section { margin-top: 60px; padding-top: 50px; padding-bottom: 60px; }
+    .page-hero-section span { font-size: 1.15rem; }
+
+    .inner-page-title.m-bottom-80 { margin-bottom: 40px; }
+    .inner-page-title p { font-size: 1rem; font-weight: 400; line-height: 1.45; }
+
+    /*------------------------------------------*/
+    /*   CONTENT
+    /*------------------------------------------*/
+
+    /* About */
+    #about-3 { padding-top: 80px; }
+    #about-5 .section-id { margin-bottom: 1.75rem; }
+    #about-4 .section-title { margin-bottom: 0.75rem; }
+
+    .singnature { margin-top: 20px; }
+    .singnature p.p-small { margin-bottom: 15px; }
+
+    #about-4 .frow { margin-bottom: 0; }
+    #about-2 h4 { margin-bottom: 8px; }
+    #about-2 .about-txt p.m-bottom-30 { margin-bottom: 20px; }
+    #about-2 .about-btn { margin-top: 0; }
+
+    #about-1 .about-img.grey-bg { padding-left: 0; }
+    #about-2 .about-img.grey-bg { padding-right: 0; }
+    #about-4 .about-img { margin-top: 0; }
+
+    #inner-page-about h4.h4-lg.m-bottom-20 { margin-bottom: 15px; }
+    #inner-page-about h4.h4-lg.m-top-30 { margin-top: 18px; }
+
+    #inner-page-about .about-info.m-bottom-35 { margin-bottom: 25px; }
+    #inner-page-about .about-info.m-bottom-20 { margin-bottom: 15px; }
+    .about-info span { font-size: 1.05rem; }
+
+    /* Features */
+    #features-2 .section-title h2 { margin-bottom: 5px; }
+
+    .fbox h4, .features-txt h4 { margin-bottom: 10px; }
+    .features-txt h4.m-top-30 { margin-top: 20px; }
+    .fbox p.m-bottom-25 { margin-bottom: 15px; }
+
+    ul.features-list li { margin-bottom: 10px; }
+
+    .fea-social a { font-size: 1.5rem; margin: 0 7px; }
+    .fea-social { margin-top: 25px; margin-right: 0; }
+
+    /* Banner */
+    #banner-1 { padding-top: 50px; padding-bottom: 50px; }
+    #banner-2 { padding-top: 80px; padding-bottom: 80px; }
+    #banner-3 { padding-top: 40px; padding-bottom: 40px; }
+    #banner-4 { padding-top: 60px; padding-bottom: 60px; }
+    #banner-5 { padding-top: 80px; padding-bottom: 80px; text-align: center; }
+    #banner-6 { padding-top: 60px; padding-bottom: 60px; }
+
+    #banner-1 .banner-txt { margin-bottom: 20px; text-align: center; }
+    #banner-3 {text-align: center; }
+
+    #banner-4 .countdown { margin-top: 15px; margin-bottom: 10px; }
+
+    #banner-1 h3 { margin-bottom: 8px; }
+    #banner-3 h2 { margin-bottom: 15px; }
+    #banner-4 h2 { margin-bottom: 5px; }
+    #banner-5 h2 { padding: 0 5%; margin-bottom: 8px; }
+    #banner-6 h2 { margin-bottom: 0; }
+
+    #banner-1 .banner-txt p { padding: 0 10%; }
+    #banner-2 p { font-size: 1rem; margin-top: 10px; margin-bottom: 0; padding: 0; }
+    #banner-2 .banner-btn { margin-top: 10px; }
+    #banner-5 p { font-size: 1.05rem; padding: 0; margin-bottom: 0; }
+    #banner-6 p { font-size: 1.05rem; margin-bottom: 2px; padding: 0; }
+
+    /* Media */
+    #media-4 { padding-top: 110px; padding-bottom: 110px; }
+
+    .media-3-1.m-bottom-40, .media-3-1.m-bottom-60 { margin-bottom: 0; }
+
+    .media-txt h2 { margin-bottom: 10px; }
+    .media-txt p.m-bottom-30, .media-txt p.m-bottom-35 { margin-bottom: 15px; }
+    .media-txt a { font-size: 1rem; line-height: 1.3; font-weight: 600;letter-spacing: 0; }
+
+    .play-icon-red, .play-icon-white { width: 80px; height: 80px; background: url(../images/play-icon-reds.png); margin-top: -55px; margin-left: -40px; }
+    .play-icon-white { background: url(../images/play-icon-whites.png); }
+    #banner-4 #play-icon-red, .play-icon-white { margin-top: -45px; }
+
+    #media-1 .media-txt .col-sm-4 { width: 25%; float: left!important; }
+    .statistic-block { margin-top: 10px; }
+    .statistic-number { font-size: 2.65rem; margin-bottom: 8px; }
+    .statistic-block h5 { letter-spacing: 0; }
+
+    .owl-theme .owl-nav { bottom: -5%; left: 50%; margin-left: -38px; }
+    .owl-theme .owl-nav [class*='owl-'] { font-size: 1.25rem; margin: 0 2px; padding: 7px 14px; }
+
+    /* Schedule */
+    .nav-tabs { margin-bottom: 40px;  border-bottom: none; }
+    .nav-tabs .nav-item { margin-bottom: 4px;  }
+
+    .nav-tabs .nav-link { 
+      font-size: 1rem; 
+      padding: 0.75rem 0; 
+      background-color: rgba(220, 220, 220, 0.6); 
+      border: 1px solid transparent;
+      border-top-left-radius: 0; 
+      border-top-right-radius: 0; 
+    }
+
+    .schedule-event .col-sm-3 { width: 28%; float: left!important; }
+    .schedule-event .col-sm-9 { width: 72%; float: left!important; }
+
+    .lrow { border-bottom: 1px solid #ccc; margin-bottom: 15px; }
+
+    .schedule-event { margin-bottom: 5px; }
+    .event-time span { font-size: 1rem; padding-left: 10px; }
+
+    .schedule-buttons.m-top-20 { margin-top: 10px; }
+    .schedule-buttons .btn.m-right-20 { margin-right: 0; }
+
+    .schedule-buttons.m-top-20, .schedule-buttons.m-top-30 { margin-top: 10px; }
+
+    .agenda-tittle { margin-top: 15px; margin-bottom: 40px; padding: 20px 30px; }
+    .agenda-tittle span { font-size: 1rem; }
+
+    /* Pricing */
+    .pricing-row .col-md-4 { padding-left: 15px; padding-right: 15px; }
+    .pricing-table { padding: 40px 20px 10px; }
+
+    .pricing-plan span { font-size: 3.85rem; margin-left: 5px; }
+    .pricing-table sup { font-size: 1.85rem; top: -18px; }
+
+    .pricing-table ul.features { padding: 20px 0; }
+    .pricing-table .btn { padding: 0.75rem 0; margin-top: 10px; margin-bottom: 30px; }
+
+    .pricing-discount { margin-top: 0; }
+    .event-description hr { margin-top: 15px; margin-right: 15px; }
+
+    /* Sponsors */
+    #sponsors-2 .col-lg-12.m-bottom-45 { margin-bottom: 25px; } 
+    #sponsors-3 .col-md-12.m-bottom-40 { margin-bottom: 25px; }
+    #sponsors-3 .col-md-12.m-top-40.m-bottom-40 { margin-top: 10px; margin-bottom: 25px; }
+    .become-a-sponsor { margin-top: 30px; }
+
+    .sponsor { width: 50%; }
+
+    #sponsors-3 .brand-holder { text-align: center; padding: 20px 15px; margin-bottom: 30px; }
+    .become-a-sponsor .btn.m-right-20 { margin-right: 15px; }
+
+    /* Blog */
+    #single-post-page { padding-top: 120px;padding-bottom: 70px; }
+    .post-holder { margin-top: 40px; }
+    .blog-post-img.m-top-50.m-bottom-50 { margin-top: 30px; margin-bottom: 30px; }
+
+    p.psub-t { margin-top: 25px; margin-bottom: 25px; }
+    .psub-h { padding-top: 20px; padding-bottom: 20px; margin-top: 20px; margin-bottom: 20px; }
+
+    .post-tags-list { margin-top: 40px; margin-bottom: 30px; }
+
+    .single-post-comments { margin-top: 60px; padding-top: 50px; padding-bottom: 50px; margin-bottom: 60px; }
+
+    .all-posts-btn.m-top-20 { margin-top: 0; }
+    .all-posts-btn .btn { margin-top: 10px; }
+
+    .post-tags-list span a { font-size: 0.9rem; padding: 4px 12px; margin-right: 4px; }
+    a.share-ico { width: 80px; height: 30px; font-size: 0.95rem; line-height: 30px !important; margin-right: 3px; }
+    .share-social-icons .svg-inline--fa { margin-right: 5px; }
+
+    .post-author-meta { margin-bottom: 10px; }
+
+    /* Venue */
+    #venue-1 .venue-info { margin-top: 0; }
+    #venue-1 .venue-info h3 { margin-bottom: 15px; }
+
+    #venue-1 .maps-link { margin-top: 20px; }
+    #venue-1 .venue-add-info { margin-top: 35px; }
+
+    #venue-1 .transport { margin: 40px 0 0; }
+    #venue-1 .transport-data { margin-top: 30px; }
+    #venue-2 .transport-data, #inner-page-venue .transport-data { margin-bottom: 30px; }
+
+    .transport-data h4 { margin-bottom: 10px; }
+    #venue-2 .venue-add-info h4 { margin-bottom: 10px; }
+    .transport-data p { margin-bottom: 15px; }
+
+    #gmap { height: 250px; }
+    .gmap { margin-bottom: 30px; }
+    #inner-page-venue .gmap { margin-bottom: 60px; }
+
+    /* Hotels */  
+    #hotels-1 h2 { font-size: 2.75rem; }
+    #hotels-1 p { font-size: 1rem; }
+
+    .hotel-data span.hotel-price {
+      background-color: transparent;
+      position: relative;
+      display: block;
+      color: #e35029;
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: 0;
+      padding: 0;  
+      -webkit-border-radius: 0;
+      -moz-border-radius: 0;
+      border-radius: 0;
+      margin-bottom: 15px;
+      margin-left: 10px; 
+    }
+
+    .find-hotels-btn { margin-top: 25px; }
+    .find-hotels-btn .btn { margin-top: 0; }
+    .find-hotels-btn .btn.m-right-20 { margin-right: 15px; }
+
+    #hotels-2 .find-hotels { margin-top: 10px; }
+    #hotels-2 .find-hotels-btn { margin-top: 25px; }
+
+    /* Community */
+    #community p { font-size: 1rem; padding: 0; margin-bottom: 22px;  }
+    .community-icons a { width: 46px; height: 46px; font-size: 18px; line-height: 42px !important; margin: 0 2px; }
+
+    /* Newsletter */
+    #newsletter-1, #newsletter-2 { padding-top: 80px; padding-bottom: 40px; } 
+    #newsletter-1, #newsletter-2 { text-align: center; }
+    .newsletter-form .form-control, .input-group-btn { width: 100%; float: none!important; margin-bottom: 20px; }
+    .input-group-btn .btn { width: 100%;  }
+    .input-group-btn, .newsletter-section .input-group .form-control, .newsletter-section .input-group { display: block; text-align: center; }  
+
+    #newsletter-1 .newsletter-txt { margin-bottom: 20px; }
+    #newsletter-2 .newsletter-txt { margin-bottom: 10px; }
+    #newsletter-1 h2, #newsletter-2 h2 { font-size: 1.7125rem; }
+
+    .newsletter-form .form-control { height: 48px; font-size: 1.35rem; padding: 0px 5px; }
+    .newsletter-form .btn { height: 44px; padding: 0.95rem 4rem; }
+    #newsletter-2 .newsletter-form .btn { height: 42px; padding: 0.5rem 4rem; }
+
+    .newsletter-form .form-notification { font-size: 1.05rem; margin-top: 15px; }
+
+    /* Register Form */
+    #register .section-title { margin-bottom: 0.75rem; } 
+
+    #register-form .form-control { height: 44px; font-size: 1rem; margin-bottom: 25px; }
+    #register-form #form_register_btn .btn { height: 44px; font-size: 0.9rem; padding: 0.5rem 0.75rem; }
+
+    .register-form-msg .loading { font-size: 1.05rem; line-height: 1; }
+
+    /* Footer */
+    .footer { padding-top: 80px; padding-bottom: 50px; }
+    #footer-2 .footer-socials-links.text-right { text-align: left!important; }
+
+    .footer-about, .footer-info, .footer-socials-links { margin-bottom: 25px; }
+    .footer-copyright { padding-top: 20px; }
+    
+    .footer h4 { margin-bottom: 10px; }
+    .footer-about p { margin-bottom: 0; }
+    .footer-info p { font-size: 1rem; margin-bottom: 3px; }
+    .footer-social a { font-size: 1.3rem; margin: 0 4px; }
+
+    /* Event Statistic */
+    #event-statistic { padding-top: 70px; padding-bottom: 40px; }
+    #event-statistic .statistic-block { padding: 0; margin-bottom: 40px; }
+    .s-number { font-size: 3.35rem; letter-spacing: 0; margin-bottom: 8px; }
+
+
+
+}
+
+
+
+/* ------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------ */
+
+@media (min-width: 321px) and (max-width: 415px) { 
+
+    html { font-size: 14px; } 
+
+    #stlChanger { display: none; }
+
+    /* PRELOAD ANIMATION */
+    #loader { margin: -22px 0 0 -22px; }
+    .sk-folding-cube { display: block; width: 44px; height: 44px; }
+
+    /*------------------------------------------*/
+    /*   BASE
+    /*------------------------------------------*/
+
+    .wide-120 { padding-top: 100px; padding-bottom: 100px; }
+    .wide-110 { padding-top: 100px; padding-bottom: 100px; }
+    .wide-100 { padding-top: 80px; padding-bottom: 80px; }
+    .wide-90 { padding-top: 80px; padding-bottom: 70px; }
+    .wide-80 { padding-top: 80px; padding-bottom: 60px; }
+    .wide-70 { padding-top: 80px; padding-bottom: 50px; }
+    .wide-60 { padding-top: 80px; padding-bottom: 40px; }
+    .wide-50 { padding-top: 80px; padding-bottom: 30px; }
+    .wide-40 { padding-top: 80px; padding-bottom: 20px; }
+    .wide-30 { padding-top: 80px; padding-bottom: 10px; }
+
+    .p-left-0, .p-left-5, .p-left-10, .p-left-15, .p-left-20, .p-left-25, .p-left-30, .p-left-35 { padding-left: 0; }
+    .p-left-40, .p-left-45, .p-left-50 { padding-left: 0; }
+
+    .p-right-0, .p-right-5, .p-right-10, .p-right-15, .p-right-20, .p-right-25, .p-right-30, .p-right-35 { padding-right: 0; }  
+    .p-right-40, .p-right-45, .p-right-50 { padding-right: 0; }
+  
+    /* Header H5 */
+    h5.h5-small { font-size: 0.9rem; }
+    h5 { font-size: 1rem;}
+    h5.h5-medium { font-size: 1.1rem; }
+    h5.h5-lg { font-size: 1.1rem; }
+
+    /* Header H4 */
+    h4.h4-small { font-size: 1.215rem; }
+    h4 { font-size: 1.215rem; }
+    h4.h4-medium { font-size: 1.2875rem; }
+    h4.h4-lg { font-size: 1.2875rem; }
+
+    /* Header H3 */
+    h3.h3-small {font-size: 1.3125rem; }
+    h3 { font-size: 1.35rem; }
+    h3.h3-medium { font-size: 1.4rem; }
+    h3.h3-lg { font-size: 1.4rem; }
+
+    /* Header H2 */
+    h2.h2-small { font-size: 1.4rem; line-height: 1.3; }
+    h2 { font-size: 1.6rem; margin-bottom: 1.3rem; line-height: 1.2; }
+    h2.h2-medium { font-size: 1.6rem; line-height: 1.2; }
+    h2.h2-lg { font-size: 1.6rem; line-height: 1.2; }
+
+    /* Header H2 Banner */
+    h2.banner-small { font-size: 1.7125rem; line-height: 1.3; }
+    h2.banner-regular { font-size: 1.875rem; line-height: 1.3; letter-spacing: -1px; }
+    h2.banner-medium { font-size: 1.875rem; line-height: 1.3; }
+    h2.banner-lg { font-size: 1.875rem; letter-spacing: -2px; line-height: 1.3; }
+
+    /* Paragraphs */
+    p.p-medium {font-size: 1rem; line-height: 1.5; }
+    p.p-lg { font-size: 1rem; }
+
+    /* Button */
+    .btn { font-size: 0.9rem; padding: 0.85rem 1.7rem; margin-top: 1rem; }
+
+    .btn.btn-medium { padding: 0.85rem 1.7rem; }
+    .btn.btn-lg { font-size: 1rem;  padding: 1rem 2.15rem;  }
+
+    /* Countdown Element */
+    #clock .cbox { padding: 0 15px; }
+    #hero-12 .countdown { margin-top: 25px; }
+    #hero-12 #clock .cbox { padding: 0 15px; }
+    #banner-4 #clock .cbox { padding: 15px; margin-right: 5px; }
+
+    #clock span.cbox-digit { font-size: 1.75rem; }
+    #hero-12 #clock span.cbox-digit { font-size: 1.75rem; letter-spacing: 0; }
+    #clock span.cbox-txt { font-size: 11px; line-height: 11px; padding-top: 10px; }
+
+    /* Section ID */
+    span.section-id { font-size: 0.8rem; margin-bottom: 1.5rem;  }
+
+    /* Section Title */
+    .section-title { margin-bottom: 2.5rem; }
+    .section-title p { font-size: 1rem; margin-top: 1rem; }
+
+    /*------------------------------------------*/
+    /*   NAVIGATION MENU    
+    /*------------------------------------------*/
+
+    .navbar-brand { margin-left: 8px; }
+    .navbar-toggler { margin-right: 8px; }
+    .navbar.scroll .navbar-brand { margin-left: 8px; margin-right: 0; padding-right: 0; padding-left: 0; }
+    .navbar.scroll .navbar-toggler { margin-right: 8px; }
+
+    .bg-light { background-color: #fff!important; box-shadow: 0 0 2px rgba(50, 50, 50, 0.4); }
+    .navbar { text-align: center; }
+    .dropdown-menu { text-align: center; padding: 0; margin-top: 0; border-top: none; -webkit-border-radius: 0; -moz-border-radius: 0; border-radius: 0; }
+    .dropdown-divider { margin: 5px 0; }
+    .dropdown-item { padding: 10px 0; }
+
+    .navbar.bg-tra  { padding: 0.75rem 1rem; background-color: #fff!important; box-shadow: 0 0 2px rgba(50, 50, 50, 0.4); }
+
+    .logo-white, .navbar-light.bg-tra .logo-white, .navbar-light.bg-light .logo-white, 
+    .navbar-dark.bg-tra .logo-white, .navbar-dark.bg-dark .logo-white { display: none; }
+
+    .navbar-dark.bg-tra .logo-black, .navbar-light.bg-tra .logo-black, 
+    .logo-black, .navbar-light.bg-light .logo-black { display: block; }
+
+    .bg-tra.navbar-dark .nav-link { color: #333; }
+    .bg-tra.navbar-dark .navbar-nav .active > .nav-link { color: rgba(0,0,0,.9); }
+    .navbar-dark .nav-link:focus, .navbar-dark .nav-link:hover { color: #333; background-color: rgba(200, 200, 200, 0.35); }
+    .navbar-dark .navbar-nav .nav-link:focus, .navbar-dark .navbar-nav .nav-link:hover { color: #333; }
+
+    .navbar-nav { padding-top: 15px; }
+    .navbar-expand-lg .navbar-nav .nav-link { padding: 10px 0; margin-left: 0; -webkit-border-radius: 0;-moz-border-radius: 0; border-radius: 0; }
+
+    .navbar .btn { width: 100%; margin-top: 5px; margin-left: 0; }
+    .navbar .btn-tra-white { color: #444; border-color: #444; }
+    .navbar .btn-tra-white:before { background-color: rgba(0, 0, 0, 0.75); }
+    .navbar .btn-tra-white:hover { color: #fff;}
+
+    .navbar.scroll.bg-tra { padding: 0.75rem 1rem; }
+
+    /*------------------------------------------*/
+    /*   HERO
+    /*------------------------------------------*/
+
+    .hero-section { margin-top: 60px; text-align: center; }
+
+    .hero-row-220 { padding-top: 100px; padding-bottom: 100px; }
+    .hero-row-200 { padding-top: 100px; padding-bottom: 100px; }
+    .hero-row-180 { padding-top: 100px; padding-bottom: 100px; }
+    .hero-row-160 { padding-top: 100px; padding-bottom: 100px; }
+
+    #hero-1 .hero-row-200 { padding-bottom: 0; }
+    #hero-2 .hero-row-180 { padding-top: 120px; padding-bottom: 120px; }
+    #hero-4 .hero-row-200 { padding-bottom: 20px; }
+    #hero-6 .hero-row-160 { padding-bottom: 155px; }
+    #hero-11 .hero-row-200 { padding-bottom: 30px; }
+    #hero-12 .hero-row-220 { padding-bottom: 30px; }
+
+    /* Hero Text */
+    #hero-2 .hero-txt { padding: 0; }
+    .square, .inner { display: none;  }
+
+    #hero-6 .hero-txt:before { width: 200px; height: 40px; border: 4px solid #feca16; border-bottom: 0; top: -50px; }
+    #hero-6 .hero-txt:after { width: 200px; height: 40px; border: 4px solid #feca16; border-top: 0; bottom: -50px; }
+
+    #hero-7 .hero-img { margin: 30px 25% 0; }
+    #hero-10 .hero-txt { padding: 30px 20px; }
+
+    /* Hero H4 Header */
+    #hero-3 h4 { font-size: 1rem; margin-bottom: 12px; }
+    #hero-4 h4 { font-size: 0.95em; margin: 0 10% 15px; }
+    #hero-5 h4 { font-size: 1.05rem; margin-bottom: 2px; }
+    #hero-5 span { font-size: 1rem; }
+    #hero-6 h4 { font-size: 1.05rem; }
+    #hero-7 h4 { font-size: 0.9rem; }
+    #hero-8 h4 { font-size: 1rem; }
+    #hero-9 h4 { font-size: 1rem; margin-bottom: 30px; }
+    #hero-10 h4 { font-size: 0.9rem; }
+    #hero-11 h4 {  font-size: 1rem; margin-bottom: 20px; }
+    #hero-12 h4 { font-size: 1em; margin-bottom: 5px; }
+
+    /* Hero H3 Header */
+    #hero-2 h3 { font-size: 0.75rem; }
+    #hero-3 h3 { font-size: 1.35rem; letter-spacing: 4px; }
+    #hero-4 h3 { font-size: 1.05rem; margin-bottom: 20px; }
+    #hero-5 h3 { font-size: 1.75rem; padding: 0 5%; }
+    #hero-6 h3 { font-size: 1rem; padding: 0; }
+    #hero-7 span { font-size: 1rem; line-height: 1; margin-bottom: 5px; }
+    #hero-8 h3 { font-size: 1rem; padding: 0; }
+    #hero-9 h3 { font-size: 1rem; margin-top: 30px; padding: 0; }
+    #hero-10 h3 { font-size: 0.9rem; }
+    #hero-11 h3 { font-size: 1rem; letter-spacing: -0.5px; padding: 0.75rem 2rem; margin-top: 1.5rem; }
+    #hero-12 h3 { font-size: 1.15rem; letter-spacing: 8px; }
+
+    /* Hero H2 Header */
+    #hero-1 h2 { font-size: 2.75rem; letter-spacing: -2px; margin-bottom: 15px; }
+    #hero-2 h2 { font-size: 2.75rem; margin-bottom: 15px; }
+    #hero-3 h2 { font-size: 2.75rem; letter-spacing: 1px; margin-bottom: 12px; }
+    #hero-4 h2 { font-size: 2.25rem; margin-bottom: 16px; }
+    #hero-5 h2 { font-size: 2.5rem; margin-bottom: 5px; }
+    #hero-5 h2.io { font-size: 6.5rem; letter-spacing: -5px; }
+    #hero-5 h2.io:after { width: 120px; margin: 10px auto 20px; }
+    #hero-6 h2 { font-size: 2.5rem; margin-bottom: 10px; }
+    #hero-7 h2 { font-size: 2.75rem; margin-bottom: 20px; }
+    #hero-8 h2 { font-size: 2.25rem; }
+    #hero-10 h2 { font-size: 2.75rem; letter-spacing: 1px; margin-bottom: 5px; }
+    #hero-10 .hero-title { margin-top: 20px; }
+    #hero-10 .hero-title:after { width: 80px; margin: 15px auto 20px; }
+    #hero-11 h2 { font-size: 2.75rem; letter-spacing: 1px; }
+    #hero-11 h2:after { left: 5px; top: 10px; }
+    #hero-11 h2:before { left: 3px; bottom: 8px; }
+    #hero-12 h2 { font-size: 2.5rem; letter-spacing: 2px; margin-bottom: 10px; }
+
+    /* Hero Paragraphs */
+    #hero-1 p, #hero-2 p, #hero-3 p, #hero-4 p { font-size: 1rem; padding: 0 5%; }
+
+    /* Herp Buttons */
+    .hero-btn .btn.m-right-20 { margin-right: 20px; margin-left: 20px; }
+
+    /* Hero Badge */
+    .hero-badge { position: relative; display: inline-block; right: 0; bottom: 0; margin: 25px auto; }
+    .hero-badge-text { padding: 8px 30px; }
+    .hero-badge .hero-badge-text span { font-size: 1.15rem; letter-spacing: -0.5px; display: inline-block; }
+    .hero-badge-text h5 { font-size: 1.15rem; font-weight: 300; padding: 0 5px; margin: 0; border: none; }
+
+    /* Hero Data */
+    #hero-1 .hero-data { padding: 0 0 100px; }
+    #hero-4 .hero-data { padding: 0 0 80px; }
+    #hero-6 .hero-data { margin-bottom: 75px; }
+    #hero-11 .hero-data { padding: 0 0 100px; }  
+    #hero-12 .hero-data { padding: 0 0 100px; }     
+    #hero-4 .hero-data .col-md-4 { margin-bottom: 25px; }
+    #hero-12 .hero-data .col-md-4 { margin-top: 25px; }
+
+    #hero-4 .hero-data span { font-size: 0.95rem; margin-bottom: 8px; }   
+    #hero-11 .event-data span { display: block; font-size: 1rem; }
+    #hero-12 .hero-data span { font-size: 1.15rem; }
+
+    /* Hero Socials */
+    #hero-1 .hero-social, #hero-11 .hero-social { position: relative; display: inline-block; right: 0; bottom: 0; margin: 30px auto 0; }
+    .hero-social span { font-size: 1rem; line-height: 1.35rem; }
+    .hero-social a { font-size: 1.35rem; margin: 0 4px; }
+
+    /*------------------------------------------*/
+    /*   INNER PAGE HERO
+    /*------------------------------------------*/
+
+    .page-hero-section { margin-top: 60px; padding-top: 40px; padding-bottom: 50px; }
+    .page-hero-section h2.banner-medium { font-size: 1.5rem; }
+    .page-hero-section span { font-size: 1rem; }
+
+    .inner-page-title.m-bottom-80 { margin-bottom: 30px; }
+    .inner-page-title p { font-size: 1rem; font-weight: 400; line-height: 1.45; }
+
+    /*------------------------------------------*/
+    /*   CONTENT
+    /*------------------------------------------*/
+
+    /* About */
+    #about-3 { padding-top: 80px; }
+    #about-5 .section-id { margin-bottom: 1.75rem; }
+    #about-4 .section-title { margin-bottom: 0.75rem; }
+
+    .singnature { margin-top: 20px; }
+    .singnature p.p-small { margin-bottom: 15px; }
+
+    #about-4 .frow { margin-bottom: 0; }
+    #about-2 h4 { margin-bottom: 8px; }
+    #about-2 .about-txt p.m-bottom-30 { margin-bottom: 20px; }
+    #about-2 .about-btn { margin-top: 0; }
+
+    #about-1 .about-img.grey-bg { padding-left: 0; }
+    #about-2 .about-img.grey-bg { padding-right: 0; }
+    #about-4 .about-img { margin-top: 0; }
+
+    #inner-page-about h4.h4-lg.m-bottom-20 { margin-bottom: 15px; }
+    #inner-page-about h4.h4-lg.m-top-30 { margin-top: 18px; }
+
+    #inner-page-about .about-info.m-bottom-35 { margin-bottom: 25px; }
+    #inner-page-about .about-info.m-bottom-20 { margin-bottom: 15px; }
+    .about-info span { font-size: 1rem; }
+
+    /* Features */
+    #features-2 .section-title h2 { margin-bottom: 5px; }
+
+    .fbox h4, .features-txt h4 { margin-bottom: 10px; }
+    .features-txt h4.m-top-30 { margin-top: 20px; }
+    .fbox p.m-bottom-25 { margin-bottom: 15px; }
+
+    ul.features-list li { margin-bottom: 10px; }
+
+    .fea-social a { font-size: 1.5rem; margin: 0 7px; }
+    .fea-social { margin-top: 25px; margin-right: 0; }
+
+    /* Banner */
+    #banner-1 { padding-top: 50px; padding-bottom: 50px; }
+    #banner-2 { padding-top: 80px; padding-bottom: 80px; text-align: center; }
+    #banner-3 { padding-top: 40px; padding-bottom: 40px; }
+    #banner-4 { padding-top: 60px; padding-bottom: 60px; }
+    #banner-5 { padding-top: 80px; padding-bottom: 80px; text-align: center; }
+    #banner-6 { padding-top: 60px; padding-bottom: 60px; }
+
+    #banner-1 .banner-txt { margin-bottom: 20px; text-align: center; }
+    #banner-3 {text-align: center; }
+
+    #banner-4 .countdown { margin-top: 15px; margin-bottom: 10px; }
+
+    #banner-1 h3 { margin-bottom: 8px; }
+    #banner-3 h2 { margin-bottom: 15px; }
+    #banner-4 h2 { margin-bottom: 5px; }
+    #banner-5 h2 { padding: 0 5%; margin-bottom: 8px; }
+    #banner-6 h2 { margin-bottom: 0; }
+
+    #banner-1 .banner-txt p { padding: 0; }
+    #banner-2 p { font-size: 1rem; margin-top: 10px; margin-bottom: 0; padding: 0; }
+    #banner-2 .banner-btn { margin-top: 10px; }
+    #banner-2 .banner-btn .btn.m-right-15 { margin-right: 0; }
+    #banner-5 p { font-size: 1.05rem; padding: 0; margin-bottom: 0; }
+    #banner-6 p { font-size: 1rem; margin-bottom: 2px; padding: 0; }
+
+    /* Media */
+    #media-4 { padding-top: 110px; padding-bottom: 110px; }
+
+    .media-3-1.m-bottom-40, .media-3-1.m-bottom-60 { margin-bottom: 0; }
+
+    .media-txt h2 { margin-bottom: 10px; }
+    .media-txt p.m-bottom-30, .media-txt p.m-bottom-35 { margin-bottom: 15px; }
+    .media-txt a { font-size: 1rem; line-height: 1.3; font-weight: 600;letter-spacing: 0; }
+
+    .play-icon-red, .play-icon-white { width: 80px; height: 80px; background: url(../images/play-icon-reds.png); margin-top: -55px; margin-left: -40px; }
+    .play-icon-white { background: url(../images/play-icon-whites.png); }
+    #banner-4 #play-icon-red, .play-icon-white { margin-top: -45px; }
+
+    #media-1 .media-txt .col-sm-4 { width: 33%; float: left!important; }
+    .statistic-block { margin-top: 10px; }
+    .statistic-number { font-size: 2.65rem; margin-bottom: 8px; }
+    .statistic-block h5 { letter-spacing: 0; }
+
+    .owl-theme .owl-nav { bottom: -5%; left: 50%; margin-left: -38px; }
+    .owl-theme .owl-nav [class*='owl-'] { font-size: 1.25rem; margin: 0 2px; padding: 7px 14px; }
+
+    /* Schedule */
+    .nav-tabs { margin-bottom: 40px;  border-bottom: none; }
+    .nav-tabs .nav-item { margin-bottom: 4px;  }
+
+    .nav-tabs .nav-link { 
+      font-size: 1rem; 
+      padding: 0.75rem 0; 
+      background-color: rgba(220, 220, 220, 0.6); 
+      border: 1px solid transparent;
+      border-top-left-radius: 0; 
+      border-top-right-radius: 0; 
+    }
+
+    .schedule-event .col-sm-3 { width: 100%; float: none!important; text-align: center; }
+    .schedule-event .col-sm-9 { width: 100%; float: none!important; text-align: center; }
+
+    .schedule-event { margin-bottom: 5px; }
+    .event-time { margin-bottom: 10px; }
+    .event-time span { font-size: 1rem; padding-left: 0; }
+
+    .event-description { padding-left: 15px; }
+    .lrow { border-bottom: 1px solid #ccc; margin-bottom: 15px; }
+
+    .schedule-buttons.m-top-20, .schedule-buttons.m-top-30 { margin-top: 10px; }
+    .schedule-buttons .btn.m-right-20 { margin-right: 0; }
+
+    .agenda-tittle { margin-top: 15px; margin-bottom: 40px; padding: 15px 20px; }
+    .agenda-tittle span { font-size: 1rem; }
+
+    /* Pricing */
+    .pricing-row .col-md-4 { padding-left: 15px; padding-right: 15px; }
+    .pricing-table { padding: 40px 20px 10px; }
+
+    .pricing-plan span { font-size: 3.85rem; margin-left: 5px; }
+    .pricing-table sup { font-size: 1.85rem; top: -18px; }
+
+    .pricing-table ul.features { padding: 20px 0; }
+    .pricing-table .btn { padding: 0.75rem 0; margin-top: 10px; margin-bottom: 30px; }
+
+    .pricing-discount { margin-top: 0; }
+    .event-description hr { margin-top: 15px; margin-right: 15px; }
+
+    /* Sponsors */
+    #sponsors-2 .col-lg-12.m-bottom-45 { margin-bottom: 25px; } 
+    #sponsors-3 .col-md-12.m-bottom-40 { margin-bottom: 25px; }
+    #sponsors-3 .col-md-12.m-top-40.m-bottom-40 { margin-top: 10px; margin-bottom: 25px; }
+    .become-a-sponsor { margin-top: 10px; }
+
+    .sponsor { width: 100%; }
+
+    .become-a-sponsor .btn.m-right-20 { margin-right: 0; }
+    #sponsors-3 .brand-holder { text-align: center; padding: 20px 15px; margin-bottom: 30px; }
+
+    /* Blog */
+    #single-post-page { padding-top: 120px;padding-bottom: 70px; }
+    .post-holder { margin-top: 40px; }
+    .blog-post-img.m-top-50.m-bottom-50 { margin-top: 30px; margin-bottom: 30px; }
+
+    p.psub-t { margin-top: 25px; margin-bottom: 25px; }
+    .psub-h { padding-top: 20px; padding-bottom: 20px; margin-top: 20px; margin-bottom: 20px; }
+
+    .post-tags-list { margin-top: 40px; margin-bottom: 30px; }
+
+    .single-post-comments { margin-top: 60px; padding-top: 50px; padding-bottom: 50px; margin-bottom: 60px; }
+
+    .all-posts-btn.m-top-20 { margin-top: 0; }
+    .all-posts-btn .btn { margin-top: 10px; }
+
+    .post-tags-list span a { font-size: 0.85rem; padding: 3px 10px; margin-right: 3px; margin-bottom: 6px; }
+    a.share-ico { width: 80px; height: 25px; font-size: 0.85rem; line-height: 25px !important; margin-right: 4px;  margin-bottom: 6px; }
+    .share-social-icons .svg-inline--fa { margin-right: 3px; }
+
+    .post-author-meta { margin-bottom: 10px; }
+
+    /* Venue */
+    #venue-1 .venue-info { margin-top: 0; }
+    #venue-1 .venue-info h3 { margin-bottom: 15px; }
+
+    #venue-1 .maps-link { margin-top: 20px; }
+    #venue-1 .venue-add-info { margin-top: 35px; }
+
+    #venue-1 .transport { margin: 40px 0 0; }
+    #venue-1 .transport-data { margin-top: 30px; }
+    #venue-2 .transport-data { margin-bottom: 30px; }
+
+    .transport-data h4 { margin-bottom: 10px; }
+    #venue-2 .venue-add-info h4 { margin-bottom: 10px; }
+    .transport-data p { margin-bottom: 15px; }
+
+    #gmap { height: 200px; }
+    .gmap { margin-bottom: 30px; }
+    #inner-page-venue .gmap { margin-bottom: 60px; }
+
+    /* Hotels */  
+    #hotels-1 h2 { font-size: 2.25rem; }
+    #hotels-1 p { font-size: 1rem; }
+
+    .hotel-data span.hotel-price {
+      background-color: transparent;
+      position: relative;
+      display: block;
+      color: #e35029;
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: 0;
+      padding: 0;  
+      -webkit-border-radius: 0;
+      -moz-border-radius: 0;
+      border-radius: 0;
+      margin-bottom: 15px;
+      margin-left: 15px; 
+    }
+
+    .find-hotels-btn { margin-top: 25px; }
+    .find-hotels-btn .btn { margin-top: 0; }
+    .find-hotels-btn .btn.m-right-15, .find-hotels-btn .btn.m-right-20 { margin-right: 0; margin-bottom: 1rem; }
+
+    #hotels-2 .find-hotels { margin-top: 20px; }
+    #hotels-2 .find-hotels-btn { margin-top: 25px; }
+    #venue-2 .transport-data, #inner-page-venue .transport-data { margin-bottom: 30px; }
+
+    /* Community */
+    #community p { font-size: 1rem; padding: 0; margin-bottom: 22px;  }
+    .community-icons a { width: 40px; height: 40px; font-size: 17px; line-height: 36px !important; margin: 0 1px; }
+
+    /* Newsletter */
+    #newsletter-1, #newsletter-2 { padding-top: 80px; padding-bottom: 50px; text-align: center; } 
+    .newsletter-form .form-control, .input-group-btn { width: 100%; float: none!important; margin-bottom: 20px; }
+    .input-group-btn .btn { width: 100%;  }
+    .input-group-btn, .newsletter-section .input-group .form-control, .newsletter-section .input-group { display: block; text-align: center; }  
+
+    #newsletter-1 .newsletter-txt { margin-bottom: 10px; }
+    #newsletter-2 .newsletter-txt { margin-bottom: 10px; }
+    #newsletter-1 h2, #newsletter-2 h2 { font-size: 1.4rem; }
+
+    .newsletter-form .form-control { height: 48px; font-size: 1.15rem; padding: 0px 5px; }
+    .newsletter-form .btn { height: 42px; padding: 0.5rem 3rem; }
+    #newsletter-2 .newsletter-form .btn { height: 42px; padding: 0.5rem 3rem; }
+
+    .newsletter-form .form-notification { font-size: 1.05rem; margin-top: 15px; }
+
+    /* Register Form */
+    #register .section-title { margin-bottom: 0.75rem; } 
+
+    #register-form .form-control { height: 44px; font-size: 1rem; margin-bottom: 25px; }
+    #register-form #form_register_btn .btn { height: 44px; font-size: 0.9rem; padding: 0.5rem 0.75rem; }
+
+    .register-form-msg .loading { font-size: 1.05rem; line-height: 1; }
+
+    /* Footer */
+    .footer { padding-top: 80px; padding-bottom: 50px; }
+    #footer-2 .footer-socials-links.text-right { text-align: left!important; }
+
+    .footer-about, .footer-info, .footer-socials-links { margin-bottom: 25px; }
+    .footer-copyright { padding-top: 20px; }
+    
+    .footer h4 { margin-bottom: 10px; }
+    .footer-about p { margin-bottom: 0; }
+    .footer-info p { font-size: 1rem; margin-bottom: 3px; }
+    .footer-social a { font-size: 1.3rem; margin: 0 4px; }
+
+    /* Event Statistic */
+    #event-statistic { padding-top: 70px; padding-bottom: 30px; }
+    #event-statistic .statistic-block { padding: 0; margin-bottom: 40px; }
+    .s-number { font-size: 3.35rem; letter-spacing: 0; margin-bottom: 8px; }
+
+
+
+}
+
+
+
+/* ------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------ */
+
+@media (max-width: 320px) {	
+
+    html { font-size: 14px; } 
+
+    #stlChanger { display: none; }
+
+    /* PRELOAD ANIMATION */
+    #loader { margin: -22px 0 0 -22px; }
+    .sk-folding-cube { display: block; width: 44px; height: 44px; }
+
+    /*------------------------------------------*/
+    /*   BASE
+    /*------------------------------------------*/
+
+    .wide-120 { padding-top: 100px; padding-bottom: 100px; }
+    .wide-110 { padding-top: 100px; padding-bottom: 100px; }
+    .wide-100 { padding-top: 80px; padding-bottom: 80px; }
+    .wide-90 { padding-top: 80px; padding-bottom: 70px; }
+    .wide-80 { padding-top: 80px; padding-bottom: 60px; }
+    .wide-70 { padding-top: 80px; padding-bottom: 50px; }
+    .wide-60 { padding-top: 80px; padding-bottom: 40px; }
+    .wide-50 { padding-top: 80px; padding-bottom: 30px; }
+    .wide-40 { padding-top: 80px; padding-bottom: 20px; }
+    .wide-30 { padding-top: 80px; padding-bottom: 10px; }
+
+    .p-left-0, .p-left-5, .p-left-10, .p-left-15, .p-left-20, .p-left-25, .p-left-30, .p-left-35 { padding-left: 0; }
+    .p-left-40, .p-left-45, .p-left-50 { padding-left: 0; }
+
+    .p-right-0, .p-right-5, .p-right-10, .p-right-15, .p-right-20, .p-right-25, .p-right-30, .p-right-35 { padding-right: 0; }  
+    .p-right-40, .p-right-45, .p-right-50 { padding-right: 0; }
+  
+    /* Header H5 */
+    h5.h5-small { font-size: 0.9rem; }
+    h5 { font-size: 1rem;}
+    h5.h5-medium { font-size: 1.1rem; }
+    h5.h5-lg { font-size: 1.1rem; }
+
+    /* Header H4 */
+    h4.h4-small { font-size: 1.215rem; }
+    h4 { font-size: 1.215rem; }
+    h4.h4-medium { font-size: 1.2875rem; }
+    h4.h4-lg { font-size: 1.2875rem; }
+
+    /* Header H3 */
+    h3.h3-small {font-size: 1.3125rem; }
+    h3 { font-size: 1.35rem; }
+    h3.h3-medium { font-size: 1.4rem; }
+    h3.h3-lg { font-size: 1.4rem; }
+
+    /* Header H2 */
+    h2.h2-small { font-size: 1.4rem; line-height: 1.3; }
+    h2 { font-size: 1.6rem; margin-bottom: 1.3rem; line-height: 1.2; }
+    h2.h2-medium { font-size: 1.6rem; line-height: 1.2; }
+    h2.h2-lg { font-size: 1.6rem; line-height: 1.2; }
+
+    /* Header H2 Banner */
+    h2.banner-small { font-size: 1.7125rem; line-height: 1.3; }
+    h2.banner-regular { font-size: 1.875rem; line-height: 1.3; letter-spacing: -1px; }
+    h2.banner-medium { font-size: 1.875rem; line-height: 1.3; }
+    h2.banner-lg { font-size: 1.875rem; letter-spacing: -2px; line-height: 1.3; }
+
+    /* Paragraphs */
+    p.p-medium {font-size: 1rem; line-height: 1.5; }
+    p.p-lg { font-size: 1rem; }
+
+    /* Button */
+    .btn { font-size: 0.9rem; padding: 0.85rem 1.7rem; margin-top: 1rem; }
+
+    .btn.btn-medium { padding: 0.85rem 1.7rem; }
+    .btn.btn-lg { font-size: 1rem;  padding: 1rem 2.15rem;  }
+
+    /* Countdown Element */
+    #clock .cbox { padding: 0 15px; }
+    #hero-12 .countdown { margin-top: 25px; }
+    #hero-12 #clock .cbox { padding: 0 15px; }
+    #banner-4 #clock .cbox { padding: 15px; margin-right: 5px; }
+
+    #clock span.cbox-digit { font-size: 1.75rem; }
+    #hero-12 #clock span.cbox-digit { font-size: 1.75rem; letter-spacing: 0; }
+    #clock span.cbox-txt { font-size: 11px; line-height: 11px; padding-top: 10px; }
+
+    /* Section ID */
+    span.section-id { font-size: 0.8rem; margin-bottom: 1.5rem;  }
+
+    /* Section Title */
+    .section-title { margin-bottom: 2.5rem; }
+    .section-title p { font-size: 1rem; margin-top: 1rem; }
+
+    /*------------------------------------------*/
+    /*   NAVIGATION MENU    
+    /*------------------------------------------*/
+
+    .navbar-brand { margin-left: 8px; }
+    .navbar-toggler { margin-right: 8px; }
+    .navbar.scroll .navbar-brand { margin-left: 8px; margin-right: 0; padding-right: 0; padding-left: 0; }
+    .navbar.scroll .navbar-toggler { margin-right: 8px; }
+
+    .bg-light { background-color: #fff!important; box-shadow: 0 0 2px rgba(50, 50, 50, 0.4); }
+    .navbar { text-align: center; }
+    .dropdown-menu { text-align: center; padding: 0; margin-top: 0; border-top: none; -webkit-border-radius: 0; -moz-border-radius: 0; border-radius: 0; }
+    .dropdown-divider { margin: 5px 0; }
+    .dropdown-item { padding: 10px 0; }
+
+    .navbar.bg-tra  { padding: 0.75rem 1rem; background-color: #fff!important; box-shadow: 0 0 2px rgba(50, 50, 50, 0.4); }
+
+    .logo-white, .navbar-light.bg-tra .logo-white, .navbar-light.bg-light .logo-white, 
+    .navbar-dark.bg-tra .logo-white, .navbar-dark.bg-dark .logo-white { display: none; }
+
+    .navbar-dark.bg-tra .logo-black, .navbar-light.bg-tra .logo-black, 
+    .logo-black, .navbar-light.bg-light .logo-black { display: block; }
+
+    .bg-tra.navbar-dark .nav-link { color: #333; }
+    .bg-tra.navbar-dark .navbar-nav .active > .nav-link { color: rgba(0,0,0,.9); }
+    .navbar-dark .nav-link:focus, .navbar-dark .nav-link:hover { color: #333; background-color: rgba(200, 200, 200, 0.35); }
+    .navbar-dark .navbar-nav .nav-link:focus, .navbar-dark .navbar-nav .nav-link:hover { color: #333; }
+
+    .navbar-nav { padding-top: 15px; }
+    .navbar-expand-lg .navbar-nav .nav-link { padding: 10px 0; margin-left: 0; -webkit-border-radius: 0;-moz-border-radius: 0; border-radius: 0; }
+
+    .navbar .btn { width: 100%; margin-top: 5px; margin-left: 0; }
+    .navbar .btn-tra-white { color: #444; border-color: #444; }
+    .navbar .btn-tra-white:before { background-color: rgba(0, 0, 0, 0.75); }
+    .navbar .btn-tra-white:hover { color: #fff;}
+
+    .navbar.scroll.bg-tra { padding: 0.75rem 1rem; }
+
+    /*------------------------------------------*/
+    /*   HERO
+    /*------------------------------------------*/
+
+    .hero-section { margin-top: 60px; text-align: center; }
+
+    .hero-row-220 { padding-top: 100px; padding-bottom: 100px; }
+    .hero-row-200 { padding-top: 100px; padding-bottom: 100px; }
+    .hero-row-180 { padding-top: 100px; padding-bottom: 100px; }
+    .hero-row-160 { padding-top: 100px; padding-bottom: 100px; }
+
+    #hero-1 .hero-row-200 { padding-bottom: 0; }
+    #hero-2 .hero-row-180 { padding-top: 120px; padding-bottom: 120px; }
+    #hero-4 .hero-row-200 { padding-bottom: 20px; }
+    #hero-6 .hero-row-160 { padding-bottom: 155px; }
+    #hero-11 .hero-row-200 { padding-bottom: 30px; }
+    #hero-12 .hero-row-220 { padding-bottom: 25px; }
+
+    /* Hero Text */
+    #hero-2 .hero-txt { padding: 0; }
+    .square, .inner { display: none;  }
+
+    #hero-6 .hero-txt:before { width: 200px; height: 40px; border: 4px solid #feca16; border-bottom: 0; top: -50px; }
+    #hero-6 .hero-txt:after { width: 200px; height: 40px; border: 4px solid #feca16; border-top: 0; bottom: -50px; }
+
+    #hero-7 .hero-img { margin: 30px 25% 0; }
+    #hero-10 .hero-txt { padding: 30px 20px; }
+
+    /* Hero H4 Header */
+    #hero-3 h4 { font-size: 1rem; margin-bottom: 12px; }
+    #hero-4 h4 { font-size: 0.95em; margin: 0 10% 15px; }
+    #hero-5 h4 { font-size: 1.05rem; margin-bottom: 2px; }
+    #hero-5 span { font-size: 1rem; }
+    #hero-6 h4 { font-size: 1.05rem; }
+    #hero-7 h4 { font-size: 0.9rem; }
+    #hero-8 h4 { font-size: 1rem; }
+    #hero-9 h4 { font-size: 1rem; margin-bottom: 30px; }
+    #hero-10 h4 { font-size: 0.9rem; }
+    #hero-11 h4 {  font-size: 1rem; margin-bottom: 20px; }
+    #hero-12 h4 { font-size: 1em; margin-bottom: 5px; }
+
+    /* Hero H3 Header */
+    #hero-2 h3 { font-size: 0.75rem; }
+    #hero-3 h3 { font-size: 1.35rem; letter-spacing: 4px; }
+    #hero-4 h3 { font-size: 1.05rem; margin-bottom: 20px; }
+    #hero-5 h3 { font-size: 1.75rem; padding: 0 5%; }
+    #hero-6 h3 { font-size: 1rem; padding: 0; }
+    #hero-7 span { font-size: 1rem; line-height: 1; margin-bottom: 5px; }
+    #hero-8 h3 { font-size: 1rem; padding: 0; }
+    #hero-9 h3 { font-size: 1rem; margin-top: 30px; padding: 0; }
+    #hero-10 h3 { font-size: 0.9rem; }
+    #hero-11 h3 { font-size: 1rem; letter-spacing: -0.5px; padding: 0.75rem 2rem; margin-top: 1.5rem; }
+    #hero-12 h3 { font-size: 1.15rem; letter-spacing: 8px; }
+
+    /* Hero H2 Header */
+    #hero-1 h2 { font-size: 2.75rem; letter-spacing: -2px; margin-bottom: 15px; }
+    #hero-2 h2 { font-size: 2.75rem; margin-bottom: 15px; }
+    #hero-3 h2 { font-size: 2.75rem; letter-spacing: 1px; margin-bottom: 12px; }
+    #hero-4 h2 { font-size: 2.25rem; margin-bottom: 16px; }
+    #hero-5 h2 { font-size: 2.5rem; margin-bottom: 5px; }
+    #hero-5 h2.io { font-size: 6.5rem; letter-spacing: -5px; }
+    #hero-5 h2.io:after { width: 120px; margin: 10px auto 20px; }
+    #hero-6 h2 { font-size: 2.5rem; margin-bottom: 10px; }
+    #hero-7 h2 { font-size: 2.75rem; margin-bottom: 20px; }
+    #hero-8 h2 { font-size: 2.25rem; }
+    #hero-10 h2 { font-size: 2.75rem; letter-spacing: 1px; margin-bottom: 5px; }
+    #hero-10 .hero-title { margin-top: 20px; }
+    #hero-10 .hero-title:after { width: 80px; margin: 15px auto 20px; }
+    #hero-11 h2 { font-size: 2.75rem; letter-spacing: 1px; }
+    #hero-11 h2:after { left: 5px; top: 10px; }
+    #hero-11 h2:before { left: 3px; bottom: 8px; }
+    #hero-12 h2 { font-size: 2.45rem; letter-spacing: 2px; margin-bottom: 10px; }
+
+    /* Hero Paragraphs */
+    #hero-1 p, #hero-2 p, #hero-3 p, #hero-4 p { font-size: 1rem; padding: 0 5%; }
+
+    /* Herp Buttons */
+    .hero-btn .btn.m-right-20 { margin-right: 0; }
+
+    /* Hero Badge */
+    .hero-badge { position: relative; display: inline-block; right: 0; bottom: 0; margin: 25px auto; }
+    .hero-badge-text { padding: 8px 30px; }
+    .hero-badge .hero-badge-text span { font-size: 1.15rem; letter-spacing: -0.5px; display: inline-block; }
+    .hero-badge-text h5 { font-size: 1.15rem; font-weight: 300; padding: 0 5px; margin: 0; border: none; }
+
+    /* Hero Data */
+    #hero-1 .hero-data { padding: 0 0 100px; }
+    #hero-4 .hero-data { padding: 0 0 80px; }
+    #hero-6 .hero-data { margin-bottom: 75px; }
+    #hero-11 .hero-data { padding: 0 0 100px; }    
+    #hero-12 .hero-data { padding: 0 0 100px; }   
+    #hero-4 .hero-data .col-md-4 { margin-bottom: 25px; }
+    #hero-12 .hero-data .col-md-4 { margin-top: 20px; }
+
+    #hero-4 .hero-data span { font-size: 0.95rem; margin-bottom: 8px; }   
+    #hero-11 .event-data span { display: block; font-size: 1rem; }
+    #hero-12 .hero-data span { font-size: 1.1rem; }
+
+    /* Hero Socials */
+    #hero-1 .hero-social, #hero-11 .hero-social { position: relative; display: inline-block; right: 0; bottom: 0; margin: 30px auto 0; }
+    .hero-social span { font-size: 1rem; line-height: 1.35rem; }
+    .hero-social a { font-size: 1.35rem; margin: 0 4px; }
+
+    /*------------------------------------------*/
+    /*   INNER PAGE HERO
+    /*------------------------------------------*/
+
+    .page-hero-section { margin-top: 60px; padding-top: 40px; padding-bottom: 50px; }
+    .page-hero-section h2.banner-medium { font-size: 1.5rem; }
+    .page-hero-section span { font-size: 1rem; }
+
+    .inner-page-title.m-bottom-80 { margin-bottom: 30px; }
+    .inner-page-title p { font-size: 1rem; font-weight: 400; line-height: 1.45; }
+
+    /*------------------------------------------*/
+    /*   CONTENT
+    /*------------------------------------------*/
+
+    /* About */
+    #about-3 { padding-top: 80px; }
+    #about-5 .section-id { margin-bottom: 1.75rem; }
+    #about-4 .section-title { margin-bottom: 0.75rem; }
+
+    .singnature { margin-top: 20px; }
+    .singnature p.p-small { margin-bottom: 15px; }
+
+    #about-4 .frow { margin-bottom: 0; }
+    #about-2 h4 { margin-bottom: 8px; }
+    #about-2 .about-txt p.m-bottom-30 { margin-bottom: 20px; }
+    #about-2 .about-btn { margin-top: 0; }
+
+    #about-1 .about-img.grey-bg { padding-left: 0; }
+    #about-2 .about-img.grey-bg { padding-right: 0; }
+    #about-4 .about-img { margin-top: 0; }
+
+    #inner-page-about h4.h4-lg.m-bottom-20 { margin-bottom: 15px; }
+    #inner-page-about h4.h4-lg.m-top-30 { margin-top: 18px; }
+
+    #inner-page-about .about-info.m-bottom-35 { margin-bottom: 25px; }
+    #inner-page-about .about-info.m-bottom-20 { margin-bottom: 15px; }
+    .about-info span { font-size: 1rem; }
+
+    /* Features */
+    #features-2 .section-title h2 { margin-bottom: 5px; }
+
+    .fbox h4, .features-txt h4 { margin-bottom: 10px; }
+    .features-txt h4.m-top-30 { margin-top: 20px; }
+    .fbox p.m-bottom-25 { margin-bottom: 15px; }
+
+    ul.features-list li { margin-bottom: 10px; }
+
+    .fea-social a { font-size: 1.5rem; margin: 0 7px; }
+    .fea-social { margin-top: 25px; margin-right: 0; }
+
+    /* Banner */
+    #banner-1 { padding-top: 50px; padding-bottom: 50px; }
+    #banner-2 { padding-top: 80px; padding-bottom: 80px; text-align: center; }
+    #banner-3 { padding-top: 40px; padding-bottom: 40px; }
+    #banner-4 { padding-top: 60px; padding-bottom: 60px; }
+    #banner-5 { padding-top: 80px; padding-bottom: 80px; text-align: center; }
+    #banner-6 { padding-top: 60px; padding-bottom: 60px; }
+
+    #banner-1 .banner-txt { margin-bottom: 20px; text-align: center; }
+    #banner-3 {text-align: center; }
+
+    #banner-4 .countdown { margin-top: 15px; margin-bottom: 10px; }
+
+    #banner-1 h3 { margin-bottom: 8px; }
+    #banner-3 h2 { margin-bottom: 15px; }
+    #banner-4 h2 { margin-bottom: 5px; }
+    #banner-5 h2 { padding: 0 5%; margin-bottom: 8px; }
+    #banner-6 h2 { margin-bottom: 0; }
+
+    #banner-1 .banner-txt p { padding: 0; }
+    #banner-2 p { font-size: 1rem; margin-top: 10px; margin-bottom: 0; padding: 0; }
+    #banner-2 .banner-btn { margin-top: 10px; }
+    #banner-2 .banner-btn .btn.m-right-15 { margin-right: 0; }
+    #banner-5 p { font-size: 1.05rem; padding: 0; margin-bottom: 0; }
+    #banner-6 p { font-size: 1rem; margin-bottom: 2px; padding: 0; }
+
+    /* Media */
+    #media-4 { padding-top: 110px; padding-bottom: 110px; }
+
+    .media-3-1.m-bottom-40, .media-3-1.m-bottom-60 { margin-bottom: 0; }
+
+    .media-txt h2 { margin-bottom: 10px; }
+    .media-txt p.m-bottom-30, .media-txt p.m-bottom-35 { margin-bottom: 15px; }
+    .media-txt a { font-size: 1rem; line-height: 1.3; font-weight: 600;letter-spacing: 0; }
+
+    .play-icon-red, .play-icon-white { width: 80px; height: 80px; background: url(../images/play-icon-reds.png); margin-top: -55px; margin-left: -40px; }
+    .play-icon-white { background: url(../images/play-icon-whites.png); }
+    #banner-4 #play-icon-red, .play-icon-white { margin-top: -45px; }
+
+    #media-1 .media-txt .col-sm-4 { width: 33%; float: left!important; }
+    .statistic-block { margin-top: 10px; }
+    .statistic-number { font-size: 2.65rem; margin-bottom: 8px; }
+    .statistic-block h5 { letter-spacing: 0; }
+
+    .owl-theme .owl-nav { bottom: -5%; left: 50%; margin-left: -38px; }
+    .owl-theme .owl-nav [class*='owl-'] { font-size: 1.25rem; margin: 0 2px; padding: 7px 14px; }
+
+    /* Schedule */
+    .nav-tabs { margin-bottom: 40px;  border-bottom: none; }
+    .nav-tabs .nav-item { margin-bottom: 4px;  }
+
+    .nav-tabs .nav-link { 
+      font-size: 1rem; 
+      padding: 0.75rem 0; 
+      background-color: rgba(220, 220, 220, 0.6); 
+      border: 1px solid transparent;
+      border-top-left-radius: 0; 
+      border-top-right-radius: 0; 
+    }
+
+    .schedule-event .col-sm-3 { width: 100%; float: none!important; text-align: center; }
+    .schedule-event .col-sm-9 { width: 100%; float: none!important; text-align: center; }
+
+    .schedule-event { margin-bottom: 5px; }
+    .event-time { margin-bottom: 10px; }
+    .event-time span { font-size: 1rem; padding-left: 0; }
+
+    .event-description { padding-left: 15px; }
+    .lrow { border-bottom: 1px solid #ccc; margin-bottom: 15px; }
+
+    .schedule-buttons .btn.m-right-20 { margin-right: 0; }
+
+    .schedule-buttons.m-top-20, .schedule-buttons.m-top-30 { margin-top: 10px; }
+    .schedule-buttons .btn.m-right-20 { margin-right: 0; }
+
+    .agenda-tittle { margin-top: 15px; margin-bottom: 40px; padding: 15px 20px; }
+    .agenda-tittle span { font-size: 1rem; }
+
+    /* Pricing */
+    .pricing-row .col-md-4 { padding-left: 15px; padding-right: 15px; }
+    .pricing-table { padding: 40px 20px 10px; }
+
+    .pricing-plan span { font-size: 3.85rem; margin-left: 5px; }
+    .pricing-table sup { font-size: 1.85rem; top: -18px; }
+
+    .pricing-table ul.features { padding: 20px 0; }
+    .pricing-table .btn { padding: 0.75rem 0; margin-top: 10px; margin-bottom: 30px; }
+
+    .pricing-discount { margin-top: 0; }
+    .event-description hr { margin-top: 15px; margin-right: 15px; }
+
+    /* Sponsors */
+    #sponsors-2 .col-lg-12.m-bottom-45 { margin-bottom: 25px; } 
+    #sponsors-3 .col-md-12.m-bottom-40 { margin-bottom: 25px; }
+    #sponsors-3 .col-md-12.m-top-40.m-bottom-40 { margin-top: 10px; margin-bottom: 25px; }
+    .become-a-sponsor { margin-top: 10px; }
+
+    .sponsor { width: 100%; }
+
+    .become-a-sponsor .btn.m-right-20 { margin-right: 0; }
+    #sponsors-3 .brand-holder { text-align: center; padding: 20px 15px; margin-bottom: 30px; }
+
+    /* Blog */
+    #single-post-page { padding-top: 120px;padding-bottom: 70px; }
+    .post-holder { margin-top: 40px; }
+    .blog-post-img.m-top-50.m-bottom-50 { margin-top: 30px; margin-bottom: 30px; }
+
+    p.psub-t { margin-top: 25px; margin-bottom: 25px; }
+    .psub-h { padding-top: 20px; padding-bottom: 20px; margin-top: 20px; margin-bottom: 20px; }
+
+    .post-tags-list { margin-top: 40px; margin-bottom: 30px; }
+
+    .single-post-comments { margin-top: 60px; padding-top: 50px; padding-bottom: 50px; margin-bottom: 60px; }
+
+    .all-posts-btn.m-top-20 { margin-top: 0; }
+    .all-posts-btn .btn { margin-top: 10px; }
+
+    .post-tags-list span a { font-size: 0.85rem; padding: 3px 10px; margin-right: 3px; margin-bottom: 6px; }
+    a.share-ico { width: 80px; height: 25px; font-size: 0.85rem; line-height: 25px !important; margin-right: 4px;  margin-bottom: 6px; }
+    .share-social-icons .svg-inline--fa { margin-right: 3px; }
+
+    .post-author-meta { margin-bottom: 10px; }
+
+    /* Venue */
+    #venue-1 .venue-info { margin-top: 0; }
+    #venue-1 .venue-info h3 { margin-bottom: 15px; }
+
+    #venue-1 .maps-link { margin-top: 20px; }
+    #venue-1 .venue-add-info { margin-top: 35px; }
+
+    #venue-1 .transport { margin: 40px 0 0; }
+    #venue-1 .transport-data { margin-top: 30px; }
+    #venue-2 .transport-data { margin-bottom: 30px; }
+
+    .transport-data h4 { margin-bottom: 10px; }
+    #venue-2 .venue-add-info h4 { margin-bottom: 10px; }
+    .transport-data p { margin-bottom: 15px; }
+
+    #gmap { height: 200px; }
+    .gmap { margin-bottom: 30px; }
+    #inner-page-venue .gmap { margin-bottom: 60px; }
+
+    /* Hotels */  
+    #hotels-1 h2 { font-size: 2.25rem; }
+    #hotels-1 p { font-size: 1rem; }
+
+    .hotel-data span.hotel-price {
+      background-color: transparent;
+      position: relative;
+      display: block;
+      color: #e35029;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0;
+      padding: 0;  
+      -webkit-border-radius: 0;
+      -moz-border-radius: 0;
+      border-radius: 0;
+      margin-bottom: 15px;
+      margin-left: 10px; 
+    }
+
+    .find-hotels-btn { margin-top: 25px; }
+    .find-hotels-btn .btn { margin-top: 0; }
+    .find-hotels-btn .btn.m-right-15, .find-hotels-btn .btn.m-right-20 { margin-right: 0; margin-bottom: 1rem; }
+
+    #hotels-2 .find-hotels { margin-top: 20px; }
+    #hotels-2 .find-hotels-btn { margin-top: 25px; }
+    #venue-2 .transport-data, #inner-page-venue .transport-data { margin-bottom: 30px; }
+
+    /* Community */
+    #community p { font-size: 1rem; padding: 0; margin-bottom: 22px;  }
+    .community-icons a { width: 40px; height: 40px; font-size: 17px; line-height: 36px !important; margin: 0 1px; }
+
+    /* Newsletter */
+    #newsletter-1, #newsletter-2 { padding-top: 80px; padding-bottom: 50px; text-align: center; } 
+    .newsletter-form .form-control, .input-group-btn { width: 100%; float: none!important; margin-bottom: 20px; }
+    .input-group-btn .btn { width: 100%;  }
+    .input-group-btn, .newsletter-section .input-group .form-control, .newsletter-section .input-group { display: block; text-align: center; }  
+
+    #newsletter-1 .newsletter-txt { margin-bottom: 10px; }
+    #newsletter-2 .newsletter-txt { margin-bottom: 0; }
+    #newsletter-1 h2, #newsletter-2 h2 { font-size: 1.4rem; }
+
+    .newsletter-form .form-control { height: 48px; font-size: 1.15rem; padding: 0px 5px; }
+    .newsletter-form .btn { height: 42px; padding: 0.5rem 3rem; }
+    #newsletter-2 .newsletter-form .btn { height: 42px; padding: 0.5rem 3rem; }
+
+    .newsletter-form .form-notification { font-size: 1rem; margin-top: 15px; }
+
+    /* Register Form */
+    #register .section-title { margin-bottom: 0.75rem; } 
+
+    #register-form .form-control { height: 44px; font-size: 1rem; margin-bottom: 25px; }
+    #register-form #form_register_btn .btn { height: 44px; font-size: 0.9rem; padding: 0.5rem 0.75rem; }
+
+    .register-form-msg .loading { font-size: 1rem; line-height: 1; }
+
+    /* Footer */
+    .footer { padding-top: 80px; padding-bottom: 50px; }
+    #footer-2 .footer-socials-links.text-right { text-align: left!important; }
+
+    .footer-about, .footer-info, .footer-socials-links { margin-bottom: 25px; }
+    .footer-copyright { padding-top: 20px; }
+    
+    .footer h4 { margin-bottom: 10px; }
+    .footer-about p { margin-bottom: 0; }
+    .footer-info p { font-size: 1rem; margin-bottom: 3px; }
+    .footer-social a { font-size: 1.3rem; margin: 0 4px; }
+
+    /* Event Statistic */
+    #event-statistic { padding-top: 70px; padding-bottom: 30px; }
+    #event-statistic .statistic-block { padding: 0; margin-bottom: 40px; }
+    .s-number { font-size: 3.35rem; letter-spacing: 0; margin-bottom: 8px; }
+	
+	
+
+}
+
+
+

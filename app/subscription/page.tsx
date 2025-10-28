@@ -1,309 +1,329 @@
-"use client";
-
-import { SiteFooter } from "@/components/footer";
 import { SiteHeader } from "@/components/site-header";
-import { BookOpen, Check, Clock, IndianRupee } from "lucide-react";
-import { useState } from "react";
+import { SiteFooter } from "@/components/footer";
 
-interface Offer {
-  id: string;
+export const dynamic = "force-dynamic";
+
+interface MagazinePlan {
+  id: number;
   duration: string;
-  name: string;
-  magazine?: string;
-  newspaper?: string;
+  magazine: string;
   coverPrice: number;
-  offerPrice: number;
-  discount: number;
-  description: string;
-  totalMonths: number;
-  type: "magazine" | "newspaper";
-  popular?: boolean;
+  specialOffer: string;
+  discountPercent: number;
+  payAmount: number;
 }
 
-export default function SubscriptionOffers() {
-  const [selectedCategory, setSelectedCategory] = useState("all");
+interface NewspaperPlan {
+  id: number;
+  duration: string;
+  newspaper: string;
+  coverPrice: number;
+  specialOffer: string;
+  discountPercent: number;
+}
 
-  const magazineOffers: Offer[] = [
+export default function SubscriptionPage() {
+  // Magazine subscription plans
+  const magazinePlans: MagazinePlan[] = [
     {
-      id: "mag-3m",
+      id: 1,
       duration: "3 Months",
-      name: "Magazine Subscription",
-      magazine: "Exotica or Essentia Magazine",
-      coverPrice: 150,
-      offerPrice: 150,
-      discount: 50,
-      description: "Pay ₹150 for 3 Months & Get 3 Months FREE",
-      totalMonths: 6,
-      type: "magazine"
+      magazine: "Exotica Magazine or Essentia Magazine",
+      coverPrice: 150, // 50 per month x 3 months
+      specialOffer: "Pay Rs150 for 3 Months subscription & Get 3 Months FREE",
+      discountPercent: 50,
+      payAmount: 150,
     },
     {
-      id: "mag-6m",
+      id: 2,
       duration: "6 Months",
-      name: "Magazine Subscription",
-      magazine: "Exotica or Essentia Magazine",
-      coverPrice: 300,
-      offerPrice: 300,
-      discount: 50,
-      description: "Pay ₹300 for 6 Months & Get 6 Months FREE",
-      totalMonths: 12,
-      type: "magazine",
-      popular: true
+      magazine: "Exotica Magazine or Essentia Magazine",
+      coverPrice: 300, // 50 per month x 6 months
+      specialOffer: "Pay Rs300 for 6 Months subscription & Get 6 Months FREE",
+      discountPercent: 50,
+      payAmount: 300,
     },
     {
-      id: "mag-12m",
+      id: 3,
       duration: "12 Months",
-      name: "Magazine Subscription",
-      magazine: "Exotica or Essentia Magazine",
-      coverPrice: 600,
-      offerPrice: 600,
-      discount: 50,
-      description: "Pay ₹600 for 12 Months & Get 12 Months FREE",
-      totalMonths: 24,
-      type: "magazine"
-    }
+      magazine: "Exotica Magazine or Essentia Magazine",
+      coverPrice: 600, // 50 per month x 12 months
+      specialOffer: "Pay Rs600 for 12 Months subscription & Get 12 Months FREE",
+      discountPercent: 50,
+      payAmount: 600,
+    },
   ];
 
-  const newspaperOffers: Offer[] = [
+  // Newspaper subscription plans
+  const newspaperPlans: NewspaperPlan[] = [
     {
-      id: "news-1m",
+      id: 1,
       duration: "1 Month",
-      name: "The Pioneer (E) Print",
-      newspaper: "The Pioneer (E) Print Newspaper",
-      coverPrice: 306,
-      offerPrice: 153,
-      discount: 50,
-      description: "1 Month Trial + Get Next 1 Month FREE",
-      totalMonths: 2,
-      type: "newspaper"
+      newspaper: "The Pioneer(E) Print Trial Offer",
+      coverPrice: 153,
+      specialOffer: "1 Month Trial offer & Get next 1 Month FREE",
+      discountPercent: 50,
     },
     {
-      id: "news-4m",
+      id: 2,
       duration: "4 Months",
-      name: "The Pioneer (E) Print",
-      newspaper: "The Pioneer (E) Print Newspaper",
-      coverPrice: 918,
-      offerPrice: 612,
-      discount: 33.33,
-      description: "4 Month Trial + Get Next 2 Months FREE",
-      totalMonths: 6,
-      type: "newspaper",
-      popular: true
+      newspaper: "The Pioneer(E) Print Trial Offer",
+      coverPrice: 612,
+      specialOffer: "4 Month Trial offer & Get next 2 Month FREE",
+      discountPercent: 33.33,
     },
     {
-      id: "news-6m",
+      id: 3,
       duration: "6 Months",
-      name: "The Pioneer (E) Print",
-      newspaper: "The Pioneer (E) Print Newspaper",
-      coverPrice: 1377,
-      offerPrice: 918,
-      discount: 33.33,
-      description: "6 Month Trial + Get Next 3 Months FREE",
-      totalMonths: 9,
-      type: "newspaper"
-    }
+      newspaper: "The Pioneer(E) Print Trial Offer",
+      coverPrice: 918,
+      specialOffer: "6 Month Trial offer & Get next 3 Month FREE",
+      discountPercent: 33.33,
+    },
   ];
 
-  const allOffers = [...magazineOffers, ...newspaperOffers];
-  
-  const filteredOffers = selectedCategory === "all" 
-    ? allOffers 
-    : allOffers.filter(offer => offer.type === selectedCategory);
+
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-yellow-50 to-gray-50">
-      {/* Header */}
+    <div className="min-h-screen bg-gray-200">
       <SiteHeader />
 
-      {/* Hero Section */}
-      <div className="max-w-7xl mx-auto px-4 py-12 text-center">
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-          Special Subscription Offers
-        </h1>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-          Subscribe now and get up to <span className="text-yellow-600 font-bold">50% OFF</span> with bonus months absolutely FREE!
-        </p>
+      {/* Subscription Content */}
+      <div className="max-w-6xl mx-auto px-4 py-8">
+        {/* Page Header */}
+       
 
-        {/* Category Filter */}
-        <div className="flex flex-wrap justify-center gap-3 mb-12">
-          <button
-            onClick={() => setSelectedCategory("all")}
-            className={`px-6 py-2.5 rounded-full font-medium transition-all ${
-              selectedCategory === "all"
-                ? "bg-[#FCCD04] text-black shadow-lg scale-105"
-                : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-200"
-            }`}
-          >
-            All Offers
-          </button>
-          <button
-            onClick={() => setSelectedCategory("magazine")}
-            className={`px-6 py-2.5 rounded-full font-medium transition-all ${
-              selectedCategory === "magazine"
-                ? "bg-[#FCCD04] text-black shadow-lg scale-105"
-                : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-200"
-            }`}
-          >
-            📚 Magazines
-          </button>
-          <button
-            onClick={() => setSelectedCategory("newspaper")}
-            className={`px-6 py-2.5 rounded-full font-medium transition-all ${
-              selectedCategory === "newspaper"
-                ? "bg-[#FCCD04] text-black shadow-lg scale-105"
-                : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-200"
-            }`}
-          >
-            📰 Newspaper
-          </button>
+        {/* Magazine Subscription Plans */}
+        <div className="mb-16">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">Magazine Subscriptions</h2>
+          <p className="text-center text-gray-600 mb-8">Choose Either Exotica Magazine or Essentia Magazine</p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto pt-20">
+            {magazinePlans.map((plan, index) => {
+                // Use vertical gradients for richer header color
+                const colors = [
+                  'bg-gradient-to-b from-purple-700 to-purple-500',
+                  'bg-gradient-to-b from-green-700 to-green-400',
+                  'bg-gradient-to-b from-orange-700 to-orange-400',
+                ];
+                const colorClass = colors[index % colors.length];
+              
+              return (
+                <div key={plan.id} className="relative">
+                  {/* Colored Header */}
+                  <div
+                    className={`absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-8 ${colorClass} text-white text-center py-8 px-12 shadow-xl z-10 min-w-[280px]`}
+                    style={{ boxShadow: '0 25px 40px rgba(0,0,0,0.6)' }}
+                  >
+                    <h3 className="text-2xl font-bold mb-2 uppercase tracking-wide">{plan.duration}</h3>
+                    <div className="text-5xl font-bold mb-2">₹{plan.payAmount}</div>
+                    <div className="text-md uppercase tracking-wide font-medium">{plan.discountPercent}% OFF</div>
+                  </div>
+
+                  {/* Main Card Body */}
+                  <div className="bg-white shadow-2xl  border border-gray-200 pt-24 pb-8 px-8 mt-24">
+                    {/* Features List */}
+                    <ul className="space-y-4 mb-8">
+                      <li className="flex items-center">
+                        <svg className="w-5 h-5 text-teal-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                        <span className="text-gray-600 font-bold">Digital Magazine Access</span>
+                      </li>
+                      <li className="flex items-center">
+                        <svg className="w-5 h-5 text-teal-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                        <span className="text-gray-600 font-bold">Exotica & Essentia Options</span>
+                      </li>
+                      <li className="flex items-center">
+                        <svg className="w-5 h-5 text-teal-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                        <span className="text-gray-600 font-bold">50% Savings</span>
+                      </li>
+                      <li className="flex items-center">
+                        <svg className="w-5 h-5 text-teal-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                        <span className="text-gray-600 font-bold">Double Duration Bonus</span>
+                      </li>
+                      <li className="flex items-center">
+                        {index === 0 ? (
+                          <svg className="w-5 h-5 text-red-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                          </svg>
+                        ) : (
+                          <svg className="w-5 h-5 text-teal-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                          </svg>
+                        )}
+                        <span className="text-gray-600 font-bold">Premium Features</span>
+                      </li>
+                    </ul>
+
+                    <button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 uppercase tracking-wide transition-colors">
+                      CHOOSE PLAN
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
-      </div>
 
-      {/* Subscription Plans */}
-      <div className="max-w-7xl mx-auto px-4 pb-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredOffers.map((offer) => (
-            <div
-              key={offer.id}
-              className={`relative bg-white rounded-2xl shadow-xl overflow-hidden transform transition-all hover:scale-105 hover:shadow-2xl ${
-                offer.popular ? "ring-4 ring-[#FCCD04]" : ""
-              }`}
-            >
-              {/* Popular Badge */}
-              {offer.popular && (
-                <div className="absolute top-4 right-4 z-10">
-                  <div className="bg-[#FCCD04] text-black text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">
-                    🔥 POPULAR
+        {/* Newspaper Subscription Plans */}
+        <div className="mb-16">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">The Pioneer(E) Print Newspaper</h2>
+          <p className="text-center text-gray-600 mb-8">Digital Print Edition with Trial Offers</p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto pt-20">
+            {newspaperPlans.map((plan, index) => {
+              const colors = [
+                'bg-gradient-to-b from-blue-700 to-blue-500',
+                'bg-gradient-to-b from-indigo-700 to-indigo-500',
+                'bg-gradient-to-b from-red-700 to-red-500',
+              ];
+              const colorClass = colors[index % colors.length];
+              
+              return (
+                <div key={plan.id} className="relative">
+                  {/* Colored Header */}
+                  <div
+                    className={`absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-8 ${colorClass} text-white text-center py-8 px-12 shadow-xl z-10 min-w-[280px]`}
+                    style={{ boxShadow: '0 25px 40px rgba(0,0,0,0.6)' }}
+                  >
+                    <h3 className="text-xl font-bold mb-2 uppercase tracking-wide">{plan.duration} Trial</h3>
+                    <div className="text-5xl font-bold mb-2">₹{plan.coverPrice}</div>
+                    <div className="text-md uppercase tracking-wide font-medium">{plan.discountPercent}% OFF</div>
+                  </div>
+
+                  {/* Main Card Body */}
+                  <div className="bg-white shadow-2xl border border-gray-200 pt-24 pb-8 px-8 mt-24">
+                    {/* Features List */}
+                    <ul className="space-y-4 mb-8">
+                      <li className="flex items-center">
+                        <svg className="w-5 h-5 text-teal-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                        <span className="text-gray-600 font-bold">Digital Print Access</span>
+                      </li>
+                      <li className="flex items-center">
+                        <svg className="w-5 h-5 text-teal-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                        <span className="text-gray-600 font-bold">Daily E-Paper</span>
+                      </li>
+                      <li className="flex items-center">
+                        <svg className="w-5 h-5 text-teal-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                        <span className="text-gray-600 font-bold">Archive Access</span>
+                      </li>
+                      <li className="flex items-center">
+                        <svg className="w-5 h-5 text-teal-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                        <span className="text-gray-600 font-bold">Trial Extension</span>
+                      </li>
+                      <li className="flex items-center">
+                        {index === 0 ? (
+                          <svg className="w-5 h-5 text-red-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                          </svg>
+                        ) : (
+                          <svg className="w-5 h-5 text-teal-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                          </svg>
+                        )}
+                        <span className="text-gray-600 font-bold">Premium Support</span>
+                      </li>
+                    </ul>
+
+                    <button className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 uppercase tracking-wide transition-colors">
+                      CHOOSE PLAN
+                    </button>
                   </div>
                 </div>
-              )}
-
-              {/* Discount Badge */}
-              <div className="absolute top-4 left-4 z-10">
-                <div className="bg-red-500 text-white text-sm font-bold px-3 py-1.5 rounded-lg shadow-lg">
-                  {offer.discount}% OFF
-                </div>
-              </div>
-
-              {/* Card Header */}
-              <div className={`pt-16 pb-8 px-6 text-center ${
-                offer.type === "magazine" 
-                  ? "bg-gradient-to-br from-purple-600 to-purple-700" 
-                  : "bg-gradient-to-br from-blue-700 to-blue-800"
-              }`}>
-                <div className="text-6xl mb-4">
-                  {offer.type === "magazine" ? "📚" : "📰"}
-                </div>
-                <h3 className="text-2xl font-bold text-white mb-2">
-                  {offer.duration}
-                </h3>
-                <p className="text-white/90 text-sm font-medium">
-                  {offer.name}
-                </p>
-                {(offer.magazine || offer.newspaper) && (
-                  <p className="text-white/80 text-xs mt-2">
-                    {offer.magazine || offer.newspaper}
-                  </p>
-                )}
-              </div>
-
-              {/* Card Body */}
-              <div className="p-6">
-                {/* Pricing */}
-                <div className="text-center mb-6">
-                  <div className="flex items-center justify-center gap-3 mb-2">
-                    <span className="text-2xl text-gray-400 line-through">
-                      ₹{offer.coverPrice}
-                    </span>
-                    <span className="text-4xl font-bold text-gray-900">
-                      ₹{offer.offerPrice}
-                    </span>
-                  </div>
-                  <div className="inline-block bg-green-100 text-green-700 px-4 py-1.5 rounded-full text-sm font-semibold">
-                    Get {offer.totalMonths} Months Total
-                  </div>
-                </div>
-
-                {/* Description */}
-                <div className="bg-gradient-to-r from-yellow-50 to-orange-50 border-l-4 border-[#FCCD04] p-4 rounded-lg mb-6">
-                  <p className="text-gray-800 text-sm font-medium leading-relaxed">
-                    {offer.description}
-                  </p>
-                </div>
-
-                {/* Features */}
-                <div className="space-y-3 mb-6">
-                  <div className="flex items-start gap-3">
-                    <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
-                    </svg>
-                    <span className="text-gray-700 text-sm">Premium content access</span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
-                    </svg>
-                    <span className="text-gray-700 text-sm">Ad-free reading experience</span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
-                    </svg>
-                    <span className="text-gray-700 text-sm">Cancel anytime</span>
-                  </div>
-                  {offer.type === "newspaper" && (
-                    <div className="flex items-start gap-3">
-                      <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
-                      </svg>
-                      <span className="text-gray-700 text-sm">Daily E-Paper delivery</span>
-                    </div>
-                  )}
-                </div>
-
-                {/* CTA Button */}
-                <button className="w-full bg-[#FCCD04] hover:bg-yellow-500 text-black font-bold py-4 px-6 rounded-xl transition-all transform hover:scale-105 shadow-lg hover:shadow-xl">
-                  Subscribe Now
-                </button>
-              </div>
-            </div>
-          ))}
+              );
+            })}
+          </div>
         </div>
-      </div>
 
-      {/* Benefits Section */}
-      <div className="bg-white py-16 border-t border-gray-200">
-        <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
-            Why Subscribe to The Pioneer?
+        {/* Benefits Section */}
+        <div className="mt-16 bg-white rounded-xl shadow-lg p-8">
+          <h2 className="text-2xl font-bold text-center text-gray-900 mb-8">
+            Why Choose Premium?
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
-              <div className="w-16 h-16 bg-[#FCCD04] rounded-full flex items-center justify-center mx-auto mb-4">
-               <IndianRupee className="w-8 h-8 text-white" />
+              <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg
+                  className="w-8 h-8 text-yellow-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                  />
+                </svg>
               </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Best Value</h3>
-              <p className="text-gray-600 text-sm">Get bonus months free with every subscription</p>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                Ad-Free Experience
+              </h3>
+              <p className="text-gray-600">
+                Enjoy uninterrupted reading without any advertisements.
+              </p>
             </div>
             <div className="text-center">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Check className="w-8 h-8 text-blue-600" />
+              <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg
+                  className="w-8 h-8 text-yellow-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2m0 0V1a1 1 0 011-1h2a1 1 0 011 1v2m0 0v14a2 2 0 01-2 2H5a2 2 0 01-2-2V4m0 0h18"
+                  />
+                </svg>
               </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Trusted Source</h3>
-              <p className="text-gray-600 text-sm">Reliable journalism since decades</p>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                Exclusive Content
+              </h3>
+              <p className="text-gray-600">
+                Access to premium articles and exclusive interviews.
+              </p>
             </div>
             <div className="text-center">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-               <BookOpen className="w-8 h-8 text-green-600" />
+              <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg
+                  className="w-8 h-8 text-yellow-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M13 10V3L4 14h7v7l9-11h-7z"
+                  />
+                </svg>
               </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Diverse Content</h3>
-              <p className="text-gray-600 text-sm">News, magazines, and exclusive stories</p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-               <Clock className="w-8 h-8 text-purple-600" />
-              </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Instant Access</h3>
-              <p className="text-gray-600 text-sm">Start reading immediately after subscribing</p>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                Early Access
+              </h3>
+              <p className="text-gray-600">
+                Be the first to read breaking news and important updates.
+              </p>
             </div>
           </div>
         </div>
