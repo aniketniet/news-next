@@ -6,20 +6,23 @@ export const dynamic = "force-dynamic";
 interface MagazinePlan {
   id: number;
   duration: string;
+  coverPricePerMonth: number;
   magazine: string;
-  coverPrice: number;
-  specialOffer: string;
+  specialSubscriptionOffer: string;
   discountPercent: number;
-  payAmount: number;
+  originalPrice: number;
+  discountedPrice: number;
 }
 
 interface NewspaperPlan {
   id: number;
   duration: string;
-  newspaper: string;
   coverPrice: number;
-  specialOffer: string;
+  newspaper: string;
+  specialTrialOffer: string;
   discountPercent: number;
+  originalPrice: number;
+  discountedPrice: number;
 }
 
 export default function SubscriptionPage() {
@@ -28,29 +31,32 @@ export default function SubscriptionPage() {
     {
       id: 1,
       duration: "3 Months",
-      magazine: "Exotica Magazine or Essentia Magazine",
-      coverPrice: 150, // 50 per month x 3 months
-      specialOffer: "Pay Rs150 for 3 Months subscription & Get 3 Months FREE",
+      coverPricePerMonth: 50,
+      magazine: "Book Either Exotica Magazine or Essential Magazine",
+      specialSubscriptionOffer: "Pay ₹150 for 3 Months Subscription & Get 3 Months FREE",
       discountPercent: 50,
-      payAmount: 150,
+      originalPrice: 300,
+      discountedPrice: 150,
     },
     {
       id: 2,
       duration: "6 Months",
-      magazine: "Exotica Magazine or Essentia Magazine",
-      coverPrice: 300, // 50 per month x 6 months
-      specialOffer: "Pay Rs300 for 6 Months subscription & Get 6 Months FREE",
+      coverPricePerMonth: 50,
+      magazine: "Book Either Exotica Magazine or Essential Magazine",
+      specialSubscriptionOffer: "Pay ₹300 for 6 Months Subscription & Get 6 Months FREE",
       discountPercent: 50,
-      payAmount: 300,
+      originalPrice: 600,
+      discountedPrice: 300,
     },
     {
       id: 3,
       duration: "12 Months",
-      magazine: "Exotica Magazine or Essentia Magazine",
-      coverPrice: 600, // 50 per month x 12 months
-      specialOffer: "Pay Rs600 for 12 Months subscription & Get 12 Months FREE",
+      coverPricePerMonth: 50,
+      magazine: "Book Either Exotica Magazine or Essential Magazine",
+      specialSubscriptionOffer: "Pay ₹600 for 12 Months Subscription & Get 12 Months FREE",
       discountPercent: 50,
-      payAmount: 600,
+      originalPrice: 1200,
+      discountedPrice: 600,
     },
   ];
 
@@ -59,26 +65,22 @@ export default function SubscriptionPage() {
     {
       id: 1,
       duration: "1 Month",
-      newspaper: "The Pioneer(E) Print Trial Offer",
-      coverPrice: 153,
-      specialOffer: "1 Month Trial offer & Get next 1 Month FREE",
+      coverPrice: 155,
+      newspaper: "The Pioneer Newspaper (Print)",
+      specialTrialOffer: "1 Month Trial offer & Get next 1 Month FREE",
       discountPercent: 50,
+      originalPrice: 310,
+      discountedPrice: 155,
     },
     {
       id: 2,
-      duration: "4 Months",
-      newspaper: "The Pioneer(E) Print Trial Offer",
-      coverPrice: 612,
-      specialOffer: "4 Month Trial offer & Get next 2 Month FREE",
-      discountPercent: 33.33,
-    },
-    {
-      id: 3,
-      duration: "6 Months",
-      newspaper: "The Pioneer(E) Print Trial Offer",
-      coverPrice: 918,
-      specialOffer: "6 Month Trial offer & Get next 3 Month FREE",
-      discountPercent: 33.33,
+      duration: "12 Months",
+      coverPrice: 1862,
+      newspaper: "The Pioneer Newspaper (Print)",
+      specialTrialOffer: "Pay ₹1199 for 12 Months Subscription",
+      discountPercent: 35.61,
+      originalPrice: 1862,
+      discountedPrice: 1199,
     },
   ];
 
@@ -112,53 +114,53 @@ export default function SubscriptionPage() {
                 <div key={plan.id} className="relative">
                   {/* Colored Header */}
                   <div
-                    className={`absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-8 ${colorClass} text-white text-center py-8 px-12 shadow-xl z-10 min-w-[280px]`}
+                    className={`absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-8 ${colorClass} text-white text-center py-8 px-12 shadow-2xl z-10 min-w-[280px]`}
                     style={{ boxShadow: '0 25px 40px rgba(0,0,0,0.6)' }}
                   >
-                    <h3 className="text-2xl font-bold mb-2 uppercase tracking-wide">{plan.duration}</h3>
-                    <div className="text-5xl font-bold mb-2">₹{plan.payAmount}</div>
-                    <div className="text-md uppercase tracking-wide font-medium">{plan.discountPercent}% OFF</div>
+                    <h3 className="text-2xl font-extrabold mb-2 uppercase tracking-wide">{plan.duration}</h3>
+                    <div className="mb-2">
+                      <div className="text-lg line-through text-gray-300">₹{plan.originalPrice}</div>
+                      <div className="text-5xl font-extrabold">₹{plan.discountedPrice}</div>
+                    </div>
+                    <div className="text-base uppercase tracking-wide font-semibold">{plan.discountPercent}% OFF</div>
                   </div>
 
                   {/* Main Card Body */}
-                  <div className="bg-white shadow-2xl  border border-gray-200 pt-24 pb-8 px-8 mt-24">
+                  <div className="bg-white shadow-2xl  border border-gray-200 pt-24 pb-8 px-8 mt-32">
                     {/* Features List */}
                     <ul className="space-y-4 mb-8">
                       <li className="flex items-center">
                         <svg className="w-5 h-5 text-teal-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                         </svg>
-                        <span className="text-gray-600 font-bold">Digital Magazine Access</span>
+                        <span className="text-gray-700 font-semibold">Digital Magazine Access</span>
                       </li>
                       <li className="flex items-center">
                         <svg className="w-5 h-5 text-teal-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                         </svg>
-                        <span className="text-gray-600 font-bold">Exotica & Essentia Options</span>
+                        <span className="text-gray-700 font-semibold">{plan.magazine}</span>
                       </li>
                       <li className="flex items-center">
                         <svg className="w-5 h-5 text-teal-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                         </svg>
-                        <span className="text-gray-600 font-bold">50% Savings</span>
+                        <span className="text-gray-700 font-semibold">₹{plan.coverPricePerMonth}/month Value</span>
                       </li>
                       <li className="flex items-center">
                         <svg className="w-5 h-5 text-teal-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                         </svg>
-                        <span className="text-gray-600 font-bold">Double Duration Bonus</span>
+                        <div className="flex flex-col">
+                          <span className="text-gray-400 text-sm line-through">₹{plan.originalPrice} Regular Price</span>
+                          <span className="text-gray-700 font-semibold">₹{plan.discountedPrice} Special Price</span>
+                        </div>
                       </li>
                       <li className="flex items-center">
-                        {index === 0 ? (
-                          <svg className="w-5 h-5 text-red-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
-                          </svg>
-                        ) : (
-                          <svg className="w-5 h-5 text-teal-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                          </svg>
-                        )}
-                        <span className="text-gray-600 font-bold">Premium Features</span>
+                        <svg className="w-5 h-5 text-teal-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                        <span className="text-green-600 font-semibold">{plan.specialSubscriptionOffer}</span>
                       </li>
                     </ul>
 
@@ -174,7 +176,7 @@ export default function SubscriptionPage() {
 
         {/* Newspaper Subscription Plans */}
         <div className="mb-16">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">The Pioneer(E) Print Newspaper</h2>
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">The Pioneer Print Newspaper</h2>
           <p className="text-center text-gray-600 mb-8">Digital Print Edition with Trial Offers</p>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto pt-20">
@@ -193,50 +195,48 @@ export default function SubscriptionPage() {
                     className={`absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-8 ${colorClass} text-white text-center py-8 px-12 shadow-xl z-10 min-w-[280px]`}
                     style={{ boxShadow: '0 25px 40px rgba(0,0,0,0.6)' }}
                   >
-                    <h3 className="text-xl font-bold mb-2 uppercase tracking-wide">{plan.duration} Trial</h3>
-                    <div className="text-5xl font-bold mb-2">₹{plan.coverPrice}</div>
+                    <h3 className="text-xl font-bold mb-2 uppercase tracking-wide">{plan.duration}</h3>
+                    <div className="text-sm line-through text-gray-200 mb-1">₹{plan.originalPrice}</div>
+                    <div className="text-5xl font-bold mb-2">₹{plan.discountedPrice}</div>
                     <div className="text-md uppercase tracking-wide font-medium">{plan.discountPercent}% OFF</div>
                   </div>
 
                   {/* Main Card Body */}
-                  <div className="bg-white shadow-2xl border border-gray-200 pt-24 pb-8 px-8 mt-24">
+                  <div className="bg-white shadow-2xl border border-gray-200 pt-24 pb-8 px-8 mt-28">
                     {/* Features List */}
                     <ul className="space-y-4 mb-8">
                       <li className="flex items-center">
                         <svg className="w-5 h-5 text-teal-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                         </svg>
-                        <span className="text-gray-600 font-bold">Digital Print Access</span>
+                        <span className="text-gray-700 font-semibold">Digital Print Access</span>
                       </li>
                       <li className="flex items-center">
                         <svg className="w-5 h-5 text-teal-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                         </svg>
-                        <span className="text-gray-600 font-bold">Daily E-Paper</span>
+                        <span className="text-gray-700 font-semibold">Daily E-Paper PDF</span>
                       </li>
                       <li className="flex items-center">
                         <svg className="w-5 h-5 text-teal-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                         </svg>
-                        <span className="text-gray-600 font-bold">Archive Access</span>
+                        <span className="text-gray-700 font-semibold">Archive Access</span>
                       </li>
                       <li className="flex items-center">
                         <svg className="w-5 h-5 text-teal-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                         </svg>
-                        <span className="text-gray-600 font-bold">Trial Extension</span>
+                        <div className="flex flex-col">
+                          <span className="text-gray-400 text-sm line-through">₹{plan.originalPrice} Regular Price</span>
+                          <span className="text-gray-700 font-semibold">₹{plan.discountedPrice} Special Price</span>
+                        </div>
                       </li>
                       <li className="flex items-center">
-                        {index === 0 ? (
-                          <svg className="w-5 h-5 text-red-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
-                          </svg>
-                        ) : (
-                          <svg className="w-5 h-5 text-teal-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                          </svg>
-                        )}
-                        <span className="text-gray-600 font-bold">Premium Support</span>
+                        <svg className="w-5 h-5 text-teal-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                        <span className="text-green-600 font-semibold">{plan.specialTrialOffer}</span>
                       </li>
                     </ul>
 
