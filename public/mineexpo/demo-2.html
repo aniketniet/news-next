@@ -202,6 +202,341 @@
             font-size: 1.5rem;
             margin-right: 15px;
         }
+
+        
+    </style>
+     <style>
+        :root {
+            --primary-red: #dc0000;
+            --dark-red: #a00000;
+            --black: #000000;
+            --dark-gray: #1a1a1a;
+            --light-gray: #f5f5f5;
+            --white: #ffffff;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            background: var(--white);
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--black) 0%, var(--dark-gray) 100%);
+            color: var(--white);
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, var(--primary-red) 0%, transparent 100%);
+            opacity: 0.1;
+        }
+        
+        .hero-section h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-section .lead {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .section-title {
+            color: var(--black);
+            font-weight: 700;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--primary-red);
+        }
+        
+        .section-subtitle {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+        
+        /* Plenary Section */
+        .plenary-section {
+            padding: 80px 0;
+            background: var(--white);
+        }
+        
+        .plenary-card {
+            background: linear-gradient(135deg, var(--black) 0%, var(--dark-gray) 100%);
+            color: var(--white);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .plenary-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: var(--primary-red);
+            border-radius: 50%;
+            transform: translate(50%, -50%);
+            opacity: 0.2;
+        }
+        
+        .plenary-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(220, 0, 0, 0.3);
+        }
+        
+        .plenary-card h4 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--primary-red);
+            padding-bottom: 15px;
+            color: white;
+        }
+        
+        .plenary-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .plenary-card li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .plenary-card li::before {
+            content: '\f101';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--primary-red);
+        }
+        
+        /* Technical Conference Section */
+        .technical-section {
+            padding: 80px 0;
+            background: var(--light-gray);
+        }
+        
+        .track-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 25px;
+            border-left: 5px solid var(--primary-red);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .track-card:hover {
+            box-shadow: 0 10px 30px rgba(220, 0, 0, 0.2);
+            border-left-width: 8px;
+            transform: translateX(5px);
+        }
+        
+        .track-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--black), var(--primary-red));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .track-card h5 {
+            color: var(--black);
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .track-card p {
+            color: #555;
+        }
+        
+        /* Exhibition Section */
+        .exhibition-section {
+            padding: 80px 0;
+            background: var(--white);
+        }
+        
+        .exhibition-zone {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 35px;
+            margin-bottom: 30px;
+            border: 2px solid var(--black);
+            transition: all 0.3s ease;
+        }
+        
+        .exhibition-zone:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            border-color: var(--primary-red);
+        }
+        
+        .zone-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .zone-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--black);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 2rem;
+            margin-right: 20px;
+            flex-shrink: 0;
+            position: relative;
+        }
+        
+        .zone-icon::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 15px;
+            height: 15px;
+            background: var(--primary-red);
+            border-radius: 50%;
+        }
+        
+        .zone-header h4 {
+            color: var(--black);
+            font-weight: 700;
+            margin: 0;
+            font-size: 1.4rem;
+        }
+        
+        .zone-content {
+            color: #555;
+            line-height: 1.8;
+        }
+        
+        /* Innovation Zone Highlight */
+        .innovation-highlight {
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-red) 100%);
+            color: var(--white);
+            border: none;
+        }
+        
+        .innovation-highlight .zone-icon {
+            background: rgba(0,0,0,0.3);
+        }
+        
+        .innovation-highlight .zone-icon::after {
+            background: var(--white);
+        }
+        
+        .innovation-highlight .zone-header h4 {
+            color: var(--white);
+        }
+        
+        .innovation-highlight .zone-content {
+            color: var(--white);
+        }
+        
+        /* Country Pavilions */
+        .pavilions-section {
+            background: var(--black);
+            padding: 80px 0;
+            color: var(--white);
+        }
+        
+        .pavilion-badge {
+            background: var(--dark-gray);
+            border: 2px solid var(--primary-red);
+            border-radius: 50px;
+            padding: 15px 30px;
+            margin: 10px;
+            display: inline-block;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .pavilion-badge:hover {
+            background: var(--primary-red);
+            color: var(--white);
+            transform: scale(1.05);
+            border-color: var(--primary-red);
+        }
+        
+        .stats-row {
+            background: var(--dark-gray);
+            border-radius: 15px;
+            padding: 40px;
+            margin-top: 40px;
+            border: 2px solid var(--primary-red);
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-red);
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            color: var(--white);
+            margin-top: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
     </style>
   </head>
 
@@ -758,533 +1093,256 @@
 
 
       <!-- SCHEDULE
-			============================================= -->
-      <section
-        id="schedule"
-        class="bg-scroll bg-lightgrey wide-100 schedule-section division"
-      >
-        <div class="container">
-          <!-- SECTION TITLE 	-->
-          <div class="row">
-            <div class="col-md-10 col-lg-8 section-title">
-              <!-- Title -->
-              <h2 class="banner-regular">Conference</h2>
-
-              <!-- Text -->
-			   <h4>Plenary & Keynote Sessions</h4>
-              <p>
-               Opening ceremony with Government Ministers, Global Industry Leaders.
-              </p>
-              <p>
-               Keynotes on Mining Trends, ESG, and 
-Technological Innovation.
-              </p>
-            </div>
-          </div>
-          <!-- END SECTION TITLE -->
-
-          <!-- TABLIST -->
-          <div role="tablist">
-            <!-- SCHEDULE NAVIGATION -->
-            <div class="row">
-              <ul class="nav nav-tabs text-center red-nav">
-                <!-- DAY #1 NAVIGATION LINK -->
-                <li class="nav-item col-md-4">
-                  <a
-                    class="nav-link active"
-                    data-toggle="tab"
-                    href="#panel1"
-                    role="tab"
-                    >Exhibition & Technology Showcase</a
-                  >
-                </li>
-
-                <!-- DAY#2 NAVIGATION LINK -->
-                <li class="nav-item col-md-4">
-                  <a
-                    class="nav-link"
-                    data-toggle="tab"
-                    href="#panel2"
-                    role="tab"
-                    >Technical & Knowledge Conferences</a
-                  >
-                </li>
-
-                <!-- DAY #3 NAVIGATION LINK -->
-                <li class="nav-item col-md-4">
-                  <a
-                    class="nav-link"
-                    data-toggle="tab"
-                    href="#panel3"
-                    role="tab"
-                    >Networking & B2B Meetings</a
-                  >
-                </li>
-              </ul>
-            </div>
-            <!-- END SCHEDULE NAVIGATION -->
-
-            <!-- SCHEDULE TABS CONTENT -->
-            <div class="tab-content card1">
-              <!-- SCHEDULE TAB #1 CONTENT (DAY #1) -->
-              <div class="tab-pane in show active" id="panel1" role="tabpanel">
-                <div class="row">
-                  <!-- SCHEDULE TAB #1 LEFT COLUMN -->
-                  <div class="col-lg-6">
-                    <div class="schedule-left p-right-15">
-                      <!-- SESSION 1-1 -->
-                      <div class="row schedule-event">
-                        <!-- Event Time -->
-                        <!-- <div class="col-sm-3 event-time">
-                          <span>8:45 AM</span>
-                          <span>9:00 AM</span>
-                        </div> -->
-
-                        <!-- Event Description -->
-                        <div class="col-sm-9 event-description">
-                          <!-- Title -->
-                          <h4>Mining Machinery & Equipment</h4>
-
-                          <!-- Short Description -->
-                          <p class="p-small">
-                            Automated Drills, Loaders, Crushers, Conveyors
-                          </p>
-
-                          <hr />
-                        </div>
-                      </div>
-                      <!-- END SESSION 1-1 -->
-
-                      <!-- SESSION 1-2 -->
-                      <div class="row schedule-event">
-                        <!-- Event Time
-                        <div class="col-sm-3 event-time">
-                          <span>9:10 AM</span>
-                          <span>10:45 AM</span>
-                        </div> -->
-
-                        <!-- Event Description -->
-                        <div class="col-sm-9 event-description">
-                          <!-- Title -->
-                          <h4>GIS & Geospatial Technologies</h4>
-
-                          <!-- Speaker -->
-                          <p class="event-speaker">
-                           Mapping, Exploration, Resource Modelling, Survey Solutions
-                          </p>
-
-                          <!-- Short Description -->
-                          <!-- <p class="p-small">
-                            Semper lacus cursus porta, magna mauris sapien risus
-                            auctor purus apien feugiat rabitur nulla sapien
-                          </p> -->
-
-                          <hr />
-                        </div>
-                      </div>
-                      <!-- END SESSION 1-2 -->
-
-                      <!-- SESSION 1-3 -->
-                      <div class="row schedule-event">
-                        <!-- Event Time -->
-                        <!-- <div class="col-sm-3 event-time">
-                          <span>11:00 AM</span>
-                          <span>12:30 AM</span>
-                        </div> -->
-
-                        <!-- Event Description -->
-                        <div class="col-sm-9 event-description">
-                          <!-- Title -->
-                          <h4>Data Analytics & AI/ML Solutions</h4>
-
-                          <!-- Speaker -->
-                          <p class="event-speaker">
-                            Predictive Maintenance, Mine Planning, Operational Optimization
-                          </p>
-
-                          <hr />
-                        </div>
-                      </div>
-                      <!-- END SESSION 1-3 -->
-
-                      <!-- SESSION 1-4 -->
-                      <div class="row schedule-event">
-                        <!-- Event Time -->
-                     
-
-                        <!-- Event Description -->
-                        <div class="col-sm-9 event-description">
-                          <!-- Title -->
-                          <h4>IoT & Smart Sensors</h4>
-
-                          <!-- Short Description -->
-                          <p class="p-small">
-                         Equipment Monitoring, Environmental Sensing, Safety Tracking
-                          </p>
-
-                          <!-- Event Notice -->
-                    
-
-                          <hr />
-                        </div>
-                      </div>
-                      <!-- END SESSION 1-4 -->
-
-                      <!-- SESSION 1-5 -->
-                      <div class="row schedule-event">
-                        <!-- Event Time -->
-                        
-
-                        <!-- Event Description -->
-                        <div class="col-sm-9 event-description lrow">
-                          <!-- Title -->
-                          <h4>Drones & Robotics</h4>
-
-                          <!-- Speaker -->
-                          
-
-                          <!-- Short Description -->
-                          <p class="p-small">
-                           Aerial Surveys, Autonomous Vehicles, Robotic Mining Operations
-                          </p>
-                        </div>
-                      </div>
-                      <!-- END SESSION 1-5 -->
-                    </div>
-                  </div>
-                  <!-- END SCHEDULE TAB #1 LEFT COLUMN -->
-
-                  <!-- SCHEDULE TAB #1 RIGHT COLUMN -->
-                  <div class="col-lg-6">
-                    <div class="schedule-right p-left-15">
-                      <!-- SESSION 1-6 -->
-                      <div class="row schedule-event">
-                        <!-- Event Time -->
-                        
-
-                        <!-- Event Description -->
-                        <div class="col-sm-9 event-description">
-                          <!-- Title -->
-                          <h4>Environmental & Sustainability Technologies</h4>
-
-                         
-
-                          <!-- Short Description -->
-                          <p class="p-small">
-                           Water Management, Emissions Reduction, Mine Rehabilitation
-                          </p>
-
-                          <hr />
-                        </div>
-                      </div>
-                      <!-- END SESSION 1-6 -->
-
-                      <!-- SESSION 1-7 -->
-                      <div class="row schedule-event">
-                        <!-- Event Time -->
-                       
-
-                        <!-- Event Description -->
-                        <div class="col-sm-9 event-description">
-                          <!-- Title -->
-                          <h4>Energy Solutions & Renewable Integration</h4>
-
-                          
-
-                          <!-- Short Description -->
-                          <p class="p-small">
-                           Hybrid Mining Equipment, Solar/Wind Power Solutions
-                          </p>
-
-                          <hr />
-                        </div>
-                      </div>
-                      <!-- END SESSION 1-7 -->
-
-                      <!-- SESSION 1-8 -->
-                      <div class="row schedule-event">
-                        <!-- Event Time -->
-                       
-
-                        <!-- Event Description -->
-                        <div class="col-sm-9 event-description">
-                          <!-- Title -->
-                          <h4>Safety & Protective Equipment Innovations</h4>
-
-                         
-
-                          <!-- Short Description -->
-                          <p class="p-small">
-                           Wearable Tech, AI-Assisted Hazard Detection
-                          </p>
-
-                          <hr />
-                        </div>
-                      </div>
-                      <!-- END SESSION 1-8 -->
-
-                      <!-- SESSION 1-9 -->
-                      <div class="row schedule-event">
-                       
-
-                        <!-- Event Description -->
-                        <div class="col-sm-9 event-description">
-                          <!-- Title -->
-                          <h4>Tech Startups & Innovation Zone</h4>
-
-                          <!-- Short Description -->
-                          <p class="p-small">
-                            GIS, Analytics, AI/ML, IoT, Drones, Sustainability Solutions
-                          </p>
-
-                         
-                        </div>
-                      </div>
-                      <div class="row schedule-event">
-                       
-
-                        <!-- Event Description -->
-                        <div class="col-sm-9 event-description">
-                          <!-- Title -->
-                          <h4>International Country Pavilions</h4>
-
-                          <!-- Short Description -->
-                          <p class="p-small">
-                            LATAM, Africa, Russia, UAE, Asia-Pacific
-                          </p>
-
-                         
-                        </div>
-                      </div>
-                      <!-- END SESSION 1-9 -->
-                    </div>
-                  </div>
-                  <!-- END SCHEDULE TAB #1 RIGHT COLUMN -->
-                </div>
-                <!-- End row -->
-              </div>
-              <!-- END SCHEDULE TAB #1 CONTENT (DAY #1) -->
-
-              <!-- SCHEDULE TAB #2 CONTENT (DAY #2) -->
-
-              <div class="tab-pane" id="panel2" role="tabpanel">
-                <div class="row">
-                  <!-- SCHEDULE TAB #2 LEFT COLUMN -->
-                  <div class="col-lg-6">
-                    <div class="schedule-left p-right-15">
-                      <!-- SESSION 2-1 -->
-                      <div class="row schedule-event">
-                        
-
-                        <!-- Event Description -->
-                        <div class="col-sm-9 event-description">
-                          <!-- Title -->
-                          <h4>Tracks / Sessions</h4>
-                          <hr />
-                        </div>
-                      </div>
-                      <!-- END SESSION 2-1 -->
-
-                      <!-- SESSION 2-2 -->
-                      <div class="row schedule-event">
-                        <!-- Event Time -->
-                      
-
-                        <!-- Event Description -->
-                        <div class="col-sm-9 event-description">
-                          <!-- Title -->
-                          <h4>Sustainable Mining Practices & ESG Compliance</h4>
-                          <hr />
-                        </div>
-                      </div>
-                      <!-- END SESSION 2-2 -->
-
-                      <!-- SESSION 2-3 -->
-                      <div class="row schedule-event">
-                        <!-- Event Time -->
-                     
-
-                        <!-- Event Description -->
-                        <div class="col-sm-9 event-description">
-                          <!-- Title -->
-                          <h4>Mining Equipment Innovation & Automation</h4>
-                          <hr />
-                        </div>
-                      </div>
-                      <!-- END SESSION 2-3 -->
-
-                      <!-- SESSION 2-4 -->
-                    
-                      <!-- END SESSION 2-4 -->
-                    </div>
-                  </div>
-                  <!-- END SCHEDULE TAB #2 LEFT COLUMN -->
-
-                  <!-- SCHEDULE TAB #2 RIGHT COLUMN -->
-                  <div class="col-lg-6">
-                    <div class="schedule-right p-left-15">
-                      <!-- SESSION 2-5 -->
-                      <div class="row schedule-event">
-                        <!-- Event Time -->
-                       
-
-                        <!-- Event Description -->
-                        <div class="col-sm-9 event-description">
-                          <!-- Title -->
-                          <h4>Exploration & Resource Management</h4>
-
-                         
-
-                         
-
-                          <hr />
-                        </div>
-                      </div>
-                      <!-- END SESSION 2-5 -->
-
-                      <!-- SESSION 2-6 -->
-                      <div class="row schedule-event">
-                        <!-- Event Time -->
-                      
-
-                        <!-- Event Description -->
-                        <div class="col-sm-9 event-description">
-                          <!-- Title -->
-                          <h4>Mining Safety & Workforce Development</h4>
-
-                       
-
-                       
-
-                          <hr />
-                        </div>
-                      </div>
-                      <!-- END SESSION 2-6 -->
-
-                      <!-- SESSION 2-7 -->
-                      <div class="row schedule-event">
-                        <!-- Event Time -->
-                       
-
-                        <!-- Event Description -->
-                        <div class="col-sm-9 event-description">
-                          <!-- Title -->
-                          <h4>Environmental Rehabilitation & Community Engagement</h4>
-                          <hr />
-                        </div>
-                      </div>
-                      <!-- END SESSION 2-7 -->
-
-                      <!-- SESSION 2-8 -->
-                     
-                      <!-- END SESSION 2-8 -->
-                    </div>
-                  </div>
-                  <!-- END SCHEDULE TAB #2 RIGHT COLUMN -->
-                </div>
-                <!-- End row -->
-              </div>
-              <!-- END SCHEDULE TAB #2 CONTENT (DAY #2) -->
-
-              <!-- SCHEDULE TAB #3 CONTENT (DAY #3) -->
-              <div class="tab-pane" id="panel3" role="tabpanel">
-                <div class="row">
-                  <!-- SCHEDULE TAB #3 LEFT COLUMN -->
-                  <div class="col-lg-6">
-                    <div class="schedule-left p-right-15">
-                      <!-- SESSION 3-1 -->
-                      <div class="row schedule-event">
-                        <!-- Event Time -->
-                       
-
-                        <!-- Event Description -->
-                        <div class="col-sm-9 event-description">
-                          <!-- Title -->
-                          <h4>Paid meeting rooms and standard networking 
-lounges.</h4>
-
-                       
-
-                          <hr />
-                        </div>
-                      </div>
-                      <!-- END SESSION 3-1 -->
-
-                      <!-- SESSION 3-2 -->
-                      <div class="row schedule-event">
-                       
-
-                        <!-- Event Description -->
-                        <div class="col-sm-9 event-description">
-                          <!-- Title -->
-                          <h4>Pre-scheduled business meetings between 
-Operators, Suppliers, Investors, and 
-Policymakers.</h4>
-
-                         
-
-                          <hr />
-                        </div>
-                      </div>
-                      <!-- END SESSION 3-2 -->
-
-                      <!-- SESSION 3-3 -->
-                      <div class="row schedule-event">
-                        <!-- Event Time -->
-                      
-
-                        <!-- Event Description -->
-                        <div class="col-sm-9 event-description">
-                          <!-- Title -->
-                          <h4>Networking lounges spread across Conference and Expo Zones.</h4>
-
-                         
-
-                          
-
-                          <hr />
-                        </div>
-                      </div>
-                      <!-- END SESSION 3-3 -->
-
-                    
-                      <!-- END SESSION 3-4 -->
-                    </div>
-                  </div>
-                  <!-- END SCHEDULE TAB #3 LEFT COLUMN -->
-
-                  <!-- SCHEDULE TAB #3 RIGHT COLUMN -->
-                  <div class="col-lg-6">
-                    <img src="images/18.jpg"/>
-                  </div>
-                  <!-- END SCHEDULE TAB #3 RIGHT COLUMN -->
-                </div>
-                <!-- End row -->
-              </div>
-              <!-- END SCHEDULE TAB #3 CONTENT (DAY #3) -->
-            </div>
-            <!-- END SCHEDULE TABS CONTENT -->
-          </div>
-          <!-- END TABLIST -->
-
-          <!-- SCHEDULE DOWNLOAD BUTTONS -->
-          <div class="row">
-            <div class="col-md-12 schedule-buttons text-center m-top-20">
-              <a
-                href="download/schedule.txt"
-                download="schedule.pdf"
-                class="btn btn-medium btn-tra-black m-right-20"
-                >Download Schedule (PDF)</a
-              >
-              <a href="#" class="btn btn-medium btn-tra-black"
-                >Connect via Facebook</a
-              >
-            </div>
-          </div>
-        </div>
-        <!-- End container -->
-      </section>
-      <!-- END SCHEDULE -->
+			============================================= -->		
+		<section id="schedule" class="bg-scroll bg-lightgrey wide-100 schedule-section division">
+	<div class="container">	
+
+		<!-- SECTION TITLE -->
+		<div class="row">
+			<div class="col-md-10 col-lg-8 section-title">
+				<h2 class="banner-regular">Conference Schedule</h2>
+				<p>IIMX 2026 brings together global leaders, policymakers, and innovators across three days of high-impact dialogues on mining, metals, energy, and sustainability. Parallel activities include an International Exhibition (300+ exhibitors), B2B Partnering Lounge, Startup Pavilion, and State & Government Pavilions.</p>
+			</div>
+		</div>	
+
+		<!-- TABLIST -->	
+		<div role="tablist">
+			<!-- SCHEDULE NAVIGATION -->
+			<div class="row">
+				<ul class="nav nav-tabs text-center red-nav">
+					<li class="nav-item col-md-4">
+						<a class="nav-link active" data-toggle="tab" href="#panel1" role="tab">Wednesday, 24 February 2026</a>
+					</li>
+					<li class="nav-item col-md-4">
+						<a class="nav-link" data-toggle="tab" href="#panel2" role="tab">Thursday, 25 February 2026</a>
+					</li>
+					<li class="nav-item col-md-4">
+						<a class="nav-link" data-toggle="tab" href="#panel3" role="tab">Friday, 26 February 2026</a>
+					</li>
+				</ul>
+			</div>	
+
+			<!-- SCHEDULE TABS CONTENT -->					
+			<div class="tab-content card1">
+
+				<!-- DAY 1: INAUGURAL & LEADERSHIP CONCLAVE -->
+				<div class="tab-pane in show active" id="panel1" role="tabpanel">
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="schedule-left p-right-15">
+								<div class="row schedule-event">
+									<div class="col-sm-3 event-time"><span>08:30</span><span>10:00</span></div>
+									<div class="col-sm-9 event-description">
+										<h4>Registration & Networking Tea</h4>
+										<p class="p-small">Delegate check-in, exhibition preview, and informal networking</p>
+										<hr>
+									</div>
+								</div>
+
+								<div class="row schedule-event">
+									<div class="col-sm-3 event-time"><span>10:00</span><span>11:30</span></div>
+									<div class="col-sm-9 event-description">
+										<h4>Inaugural Ceremony</h4>
+										<p class="event-speaker">Chairman, Organising Committee</p>
+										<p class="event-speaker">Hon’ble Chief Minister of Telangana</p>
+										<p class="event-speaker">Hon’ble Union Minister of Steel</p>
+										<p class="event-speaker">Hon’ble Union Minister of Petroleum & Natural Gas</p>
+										<p class="event-speaker">Hon’ble Union Minister of Coal & Mines (Chief Guest)</p>
+										<p class="event-speaker">Industry Leader (Keynote)</p>
+										<p class="p-small">Welcome, policy addresses, and vision for India’s mining future</p>
+										<hr>
+									</div>
+								</div>
+
+								<div class="row schedule-event">
+									<div class="col-sm-3 event-time"><span>12:00</span><span>13:30</span></div>
+									<div class="col-sm-9 event-description">
+										<h4>Plenary 1 – “India’s Mining Vision 2047”</h4>
+										<p class="event-speaker">Secretaries, MoC&M / MoS / MoPNG</p>
+										<p class="event-speaker">CEOs – Coal India, Vedanta, Tata Steel, MECL</p>
+										<p class="event-speaker">Global Think-Tank Representatives</p>
+										<p class="p-small">Policy reforms, private participation, global partnerships, and sustainable resource growth</p>
+										<hr>
+									</div>
+								</div>
+
+								<div class="row schedule-event">
+									<div class="col-sm-3 event-time"><span>14:30</span><span>16:00</span></div>
+									<div class="col-sm-9 event-description">
+										<h4>Leadership Panel – “Future of Responsible Mining”</h4>
+										<p class="event-speaker">ESG Experts, Safety Regulators, Women Leaders in Mining</p>
+										<p class="p-small">ESG frameworks, safety governance, indigenous tech, and gender inclusion</p>
+										<hr>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-lg-6">
+							<div class="schedule-right p-left-15">
+								<div class="row schedule-event">
+									<div class="col-sm-3 event-time"><span>16:30</span><span>17:30</span></div>
+									<div class="col-sm-9 event-description">
+										<h4>CEO Roundtable (By Invitation)</h4>
+										<p class="event-speaker">CMDs/CEOs – Coal India, NTPC Mining, Vedanta, JSW Steel, Tata Steel, Hindustan Copper, Cairn, GAIL, MECL</p>
+										<p class="p-small">Theme: “Public-Private Partnerships in Mining for New India”</p>
+										<hr>
+									</div>
+								</div>
+
+								<div class="row schedule-event">
+									<div class="col-sm-3 event-time"><span>19:00</span><span>21:00</span></div>
+									<div class="col-sm-9 event-description">
+										<h4>Networking Gala Dinner & Cultural Evening</h4>
+										<p class="p-small">Celebrating India’s mining heritage with traditional performances</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- DAY 2: TECHNOLOGY, INNOVATION & INVESTMENT SUMMIT -->
+				<div class="tab-pane" id="panel2" role="tabpanel">
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="schedule-left p-right-15">
+								<div class="row schedule-event">
+									<div class="col-sm-3 event-time"><span>10:00</span><span>11:30</span></div>
+									<div class="col-sm-9 event-description">
+										<h4>Plenary 2 – “Smart & Sustainable Mining Technologies”</h4>
+										<p class="event-speaker">Global Mining Tech CEOs, AI & IoT Specialists</p>
+										<p class="p-small">AI, robotics, drones, digital twins, and predictive maintenance in mining</p>
+										<hr>
+									</div>
+								</div>
+
+								<div class="row schedule-event">
+									<div class="col-sm-3 event-time"><span>12:00</span><span>13:30</span></div>
+									<div class="col-sm-9 event-description">
+										<h4>Technical Session 1 – “Exploration to Extraction: Mapping India’s Mineral Wealth”</h4>
+										<p class="event-speaker">Geoscientists, ISRO, MECL, Deep Mining Experts</p>
+										<p class="p-small">3D mapping, satellite-AI fusion, deep mining, and critical minerals (REEs, lithium)</p>
+										<hr>
+									</div>
+								</div>
+
+								<div class="row schedule-event">
+									<div class="col-sm-3 event-time"><span>14:30</span><span>16:00</span></div>
+									<div class="col-sm-9 event-description">
+										<h4>Technical Session 2 – “Green Minerals & the Energy Transition”</h4>
+										<p class="event-speaker">Representatives – MoPNG, MoS, Battery & Recycling Firms</p>
+										<p class="p-small">Lithium, cobalt, nickel demand; circular economy; green hydrogen linkages</p>
+										<hr>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-lg-6">
+							<div class="schedule-right p-left-15">
+								<div class="row schedule-event">
+									<div class="col-sm-3 event-time"><span>16:30</span><span>17:30</span></div>
+									<div class="col-sm-9 event-description">
+										<h4>Panel – “Financing India’s Mining Growth”</h4>
+										<p class="event-speaker">Financial institutions, venture funds, multilateral banks</p>
+										<p class="p-small">Policy incentives, FDI flows, and infrastructure financing, PPPs, and ESG-linked investment</p>
+										<hr>
+									</div>
+								</div>
+							</div>
+							<div class="schedule-right p-left-15">
+								<div class="row schedule-event">
+									<div class="col-sm-3 event-time"><span>16:30</span><span>17:30</span></div>
+									<div class="col-sm-9 event-description">
+										<h4>Session 3: GST 2.0 and Indirect Taxes – The Road Ahead for the Mining Sector</h4>
+										<p class="event-speaker">Implications of GST 2.0 for mining, metals, and mineral logistics</p>
+										<p class="p-small">Input tax credit challenges and royalty treatment</p>
+										<p class="p-small">Tax parity between captive and merchant miners</p>
+										<p class="p-small">E-invoicing, supply chain compliance & digital audits</p>
+										<hr>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- DAY 3: INTEGRATED VALUE CHAIN, LOGISTICS & FUTURE OUTLOOK -->
+				<div class="tab-pane" id="panel3" role="tabpanel">
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="schedule-left p-right-15">
+								<div class="row schedule-event">
+									<div class="col-sm-3 event-time"><span>10:00</span><span>11:30</span></div>
+									<div class="col-sm-9 event-description">
+										<h4>Session – “Metals, Minerals & Manufacturing: Building Synergies”</h4>
+										<p class="event-speaker">Ministry of Steel, JSW, Tata Steel, SAIL, NMDC</p>
+										<p class="p-small">Iron ore & coking coal strategy, import substitution, and steel-alloy integration</p>
+										<hr>
+									</div>
+								</div>
+
+								<div class="row schedule-event">
+									<div class="col-sm-3 event-time"><span>12:00</span><span>13:30</span></div>
+									<div class="col-sm-9 event-description">
+										<h4>Session – “Energy, Oil & Gas Interface with Mining”</h4>
+										<p class="event-speaker">MoPNG, ONGC, GAIL, CBM Operators</p>
+										<p class="p-small">Coal Bed Methane, integrated energy corridors, and upstream sustainability</p>
+										<hr>
+									</div>
+								</div>
+
+								<div class="row schedule-event">
+									<div class="col-sm-3 event-time"><span>14:00</span><span>15:15</span></div>
+									<div class="col-sm-9 event-description">
+										<h4>Session – “Mining Supply Chain & Logistics”</h4>
+										<p class="event-speaker">Railways, Port Authorities, Logistics Tech Firms</p>
+										<p class="p-small">Multimodal transport, port-rail connectivity, and digital supply chain visibility</p>
+										<hr>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-lg-6">
+							<div class="schedule-right p-left-15">
+								<div class="row schedule-event">
+									<div class="col-sm-3 event-time"><span>15:30</span><span>16:30</span></div>
+									<div class="col-sm-9 event-description">
+										<h4>Session – “Innovation for Tomorrow: Startups & Academia in Mining”</h4>
+										<p class="event-speaker">IITs, ISM Dhanbad, CSIR, MECL, Mining Startups</p>
+										<p class="p-small">AI exploration, remote sensing, safety tech, incubation, and skill development</p>
+										<hr>
+									</div>
+								</div>
+
+								<div class="row schedule-event">
+									<div class="col-sm-3 event-time"><span>16:30</span><span>17:15</span></div>
+									<div class="col-sm-9 event-description">
+										<h4>Valedictory Ceremony</h4>
+										<p class="event-speaker">Chief Guest: Hon’ble Chief Minister of Telangana</p>
+										<p class="event-speaker">Guest of Honour: MoS, Ministry of Coal & Mines</p>
+										<p class="p-small">Summary, “Innovation in Mining Awards”, and closing remarks</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- SCHEDULE DOWNLOAD BUTTONS -->
+		<!-- <div class="row">
+			<div class="col-md-12 schedule-buttons text-center m-top-20">
+				<a href="download/iimx2026_schedule.pdf" download="IIMX_2026_Schedule.pdf" class="btn btn-medium btn-tra-black m-right-20">Download Full Schedule (PDF)</a>	
+				<a href="https://www.iimx.in" class="btn btn-medium btn-tra-black">Official Website</a>	
+			</div>
+		</div> -->
+	</div>
+</section>
+				<!-- END SCHEDULE -->
 
       <!-- MEDIA-3 
 			============================================= -->
@@ -1472,6 +1530,304 @@ Policymakers.</h4>
         <!-- End container -->
       </section>
       <!-- END REGISTER FORM  -->
+
+       <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1><i class="fas fa-calendar-alt"></i> Conference & Exhibition</h1>
+            <p class="lead">India International Mine Expo 2026</p>
+        </div>
+    </section>
+
+    <!-- Plenary & Keynote Section -->
+    <section class="plenary-section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Plenary & Keynote Sessions</h2>
+                <p class="section-subtitle">Engaging discussions with global leaders and industry experts</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <div class="plenary-card">
+                        <h4><i class="fas fa-flag"></i> Opening Ceremony</h4>
+                        <ul>
+                            <li>Government Ministers</li>
+                            <li>Global Industry Leaders</li>
+                            <li>International Dignitaries</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="plenary-card">
+                        <h4><i class="fas fa-microphone"></i> Keynote Addresses</h4>
+                        <ul>
+                            <li>Mining Trends & Future Outlook</li>
+                            <li>ESG & Sustainability in Mining</li>
+                            <li>Technological Innovation & Digital Transformation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Conference Section -->
+    <section class="technical-section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Technical & Knowledge Conferences</h2>
+                <p class="section-subtitle">Expert-led sessions across critical mining domains</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="track-card">
+                        <div class="track-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <h5>Sustainable Mining Practices & ESG Compliance</h5>
+                        <p>Exploring environmental responsibility and governance frameworks for modern mining operations.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="track-card">
+                        <div class="track-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h5>Mining Equipment Innovation & Automation</h5>
+                        <p>Latest advancements in mining machinery and automated systems for enhanced productivity.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="track-card">
+                        <div class="track-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h5>Digital Mining & Smart Mines</h5>
+                        <p>IoT, AI, and Robotics transforming mining operations into intelligent, connected ecosystems.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="track-card">
+                        <div class="track-icon">
+                            <i class="fas fa-map-marked-alt"></i>
+                        </div>
+                        <h5>Exploration & Resource Management</h5>
+                        <p>Advanced techniques for mineral exploration and optimal resource utilization strategies.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="track-card">
+                        <div class="track-icon">
+                            <i class="fas fa-hard-hat"></i>
+                        </div>
+                        <h5>Mining Safety & Workforce Development</h5>
+                        <p>Prioritizing worker safety and building skilled workforce for the mining industry.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="track-card">
+                        <div class="track-icon">
+                            <i class="fas fa-hands-helping"></i>
+                        </div>
+                        <h5>Environmental Rehabilitation & Community Engagement</h5>
+                        <p>Post-mining restoration and fostering positive relationships with local communities.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exhibition Section -->
+    <section class="exhibition-section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Exhibition & Technology Showcase</h2>
+                <p class="section-subtitle">Indoor & Outdoor Exhibition Zones featuring cutting-edge mining solutions</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <div class="exhibition-zone">
+                        <div class="zone-header">
+                            <div class="zone-icon">
+                                <i class="fas fa-truck-pickup"></i>
+                            </div>
+                            <h4>Mining Machinery & Equipment</h4>
+                        </div>
+                        <div class="zone-content">
+                            Automated Drills, Loaders, Crushers, Conveyors and Heavy-duty Mining Equipment
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6 mb-4">
+                    <div class="exhibition-zone">
+                        <div class="zone-header">
+                            <div class="zone-icon">
+                                <i class="fas fa-map"></i>
+                            </div>
+                            <h4>GIS & Geospatial Technologies</h4>
+                        </div>
+                        <div class="zone-content">
+                            Mapping, Exploration, Resource Modelling, Survey Solutions for precision mining
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6 mb-4">
+                    <div class="exhibition-zone">
+                        <div class="zone-header">
+                            <div class="zone-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <h4>Data Analytics & AI/ML Solutions</h4>
+                        </div>
+                        <div class="zone-content">
+                            Predictive Maintenance, Mine Planning, Operational Optimization using advanced algorithms
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6 mb-4">
+                    <div class="exhibition-zone">
+                        <div class="zone-header">
+                            <div class="zone-icon">
+                                <i class="fas fa-network-wired"></i>
+                            </div>
+                            <h4>IoT & Smart Sensors</h4>
+                        </div>
+                        <div class="zone-content">
+                            Equipment Monitoring, Environmental Sensing, Safety Tracking with real-time data
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6 mb-4">
+                    <div class="exhibition-zone">
+                        <div class="zone-header">
+                            <div class="zone-icon">
+                                <i class="fas fa-helicopter"></i>
+                            </div>
+                            <h4>Drones & Robotics</h4>
+                        </div>
+                        <div class="zone-content">
+                            Aerial Surveys, Autonomous Vehicles, Robotic Mining Operations for enhanced efficiency
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6 mb-4">
+                    <div class="exhibition-zone">
+                        <div class="zone-header">
+                            <div class="zone-icon">
+                                <i class="fas fa-recycle"></i>
+                            </div>
+                            <h4>Environmental & Sustainability Technologies</h4>
+                        </div>
+                        <div class="zone-content">
+                            Water Management, Emissions Reduction, Mine Rehabilitation solutions
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6 mb-4">
+                    <div class="exhibition-zone">
+                        <div class="zone-header">
+                            <div class="zone-icon">
+                                <i class="fas fa-solar-panel"></i>
+                            </div>
+                            <h4>Energy Solutions & Renewable Integration</h4>
+                        </div>
+                        <div class="zone-content">
+                            Hybrid Mining Equipment, Solar/Wind Power Solutions for sustainable operations
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6 mb-4">
+                    <div class="exhibition-zone">
+                        <div class="zone-header">
+                            <div class="zone-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h4>Safety & Protective Equipment</h4>
+                        </div>
+                        <div class="zone-content">
+                            Wearable Tech, AI-Assisted Hazard Detection, Personal Protective Equipment innovations
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-12 mb-4">
+                    <div class="exhibition-zone innovation-highlight">
+                        <div class="zone-header">
+                            <div class="zone-icon">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <h4>Tech Startups & Innovation Zone</h4>
+                        </div>
+                        <div class="zone-content">
+                            Emerging companies showcasing breakthrough solutions in GIS, Analytics, AI/ML, IoT, Drones, and Sustainability Technologies - The future of mining innovation
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- International Pavilions Section -->
+    <section class="pavilions-section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title" style="color: white;">International Country Pavilions</h2>
+                <p class="section-subtitle" style="color: rgba(255,255,255,0.8);">Global participation from leading mining nations</p>
+            </div>
+            
+            <div class="text-center">
+                <span class="pavilion-badge"><i class="fas fa-globe-americas"></i> LATAM Pavilion</span>
+                <span class="pavilion-badge"><i class="fas fa-globe-africa"></i> Africa Pavilion</span>
+                <span class="pavilion-badge"><i class="fas fa-flag"></i> Russia Pavilion</span>
+                <span class="pavilion-badge"><i class="fas fa-landmark"></i> UAE Pavilion</span>
+                <span class="pavilion-badge"><i class="fas fa-globe-asia"></i> Asia-Pacific Pavilion</span>
+            </div>
+            
+            <div class="stats-row">
+                <div class="row">
+                    <div class="col-md-3 col-6 mb-4">
+                        <div class="stat-item">
+                            <div class="stat-number">500+</div>
+                            <div class="stat-label">Exhibitors</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6 mb-4">
+                        <div class="stat-item">
+                            <div class="stat-number">50+</div>
+                            <div class="stat-label">Countries</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6 mb-4">
+                        <div class="stat-item">
+                            <div class="stat-number">10K+</div>
+                            <div class="stat-label">Visitors</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6 mb-4">
+                        <div class="stat-item">
+                            <div class="stat-number">100+</div>
+                            <div class="stat-label">Sessions</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
       <!-- SPONSORS-1
 			============================================= -->
