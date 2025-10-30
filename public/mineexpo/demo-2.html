@@ -21,9 +21,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- SITE TITLE -->
-    <title>
-      Minexpo - Premium Event, Conference & Meeting 
-    </title>
+    <title>Minexpo - Premium Event, Conference & Meeting</title>
 
     <!-- FAVICON AND TOUCH ICONS  -->
     <!-- <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" /> -->
@@ -71,472 +69,1171 @@
 
     <!-- RESPONSIVE CSS -->
     <link href="css/responsive.css" rel="stylesheet" />
- <style>
-        :root {
-            --primary-color: #010101;
-            --secondary-color: #f39c12;
-            --dark-bg: #000000;
+    <style>
+      :root {
+        --primary-color: #010101;
+        --secondary-color: #ec0000;
+        --dark-bg: #000000;
+        --card-bg: #ffffff;
+        --hover-shadow: rgba(243, 156, 18, 0.2);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+      }
+
+      .section-title {
+        color: var(--primary-color);
+        font-weight: 700;
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+        position: relative;
+        padding-bottom: 20px;
+      }
+
+      .section-title::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 80px;
+        height: 4px;
+        background: var(--secondary-color);
+        border-radius: 2px;
+      }
+
+      .why-attend-section {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        padding: 80px 0;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .why-attend-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -50%;
+        width: 200%;
+        height: 100%;
+        background: radial-gradient(
+          circle,
+          rgba(243, 156, 18, 0.05) 0%,
+          transparent 70%
+        );
+        animation: pulse 15s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1) translateX(0);
         }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        50% {
+          transform: scale(1.1) translateX(5%);
         }
-        
-        .section-title {
-            color: var(--primary-color);
-            font-weight: 700;
-            margin-bottom: 2rem;
-            position: relative;
-            padding-bottom: 15px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Scroll Controls */
+      .scroll-controls {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+
+      .scroll-btn {
+        background: var(--secondary-color);
+        color: white;
+        border: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 10px #ec0000;
+      }
+
+      .scroll-btn:hover {
+        background: #ec0000;
+        transform: scale(1.1);
+      }
+
+      .scroll-btn:active {
+        transform: scale(0.95);
+      }
+
+      /* Horizontal scroll container */
+      .horizontal-scroll {
+        display: flex;
+        gap: 25px;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        padding: 20px 5px 30px;
+        scrollbar-width: thin;
+        scrollbar-color: var(--secondary-color) #e9ecef;
+      }
+
+      .horizontal-scroll::-webkit-scrollbar {
+        height: 10px;
+      }
+
+      .horizontal-scroll::-webkit-scrollbar-track {
+        background: #e9ecef;
+        border-radius: 10px;
+      }
+
+      .horizontal-scroll::-webkit-scrollbar-thumb {
+        background: linear-gradient(90deg, var(--secondary-color), #ec0000);
+        border-radius: 10px;
+        border: 2px solid #e9ecef;
+      }
+
+      .horizontal-scroll::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(90deg, #ec0000, var(--secondary-color));
+      }
+
+      .feature-card {
+        background: var(--card-bg);
+        border-radius: 15px;
+        padding: 35px 25px;
+        min-width: 300px;
+        flex: 0 0 auto;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
+        overflow: hidden;
+        border: 2px solid transparent;
+      }
+
+      .feature-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(243, 156, 18, 0.1),
+          transparent
+        );
+        transition: left 0.5s ease;
+      }
+
+      .feature-card:hover::before {
+        left: 100%;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-10px) scale(1.02);
+        box-shadow: 0 15px 40px var(--hover-shadow);
+        border-color: var(--secondary-color);
+      }
+
+      .feature-icon {
+        font-size: 3.5rem;
+        color: var(--secondary-color);
+        margin-bottom: 20px;
+        display: inline-block;
+        transition: all 0.4s ease;
+        position: relative;
+      }
+
+      .feature-card:hover .feature-icon {
+        transform: scale(1.15) rotate(5deg);
+        filter: drop-shadow(0 5px 15px rgba(243, 156, 18, 0.4));
+      }
+
+      .feature-card h4 {
+        color: var(--primary-color);
+        font-size: 1.35rem;
+        margin-bottom: 15px;
+        font-weight: 600;
+        transition: color 0.3s ease;
+      }
+
+      .feature-card:hover h4 {
+        color: var(--secondary-color);
+      }
+
+      .feature-card p {
+        color: #555;
+        font-size: 1rem;
+        line-height: 1.7;
+        margin: 0;
+      }
+
+      /* Scroll indicator */
+      .scroll-indicator {
+        text-align: center;
+        margin-top: 20px;
+        color: #666;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        animation: fadeInOut 2s ease-in-out infinite;
+      }
+
+      @keyframes fadeInOut {
+        0%,
+        100% {
+          opacity: 0.5;
         }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 80px;
-            height: 4px;
-            background: var(--secondary-color);
+        50% {
+          opacity: 1;
         }
-        
+      }
+
+      .scroll-indicator i {
+        color: var(--secondary-color);
+      }
+
+      /* Responsive Design */
+      @media (max-width: 1024px) {
         .why-attend-section {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            padding: 80px 0;
-        }
-        
-        .feature-card {
-            background: white;
-            border-radius: 10px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            height: 100%;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-        }
-        
-        .feature-icon {
-            font-size: 3rem;
-            color: var(--secondary-color);
-            margin-bottom: 20px;
-        }
-        
-        .who-attend-section {
-            background: white;
-            padding: 80px 0;
-        }
-        
-        .attendee-badge {
-            background: var(--primary-color);
-            color: white;
-            border-radius: 50px;
-            padding: 12px 25px;
-            margin: 10px;
-            display: inline-block;
-            font-weight: 500;
-            transition: background 0.3s ease;
-        }
-        
-        .attendee-badge:hover {
-            background: var(--dark-bg);
-        }
-        
-        .opportunities-section {
-            background: var(--dark-bg);
-            color: white;
-            padding: 80px 0;
-        }
-        
-        .opportunities-section .section-title {
-            color: white;
-        }
-        
-        .opportunities-section .section-title::after {
-            background: var(--secondary-color);
-        }
-        
-        .opportunity-item {
-            padding: 20px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border-left: 4px solid var(--secondary-color);
-        }
-        
-        .region-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .region-tag {
-            background: var(--secondary-color);
-            color: var(--dark-bg);
-            padding: 8px 20px;
-            border-radius: 25px;
-            font-weight: 600;
-        }
-        
-        .hyderabad-section {
-            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-            padding: 80px 0;
-        }
-        
-        .access-point {
-            background: white;
-            border-radius: 10px;
-            padding: 25px;
-            margin-bottom: 20px;
-            border-left: 5px solid var(--primary-color);
-            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-        }
-        
-        .access-point i {
-            color: var(--secondary-color);
-            font-size: 1.5rem;
-            margin-right: 15px;
+          padding: 60px 0;
         }
 
-        
-    </style>
-     <style>
-        :root {
-            --primary-red: #dc0000;
-            --dark-red: #a00000;
-            --black: #000000;
-            --dark-gray: #1a1a1a;
-            --light-gray: #f5f5f5;
-            --white: #ffffff;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow-x: hidden;
-            background: var(--white);
-        }
-        
-        .hero-section {
-            background: linear-gradient(135deg, var(--black) 0%, var(--dark-gray) 100%);
-            color: var(--white);
-            padding: 80px 0;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            margin-top: 10px;
-        }
-        
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, var(--primary-red) 0%, transparent 100%);
-            opacity: 0.1;
-        }
-        
-        .hero-section h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: white;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .hero-section .lead {
-            position: relative;
-            z-index: 1;
-        }
-        
         .section-title {
-            color: var(--black);
-            font-weight: 700;
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            position: relative;
-            display: inline-block;
+          font-size: 2.2rem;
+          margin-bottom: 2.5rem;
         }
-        
+
+        .feature-card {
+          min-width: 280px;
+          padding: 30px 20px;
+        }
+
+        .feature-icon {
+          font-size: 3rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .why-attend-section {
+          padding: 50px 0;
+        }
+
+        .container {
+          padding: 0 15px;
+        }
+
+        .section-title {
+          font-size: 1.9rem;
+          margin-bottom: 2rem;
+        }
+
         .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 60px;
-            height: 4px;
-            background: var(--primary-red);
+          width: 60px;
+          height: 3px;
         }
-        
-        .section-subtitle {
-            color: #666;
-            font-size: 1.1rem;
-            margin-bottom: 3rem;
+
+        .scroll-controls {
+          margin-bottom: 15px;
         }
-        
-        /* Plenary Section */
-        .plenary-section {
-            padding: 80px 0;
-            background: var(--white);
+
+        .scroll-btn {
+          width: 35px;
+          height: 35px;
+          font-size: 0.9rem;
         }
-        
-        .plenary-card {
-            background: linear-gradient(135deg, var(--black) 0%, var(--dark-gray) 100%);
-            color: var(--white);
-            border-radius: 15px;
-            padding: 40px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-            overflow: hidden;
+
+        .horizontal-scroll {
+          gap: 20px;
+          padding: 15px 5px 25px;
         }
-        
-        .plenary-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 100px;
-            height: 100px;
-            background: var(--primary-red);
-            border-radius: 50%;
-            transform: translate(50%, -50%);
-            opacity: 0.2;
+
+        .feature-card {
+          min-width: 260px;
+          padding: 25px 18px;
         }
-        
-        .plenary-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(220, 0, 0, 0.3);
+
+        .feature-icon {
+          font-size: 2.5rem;
+          margin-bottom: 15px;
         }
-        
-        .plenary-card h4 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            border-bottom: 2px solid var(--primary-red);
-            padding-bottom: 15px;
-            color: white;
+
+        .feature-card h4 {
+          font-size: 1.2rem;
+          margin-bottom: 12px;
         }
-        
-        .plenary-card ul {
-            list-style: none;
-            padding: 0;
+
+        .feature-card p {
+          font-size: 0.95rem;
         }
-        
-        .plenary-card li {
-            padding: 10px 0;
-            padding-left: 30px;
-            position: relative;
+      }
+
+      @media (max-width: 480px) {
+        .why-attend-section {
+          padding: 40px 0;
         }
-        
-        .plenary-card li::before {
-            content: '\f101';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            position: absolute;
-            left: 0;
-            color: var(--primary-red);
+
+        .section-title {
+          font-size: 1.6rem;
+          margin-bottom: 1.5rem;
         }
-        
-        /* Technical Conference Section */
-        .technical-section {
-            padding: 80px 0;
-            background: var(--light-gray);
+
+        .horizontal-scroll {
+          gap: 15px;
+          padding: 10px 5px 20px;
         }
-        
-        .track-card {
-            background: var(--white);
-            border-radius: 12px;
-            padding: 30px;
-            margin-bottom: 25px;
-            border-left: 5px solid var(--primary-red);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            height: 100%;
+
+        .feature-card {
+          min-width: 240px;
+          padding: 22px 16px;
         }
-        
-        .track-card:hover {
-            box-shadow: 0 10px 30px rgba(220, 0, 0, 0.2);
-            border-left-width: 8px;
-            transform: translateX(5px);
+
+        .feature-icon {
+          font-size: 2.2rem;
         }
-        
-        .track-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--black), var(--primary-red));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            font-size: 1.5rem;
-            margin-bottom: 20px;
+
+        .feature-card h4 {
+          font-size: 1.1rem;
         }
-        
-        .track-card h5 {
-            color: var(--black);
-            font-weight: 600;
-            margin-bottom: 15px;
+
+        .feature-card p {
+          font-size: 0.9rem;
+          line-height: 1.6;
         }
-        
-        .track-card p {
-            color: #555;
+
+        .scroll-indicator {
+          font-size: 0.85rem;
         }
-        
-        /* Exhibition Section */
-        .exhibition-section {
-            padding: 80px 0;
-            background: var(--white);
+      }
+
+      /* Accessibility improvements */
+      .feature-card:focus-within {
+        outline: 3px solid var(--secondary-color);
+        outline-offset: 3px;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .horizontal-scroll {
+          scroll-behavior: auto;
         }
-        
-        .exhibition-zone {
-            background: var(--white);
-            border-radius: 15px;
-            padding: 35px;
-            margin-bottom: 30px;
-            border: 2px solid var(--black);
-            transition: all 0.3s ease;
+
+        .feature-card,
+        .feature-icon,
+        .scroll-btn {
+          transition: none;
         }
-        
-        .exhibition-zone:hover {
-            transform: scale(1.02);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-            border-color: var(--primary-red);
+
+        .why-attend-section::before {
+          animation: none;
         }
-        
-        .zone-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
+      }
+
+      .who-attend-section {
+        background: #ffffff;
+        padding: 80px 0;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .attendee-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+        margin-top: 50px;
+      }
+
+      .attendee-card {
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        border: 2px solid #e9ecef;
+        border-radius: 15px;
+        padding: 35px 25px;
+        text-align: center;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+      }
+
+      .attendee-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(243, 156, 18, 0.1),
+          transparent
+        );
+        transition: left 0.6s ease;
+      }
+
+      .attendee-card:hover::before {
+        left: 100%;
+      }
+
+      .attendee-card:hover {
+        transform: translateY(-10px);
+        border-color: var(--secondary-color);
+        box-shadow: 0 15px 40px rgba(243, 156, 18, 0.25);
+        background: linear-gradient(135deg, #ffffff 0%, #fff8f0 100%);
+      }
+
+      .attendee-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, var(--secondary-color), #ec0000);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        font-size: 2rem;
+        color: white;
+        transition: all 0.4s ease;
+        box-shadow: 0 5px 20px #ec0000;
+      }
+
+      .attendee-card:hover .attendee-icon {
+        transform: scale(1.15) rotate(5deg);
+        box-shadow: 0 8px 30px #ec0000;
+      }
+
+      .attendee-card h3 {
+        color: var(--primary-color);
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 10px;
+        transition: color 0.3s ease;
+      }
+
+      .attendee-card:hover h3 {
+        color: var(--secondary-color);
+      }
+
+      .attendee-card p {
+        color: #666;
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+
+      .attendee-count {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: var(--secondary-color);
+        color: white;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.85rem;
+        font-weight: 700;
+        opacity: 0;
+        transform: scale(0);
+        transition: all 0.3s ease;
+      }
+
+      .attendee-card:hover .attendee-count {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      /* Stats section */
+      .stats-bar {
+        background: linear-gradient(135deg, var(--primary-color), #1a1a1a);
+        padding: 40px 0;
+        margin-top: 60px;
+        border-radius: 15px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+      }
+
+      .stats-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 30px;
+        text-align: center;
+      }
+
+      .stat-item {
+        color: white;
+      }
+
+      .stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--secondary-color);
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      .stat-label {
+        font-size: 0.95rem;
+        opacity: 0.9;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 1024px) {
+        .section-title {
+          font-size: 2.4rem;
         }
-        
-        .zone-icon {
-            width: 70px;
-            height: 70px;
-            background: var(--black);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            font-size: 2rem;
-            margin-right: 20px;
-            flex-shrink: 0;
-            position: relative;
+
+        .attendee-grid {
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          gap: 20px;
         }
-        
-        .zone-icon::after {
-            content: '';
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            width: 15px;
-            height: 15px;
-            background: var(--primary-red);
-            border-radius: 50%;
+      }
+
+      @media (max-width: 768px) {
+        .who-attend-section {
+          padding: 60px 0;
         }
-        
-        .zone-header h4 {
-            color: var(--black);
-            font-weight: 700;
-            margin: 0;
-            font-size: 1.4rem;
+
+        .section-title {
+          font-size: 2rem;
         }
-        
-        .zone-content {
-            color: #555;
-            line-height: 1.8;
+
+        .attendee-grid {
+          grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+          gap: 18px;
+          margin-top: 40px;
         }
-        
-        /* Innovation Zone Highlight */
-        .innovation-highlight {
-            background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-red) 100%);
-            color: var(--white);
-            border: none;
+
+        .attendee-card {
+          padding: 28px 20px;
         }
-        
-        .innovation-highlight .zone-icon {
-            background: rgba(0,0,0,0.3);
+
+        .attendee-icon {
+          width: 70px;
+          height: 70px;
+          font-size: 1.8rem;
         }
-        
-        .innovation-highlight .zone-icon::after {
-            background: var(--white);
+
+        .attendee-card h3 {
+          font-size: 1.1rem;
         }
-        
-        .innovation-highlight .zone-header h4 {
-            color: var(--white);
+
+        .stats-bar {
+          margin-top: 50px;
+          padding: 35px 20px;
         }
-        
-        .innovation-highlight .zone-content {
-            color: var(--white);
-        }
-        
-        /* Country Pavilions */
-        .pavilions-section {
-            background: var(--black);
-            padding: 80px 0;
-            color: var(--white);
-        }
-        
-        .pavilion-badge {
-            background: var(--dark-gray);
-            border: 2px solid var(--primary-red);
-            border-radius: 50px;
-            padding: 15px 30px;
-            margin: 10px;
-            display: inline-block;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-        
-        .pavilion-badge:hover {
-            background: var(--primary-red);
-            color: var(--white);
-            transform: scale(1.05);
-            border-color: var(--primary-red);
-        }
-        
-        .stats-row {
-            background: var(--dark-gray);
-            border-radius: 15px;
-            padding: 40px;
-            margin-top: 40px;
-            border: 2px solid var(--primary-red);
-        }
-        
-        .stat-item {
-            text-align: center;
-        }
-        
+
         .stat-number {
-            font-size: 3rem;
-            font-weight: 700;
-            color: var(--primary-red);
+          font-size: 2.2rem;
         }
-        
+      }
+
+      @media (max-width: 480px) {
+        .who-attend-section {
+          padding: 50px 0;
+        }
+
+        .section-title {
+          font-size: 1.7rem;
+          margin-bottom: 1rem;
+        }
+
+        .section-title::after {
+          width: 60px;
+          height: 3px;
+        }
+
+        .attendee-grid {
+          grid-template-columns: 1fr;
+          gap: 15px;
+          margin-top: 30px;
+        }
+
+        .attendee-card {
+          padding: 25px 18px;
+        }
+
+        .attendee-icon {
+          width: 65px;
+          height: 65px;
+          font-size: 1.6rem;
+        }
+
+        .attendee-card h3 {
+          font-size: 1.05rem;
+        }
+
+        .attendee-card p {
+          font-size: 0.9rem;
+        }
+
+        .stats-bar {
+          margin-top: 40px;
+          padding: 30px 15px;
+        }
+
+        .stats-container {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 25px;
+        }
+
+        .stat-number {
+          font-size: 1.8rem;
+        }
+
         .stat-label {
-            font-size: 1rem;
-            color: var(--white);
-            margin-top: 10px;
+          font-size: 0.85rem;
         }
-        
-        @media (max-width: 768px) {
-            .hero-section h1 {
-                font-size: 2rem;
-            }
-            
-            .section-title {
-                font-size: 2rem;
-            }
+      }
+
+      /* Animation on scroll */
+      .attendee-card {
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInUp 0.6s ease forwards;
+      }
+
+      .attendee-card:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      .attendee-card:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .attendee-card:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      .attendee-card:nth-child(4) {
+        animation-delay: 0.4s;
+      }
+      .attendee-card:nth-child(5) {
+        animation-delay: 0.5s;
+      }
+      .attendee-card:nth-child(6) {
+        animation-delay: 0.6s;
+      }
+      .attendee-card:nth-child(7) {
+        animation-delay: 0.7s;
+      }
+      .attendee-card:nth-child(8) {
+        animation-delay: 0.8s;
+      }
+
+      @keyframes fadeInUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
         }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .attendee-card {
+          animation: none;
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .opportunities-section {
+        background: var(--dark-bg);
+        color: white;
+        padding: 80px 0;
+      }
+
+      .opportunities-section .section-title {
+        color: white;
+      }
+
+      .opportunities-section .section-title::after {
+        background: var(--secondary-color);
+      }
+
+      .opportunity-item {
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        margin-bottom: 20px;
+        border-left: 4px solid var(--secondary-color);
+      }
+
+      .region-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      .region-tag {
+        background: var(--secondary-color);
+        color: var(--dark-bg);
+        padding: 8px 20px;
+        border-radius: 25px;
+        font-weight: 600;
+      }
+
+      .hyderabad-section {
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        padding: 80px 0;
+      }
+
+      .access-point {
+        background: white;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+        border-left: 5px solid var(--primary-color);
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+      }
+
+      .access-point i {
+        color: var(--secondary-color);
+        font-size: 1.5rem;
+        margin-right: 15px;
+      }
+      .region-tag {
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .region-tag.active {
+        background: white !important;
+        color: var(--dark-bg) !important;
+        font-weight: 700;
+        transform: scale(1.05);
+      }
+    </style>
+    <style>
+      :root {
+        --primary-red: #dc0000;
+        --dark-red: #a00000;
+        --black: #000000;
+        --dark-gray: #1a1a1a;
+        --light-gray: #f5f5f5;
+        --white: #ffffff;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        overflow-x: hidden;
+        background: var(--white);
+      }
+
+      .section-title {
+        color: var(--black);
+        font-weight: 700;
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        position: relative;
+        display: inline-block;
+      }
+
+      .section-title::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 60px;
+        height: 4px;
+        background: var(--primary-red);
+      }
+
+      .section-subtitle {
+        color: #666;
+        font-size: 1.1rem;
+        margin-bottom: 3rem;
+      }
+.plenary-section {
+  padding: 100px 0;
+  background: linear-gradient(135deg, #f9fafb 0%, #f0f2f5 100%);
+}
+
+.plenary-image-wrapper img {
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  width: 100%;
+  height: auto;
+  transition: transform 0.4s ease;
+}
+
+.plenary-image-wrapper img:hover {
+  transform: scale(1.02);
+}
+
+.plenary-cta-box {
+  background: white;
+  padding: 45px;
+  border-radius: 20px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+  max-width: 550px;
+}
+
+.plenary-tag {
+  display: inline-block;
+  background: #ec0000;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 4px 14px;
+  border-radius: 20px;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.plenary-cta-box h2 {
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: #111;
+  margin-bottom: 18px;
+  line-height: 1.25;
+}
+
+.plenary-cta-box p {
+  font-size: 1.05rem;
+  color: #444;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+/* Primary CTA Button */
+.btn-plenary-primary {
+  display: inline-block;
+  background: #ec0000;
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-decoration: none;
+  padding: 14px 36px;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 18px rgba(236, 0, 0, 0.35);
+  margin-bottom: 16px;
+  width: 100%;
+  text-align: center;
+}
+
+.btn-plenary-primary:hover {
+  background: #c00000;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(236, 0, 0, 0.45);
+}
+
+/* Secondary CTA Link */
+.btn-plenary-secondary {
+  display: inline-block;
+  color: #ec0000;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.2s;
+}
+
+.btn-plenary-secondary:hover {
+  color: #c00000;
+  text-decoration: underline;
+}
+
+      /* Technical Conference Section */
+      .technical-section {
+        padding: 80px 0;
+        background: var(--light-gray);
+      }
+
+      .track-card {
+        background: var(--white);
+        border-radius: 12px;
+        padding: 30px;
+        margin-bottom: 25px;
+        border-left: 5px solid var(--primary-red);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        height: 100%;
+      }
+
+      .track-card:hover {
+        box-shadow: 0 10px 30px rgba(220, 0, 0, 0.2);
+        border-left-width: 8px;
+        transform: translateX(5px);
+      }
+
+      .track-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, var(--black), var(--primary-red));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--white);
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+      }
+
+      .track-card h5 {
+        color: var(--black);
+        font-weight: 600;
+        margin-bottom: 15px;
+      }
+
+      .track-card p {
+        color: #555;
+      }
+
+      .exhibition-section {
+        padding: 60px 0;
+        background: #f8f9fa; /* Light gray background */
+      }
+
+      .exhibition-header {
+        background: #ec0000; /* Orange header */
+        padding: 20px 30px;
+        border-radius: 12px 12px 0 0;
+        margin-bottom: 20px;
+      }
+
+      .exhibition-header h2 {
+        color: white;
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin: 0 0 10px 0;
+      }
+
+      .exhibition-header p {
+        color: white;
+        font-size: 1.1rem;
+        margin: 0;
+        opacity: 0.9;
+      }
+
+      .exhibition-content-box {
+        background: #e50404; /* Orange box */
+        padding: 30px;
+        border-radius: 12px;
+        color: white;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      .exhibition-content-box ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .exhibition-content-box li {
+        padding: 8px 0;
+        position: relative;
+        padding-left: 20px;
+        font-size: 1rem;
+        line-height: 1.5;
+      }
+
+      .exhibition-content-box li::before {
+        content: "•";
+        position: absolute;
+        left: 0;
+        color: #fff;
+        font-weight: bold;
+        font-size: 1.2rem;
+      }
+
+      /* Optional: Add subtle shadow */
+      .exhibition-content-box {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Responsive for mobile */
+      @media (max-width: 768px) {
+        .exhibition-header {
+          padding: 15px 20px;
+        }
+        .exhibition-content-box {
+          padding: 20px;
+        }
+        .exhibition-content-box li {
+          font-size: 0.95rem;
+        }
+      }
+
+      /* Innovation Zone Highlight */
+      .innovation-highlight {
+        background: linear-gradient(
+          135deg,
+          var(--primary-red) 0%,
+          var(--dark-red) 100%
+        );
+        color: var(--white);
+        border: none;
+      }
+
+      .innovation-highlight .zone-icon {
+        background: rgba(0, 0, 0, 0.3);
+      }
+
+      .innovation-highlight .zone-icon::after {
+        background: var(--white);
+      }
+
+      .innovation-highlight .zone-header h4 {
+        color: var(--white);
+      }
+
+      .innovation-highlight .zone-content {
+        color: var(--white);
+      }
+
+      /* Country Pavilions */
+      .pavilions-section {
+        background: var(--black);
+        padding: 80px 0;
+        color: var(--white);
+      }
+
+      .pavilion-badge {
+        background: var(--dark-gray);
+        border: 2px solid var(--primary-red);
+        border-radius: 50px;
+        padding: 15px 30px;
+        margin: 10px;
+        display: inline-block;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+
+      .pavilion-badge:hover {
+        background: var(--primary-red);
+        color: var(--white);
+        transform: scale(1.05);
+        border-color: var(--primary-red);
+      }
+
+      .stats-row {
+        background: var(--dark-gray);
+        border-radius: 15px;
+        padding: 40px;
+        margin-top: 40px;
+        border: 2px solid var(--primary-red);
+      }
+
+      .stat-item {
+        text-align: center;
+      }
+
+      .stat-number {
+        font-size: 3rem;
+        font-weight: 700;
+        color: var(--primary-red);
+      }
+
+      .stat-label {
+        font-size: 1rem;
+        color: var(--white);
+        margin-top: 10px;
+      }
+
+      #clock {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        flex-wrap: wrap;
+      }
+
+      .countdown-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-width: 100px;
+        position: relative;
+      }
+
+      .countdown-item:not(:last-child)::after {
+        content: "";
+        position: absolute;
+        right: -15px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 1px;
+        height: 80px;
+        background-color: rgba(255, 255, 255, 0.3);
+      }
+
+      .countdown-number {
+        font-size: 72px;
+        font-weight: 700;
+        line-height: 1;
+        margin-bottom: 10px;
+        color: white;
+      }
+
+      .countdown-label {
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 2px;
+        color: white;
+        text-transform: uppercase;
+      }
+
+      @media (max-width: 768px) {
+        .countdown-number {
+          font-size: 48px;
+        }
+
+        #clock {
+          gap: 15px;
+        }
+
+        .countdown-item {
+          min-width: 70px;
+        }
+
+        .countdown-item:not(:last-child)::after {
+          height: 60px;
+          right: -7px;
+        }
+      }
+      .sponsors-row {
+  display: flex;
+  justify-content: center;       /* Centers horizontally */
+  align-items: center;           /* Optional: vertical center if needed */
+  flex-wrap: wrap;               /* Allows wrapping on small screens */
+  gap: 40px;                     /* Space between logos */
+  margin-top: 40px;
+}
+
+.sponsor .brand-holder {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* Optional: set max width for consistent sizing */
+  max-width: 180px;
+  height: auto;
+}
+
+.sponsor img {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
     </style>
   </head>
 
@@ -594,15 +1291,15 @@
             <a href="#hero-2" class="navbar-brand logo-white"
               ><img
                 src="images/logo.png"
-                width="155"
-                height="40"
+                width="180"
+                height="60"
                 alt="header-logo"
             /></a>
             <a href="#hero-2" class="navbar-brand logo-black"
               ><img
                 src="images/logo.png"
-                width="155"
-                height="40"
+                width="180"
+                height="60"
                 alt="header-logo"
             /></a>
 
@@ -637,10 +1334,11 @@
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="#about-3">About Event</a>
-                    <a class="dropdown-item" href="#features-2">Event Spectrum</a>
-                 
+                    <a class="dropdown-item" href="#features-2"
+                      >Event Spectrum</a
+                    >
+
                     <!-- <div class="dropdown-divider"></div> -->
-                   
                   </div>
                 </li>
 
@@ -677,17 +1375,17 @@
         <div class="container">
           <div class="row hero-row-180">
             <!-- HERO TEXT -->
-            <div class="col-md-9 col-lg-8 offset-md-1 offset-lg-1">
+            <div class="col-md-9 col-lg-9 offset-md-1 offset-lg-1">
               <!-- Square Brackets -->
               <div class="square"><div class="inner"></div></div>
 
               <!-- Event Description -->
               <div class="hero-txt white-color">
                 <!-- Event Date -->
-                <h3>From Mines to Metals</h3>
+                <h3>From Mines to Minerals:Powering a Sustainable Future</h3>
 
                 <!-- Title -->
-                <h2>Powering a Sustainable Future</h2>
+                <h2>Minexpo 2026</h2>
 
                 <!-- Text -->
                 <p>
@@ -703,6 +1401,37 @@
         <!-- End container -->
       </section>
       <!-- END HERO-2 -->
+      <!-- BANNER-1
+			============================================= -->
+      <section id="banner-1" class="bg-scroll bg-red banner-section division">
+        <div class="container white-color">
+          <div class="row d-flex align-items-center">
+            <!-- BANNER TEXT  -->
+            <div class="col-md-5 col-lg-4">
+              <div class="banner-txt p-right-30">
+                <!-- Title -->
+                <h4 class="h4-small">We are</h4>
+                <h3>Comming soon</h3>
+
+                <!-- Text -->
+                <p>
+                  From Mines to Metals: Powering a Sustainable Future — join us
+                  at IIMX 2026, Hyderabad!
+                </p>
+              </div>
+            </div>
+            <!-- END BANNER TEXT  -->
+
+            <!--  COUNTDOWN ELEMENT -->
+            <div class="col-md-7 col-lg-8 text-center">
+              <div class="countdown"><div id="clock"></div></div>
+            </div>
+          </div>
+          <!-- End row -->
+        </div>
+        <!-- End container -->
+      </section>
+      <!-- END BANNER-1 -->
 
       <!-- ABOUT-3
 			============================================= -->
@@ -761,11 +1490,7 @@
             <!-- ABOUT IMAGE -->
             <div class="col-md-7">
               <div class="about-img">
-                <img
-                  class="img-fluid"
-                  src="images/about-3-img.png"
-                  alt="about-image"
-                />
+                <img class="img-fluid" src="images/13.jpg" alt="about-image" />
               </div>
             </div>
           </div>
@@ -803,7 +1528,8 @@
 
                 <!-- Text -->
                 <p class="m-bottom-25">
-                  Showcasing the latest Mining Equipment, Technologies and Services
+                  Showcasing the latest Mining Equipment, Technologies and
+                  Services
                 </p>
 
                 <!-- Link -->
@@ -822,7 +1548,8 @@
 
                 <!-- Text -->
                 <p class="m-bottom-25">
-                 A  platform to unite  Innovators, Policymakers, & Industry Leaders
+                  A platform to unite Innovators, Policymakers, & Industry
+                  Leaders
                 </p>
 
                 <!-- Link -->
@@ -841,7 +1568,7 @@
 
                 <!-- Text -->
                 <p class="m-bottom-25">
-                 Conducted by Experts, Universities, and Research Institutions
+                  Conducted by Experts, Universities, and Research Institutions
                 </p>
 
                 <!-- Link -->
@@ -857,7 +1584,7 @@
 
                 <!-- Text -->
                 <p class="m-bottom-25">
-                 Excellent Opportunities to launch New Products with Live Demos
+                  Excellent Opportunities to launch New Products with Live Demos
                 </p>
 
                 <!-- Link -->
@@ -869,11 +1596,12 @@
             <div class="col-md-4">
               <div class="fbox m-bottom-40">
                 <!-- Title -->
-                <h4 class="h4-medium">B2B,B2G,B2C Meetings </h4>
+                <h4 class="h4-medium">B2B,B2G,B2C Meetings</h4>
 
                 <!-- Text -->
                 <p class="m-bottom-25">
-                 Exclusive Networking Platform Connecting Industry Leaders,Buyers, Stakeholders and Policymakers
+                  Exclusive Networking Platform Connecting Industry
+                  Leaders,Buyers, Stakeholders and Policymakers
                 </p>
 
                 <!-- Link -->
@@ -889,7 +1617,8 @@
 
                 <!-- Text -->
                 <p class="m-bottom-25">
-                Dedicated space for Mining Tech Startups and Innovation showcases.  
+                  Dedicated space for Mining Tech Startups and Innovation
+                  showcases.
                 </p>
 
                 <!-- Link -->
@@ -906,443 +1635,874 @@
       </section>
       <!-- END FEATURES-2 -->
 
-      <!-- BANNER-1
-			============================================= -->
-      <section id="banner-1" class="bg-scroll bg-red banner-section division">
-        <div class="container white-color">
-          <div class="row d-flex align-items-center">
-            <!-- BANNER TEXT  -->
-            <div class="col-md-5 col-lg-4">
-              <div class="banner-txt p-right-30">
-                <!-- Title -->
-                <h4 class="h4-small">We are</h4>
-                <h3>Comming soon</h3>
+      <script>
+        // Set the event date
+        const eventDate = new Date("Feb 26, 2026 09:00:00").getTime();
 
-                <!-- Text -->
-                <p>
-                  Semper lacus cursus porta, feugiat primis ligula risus auctor
-                  rhoncus purus
-                </p>
-              </div>
+        // Update the countdown every second
+        const countdownInterval = setInterval(function () {
+          // Get current time
+          const now = new Date().getTime();
+
+          // Calculate time difference
+          const distance = eventDate - now;
+
+          // Calculate days, hours, minutes and seconds
+          const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+          const hours = Math.floor(
+            (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+          );
+          const minutes = Math.floor(
+            (distance % (1000 * 60 * 60)) / (1000 * 60)
+          );
+          const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+          // Format numbers to always show two digits
+          const formatNumber = (num) => num.toString().padStart(2, "0");
+
+          // Display the countdown in the #clock element
+          document.getElementById("clock").innerHTML = `
+    <div class="countdown-item">
+      <span class="countdown-number">${formatNumber(days)}</span>
+      <span class="countdown-label">DAYS</span>
+    </div>
+    <div class="countdown-item">
+      <span class="countdown-number">${formatNumber(hours)}</span>
+      <span class="countdown-label">HRS</span>
+    </div>
+    <div class="countdown-item">
+      <span class="countdown-number">${formatNumber(minutes)}</span>
+      <span class="countdown-label">MIN</span>
+    </div>
+    <div class="countdown-item">
+      <span class="countdown-number">${formatNumber(seconds)}</span>
+      <span class="countdown-label">SEC</span>
+    </div>
+  `;
+
+          // If countdown is finished
+          if (distance < 0) {
+            clearInterval(countdownInterval);
+            document.getElementById("clock").innerHTML = `
+      <div style="font-size: 24px; font-weight: bold;">EVENT HAS STARTED!</div>
+    `;
+          }
+        }, 1000);
+
+        // Run immediately on page load
+        document.addEventListener("DOMContentLoaded", function () {
+          // Trigger the countdown immediately
+          const now = new Date().getTime();
+          const distance = eventDate - now;
+
+          const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+          const hours = Math.floor(
+            (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+          );
+          const minutes = Math.floor(
+            (distance % (1000 * 60 * 60)) / (1000 * 60)
+          );
+          const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+          const formatNumber = (num) => num.toString().padStart(2, "0");
+
+          document.getElementById("clock").innerHTML = `
+    <div class="countdown-item">
+      <span class="countdown-number">${formatNumber(days)}</span>
+      <span class="countdown-label">DAYS</span>
+    </div>
+    <div class="countdown-item">
+      <span class="countdown-number">${formatNumber(hours)}</span>
+      <span class="countdown-label">HRS</span>
+    </div>
+    <div class="countdown-item">
+      <span class="countdown-number">${formatNumber(minutes)}</span>
+      <span class="countdown-label">MIN</span>
+    </div>
+    <div class="countdown-item">
+      <span class="countdown-number">${formatNumber(seconds)}</span>
+      <span class="countdown-label">SEC</span>
+    </div>
+  `;
+        });
+      </script>
+
+      <section id="whyAttend" class="why-attend-section">
+        <div class="container">
+          <h2 class="section-title text-start">Why Attend?</h2>
+          <div class="horizontal-scroll">
+            <div class="feature-card">
+              <div class="feature-icon"><i class="fas fa-handshake"></i></div>
+              <h4>Engage with Policy Makers</h4>
+              <p>Direct interaction with key Ministries shaping the Sector.</p>
             </div>
-            <!-- END BANNER TEXT  -->
-
-            <!--  COUNTDOWN ELEMENT -->
-            <div class="col-md-7 col-lg-8 text-center">
-              <div class="countdown"><div id="clock"></div></div>
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-network-wired"></i>
+              </div>
+              <h4>Network with Industry Leaders</h4>
+              <p>CEOs, Decision-Makers, and Innovators under one roof.</p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon"><i class="fas fa-lightbulb"></i></div>
+              <h4>Showcase Innovation</h4>
+              <p>
+                Demonstrate cutting-edge Technology, Equipment, and Services.
+              </p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+              <h4>Explore Opportunities</h4>
+              <p>
+                Investment, Partnerships, and Collaborations in Mining & Allied
+                Industries.
+              </p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-graduation-cap"></i>
+              </div>
+              <h4>Gain Insights</h4>
+              <p>
+                Access to Expert Sessions on Policy, Sustainability,
+                Digitization, and the Future of Mining.
+              </p>
             </div>
           </div>
-          <!-- End row -->
         </div>
-        <!-- End container -->
       </section>
-      <!-- END BANNER-1 -->
 
-	  
- <section id="whyAttend" class="why-attend-section">
+      <!-- Who Will Attend Section -->
+      <section class="who-attend-section">
         <div class="container">
-            <h2 class="section-title text-start">Why Attend?</h2>
-            <div class="row ">
-                <div class="col-lg-4 col-md-6 mb-2">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-handshake"></i>
-                        </div>
-                        <h4>Engage with Policy Makers</h4>
-                        <p>Direct interaction with key Ministries shaping the Sector.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-2">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-network-wired"></i>
-                        </div>
-                        <h4>Network with Industry Leaders</h4>
-                        <p>CEOs, Decision-Makers, and Innovators under one roof.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-2">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-lightbulb"></i>
-                        </div>
-                        <h4>Showcase Innovation</h4>
-                        <p>Demonstrate cutting-edge Technology, Equipment, and Services.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <h4>Explore Opportunities</h4>
-                        <p>Investment, Partnerships, and Collaborations in Mining & Allied Industries.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-graduation-cap"></i>
-                        </div>
-                        <h4>Gain Insights</h4>
-                        <p>Access to Expert Sessions on Policy, Sustainability, Digitization, and the Future of Mining.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+          <h2 class="section-title">Who Will Attend?</h2>
 
-    <!-- Who Will Attend Section -->
-    <section class="who-attend-section">
+          <div class="attendee-grid">
+            <div class="attendee-card">
+              <div class="attendee-count">1</div>
+              <div class="attendee-icon">
+                <i class="fas fa-landmark"></i>
+              </div>
+              <h3>Government & Policy Makers</h3>
+              <p>
+                Key decision-makers from ministries and regulatory bodies
+                shaping the mining sector
+              </p>
+            </div>
+
+            <div class="attendee-card">
+              <div class="attendee-count">2</div>
+              <div class="attendee-icon">
+                <i class="fas fa-industry"></i>
+              </div>
+              <h3>Coal & Mineral Producers</h3>
+              <p>
+                Leading producers and mining companies driving India's mineral
+                extraction industry
+              </p>
+            </div>
+
+            <div class="attendee-card">
+              <div class="attendee-count">3</div>
+              <div class="attendee-icon">
+                <i class="fas fa-cogs"></i>
+              </div>
+              <h3>Heavy Industry Manufacturers</h3>
+              <p>
+                Top manufacturers of heavy machinery and equipment for mining
+                operations
+              </p>
+            </div>
+
+            <div class="attendee-card">
+              <div class="attendee-count">4</div>
+              <div class="attendee-icon">
+                <i class="fas fa-laptop-code"></i>
+              </div>
+              <h3>Technology Providers</h3>
+              <p>
+                Innovative solution companies bringing digital transformation to
+                mining
+              </p>
+            </div>
+
+            <div class="attendee-card">
+              <div class="attendee-count">5</div>
+              <div class="attendee-icon">
+                <i class="fas fa-globe"></i>
+              </div>
+              <h3>International Trade Delegations</h3>
+              <p>
+                Global delegations exploring partnerships and investment
+                opportunities
+              </p>
+            </div>
+
+            <div class="attendee-card">
+              <div class="attendee-count">6</div>
+              <div class="attendee-icon">
+                <i class="fas fa-dollar-sign"></i>
+              </div>
+              <h3>Investors & Financial Institutions</h3>
+              <p>
+                Finance experts and institutions funding the future of mining
+              </p>
+            </div>
+
+            <div class="attendee-card">
+              <div class="attendee-count">7</div>
+              <div class="attendee-icon">
+                <i class="fas fa-university"></i>
+              </div>
+              <h3>Academia & Research</h3>
+              <p>
+                Leading researchers and academic institutions advancing mining
+                science
+              </p>
+            </div>
+
+            <div class="attendee-card">
+              <div class="attendee-count">8</div>
+              <div class="attendee-icon">
+                <i class="fas fa-star"></i>
+              </div>
+              <h3>Global Leaders</h3>
+              <p>
+                Influential industry leaders and thought leaders from around the
+                world
+              </p>
+            </div>
+          </div>
+
+          <!-- <div class="stats-bar">
+                <div class="stats-container">
+                    <div class="stat-item">
+                        <span class="stat-number">5000+</span>
+                        <span class="stat-label">Expected Attendees</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">50+</span>
+                        <span class="stat-label">Countries</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">200+</span>
+                        <span class="stat-label">Exhibitors</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">100+</span>
+                        <span class="stat-label">Speakers</span>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+      </section>
+
+      <!-- Opportunities Section -->
+      <section class="opportunities-section">
         <div class="container">
-            <h2 class="section-title text-start">Who Will Attend?</h2>
-            <div class="text-center">
-                <span class="attendee-badge"><i class="fas fa-landmark"></i> Government & Policy Makers</span>
-                <span class="attendee-badge"><i class="fas fa-industry"></i> Coal & Mineral Producers</span>
-                <span class="attendee-badge"><i class="fas fa-cogs"></i> Heavy Industry Manufacturers</span>
-                <span class="attendee-badge"><i class="fas fa-laptop-code"></i> Technology Providers & Solution Companies</span>
-                <span class="attendee-badge"><i class="fas fa-globe"></i> International Trade Delegations</span>
-                <span class="attendee-badge"><i class="fas fa-dollar-sign"></i> Investors & Financial Institutions</span>
-                <span class="attendee-badge"><i class="fas fa-university"></i> Academia & Research Organizations</span>
-                <span class="attendee-badge"><i class="fas fa-star"></i> Global Leaders</span>
-            </div>
-        </div>
-    </section>
+          <h2 class="section-title text-start">
+            Opportunities for Global Companies
+          </h2>
+          <p class="lead text-center mb-5">
+            India International Mine Expo 2026 will encompass the entire
+            spectrum of Mines, Minerals, Coal, Steel, Heavy, and Downstream
+            Industries and envisioned as a truly Global Platform, bringing
+            together resource-rich countries and industrial powerhouses.
+          </p>
 
-    <!-- Opportunities Section -->
-    <section class="opportunities-section">
+          <div class="row">
+            <div class="col-12 mb-4">
+              <h4 class="mb-3">
+                <i class="fas fa-globe-americas"></i> Participating Regions
+              </h4>
+              <div class="region-list">
+                <span
+                  class="region-tag active"
+                  data-map="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d61999672.01387872!2d51.13914637574331!3d-3.778978938886369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2b2bfd076787c5df%3A0x538267a1955b1352!2sAustralia!5e1!3m2!1sen!2sin!4v1761812439611!5m2!1sen!2sin"
+                  >Australia</span
+                >
+
+                <span
+                  class="region-tag"
+                  data-map="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d27097462.497840457!2d-130.23225611678046!3d-29.282847260252282!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1c34a689d9ee1251%3A0xe85d630c1fa4e8a0!2sSouth%20Africa!5e1!3m2!1sen!2sin!4v1761812412478!5m2!1sen!2sin"
+                  >South Africa</span
+                >
+
+                <span
+                  class="region-tag"
+                  data-map="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d27097462.497840457!2d-130.23225611678046!3d-29.282847260252282!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662c5410425af2f%3A0x505e1131102b91d!2sChile!5e1!3m2!1sen!2sin!4v1761812390626!5m2!1sen!2sin"
+                  >Chile</span
+                >
+
+                <span
+                  class="region-tag"
+                  data-map="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30219926.81420294!2d-73.16447107577312!3d-13.413332832511053!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9c59c7ebcc28cf%3A0x295a1506f2293e63!2sBrazil!5e1!3m2!1sen!2sin!4v1761812314853!5m2!1sen!2sin"
+                  >Brazil</span
+                >
+
+                <span
+                  class="region-tag"
+                  data-map="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d40905909.78940605!2d-135.5378995672093!3d48.8264772057962!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4b0d03d337cc6ad9%3A0x9968b72aa2438fa5!2sCanada!5e1!3m2!1sen!2sin!4v1761812353739!5m2!1sen!2sin"
+                  >Canada</span
+                >
+
+                <span
+                  class="region-tag"
+                  data-map="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10717037.637332318!2d93.2678966485313!3d46.37605841570914!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3627050669aa6d4b%3A0xe0dd213937e6e096!2sMongolia!5e1!3m2!1sen!2sin!4v1761812272727!5m2!1sen!2sin"
+                  >Mongolia</span
+                >
+
+                <span
+                  class="region-tag"
+                  data-map="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d61999672.01387872!2d51.13914637574331!3d-3.778978938886369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2c4c07d7496404b7%3A0xe37b4de71badf485!2sIndonesia!5e1!3m2!1sen!2sin!4v1761812466669!5m2!1sen!2sin"
+                  >Indonesia</span
+                >
+              </div>
+
+              <!-- Map display area (below tags) -->
+              <div class="country-map-display mt-4">
+                <iframe
+                  id="main-country-map"
+                  width="100%"
+                  height="600"
+                  frameborder="0"
+                  style="border: 0; border-radius: 8px"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d61999672.01387872!2d51.13914637574331!3d-3.778978938886369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2b2bfd076787c5df%3A0x538267a1955b1352!2sAustralia!5e1!3m2!1sen!2sin!4v1761812439611!5m2!1sen!2sin"
+                  allowfullscreen
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"
+                >
+                </iframe>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col-lg-6">
+              <div class="opportunity-item">
+                <i class="fas fa-leaf"></i> Exchange of best practices in
+                Sustainable & Green Mining
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="opportunity-item">
+                <i class="fas fa-microchip"></i> Showcasing of Cutting-Edge
+                Technologies
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="opportunity-item">
+                <i class="fas fa-chart-bar"></i> Exploration of Strategic Trade
+                & Investment Opportunities
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="opportunity-item">
+                <i class="fas fa-battery-full"></i> Collaborations in Critical
+                Minerals for Energy Transition
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const tags = document.querySelectorAll(".region-tag");
+          const iframe = document.getElementById("main-country-map");
+
+          tags.forEach((tag) => {
+            tag.addEventListener("click", function () {
+              // Remove active class from all
+              tags.forEach((t) => t.classList.remove("active"));
+
+              // Add active to clicked
+              this.classList.add("active");
+
+              // Update map iframe src
+              const mapUrl = this.getAttribute("data-map");
+              iframe.src = mapUrl;
+            });
+          });
+        });
+      </script>
+
+      <!-- Why Hyderabad Section -->
+      <section class="hyderabad-section">
         <div class="container">
-            <h2 class="section-title text-start">Opportunities for Global Companies</h2>
-            <p class="lead text-center mb-5">India International Mine Expo 2026 will encompass the entire spectrum of Mines, Minerals, Coal, Steel, Heavy, and Downstream Industries and envisioned as a truly Global Platform, bringing together resource-rich countries and industrial powerhouses.</p>
-            
-            <div class="row">
-                <div class="col-12 mb-4">
-                    <h4 class="mb-3"><i class="fas fa-globe-americas"></i> Participating Regions</h4>
-                    <div class="region-list">
-                        <span class="region-tag">Australia</span>
-                        <span class="region-tag">South Africa</span>
-                        <span class="region-tag">Chile</span>
-                        <span class="region-tag">Brazil</span>
-                        <span class="region-tag">Canada</span>
-                        <span class="region-tag">Mongolia</span>
-                        <span class="region-tag">Indonesia</span>
-                    </div>
-                </div>
-            </div>
+          <h2 class="section-title text-center">
+            Why Hyderabad for the Global Mining Community?
+          </h2>
+          <p class="lead text-center mb-5">
+            By hosting India International Mine Expo 2026 in Hyderabad,
+            international participants gain direct access to:
+          </p>
 
-            <div class="row mt-4">
-                <div class="col-lg-6">
-                    <div class="opportunity-item">
-                        <i class="fas fa-leaf"></i> Exchange of best practices in Sustainable & Green Mining
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="opportunity-item">
-                        <i class="fas fa-microchip"></i> Showcasing of Cutting-Edge Technologies
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="opportunity-item">
-                        <i class="fas fa-chart-bar"></i> Exploration of Strategic Trade & Investment Opportunities
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="opportunity-item">
-                        <i class="fas fa-battery-full"></i> Collaborations in Critical Minerals for Energy Transition
-                    </div>
-                </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="access-point">
+                <i class="fas fa-user-tie"></i>
+                <strong>India's Mining Leadership and Policy Makers.</strong>
+              </div>
             </div>
+            <div class="col-lg-6">
+              <div class="access-point">
+                <i class="fas fa-gem"></i>
+                <strong>One of the Richest Mineral Belts in South Asia.</strong>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="access-point">
+                <i class="fas fa-users"></i>
+                <strong
+                  >Industry Leaders from Mines, Minerals, Coal, Steel, Heavy,
+                  and Downstream Industries.</strong
+                >
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="access-point">
+                <i class="fas fa-city"></i>
+                <strong
+                  >A city that blends heritage with Global Business potential,
+                  offering both opportunity and experience.</strong
+                >
+              </div>
+            </div>
+          </div>
         </div>
-    </section>
-
-    <!-- Why Hyderabad Section -->
-    <section class="hyderabad-section">
-        <div class="container">
-            <h2 class="section-title text-center">Why Hyderabad for the Global Mining Community?</h2>
-            <p class="lead text-center mb-5">By hosting India International Mine Expo 2026 in Hyderabad, international participants gain direct access to:</p>
-            
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="access-point">
-                        <i class="fas fa-user-tie"></i>
-                        <strong>India's Mining Leadership and Policy Makers.</strong>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="access-point">
-                        <i class="fas fa-gem"></i>
-                        <strong>One of the Richest Mineral Belts in South Asia.</strong>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="access-point">
-                        <i class="fas fa-users"></i>
-                        <strong>Industry Leaders from Mines, Minerals, Coal, Steel, Heavy, and Downstream Industries.</strong>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="access-point">
-                        <i class="fas fa-city"></i>
-                        <strong>A city that blends heritage with Global Business potential, offering both opportunity and experience.</strong>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
+      </section>
 
       <!-- SCHEDULE
-			============================================= -->		
-		<section id="schedule" class="bg-scroll bg-lightgrey wide-100 schedule-section division">
-	<div class="container">	
+			============================================= -->
+      <section
+        id="schedule"
+        class="bg-scroll bg-lightgrey wide-100 schedule-section division"
+      >
+        <div class="container">
+          <!-- SECTION TITLE -->
+          <div class="row">
+            <div class="col-md-10 col-lg-8 section-title">
+              <h2 class="banner-regular">Conference Schedule</h2>
+              <!-- <p>
+                IIMX 2026 brings together global leaders, policymakers, and
+                innovators across three days of high-impact dialogues on mining,
+                metals, energy, and sustainability. Parallel activities include
+                an International Exhibition (300+ exhibitors), B2B Partnering
+                Lounge, Startup Pavilion, and State & Government Pavilions.
+              </p> -->
+            </div>
+          </div>
 
-		<!-- SECTION TITLE -->
-		<div class="row">
-			<div class="col-md-10 col-lg-8 section-title">
-				<h2 class="banner-regular">Conference Schedule</h2>
-				<p>IIMX 2026 brings together global leaders, policymakers, and innovators across three days of high-impact dialogues on mining, metals, energy, and sustainability. Parallel activities include an International Exhibition (300+ exhibitors), B2B Partnering Lounge, Startup Pavilion, and State & Government Pavilions.</p>
-			</div>
-		</div>	
+          <!-- TABLIST -->
+          <div role="tablist">
+            <!-- SCHEDULE NAVIGATION -->
+            <div class="row">
+              <ul class="nav nav-tabs text-center red-nav">
+                <li class="nav-item col-md-4">
+                  <a
+                    class="nav-link active"
+                    data-toggle="tab"
+                    href="#panel1"
+                    role="tab"
+                    >Wednesday, 24 February 2026</a
+                  >
+                </li>
+                <li class="nav-item col-md-4">
+                  <a
+                    class="nav-link"
+                    data-toggle="tab"
+                    href="#panel2"
+                    role="tab"
+                    >Thursday, 25 February 2026</a
+                  >
+                </li>
+                <li class="nav-item col-md-4">
+                  <a
+                    class="nav-link"
+                    data-toggle="tab"
+                    href="#panel3"
+                    role="tab"
+                    >Friday, 26 February 2026</a
+                  >
+                </li>
+              </ul>
+            </div>
 
-		<!-- TABLIST -->	
-		<div role="tablist">
-			<!-- SCHEDULE NAVIGATION -->
-			<div class="row">
-				<ul class="nav nav-tabs text-center red-nav">
-					<li class="nav-item col-md-4">
-						<a class="nav-link active" data-toggle="tab" href="#panel1" role="tab">Wednesday, 24 February 2026</a>
-					</li>
-					<li class="nav-item col-md-4">
-						<a class="nav-link" data-toggle="tab" href="#panel2" role="tab">Thursday, 25 February 2026</a>
-					</li>
-					<li class="nav-item col-md-4">
-						<a class="nav-link" data-toggle="tab" href="#panel3" role="tab">Friday, 26 February 2026</a>
-					</li>
-				</ul>
-			</div>	
+            <!-- SCHEDULE TABS CONTENT -->
+            <div class="tab-content card1">
+              <!-- DAY 1: INAUGURAL & LEADERSHIP CONCLAVE -->
+              <div class="tab-pane in show active" id="panel1" role="tabpanel">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="schedule-left p-right-15">
+                      <div class="row schedule-event">
+                        <div class="col-sm-3 event-time">
+                          <span>08:30</span><span>10:00</span>
+                        </div>
+                        <div class="col-sm-9 event-description">
+                          <h4>Registration & Networking Tea</h4>
+                          <p class="p-small">
+                            Delegate check-in, exhibition preview, and informal
+                            networking
+                          </p>
+                          <hr />
+                        </div>
+                      </div>
 
-			<!-- SCHEDULE TABS CONTENT -->					
-			<div class="tab-content card1">
+                      <div class="row schedule-event">
+                        <div class="col-sm-3 event-time">
+                          <span>10:00</span><span>11:30</span>
+                        </div>
+                        <div class="col-sm-9 event-description">
+                          <h4>Inaugural Ceremony</h4>
+                          <p class="event-speaker">
+                            Chairman, Organising Committee
+                          </p>
+                          <p class="event-speaker">
+                            Hon’ble Chief Minister of Telangana
+                          </p>
+                          <p class="event-speaker">
+                            Hon’ble Union Minister of Steel
+                          </p>
+                          <p class="event-speaker">
+                            Hon’ble Union Minister of Petroleum & Natural Gas
+                          </p>
+                          <p class="event-speaker">
+                            Hon’ble Union Minister of Coal & Mines (Chief Guest)
+                          </p>
+                          <p class="event-speaker">Industry Leader (Keynote)</p>
+                          <p class="p-small">
+                            Welcome, policy addresses, and vision for India’s
+                            mining future
+                          </p>
+                          <hr />
+                        </div>
+                      </div>
 
-				<!-- DAY 1: INAUGURAL & LEADERSHIP CONCLAVE -->
-				<div class="tab-pane in show active" id="panel1" role="tabpanel">
-					<div class="row">
-						<div class="col-lg-6">
-							<div class="schedule-left p-right-15">
-								<div class="row schedule-event">
-									<div class="col-sm-3 event-time"><span>08:30</span><span>10:00</span></div>
-									<div class="col-sm-9 event-description">
-										<h4>Registration & Networking Tea</h4>
-										<p class="p-small">Delegate check-in, exhibition preview, and informal networking</p>
-										<hr>
-									</div>
-								</div>
+                      <div class="row schedule-event">
+                        <div class="col-sm-3 event-time">
+                          <span>12:00</span><span>13:30</span>
+                        </div>
+                        <div class="col-sm-9 event-description">
+                          <h4>Plenary 1 – “India’s Mining Vision 2047”</h4>
+                          <p class="event-speaker">
+                            Secretaries, MoC&M / MoS / MoPNG
+                          </p>
+                          <p class="event-speaker">
+                            CEOs – Coal India, Vedanta, Tata Steel, MECL
+                          </p>
+                          <p class="event-speaker">
+                            Global Think-Tank Representatives
+                          </p>
+                          <p class="p-small">
+                            Policy reforms, private participation, global
+                            partnerships, and sustainable resource growth
+                          </p>
+                          <hr />
+                        </div>
+                      </div>
 
-								<div class="row schedule-event">
-									<div class="col-sm-3 event-time"><span>10:00</span><span>11:30</span></div>
-									<div class="col-sm-9 event-description">
-										<h4>Inaugural Ceremony</h4>
-										<p class="event-speaker">Chairman, Organising Committee</p>
-										<p class="event-speaker">Hon’ble Chief Minister of Telangana</p>
-										<p class="event-speaker">Hon’ble Union Minister of Steel</p>
-										<p class="event-speaker">Hon’ble Union Minister of Petroleum & Natural Gas</p>
-										<p class="event-speaker">Hon’ble Union Minister of Coal & Mines (Chief Guest)</p>
-										<p class="event-speaker">Industry Leader (Keynote)</p>
-										<p class="p-small">Welcome, policy addresses, and vision for India’s mining future</p>
-										<hr>
-									</div>
-								</div>
+                      <div class="row schedule-event">
+                        <div class="col-sm-3 event-time">
+                          <span>14:30</span><span>16:00</span>
+                        </div>
+                        <div class="col-sm-9 event-description">
+                          <h4>
+                            Leadership Panel – “Future of Responsible Mining”
+                          </h4>
+                          <p class="event-speaker">
+                            ESG Experts, Safety Regulators, Women Leaders in
+                            Mining
+                          </p>
+                          <p class="p-small">
+                            ESG frameworks, safety governance, indigenous tech,
+                            and gender inclusion
+                          </p>
+                          <hr />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
 
-								<div class="row schedule-event">
-									<div class="col-sm-3 event-time"><span>12:00</span><span>13:30</span></div>
-									<div class="col-sm-9 event-description">
-										<h4>Plenary 1 – “India’s Mining Vision 2047”</h4>
-										<p class="event-speaker">Secretaries, MoC&M / MoS / MoPNG</p>
-										<p class="event-speaker">CEOs – Coal India, Vedanta, Tata Steel, MECL</p>
-										<p class="event-speaker">Global Think-Tank Representatives</p>
-										<p class="p-small">Policy reforms, private participation, global partnerships, and sustainable resource growth</p>
-										<hr>
-									</div>
-								</div>
+                  <div class="col-lg-6">
+                    <div class="schedule-right p-left-15">
+                      <div class="row schedule-event">
+                        <div class="col-sm-3 event-time">
+                          <span>16:30</span><span>17:30</span>
+                        </div>
+                        <div class="col-sm-9 event-description">
+                          <h4>CEO Roundtable (By Invitation)</h4>
+                          <p class="event-speaker">
+                            CMDs/CEOs – Coal India, NTPC Mining, Vedanta, JSW
+                            Steel, Tata Steel, Hindustan Copper, Cairn, GAIL,
+                            MECL
+                          </p>
+                          <p class="p-small">
+                            Theme: “Public-Private Partnerships in Mining for
+                            New India”
+                          </p>
+                          <hr />
+                        </div>
+                      </div>
 
-								<div class="row schedule-event">
-									<div class="col-sm-3 event-time"><span>14:30</span><span>16:00</span></div>
-									<div class="col-sm-9 event-description">
-										<h4>Leadership Panel – “Future of Responsible Mining”</h4>
-										<p class="event-speaker">ESG Experts, Safety Regulators, Women Leaders in Mining</p>
-										<p class="p-small">ESG frameworks, safety governance, indigenous tech, and gender inclusion</p>
-										<hr>
-									</div>
-								</div>
-							</div>
-						</div>
+                      <div class="row schedule-event">
+                        <div class="col-sm-3 event-time">
+                          <span>19:00</span><span>21:00</span>
+                        </div>
+                        <div class="col-sm-9 event-description">
+                          <h4>Networking Gala Dinner & Cultural Evening</h4>
+                          <p class="p-small">
+                            Celebrating India’s mining heritage with traditional
+                            performances
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-						<div class="col-lg-6">
-							<div class="schedule-right p-left-15">
-								<div class="row schedule-event">
-									<div class="col-sm-3 event-time"><span>16:30</span><span>17:30</span></div>
-									<div class="col-sm-9 event-description">
-										<h4>CEO Roundtable (By Invitation)</h4>
-										<p class="event-speaker">CMDs/CEOs – Coal India, NTPC Mining, Vedanta, JSW Steel, Tata Steel, Hindustan Copper, Cairn, GAIL, MECL</p>
-										<p class="p-small">Theme: “Public-Private Partnerships in Mining for New India”</p>
-										<hr>
-									</div>
-								</div>
+              <!-- DAY 2: TECHNOLOGY, INNOVATION & INVESTMENT SUMMIT -->
+              <div class="tab-pane" id="panel2" role="tabpanel">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="schedule-left p-right-15">
+                      <div class="row schedule-event">
+                        <div class="col-sm-3 event-time">
+                          <span>10:00</span><span>11:30</span>
+                        </div>
+                        <div class="col-sm-9 event-description">
+                          <h4>
+                            Plenary 2 – “Smart & Sustainable Mining
+                            Technologies”
+                          </h4>
+                          <p class="event-speaker">
+                            Global Mining Tech CEOs, AI & IoT Specialists
+                          </p>
+                          <p class="p-small">
+                            AI, robotics, drones, digital twins, and predictive
+                            maintenance in mining
+                          </p>
+                          <hr />
+                        </div>
+                      </div>
 
-								<div class="row schedule-event">
-									<div class="col-sm-3 event-time"><span>19:00</span><span>21:00</span></div>
-									<div class="col-sm-9 event-description">
-										<h4>Networking Gala Dinner & Cultural Evening</h4>
-										<p class="p-small">Celebrating India’s mining heritage with traditional performances</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+                      <div class="row schedule-event">
+                        <div class="col-sm-3 event-time">
+                          <span>12:00</span><span>13:30</span>
+                        </div>
+                        <div class="col-sm-9 event-description">
+                          <h4>
+                            Technical Session 1 – “Exploration to Extraction:
+                            Mapping India’s Mineral Wealth”
+                          </h4>
+                          <p class="event-speaker">
+                            Geoscientists, ISRO, MECL, Deep Mining Experts
+                          </p>
+                          <p class="p-small">
+                            3D mapping, satellite-AI fusion, deep mining, and
+                            critical minerals (REEs, lithium)
+                          </p>
+                          <hr />
+                        </div>
+                      </div>
 
-				<!-- DAY 2: TECHNOLOGY, INNOVATION & INVESTMENT SUMMIT -->
-				<div class="tab-pane" id="panel2" role="tabpanel">
-					<div class="row">
-						<div class="col-lg-6">
-							<div class="schedule-left p-right-15">
-								<div class="row schedule-event">
-									<div class="col-sm-3 event-time"><span>10:00</span><span>11:30</span></div>
-									<div class="col-sm-9 event-description">
-										<h4>Plenary 2 – “Smart & Sustainable Mining Technologies”</h4>
-										<p class="event-speaker">Global Mining Tech CEOs, AI & IoT Specialists</p>
-										<p class="p-small">AI, robotics, drones, digital twins, and predictive maintenance in mining</p>
-										<hr>
-									</div>
-								</div>
+                      <div class="row schedule-event">
+                        <div class="col-sm-3 event-time">
+                          <span>14:30</span><span>16:00</span>
+                        </div>
+                        <div class="col-sm-9 event-description">
+                          <h4>
+                            Technical Session 2 – “Green Minerals & the Energy
+                            Transition”
+                          </h4>
+                          <p class="event-speaker">
+                            Representatives – MoPNG, MoS, Battery & Recycling
+                            Firms
+                          </p>
+                          <p class="p-small">
+                            Lithium, cobalt, nickel demand; circular economy;
+                            green hydrogen linkages
+                          </p>
+                          <hr />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
 
-								<div class="row schedule-event">
-									<div class="col-sm-3 event-time"><span>12:00</span><span>13:30</span></div>
-									<div class="col-sm-9 event-description">
-										<h4>Technical Session 1 – “Exploration to Extraction: Mapping India’s Mineral Wealth”</h4>
-										<p class="event-speaker">Geoscientists, ISRO, MECL, Deep Mining Experts</p>
-										<p class="p-small">3D mapping, satellite-AI fusion, deep mining, and critical minerals (REEs, lithium)</p>
-										<hr>
-									</div>
-								</div>
+                  <div class="col-lg-6">
+                    <div class="schedule-right p-left-15">
+                      <div class="row schedule-event">
+                        <div class="col-sm-3 event-time">
+                          <span>16:30</span><span>17:30</span>
+                        </div>
+                        <div class="col-sm-9 event-description">
+                          <h4>Panel – “Financing India’s Mining Growth”</h4>
+                          <p class="event-speaker">
+                            Financial institutions, venture funds, multilateral
+                            banks
+                          </p>
+                          <p class="p-small">
+                            Policy incentives, FDI flows, and infrastructure
+                            financing, PPPs, and ESG-linked investment
+                          </p>
+                          <hr />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="schedule-right p-left-15">
+                      <div class="row schedule-event">
+                        <div class="col-sm-3 event-time">
+                          <span>16:30</span><span>17:30</span>
+                        </div>
+                        <div class="col-sm-9 event-description">
+                          <h4>
+                            Session 3: GST 2.0 and Indirect Taxes – The Road
+                            Ahead for the Mining Sector
+                          </h4>
+                          <p class="event-speaker">
+                            Implications of GST 2.0 for mining, metals, and
+                            mineral logistics
+                          </p>
+                          <p class="p-small">
+                            Input tax credit challenges and royalty treatment
+                          </p>
+                          <p class="p-small">
+                            Tax parity between captive and merchant miners
+                          </p>
+                          <p class="p-small">
+                            E-invoicing, supply chain compliance & digital
+                            audits
+                          </p>
+                          <hr />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-								<div class="row schedule-event">
-									<div class="col-sm-3 event-time"><span>14:30</span><span>16:00</span></div>
-									<div class="col-sm-9 event-description">
-										<h4>Technical Session 2 – “Green Minerals & the Energy Transition”</h4>
-										<p class="event-speaker">Representatives – MoPNG, MoS, Battery & Recycling Firms</p>
-										<p class="p-small">Lithium, cobalt, nickel demand; circular economy; green hydrogen linkages</p>
-										<hr>
-									</div>
-								</div>
-							</div>
-						</div>
+              <!-- DAY 3: INTEGRATED VALUE CHAIN, LOGISTICS & FUTURE OUTLOOK -->
+              <div class="tab-pane" id="panel3" role="tabpanel">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="schedule-left p-right-15">
+                      <div class="row schedule-event">
+                        <div class="col-sm-3 event-time">
+                          <span>10:00</span><span>11:30</span>
+                        </div>
+                        <div class="col-sm-9 event-description">
+                          <h4>
+                            Session – “Metals, Minerals & Manufacturing:
+                            Building Synergies”
+                          </h4>
+                          <p class="event-speaker">
+                            Ministry of Steel, JSW, Tata Steel, SAIL, NMDC
+                          </p>
+                          <p class="p-small">
+                            Iron ore & coking coal strategy, import
+                            substitution, and steel-alloy integration
+                          </p>
+                          <hr />
+                        </div>
+                      </div>
 
-						<div class="col-lg-6">
-							<div class="schedule-right p-left-15">
-								<div class="row schedule-event">
-									<div class="col-sm-3 event-time"><span>16:30</span><span>17:30</span></div>
-									<div class="col-sm-9 event-description">
-										<h4>Panel – “Financing India’s Mining Growth”</h4>
-										<p class="event-speaker">Financial institutions, venture funds, multilateral banks</p>
-										<p class="p-small">Policy incentives, FDI flows, and infrastructure financing, PPPs, and ESG-linked investment</p>
-										<hr>
-									</div>
-								</div>
-							</div>
-							<div class="schedule-right p-left-15">
-								<div class="row schedule-event">
-									<div class="col-sm-3 event-time"><span>16:30</span><span>17:30</span></div>
-									<div class="col-sm-9 event-description">
-										<h4>Session 3: GST 2.0 and Indirect Taxes – The Road Ahead for the Mining Sector</h4>
-										<p class="event-speaker">Implications of GST 2.0 for mining, metals, and mineral logistics</p>
-										<p class="p-small">Input tax credit challenges and royalty treatment</p>
-										<p class="p-small">Tax parity between captive and merchant miners</p>
-										<p class="p-small">E-invoicing, supply chain compliance & digital audits</p>
-										<hr>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+                      <div class="row schedule-event">
+                        <div class="col-sm-3 event-time">
+                          <span>12:00</span><span>13:30</span>
+                        </div>
+                        <div class="col-sm-9 event-description">
+                          <h4>
+                            Session – “Energy, Oil & Gas Interface with Mining”
+                          </h4>
+                          <p class="event-speaker">
+                            MoPNG, ONGC, GAIL, CBM Operators
+                          </p>
+                          <p class="p-small">
+                            Coal Bed Methane, integrated energy corridors, and
+                            upstream sustainability
+                          </p>
+                          <hr />
+                        </div>
+                      </div>
 
-				<!-- DAY 3: INTEGRATED VALUE CHAIN, LOGISTICS & FUTURE OUTLOOK -->
-				<div class="tab-pane" id="panel3" role="tabpanel">
-					<div class="row">
-						<div class="col-lg-6">
-							<div class="schedule-left p-right-15">
-								<div class="row schedule-event">
-									<div class="col-sm-3 event-time"><span>10:00</span><span>11:30</span></div>
-									<div class="col-sm-9 event-description">
-										<h4>Session – “Metals, Minerals & Manufacturing: Building Synergies”</h4>
-										<p class="event-speaker">Ministry of Steel, JSW, Tata Steel, SAIL, NMDC</p>
-										<p class="p-small">Iron ore & coking coal strategy, import substitution, and steel-alloy integration</p>
-										<hr>
-									</div>
-								</div>
+                      <div class="row schedule-event">
+                        <div class="col-sm-3 event-time">
+                          <span>14:00</span><span>15:15</span>
+                        </div>
+                        <div class="col-sm-9 event-description">
+                          <h4>Session – “Mining Supply Chain & Logistics”</h4>
+                          <p class="event-speaker">
+                            Railways, Port Authorities, Logistics Tech Firms
+                          </p>
+                          <p class="p-small">
+                            Multimodal transport, port-rail connectivity, and
+                            digital supply chain visibility
+                          </p>
+                          <hr />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
 
-								<div class="row schedule-event">
-									<div class="col-sm-3 event-time"><span>12:00</span><span>13:30</span></div>
-									<div class="col-sm-9 event-description">
-										<h4>Session – “Energy, Oil & Gas Interface with Mining”</h4>
-										<p class="event-speaker">MoPNG, ONGC, GAIL, CBM Operators</p>
-										<p class="p-small">Coal Bed Methane, integrated energy corridors, and upstream sustainability</p>
-										<hr>
-									</div>
-								</div>
+                  <div class="col-lg-6">
+                    <div class="schedule-right p-left-15">
+                      <div class="row schedule-event">
+                        <div class="col-sm-3 event-time">
+                          <span>15:30</span><span>16:30</span>
+                        </div>
+                        <div class="col-sm-9 event-description">
+                          <h4>
+                            Session – “Innovation for Tomorrow: Startups &
+                            Academia in Mining”
+                          </h4>
+                          <p class="event-speaker">
+                            IITs, ISM Dhanbad, CSIR, MECL, Mining Startups
+                          </p>
+                          <p class="p-small">
+                            AI exploration, remote sensing, safety tech,
+                            incubation, and skill development
+                          </p>
+                          <hr />
+                        </div>
+                      </div>
 
-								<div class="row schedule-event">
-									<div class="col-sm-3 event-time"><span>14:00</span><span>15:15</span></div>
-									<div class="col-sm-9 event-description">
-										<h4>Session – “Mining Supply Chain & Logistics”</h4>
-										<p class="event-speaker">Railways, Port Authorities, Logistics Tech Firms</p>
-										<p class="p-small">Multimodal transport, port-rail connectivity, and digital supply chain visibility</p>
-										<hr>
-									</div>
-								</div>
-							</div>
-						</div>
+                      <div class="row schedule-event">
+                        <div class="col-sm-3 event-time">
+                          <span>16:30</span><span>17:15</span>
+                        </div>
+                        <div class="col-sm-9 event-description">
+                          <h4>Valedictory Ceremony</h4>
+                          <p class="event-speaker">
+                            Chief Guest: Hon’ble Chief Minister of Telangana
+                          </p>
+                          <p class="event-speaker">
+                            Guest of Honour: MoS, Ministry of Coal & Mines
+                          </p>
+                          <p class="p-small">
+                            Summary, “Innovation in Mining Awards”, and closing
+                            remarks
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-						<div class="col-lg-6">
-							<div class="schedule-right p-left-15">
-								<div class="row schedule-event">
-									<div class="col-sm-3 event-time"><span>15:30</span><span>16:30</span></div>
-									<div class="col-sm-9 event-description">
-										<h4>Session – “Innovation for Tomorrow: Startups & Academia in Mining”</h4>
-										<p class="event-speaker">IITs, ISM Dhanbad, CSIR, MECL, Mining Startups</p>
-										<p class="p-small">AI exploration, remote sensing, safety tech, incubation, and skill development</p>
-										<hr>
-									</div>
-								</div>
-
-								<div class="row schedule-event">
-									<div class="col-sm-3 event-time"><span>16:30</span><span>17:15</span></div>
-									<div class="col-sm-9 event-description">
-										<h4>Valedictory Ceremony</h4>
-										<p class="event-speaker">Chief Guest: Hon’ble Chief Minister of Telangana</p>
-										<p class="event-speaker">Guest of Honour: MoS, Ministry of Coal & Mines</p>
-										<p class="p-small">Summary, “Innovation in Mining Awards”, and closing remarks</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- SCHEDULE DOWNLOAD BUTTONS -->
-		<!-- <div class="row">
+          <!-- SCHEDULE DOWNLOAD BUTTONS -->
+          <!-- <div class="row">
 			<div class="col-md-12 schedule-buttons text-center m-top-20">
 				<a href="download/iimx2026_schedule.pdf" download="IIMX_2026_Schedule.pdf" class="btn btn-medium btn-tra-black m-right-20">Download Full Schedule (PDF)</a>	
 				<a href="https://www.iimx.in" class="btn btn-medium btn-tra-black">Official Website</a>	
 			</div>
 		</div> -->
-	</div>
-</section>
-				<!-- END SCHEDULE -->
+        </div>
+      </section>
+      <!-- END SCHEDULE -->
 
       <!-- MEDIA-3 
 			============================================= -->
@@ -1363,10 +2523,9 @@
                     src="images/28.webp"
                     alt="media-image"
                   />
-				  <h4>Shri Anumula Revanth Reddy</h4>
-				  <p>Hon'ble Chief Minister of Telengana</p>
+                  <h4>Shri Anumula Revanth Reddy</h4>
+                  <p>Hon'ble Chief Minister of Telengana</p>
                 </div>
-
               </div>
 
               <!-- MEDIA TEXT -->
@@ -1377,20 +2536,37 @@
 
                   <!-- Text -->
                   <p>
-                   It gives me immense pleasure to extend my best wishes to the India International Mines Expo being held in Hyderabad — a platform that truly reflects India’s aspirations for growth, innovation, and sustainability in the mining and allied industries.
+                    It gives me immense pleasure to extend my best wishes to the
+                    India International Mines Expo being held in Hyderabad — a
+                    platform that truly reflects India’s aspirations for growth,
+                    innovation, and sustainability in the mining and allied
+                    industries.
                   </p>
 
                   <!-- Text -->
                   <p>
-                    Telangana is proud to host this significant event that unites policymakers, industry captains, investors, and experts under one roof to exchange ideas and forge partnerships that will shape the future of the sector
+                    Telangana is proud to host this significant event that
+                    unites policymakers, industry captains, investors, and
+                    experts under one roof to exchange ideas and forge
+                    partnerships that will shape the future of the sector
                   </p>
 
                   <!-- Text -->
                   <p>
-                  Telangana has been a pioneer in harnessing its vast mineral wealth responsibly and effectively, creating a conducive environment for investment in mining, minerals, steel, coal, and heavy industries. With progressive policies, world-class infrastructure, and a skilled workforce, Telangana continues to emerge as a hub for downstream industries and value-added manufacturing.
+                    Telangana has been a pioneer in harnessing its vast mineral
+                    wealth responsibly and effectively, creating a conducive
+                    environment for investment in mining, minerals, steel, coal,
+                    and heavy industries. With progressive policies, world-class
+                    infrastructure, and a skilled workforce, Telangana continues
+                    to emerge as a hub for downstream industries and value-added
+                    manufacturing.
                   </p>
                   <p>
-                  I warmly invite all stakeholders — from across India and beyond — to participate in this Expo, explore opportunities, and collaborate in driving India’s journey towards self-reliance, energy security, and sustainable industrial growth.
+                    I warmly invite all stakeholders — from across India and
+                    beyond — to participate in this Expo, explore opportunities,
+                    and collaborate in driving India’s journey towards
+                    self-reliance, energy security, and sustainable industrial
+                    growth.
                   </p>
                 </div>
               </div>
@@ -1410,25 +2586,35 @@
 
                   <!-- Text -->
                   <p>
-                    Hon’ble Minister for Information Technology, Electronics & Communications, Industries & Commerce, and Legislative Affairs, Telangana
+                    Hon’ble Minister for Information Technology, Electronics &
+                    Communications, Industries & Commerce, and Legislative
+                    Affairs, Telangana
                   </p>
 
                   <!-- Text -->
                   <p>
-                   I extend my best wishes to the India International Mines Expo, being hosted in Hyderabad — a landmark platform that brings together industry leaders, policymakers, innovators, and stakeholders from across the mining, minerals, steel, coal, and downstream sectors.
+                    I extend my best wishes to the India International Mines
+                    Expo, being hosted in Hyderabad — a landmark platform that
+                    brings together industry leaders, policymakers, innovators,
+                    and stakeholders from across the mining, minerals, steel,
+                    coal, and downstream sectors.
                   </p>
 
                   <!-- List -->
                   <ul class="features-list">
                     <li>
-                    I urge all stakeholders to actively participate in this expo, which not only showcases the latest technologies and innovations but also strengthens collaborations critical to India’s growth.
+                      I urge all stakeholders to actively participate in this
+                      expo, which not only showcases the latest technologies and
+                      innovations but also strengthens collaborations critical
+                      to India’s growth.
                     </li>
 
                     <li>
-                     Telangana, with its strategic focus on mining and heavy industries, continues to play a pivotal role in driving investment, fostering sustainable development, and shaping the future of these key sectors.
+                      Telangana, with its strategic focus on mining and heavy
+                      industries, continues to play a pivotal role in driving
+                      investment, fostering sustainable development, and shaping
+                      the future of these key sectors.
                     </li>
-
-                  
                   </ul>
                 </div>
               </div>
@@ -1452,6 +2638,496 @@
       </section>
       <!-- END MEDIA-3 -->
 
+      <!-- Plenary & Keynote Section -->
+     <section class="plenary-section">
+  <div class="container">
+    <div class="row align-items-center">
+      <!-- Left: Image -->
+      <div class="col-lg-6 mb-4 mb-lg-0">
+        <div class="plenary-image-wrapper">
+          <img
+            src="images/14.jpg"
+            alt="Mining Tunnel"
+            class="img-fluid rounded"
+          />
+        </div>
+      </div>
+
+      <!-- Right: CTA-Focused Content -->
+      <div class="col-lg-6">
+        <div class="plenary-cta-box">
+          <span class="plenary-tag">Featured</span>
+          <h2>Plenary & Keynote Sessions</h2>
+          <p>Join global leaders, ministers, and innovators shaping the future of mining through powerful insights on ESG, technology, and industry transformation.</p>
+          
+          <!-- Primary CTA Button -->
+          <a href="#register" class="btn-plenary-primary">Reserve Your Seat</a>
+          
+          <!-- Secondary Link -->
+          <!-- <a href="#agenda" class="btn-plenary-secondary">View Full Agenda →</a> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+      <!-- Technical Conference Section -->
+      <section class="technical-section">
+        <div class="container">
+          <div class="text-center mb-5">
+            <h2 class="section-title">Technical & Knowledge Conferences</h2>
+            <p class="section-subtitle">
+              Expert-led sessions across critical mining domains
+            </p>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4">
+              <div class="track-card">
+                <div class="track-icon">
+                  <i class="fas fa-leaf"></i>
+                </div>
+                <h5>Sustainable Mining Practices & ESG Compliance</h5>
+                <p>
+                  Exploring environmental responsibility and governance
+                  frameworks for modern mining operations.
+                </p>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-4">
+              <div class="track-card">
+                <div class="track-icon">
+                  <i class="fas fa-cogs"></i>
+                </div>
+                <h5>Mining Equipment Innovation & Automation</h5>
+                <p>
+                  Latest advancements in mining machinery and automated systems
+                  for enhanced productivity.
+                </p>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-4">
+              <div class="track-card">
+                <div class="track-icon">
+                  <i class="fas fa-robot"></i>
+                </div>
+                <h5>Digital Mining & Smart Mines</h5>
+                <p>
+                  IoT, AI, and Robotics transforming mining operations into
+                  intelligent, connected ecosystems.
+                </p>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-4">
+              <div class="track-card">
+                <div class="track-icon">
+                  <i class="fas fa-map-marked-alt"></i>
+                </div>
+                <h5>Exploration & Resource Management</h5>
+                <p>
+                  Advanced techniques for mineral exploration and optimal
+                  resource utilization strategies.
+                </p>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-4">
+              <div class="track-card">
+                <div class="track-icon">
+                  <i class="fas fa-hard-hat"></i>
+                </div>
+                <h5>Mining Safety & Workforce Development</h5>
+                <p>
+                  Prioritizing worker safety and building skilled workforce for
+                  the mining industry.
+                </p>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-4">
+              <div class="track-card">
+                <div class="track-icon">
+                  <i class="fas fa-hands-helping"></i>
+                </div>
+                <h5>Environmental Rehabilitation & Community Engagement</h5>
+                <p>
+                  Post-mining restoration and fostering positive relationships
+                  with local communities.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Exhibition Section -->
+      <section class="exhibition-section">
+        <div class="container">
+          <!-- Header -->
+          <div class="exhibition-header">
+            <h2>Exhibition & Technology Showcase</h2>
+            <p>Indoor & outdoor Exhibition Zones showcasing :</p>
+          </div>
+
+          <!-- Main Content Row -->
+          <div class="row align-items-start">
+            <!-- Left: Orange Box with Bullet Points -->
+            <div class="col-lg-7">
+              <div class="exhibition-content-box">
+                <ul>
+                  <li>
+                    <strong>Mining Machinery & Equipment</strong> - Automated
+                    Drills, Loaders, Crushers, Conveyors
+                  </li>
+                  <li>
+                    <strong>GIS & Geospatial Technologies</strong> - Mapping,
+                    Exploration, Resource Modelling, Survey Solutions
+                  </li>
+                  <li>
+                    <strong>Data Analytics & AI/ML Solutions</strong> -
+                    Predictive Maintenance, Mine Planning, Operational
+                    Optimization
+                  </li>
+                  <li>
+                    <strong>IoT & Smart Sensors</strong> - Equipment Monitoring,
+                    Environmental Sensing, Safety Tracking
+                  </li>
+                  <li>
+                    <strong>Drones & Robotics</strong> - Aerial Surveys,
+                    Autonomous Vehicles, Robotic Mining Operations
+                  </li>
+                  <li>
+                    <strong>Environmental & Sustainability Technologies</strong>
+                    - Water Management, Emissions Reduction, Mine Rehabilitation
+                  </li>
+                  <li>
+                    <strong>Energy Solutions & Renewable Integration</strong> -
+                    Hybrid Mining Equipment, Solar/Wind Power Solutions
+                  </li>
+                  <li>
+                    <strong>Safety & Protective Equipment Innovations</strong> -
+                    Wearable Tech, AI-Assisted Hazard Detection
+                  </li>
+                  <li>
+                    <strong>Tech Startups & Innovation Zone</strong> - GIS,
+                    Analytics, AI/ML, IoT, Drones, Sustainability Solutions
+                  </li>
+                  <li>
+                    <strong>International Country Pavilions</strong> - LATAM,
+                    Africa, Russia, UAE, Asia-Pacific.
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Right: Image -->
+            <div class="col-lg-5">
+              <img
+                src="images/13.webp"
+                alt="Mining Truck"
+                class="img-fluid rounded mb-2"
+              />
+              <img
+                src="images/16.jpg"
+                alt="Mining Truck"
+                class="img-fluid rounded"
+              />
+            </div>
+          </div>
+
+          <!-- Bottom Full-Width Image -->
+          <div class="mt-4 d-flex justify-content-center">
+          
+            <img
+              src="images/26.jpg"
+              alt="Excavator in Mine"
+              class="img-fluid rounded"
+            />
+            <img
+              src="images/26.jpg"
+              alt="Excavator in Mine"
+              class="img-fluid rounded"
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- International Pavilions Section -->
+      <!-- <section class="pavilions-section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title" style="color: white;">International Country Pavilions</h2>
+                <p class="section-subtitle" style="color: rgba(255,255,255,0.8);">Global participation from leading mining nations</p>
+            </div>
+            
+            <div class="text-center">
+                <span class="pavilion-badge"><i class="fas fa-globe-americas"></i> LATAM Pavilion</span>
+                <span class="pavilion-badge"><i class="fas fa-globe-africa"></i> Africa Pavilion</span>
+                <span class="pavilion-badge"><i class="fas fa-flag"></i> Russia Pavilion</span>
+                <span class="pavilion-badge"><i class="fas fa-landmark"></i> UAE Pavilion</span>
+                <span class="pavilion-badge"><i class="fas fa-globe-asia"></i> Asia-Pacific Pavilion</span>
+            </div>
+            
+            <div class="stats-row">
+                <div class="row">
+                    <div class="col-md-3 col-6 mb-4">
+                        <div class="stat-item">
+                            <div class="stat-number">500+</div>
+                            <div class="stat-label">Exhibitors</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6 mb-4">
+                        <div class="stat-item">
+                            <div class="stat-number">50+</div>
+                            <div class="stat-label">Countries</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6 mb-4">
+                        <div class="stat-item">
+                            <div class="stat-number">10K+</div>
+                            <div class="stat-label">Visitors</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6 mb-4">
+                        <div class="stat-item">
+                            <div class="stat-number">100+</div>
+                            <div class="stat-label">Sessions</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+      <!-- SPONSORS-1
+			============================================= -->
+     <section id="sponsors-1" class="wide-100 sponsors-section division">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 col-lg-8 section-title">
+        <span class="section-id">Event Sponsors</span>
+        <h2 class="banner-regular">Our Sponsors & Partners</h2>
+      </div>
+    </div>
+
+    <!-- Centered Sponsors Row -->
+    <div class="sponsors-row">
+      <div class="sponsor">
+        <div class="brand-holder">
+          <img class="img-fluid" src="images/37.png" alt="sponsor-logo" />
+        </div>
+      </div>
+      <div class="sponsor">
+        <div class="brand-holder">
+          <img class="img-fluid" src="images/38.png" alt="sponsor-logo" />
+        </div>
+      </div>
+      <div class="sponsor">
+        <div class="brand-holder">
+          <img class="img-fluid" src="images/39.png" alt="sponsor-logo" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+      <!-- END SPONSORS-1 -->
+
+      <!-- VENUE-1
+			============================================= -->
+      <section id="venue-1" class="bg-lightgrey wide-60 venue-section division">
+        <div class="container">
+          <!-- SECTION TITLE 	-->
+          <div class="row">
+            <div class="col-md-10 col-lg-8 section-title">
+              <!-- Section ID -->
+              <span class="section-id">Why Hyderabad & Telangana?</span>
+
+              <!-- Title -->
+              <!-- <h2 class="banner-regular">A Strategic Gateway to India’s Mining & Heavy Industry</h2> -->
+            </div>
+          </div>
+          <!-- END SECTION TITLE -->
+
+          <div class="row">
+            <!-- VENUE LOCATION -->
+            <div class="col-lg-7 col-xl-8">
+              <div class="v-location p-right-30 m-bottom-40">
+                <!-- VENUE PREVIEW -->
+                <div class="venue-preview">
+                  <!-- Preview -->
+                  <img
+                    class="img-fluid"
+                    src="images/32.jpg"
+                    alt="venue-photo"
+                  />
+
+                  <!-- Venue Data -->
+                  <!-- <div class="venue-data">
+                    <h4 class="h4-lg">Premier Business Center</h4>
+                    <p class="p-medium">
+                      121 King Street, Melbourne, VIC 3000 Australia
+                    </p>
+                    <a href="#" class="red-color">www.premier-center.com</a>
+                  </div> -->
+
+                  <div class="border-box yellow-border"></div>
+                </div>
+                <!-- END VENUE PREVIEW -->
+
+                <!-- TRANSPORT -->
+                <div class="transport">
+                  <div class="row">
+                    <!-- GETTING BY CARS -->
+                    <div class="col-md-6">
+                      <div class="transport-data">
+                        <!-- Title -->
+                        <h4 class="h4-small">Venue – HITEX</h4>
+
+                        <!-- Text -->
+                        <p class="m-bottom-20">
+                          Established in 2003, Hyderabad International Trade
+                          Expositions Limited, also known as HITEX, was created
+                          with the vision of providing a world-class facility
+                          for organizing events, exhibitions,conferences, live
+                          shows and trade fairs. Located in the heart of
+                          Hyderabad, India, HITEX is a premier MICE destination
+                          and has hosted 1500+ national and international events
+                          and expositions over the years, as well as its own
+                          initiatives to promote trade and commerce in the
+                          region. With a decade of experience and success, HITEX
+                          is committed to continually upholding and improving
+                          standard sand best practices.
+                        </p>
+                        <!-- Link -->
+                        <!-- <a
+                          href="http://www.secureparking.com.au/car-parks/australia/vic/melbourne/southern-cross"
+                          target="_blank"
+                          class="grey-color"
+                        >
+                          SecureParking<i class="fas fa-arrow-right"></i>
+                        </a> -->
+                      </div>
+                    </div>
+
+                    <!--  GETTING BY TRAIN -->
+                    <div class="col-md-6">
+                      <div class="transport-data">
+                        <!-- Title -->
+                        <h4 class="h4-small">Venue – HICC</h4>
+
+                        <!-- Text -->
+                        <p class="m-bottom-20">
+                          Hyderabad International Convention Centre (HICC) is
+                          managed by Accor, one of the world’s leading hotel
+                          operators, and is jointly owned by Emaar Properties
+                          PJSC Dubai and Telangana State Industrial
+                          Infrastructure Corporation Ltd. HICC is a
+                          purpose-built, state-of-the-art convention facility,
+                          the frst-of-its-kind and the best standalone
+                          convention centre in South Asia. It features an
+                          internal hall measuring 6,480 square meters that can
+                          be partitioned into six smaller halls.
+                        </p>
+
+                        <!-- Link -->
+                        <!-- <a
+                          href="http://www.greatsouthernrail.com.au/rail-australia"
+                          target="_blank"
+                          class="grey-color"
+                        >
+                          National Rail<i class="fas fa-arrow-right"></i>
+                        </a> -->
+                      </div>
+                    </div>
+                  </div>
+                  <!-- End row -->
+                </div>
+                <!-- END TRANSPORT -->
+              </div>
+            </div>
+            <!-- END VENUE LOCATION -->
+
+            <!-- VENUE INFORMATION -->
+            <div class="col-lg-5 col-xl-4">
+              <div class="venue-info m-top-20 m-bottom-40">
+                <!-- Title -->
+                <h3 class="h3-lg m-bottom-20">
+                  Mining & Mineral Strengths of Telangana
+                </h3>
+
+                <!-- Text -->
+                <p>
+                  • Coal Powerhouse : Home to Singareni Collieries Company
+                  Limited (SCCL), Telangana is one of India’s largest coal
+                  producers, contributing significantly to the nation’s power
+                  sector with over 65 million tonnes annually.
+                </p>
+
+                <!-- Text -->
+                <p>
+                  • Strategic Minerals : Rich deposits of barytes, dolomite,
+                  bauxite, uranium, and other rare earth minerals strengthen
+                  Telangana’s role in resource security and future industrial
+                  growth.
+                </p>
+
+                <!-- Get Direction Link -->
+                <!-- <div class="maps-link m-top-25">
+                  <a
+                    href="https://www.google.com/maps/dir//121+King+St,+Melbourne+VIC+3000,+Австралия/@-37.8172982,144.9536174,17z/data=!4m8!4m7!1m0!1m5!1m1!1s0x6ad65d4dd58ef1f9:0x924c91f561a4fd11!2m2!1d144.9558061!2d-37.8172982"
+                    target="_blank"
+                    class="btn btn-medium tra-red-hover"
+                    >Get Maps & Directions</a
+                  >
+                </div> -->
+
+                <!-- Additional Info -->
+                <div class="venue-add-info m-top-45">
+                  <!-- Title -->
+                  <h4 class="h4-small m-bottom-15">
+                    Industrial & Business Ecosystem
+                  </h4>
+
+                  <!-- Text -->
+
+                  <!-- List -->
+                  <ul class="features-list">
+                    <li>
+                      Heavy Industry Hub : H yderabad is a stronghold for
+                      engineering, heavy machinery, and mining equipment
+                      manufacturers, making it a natural host city for global
+                      collaborations.
+                    </li>
+                    <li>
+                      Innovation & Technology : W ith world-class research
+                      institutions, startups, and global corporations, Hyderabad
+                      integrates technology with traditional industries, driving
+                    </li>
+                    <li>
+                      Logistics & Connectivity : With an international airport,
+                      strong rail and road networks, and central geographic
+                      location, Hyderabad offers seamless access to domestic and
+                      global markets.
+                    </li>
+                    <!-- <li>
+                      Mollis in eget velit aliquam quaerat sodales sapien undo
+                      euismod
+                    </li> -->
+                  </ul>
+                </div>
+                <!-- End Additional Info -->
+              </div>
+            </div>
+            <!-- END VENUE INFORMATION -->
+          </div>
+          <!-- End row -->
+        </div>
+        <!-- End container -->
+      </section>
+      <!-- END VENUE-1 -->
 
       <!-- REGISTER FORM 
 			============================================= -->
@@ -1531,750 +3207,6 @@
       </section>
       <!-- END REGISTER FORM  -->
 
-       <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="container">
-            <h1><i class="fas fa-calendar-alt"></i> Conference & Exhibition</h1>
-            <p class="lead">India International Mine Expo 2026</p>
-        </div>
-    </section>
-
-    <!-- Plenary & Keynote Section -->
-    <section class="plenary-section">
-        <div class="container">
-            <div class="text-center mb-5">
-                <h2 class="section-title">Plenary & Keynote Sessions</h2>
-                <p class="section-subtitle">Engaging discussions with global leaders and industry experts</p>
-            </div>
-            
-            <div class="row">
-                <div class="col-lg-6 mb-4">
-                    <div class="plenary-card">
-                        <h4><i class="fas fa-flag"></i> Opening Ceremony</h4>
-                        <ul>
-                            <li>Government Ministers</li>
-                            <li>Global Industry Leaders</li>
-                            <li>International Dignitaries</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-6 mb-4">
-                    <div class="plenary-card">
-                        <h4><i class="fas fa-microphone"></i> Keynote Addresses</h4>
-                        <ul>
-                            <li>Mining Trends & Future Outlook</li>
-                            <li>ESG & Sustainability in Mining</li>
-                            <li>Technological Innovation & Digital Transformation</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Technical Conference Section -->
-    <section class="technical-section">
-        <div class="container">
-            <div class="text-center mb-5">
-                <h2 class="section-title">Technical & Knowledge Conferences</h2>
-                <p class="section-subtitle">Expert-led sessions across critical mining domains</p>
-            </div>
-            
-            <div class="row">
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="track-card">
-                        <div class="track-icon">
-                            <i class="fas fa-leaf"></i>
-                        </div>
-                        <h5>Sustainable Mining Practices & ESG Compliance</h5>
-                        <p>Exploring environmental responsibility and governance frameworks for modern mining operations.</p>
-                    </div>
-                </div>
-                
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="track-card">
-                        <div class="track-icon">
-                            <i class="fas fa-cogs"></i>
-                        </div>
-                        <h5>Mining Equipment Innovation & Automation</h5>
-                        <p>Latest advancements in mining machinery and automated systems for enhanced productivity.</p>
-                    </div>
-                </div>
-                
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="track-card">
-                        <div class="track-icon">
-                            <i class="fas fa-robot"></i>
-                        </div>
-                        <h5>Digital Mining & Smart Mines</h5>
-                        <p>IoT, AI, and Robotics transforming mining operations into intelligent, connected ecosystems.</p>
-                    </div>
-                </div>
-                
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="track-card">
-                        <div class="track-icon">
-                            <i class="fas fa-map-marked-alt"></i>
-                        </div>
-                        <h5>Exploration & Resource Management</h5>
-                        <p>Advanced techniques for mineral exploration and optimal resource utilization strategies.</p>
-                    </div>
-                </div>
-                
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="track-card">
-                        <div class="track-icon">
-                            <i class="fas fa-hard-hat"></i>
-                        </div>
-                        <h5>Mining Safety & Workforce Development</h5>
-                        <p>Prioritizing worker safety and building skilled workforce for the mining industry.</p>
-                    </div>
-                </div>
-                
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="track-card">
-                        <div class="track-icon">
-                            <i class="fas fa-hands-helping"></i>
-                        </div>
-                        <h5>Environmental Rehabilitation & Community Engagement</h5>
-                        <p>Post-mining restoration and fostering positive relationships with local communities.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Exhibition Section -->
-    <section class="exhibition-section">
-        <div class="container">
-            <div class="text-center mb-5">
-                <h2 class="section-title">Exhibition & Technology Showcase</h2>
-                <p class="section-subtitle">Indoor & Outdoor Exhibition Zones featuring cutting-edge mining solutions</p>
-            </div>
-            
-            <div class="row">
-                <div class="col-lg-6 mb-4">
-                    <div class="exhibition-zone">
-                        <div class="zone-header">
-                            <div class="zone-icon">
-                                <i class="fas fa-truck-pickup"></i>
-                            </div>
-                            <h4>Mining Machinery & Equipment</h4>
-                        </div>
-                        <div class="zone-content">
-                            Automated Drills, Loaders, Crushers, Conveyors and Heavy-duty Mining Equipment
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-6 mb-4">
-                    <div class="exhibition-zone">
-                        <div class="zone-header">
-                            <div class="zone-icon">
-                                <i class="fas fa-map"></i>
-                            </div>
-                            <h4>GIS & Geospatial Technologies</h4>
-                        </div>
-                        <div class="zone-content">
-                            Mapping, Exploration, Resource Modelling, Survey Solutions for precision mining
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-6 mb-4">
-                    <div class="exhibition-zone">
-                        <div class="zone-header">
-                            <div class="zone-icon">
-                                <i class="fas fa-brain"></i>
-                            </div>
-                            <h4>Data Analytics & AI/ML Solutions</h4>
-                        </div>
-                        <div class="zone-content">
-                            Predictive Maintenance, Mine Planning, Operational Optimization using advanced algorithms
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-6 mb-4">
-                    <div class="exhibition-zone">
-                        <div class="zone-header">
-                            <div class="zone-icon">
-                                <i class="fas fa-network-wired"></i>
-                            </div>
-                            <h4>IoT & Smart Sensors</h4>
-                        </div>
-                        <div class="zone-content">
-                            Equipment Monitoring, Environmental Sensing, Safety Tracking with real-time data
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-6 mb-4">
-                    <div class="exhibition-zone">
-                        <div class="zone-header">
-                            <div class="zone-icon">
-                                <i class="fas fa-helicopter"></i>
-                            </div>
-                            <h4>Drones & Robotics</h4>
-                        </div>
-                        <div class="zone-content">
-                            Aerial Surveys, Autonomous Vehicles, Robotic Mining Operations for enhanced efficiency
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-6 mb-4">
-                    <div class="exhibition-zone">
-                        <div class="zone-header">
-                            <div class="zone-icon">
-                                <i class="fas fa-recycle"></i>
-                            </div>
-                            <h4>Environmental & Sustainability Technologies</h4>
-                        </div>
-                        <div class="zone-content">
-                            Water Management, Emissions Reduction, Mine Rehabilitation solutions
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-6 mb-4">
-                    <div class="exhibition-zone">
-                        <div class="zone-header">
-                            <div class="zone-icon">
-                                <i class="fas fa-solar-panel"></i>
-                            </div>
-                            <h4>Energy Solutions & Renewable Integration</h4>
-                        </div>
-                        <div class="zone-content">
-                            Hybrid Mining Equipment, Solar/Wind Power Solutions for sustainable operations
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-6 mb-4">
-                    <div class="exhibition-zone">
-                        <div class="zone-header">
-                            <div class="zone-icon">
-                                <i class="fas fa-shield-alt"></i>
-                            </div>
-                            <h4>Safety & Protective Equipment</h4>
-                        </div>
-                        <div class="zone-content">
-                            Wearable Tech, AI-Assisted Hazard Detection, Personal Protective Equipment innovations
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-12 mb-4">
-                    <div class="exhibition-zone innovation-highlight">
-                        <div class="zone-header">
-                            <div class="zone-icon">
-                                <i class="fas fa-lightbulb"></i>
-                            </div>
-                            <h4>Tech Startups & Innovation Zone</h4>
-                        </div>
-                        <div class="zone-content">
-                            Emerging companies showcasing breakthrough solutions in GIS, Analytics, AI/ML, IoT, Drones, and Sustainability Technologies - The future of mining innovation
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- International Pavilions Section -->
-    <section class="pavilions-section">
-        <div class="container">
-            <div class="text-center mb-5">
-                <h2 class="section-title" style="color: white;">International Country Pavilions</h2>
-                <p class="section-subtitle" style="color: rgba(255,255,255,0.8);">Global participation from leading mining nations</p>
-            </div>
-            
-            <div class="text-center">
-                <span class="pavilion-badge"><i class="fas fa-globe-americas"></i> LATAM Pavilion</span>
-                <span class="pavilion-badge"><i class="fas fa-globe-africa"></i> Africa Pavilion</span>
-                <span class="pavilion-badge"><i class="fas fa-flag"></i> Russia Pavilion</span>
-                <span class="pavilion-badge"><i class="fas fa-landmark"></i> UAE Pavilion</span>
-                <span class="pavilion-badge"><i class="fas fa-globe-asia"></i> Asia-Pacific Pavilion</span>
-            </div>
-            
-            <div class="stats-row">
-                <div class="row">
-                    <div class="col-md-3 col-6 mb-4">
-                        <div class="stat-item">
-                            <div class="stat-number">500+</div>
-                            <div class="stat-label">Exhibitors</div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-6 mb-4">
-                        <div class="stat-item">
-                            <div class="stat-number">50+</div>
-                            <div class="stat-label">Countries</div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-6 mb-4">
-                        <div class="stat-item">
-                            <div class="stat-number">10K+</div>
-                            <div class="stat-label">Visitors</div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-6 mb-4">
-                        <div class="stat-item">
-                            <div class="stat-number">100+</div>
-                            <div class="stat-label">Sessions</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-      <!-- SPONSORS-1
-			============================================= -->
-      <section id="sponsors-1" class="wide-100 sponsors-section division">
-        <div class="container">
-          <!-- SECTION TITLE 	-->
-          <div class="row">
-            <div class="col-md-10 col-lg-8 section-title">
-              <!-- Section ID -->
-              <span class="section-id">Event Sponsors</span>
-
-              <!-- Title -->
-              <h2 class="banner-regular">Our Sponsors & Partners</h2>
-
-              <!-- Text -->
-              <p>
-                We wouldn't be able to host our conference without help from
-                these amazing companies. A huge thanks to all our sponsors and
-                partners!
-              </p>
-            </div>
-          </div>
-          <!-- END SECTION TITLE -->
-
-          <div class="row">
-            <div class="col-md-12">
-              <!-- SPONSOR LOGO -->
-              <div class="sponsor">
-                <div class="brand-holder">
-                  <img
-                    class="img-fluid"
-                    src="images/37.png"
-                    alt="sponsor-logo"
-                  />
-                </div>
-              </div>
-
-              <!-- SPONSOR LOGO -->
-              <div class="sponsor">
-                <div class="brand-holder">
-                  <img
-                    class="img-fluid"
-                    src="images/38.png"
-                    alt="sponsor-logo"
-                  />
-                </div>
-              </div>
-
-              <!-- SPONSOR LOGO -->
-              <div class="sponsor">
-                <div class="brand-holder">
-                  <img
-                    class="img-fluid"
-                    src="images/39.png"
-                    alt="sponsor-logo"
-                  />
-                </div>
-              </div>
-
-              <!-- SPONSOR LOGO -->
-              <div class="sponsor">
-                <div class="brand-holder">
-                  <img
-                    class="img-fluid"
-                    src="images/40.jpg"
-                    alt="sponsor-logo"
-                  />
-                </div>
-              </div>
-
-              <!-- SPONSOR LOGO -->
-              <div class="sponsor">
-                <div class="brand-holder">
-                  <img
-                    class="img-fluid"
-                    src="images/41.jpg"
-                    alt="sponsor-logo"
-                  />
-                </div>
-              </div>
-
-              <!-- SPONSOR LOGO -->
-              <div class="sponsor">
-                <div class="brand-holder">
-                  <img
-                    class="img-fluid"
-                    src="images/42.jpg"
-                    alt="sponsor-logo"
-                  />
-                </div>
-              </div>
-
-              <!-- SPONSOR LOGO -->
-              <!-- <div class="sponsor">
-                <div class="brand-holder">
-                  <img
-                    class="img-fluid"
-                    src="images/sponsor-1-7.png"
-                    alt="sponsor-logo"
-                  />
-                </div>
-              </div> -->
-
-              <!-- SPONSOR LOGO -->
-              <!-- <div class="sponsor">
-                <div class="brand-holder">
-                  <img
-                    class="img-fluid"
-                    src="images/sponsor-1-8.png"
-                    alt="sponsor-logo"
-                  />
-                </div>
-              </div> -->
-
-              <!-- SPONSOR LOGO -->
-              <!-- <div class="sponsor">
-                <div class="brand-holder">
-                  <img
-                    class="img-fluid"
-                    src="images/sponsor-1-9.png"
-                    alt="sponsor-logo"
-                  />
-                </div>
-              </div> -->
-
-              <!-- SPONSOR LOGO -->
-              <!-- <div class="sponsor">
-                <div class="brand-holder">
-                  <img
-                    class="img-fluid"
-                    src="images/sponsor-1-10.png"
-                    alt="sponsor-logo"
-                  />
-                </div>
-              </div> -->
-
-              <!-- SPONSOR LOGO -->
-              <!-- <div class="sponsor">
-                <div class="brand-holder">
-                  <img
-                    class="img-fluid"
-                    src="images/sponsor-1-11.png"
-                    alt="sponsor-logo"
-                  />
-                </div>
-              </div> -->
-
-              <!-- SPONSOR LOGO -->
-              <!-- <div class="sponsor">
-                <div class="brand-holder">
-                  <img
-                    class="img-fluid"
-                    src="images/sponsor-1-12.png"
-                    alt="sponsor-logo"
-                  />
-                </div>
-              </div> -->
-
-              <!-- SPONSOR LOGO -->
-              <!-- <div class="sponsor">
-                <div class="brand-holder">
-                  <img
-                    class="img-fluid"
-                    src="images/sponsor-1-13.png"
-                    alt="sponsor-logo"
-                  />
-                </div>
-              </div> -->
-
-              <!-- SPONSOR LOGO -->
-              <!-- <div class="sponsor">
-                <div class="brand-holder">
-                  <img
-                    class="img-fluid"
-                    src="images/sponsor-1-14.png"
-                    alt="sponsor-logo"
-                  />
-                </div>
-              </div> -->
-            </div>
-          </div>
-          <!-- End row -->
-
-          <!-- BECOME A SPONSOR BUTTON -->
-          <!-- <div class="row">
-            <div class="container">
-              <div class="row">
-                <div class="col-md-12 become-a-sponsor text-center m-top-40">
-                  <a
-                    href="sponsors.html"
-                    class="btn btn-medium btn-tra-black m-right-20"
-                    >View All Sponsors</a
-                  >
-                  <a
-                    href="mailto:support@example.com"
-                    class="btn btn-medium btn-tra-black"
-                    >Become a Sponsor</a
-                  >
-                </div>
-              </div>
-            </div>
-          </div> -->
-        </div>
-        <!-- End container -->
-      </section>
-      <!-- END SPONSORS-1 -->
-
-      <!-- VENUE-1
-			============================================= -->
-      <section id="venue-1" class="bg-lightgrey wide-60 venue-section division">
-        <div class="container">
-          <!-- SECTION TITLE 	-->
-          <div class="row">
-            <div class="col-md-10 col-lg-8 section-title">
-              <!-- Section ID -->
-              <span class="section-id">Why Hyderabad & Telangana?</span>
-
-              <!-- Title -->
-              <h2 class="banner-regular">A Strategic Gateway to India’s Mining & Heavy Industry</h2>
-
-              <!-- Text -->
-              <p>
-               Hyderabad, the vibrant capital of Telangana, is 
-not only a global hub for Technology, Pharma, 
-and Infrastructure but also a strategic center for 
-India’s Mining and Mineral Economy. Hosting 
-India International Mine Expo 2026 in Hyderabad 
-ensures participants benefit from the region’s rich 
-mineral resources, advanced industrial ecosystem, 
-and global connectivity.
-              </p>
-            </div>
-          </div>
-          <!-- END SECTION TITLE -->
-
-          <div class="row">
-            <!-- VENUE LOCATION -->
-            <div class="col-lg-7 col-xl-8">
-              <div class="v-location p-right-30 m-bottom-40">
-                <!-- VENUE PREVIEW -->
-                <div class="venue-preview">
-                  <!-- Preview -->
-                  <img
-                    class="img-fluid"
-                    src="images/32.jpg"
-                    alt="venue-photo"
-                  />
-
-                  <!-- Venue Data -->
-                  <!-- <div class="venue-data">
-                    <h4 class="h4-lg">Premier Business Center</h4>
-                    <p class="p-medium">
-                      121 King Street, Melbourne, VIC 3000 Australia
-                    </p>
-                    <a href="#" class="red-color">www.premier-center.com</a>
-                  </div> -->
-
-                  <div class="border-box yellow-border"></div>
-                </div>
-                <!-- END VENUE PREVIEW -->
-
-                <!-- TRANSPORT -->
-                <div class="transport">
-                  <div class="row">
-                    <!-- GETTING BY CARS -->
-                    <div class="col-md-6">
-                      <div class="transport-data">
-                        <!-- Title -->
-                        <h4 class="h4-small">Venue –  HITEX</h4>
-
-                        <!-- Text -->
-                        <p class="m-bottom-20">
-                        Established in 2003, Hyderabad International Trade Expositions Limited, also known as HITEX, was created with the vision of providing a world-class facility for organizing events, exhibitions,conferences, live shows and trade fairs. Located in the heart of Hyderabad, India, HITEX is a premier MICE destination and has hosted 1500+ national and international events and expositions over the years, as well as its own initiatives to promote trade and commerce in the region. With a decade of experience and success, HITEX is committed to continually upholding and improving standard sand best practices.
-                            </p>
-                        <!-- Link -->
-                        <!-- <a
-                          href="http://www.secureparking.com.au/car-parks/australia/vic/melbourne/southern-cross"
-                          target="_blank"
-                          class="grey-color"
-                        >
-                          SecureParking<i class="fas fa-arrow-right"></i>
-                        </a> -->
-                      </div>
-                    </div>
-
-                    <!--  GETTING BY TRAIN -->
-                    <div class="col-md-6">
-                      <div class="transport-data">
-                        <!-- Title -->
-                        <h4 class="h4-small">Venue – HICC</h4>
-
-                        <!-- Text -->
-                        <p class="m-bottom-20">
-                         Hyderabad International Convention Centre (HICC) is managed by Accor, one of the world’s leading hotel operators, and is jointly owned by Emaar Properties PJSC Dubai and Telangana State Industrial Infrastructure Corporation Ltd. HICC is a purpose-built, state-of-the-art convention facility, the frst-of-its-kind and the best standalone convention centre in South Asia. It features an internal hall measuring 6,480 square meters that can be partitioned into six smaller halls.
-                        </p>
-
-                        <!-- Link -->
-                        <!-- <a
-                          href="http://www.greatsouthernrail.com.au/rail-australia"
-                          target="_blank"
-                          class="grey-color"
-                        >
-                          National Rail<i class="fas fa-arrow-right"></i>
-                        </a> -->
-                      </div>
-                    </div>
-                  </div>
-                  <!-- End row -->
-                </div>
-                <!-- END TRANSPORT -->
-              </div>
-            </div>
-            <!-- END VENUE LOCATION -->
-
-            <!-- VENUE INFORMATION -->
-            <div class="col-lg-5 col-xl-4">
-              <div class="venue-info m-top-20 m-bottom-40">
-                <!-- Title -->
-                <h3 class="h3-lg m-bottom-20">
-                  Mining & Mineral Strengths of Telangana
-                </h3>
-
-                <!-- Text -->
-                <p>
-                 • Coal Powerhouse : Home to Singareni Collieries 
-Company Limited (SCCL), Telangana is one 
-of India’s largest coal producers, contributing 
-significantly to 
-the nation’s power sector with over 65 million 
-tonnes annually.
-
-                </p>
-
-
-                <!-- Text -->
-                <p>
-                 • Strategic Minerals : Rich deposits of barytes, 
-dolomite, bauxite, uranium, and other rare earth minerals 
-strengthen Telangana’s role in resource security and 
-future industrial growth.
-                </p>
-
-                <!-- Get Direction Link -->
-                <!-- <div class="maps-link m-top-25">
-                  <a
-                    href="https://www.google.com/maps/dir//121+King+St,+Melbourne+VIC+3000,+Австралия/@-37.8172982,144.9536174,17z/data=!4m8!4m7!1m0!1m5!1m1!1s0x6ad65d4dd58ef1f9:0x924c91f561a4fd11!2m2!1d144.9558061!2d-37.8172982"
-                    target="_blank"
-                    class="btn btn-medium tra-red-hover"
-                    >Get Maps & Directions</a
-                  >
-                </div> -->
-
-                <!-- Additional Info -->
-                <div class="venue-add-info m-top-45">
-                  <!-- Title -->
-                  <h4 class="h4-small m-bottom-15">Industrial & Business Ecosystem</h4>
-
-                  <!-- Text -->
-               
-
-                  <!-- List -->
-                  <ul class="features-list">
-                    <li>
-                     Heavy Industry Hub : H yderabad is a stronghold for 
-engineering, heavy machinery, and mining equipment manufacturers, making it a natural host city for global collaborations.
-                    </li>
-                    <li>
-                      Innovation & Technology : W ith world-class research 
-institutions, startups, and global corporations, Hyderabad 
-integrates technology with traditional industries, driving 
-                    </li>
-                    <li>
-                   Logistics & Connectivity :  With an international airport, 
-strong rail and road networks, and central geographic 
-location, Hyderabad offers seamless access to domestic 
-and global markets.
-                    </li>
-                    <!-- <li>
-                      Mollis in eget velit aliquam quaerat sodales sapien undo
-                      euismod
-                    </li> -->
-                  </ul>
-                </div>
-                <!-- End Additional Info -->
-              </div>
-            </div>
-            <!-- END VENUE INFORMATION -->
-          </div>
-          <!-- End row -->
-        </div>
-        <!-- End container -->
-      </section>
-      <!-- END VENUE-1 -->
-
-     
-
-      <!-- NEWSLETTER-1
-			============================================= -->
-      <section
-        id="newsletter-1"
-        class="bg-scroll newsletter-section division"
-        style="background-image: url(images/newsletter-1.jpg)"
-      >
-        <div class="container">
-          <!-- NEWSLETTER TITLE -->
-          <div class="row">
-            <div
-              class="col-md-10 col-lg-9 newsletter-txt m-bottom-60 white-color"
-            >
-              <h2>
-                Subscribe to our event newsletters and be the first to hear
-                about all event news and speaker updates
-              </h2>
-            </div>
-          </div>
-
-          <!-- NEWSLETTER FORM -->
-          <div class="row">
-            <div class="col-lg-12">
-              <!-- Newsletter Form Input -->
-              <form class="newsletter-form">
-                <div class="input-group">
-                  <input
-                    type="email"
-                    class="form-control"
-                    placeholder="Your email address"
-                    required
-                    id="s-email"
-                  />
-                  <span class="input-group-btn">
-                    <button type="submit" class="btn btn-medium">
-                      Subscribe Now
-                    </button>
-                  </span>
-                </div>
-
-                <!-- Newsletter Form Notification -->
-                <label for="s-email" class="form-notification"></label>
-              </form>
-            </div>
-          </div>
-          <!-- END NEWSLETTER FORM -->
-        </div>
-        <!-- End container -->
-      </section>
-      <!-- END NEWSLETTER-1 -->
-
       <!-- FOOTER-1
 			============================================= -->
       <footer id="footer-1" class="bg-lightgrey footer division">
@@ -2288,8 +3220,10 @@ and global markets.
 
                 <!-- Text -->
                 <p class="p-medium">
-                 The Pioneer – Established 1865, India’s oldest English daily, credible journalism, business & economy focus.
-MM Activ Sci-Tech Communications – Event organiser in Science & Tech, expert in global B2B partnerships and innovation platforms.
+                  The Pioneer – Established 1865, India’s oldest English daily,
+                  credible journalism, business & economy focus. MM Activ
+                  Sci-Tech Communications – Event organiser in Science & Tech,
+                  expert in global B2B partnerships and innovation platforms.
                 </p>
               </div>
             </div>
@@ -2303,8 +3237,9 @@ MM Activ Sci-Tech Communications – Event organiser in Science & Tech, expert i
                 <!-- Contact Info -->
 
                 <p class="p-medium">
-                  <i class="fa fa-map-marker"></i>MM Activ Sci-Tech Communications
-103-104, Rohit House, 3 Tolstoy Marg, New Delhi – 110001
+                  <i class="fa fa-map-marker"></i>MM Activ Sci-Tech
+                  Communications 103-104, Rohit House, 3 Tolstoy Marg, New Delhi
+                  – 110001
                 </p>
                 <p class="p-medium">
                   <i class="fas fa-phone"></i>+91 98992 08916
@@ -2314,7 +3249,9 @@ MM Activ Sci-Tech Communications – Event organiser in Science & Tech, expert i
                 </p>
                 <p class="p-medium">
                   <i class="far fa-envelope"></i
-                  ><a href="mailto:secretariat@iiminexpo.com">secretariat@iiminexpo.com</a>
+                  ><a href="mailto:secretariat@iiminexpo.com"
+                    >secretariat@iiminexpo.com</a
+                  >
                 </p>
               </div>
             </div>
