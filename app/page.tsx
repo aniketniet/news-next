@@ -409,6 +409,7 @@ export default async function HomePage() {
         <Hero />
 
         {/* Trending News */}
+        <div id="section-trending" className="scroll-mt-24" />
         <Section title="Trending News">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Left: Featured + Secondary stories */}
@@ -488,7 +489,7 @@ export default async function HomePage() {
         </section>
 
         {/* Business & Money Slider */}
-        <section className="px-3 md:px-6 py-6">
+        <section id="section-business" className="px-3 md:px-6 py-6 scroll-mt-24">
           <div className="mx-auto w-full max-w-6xl">
             <BusinessSlider
               stories={businessStoriesMapped}
@@ -498,7 +499,7 @@ export default async function HomePage() {
         </section>
 
         {/* International News */}
-        <section className="px-3 md:px-6 py-6">
+        <section id="section-world" className="px-3 md:px-6 py-6 scroll-mt-24">
           <div className="mx-auto w-full max-w-6xl">
             <InternationalNews stories={internationalWorldStories} />
           </div>
@@ -514,6 +515,9 @@ export default async function HomePage() {
         )}
 
         {/* Category Sections: Entertainment, Travel, Food & Wellness */}
+        {/* Anchors for Entertainment and Health (Food & Wellness) */}
+        <div id="section-entertainment" className="scroll-mt-24" />
+        <div id="section-health" className="scroll-mt-24" />
         <section className="px-3 md:px-6 py-6">
           <div className="mx-auto w-full max-w-6xl">
             <CategorySections
@@ -525,7 +529,7 @@ export default async function HomePage() {
         </section>
 
   {/* Sports Sections: Cricket, Football, Other Sports (dynamic) */}
-        <section className="px-3 md:px-6 py-6">
+        <section id="section-sports" className="px-3 md:px-6 py-6 scroll-mt-24">
           <div className="mx-auto w-full max-w-6xl">
             <SportsSections
               cricket={cricketStories}
@@ -536,7 +540,7 @@ export default async function HomePage() {
         </section>
 
         {/* Opinion & Analysis Sections with Advertisement */}
-        <section className="px-3 md:px-6 py-6">
+        <section id="section-opinion" className="px-3 md:px-6 py-6 scroll-mt-24">
           <div className="mx-auto w-full max-w-6xl">
             <OpinionAnalysisSections
               opinion={dynamicOpinion}
@@ -546,13 +550,16 @@ export default async function HomePage() {
         </section>
 
         {/* Videos Section */}
-        <section className="px-3 md:px-6 py-6">
+        <section id="section-videos" className="px-3 md:px-6 py-6 scroll-mt-24">
           <div className="mx-auto w-full max-w-6xl">
             <VideosSection videos={videoStories} />
           </div>
         </section>
 
         {/* Podcast and Horoscope Sections */}
+        {/* Anchors for podcast and horoscope in the combined section */}
+        <div id="section-podcast" className="scroll-mt-24" />
+        <div id="section-horoscope" className="scroll-mt-24" />
         <section className="px-3 md:px-6 py-6">
           <div className="mx-auto w-full max-w-6xl">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -563,6 +570,9 @@ export default async function HomePage() {
         </section>
 
         {/* Technology and Tarot Sections */}
+        {/* Anchors for technology and tarot in the combined section */}
+        <div id="section-technology" className="scroll-mt-24" />
+        <div id="section-tarot" className="scroll-mt-24" />
         <section className="px-3 md:px-6 py-6">
           <div className="mx-auto w-full max-w-6xl">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">

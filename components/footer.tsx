@@ -1,6 +1,29 @@
 import Link from "next/link"
 
 export function SiteFooter() {
+  // Map footer items and columns to homepage section anchors
+  const columnAnchorMap: Record<string, string> = {
+    World: "#section-world",
+    Entertainment: "#section-entertainment",
+    Health: "#section-health",
+    Business: "#section-business",
+  };
+
+  const itemAnchorOverrides: Record<string, string> = {
+    Sports: "#section-sports",
+    Technology: "#section-technology",
+    Markets: "#section-business",
+    Features: "#section-business",
+    Property: "#section-business",
+    "Entertainment Video": "#section-videos",
+  };
+
+  const getItemHref = (columnTitle: string, itemLabel: string) => {
+    const override = itemAnchorOverrides[itemLabel];
+    if (override) return "/" + override; // absolute to homepage
+    const columnDefault = columnAnchorMap[columnTitle] || "#main";
+    return "/" + columnDefault;
+  };
   const cols = [
     { 
       title: "World", 
@@ -40,7 +63,11 @@ export function SiteFooter() {
               <ul className="space-y-2">
                 {col.items.map((item) => (
                   <li key={item}>
-                    <Link href="#" className="text-sm text-gray-300 hover:text-yellow-400 transition-colors duration-200">
+                    <Link
+                      href={getItemHref(col.title, item)}
+                      className="text-sm text-gray-300 hover:text-yellow-400 transition-colors duration-200"
+                      prefetch={false}
+                    >
                       {item}
                     </Link>
                   </li>
