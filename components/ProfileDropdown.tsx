@@ -66,7 +66,7 @@ export function ProfileDropdown() {
             </div>
           </Link>
           
-          <Link
+          {/* <Link
             href="/settings"
             className="block px-4 py-2 text-sm text-gray-700 hover:bg-yellow-50 hover:text-yellow-800 transition-colors"
             onClick={() => setIsOpen(false)}
@@ -78,7 +78,7 @@ export function ProfileDropdown() {
               </svg>
               Settings
             </div>
-          </Link>
+          </Link> */}
 
           <Link
             href="/subscription"

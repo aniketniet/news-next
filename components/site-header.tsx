@@ -362,7 +362,7 @@ export function SiteHeader() {
       </nav>
 
       {/* Trending Topics Bar */}
-      <div className="hidden lg:block bg-white border-b">
+      {/* <div className="hidden lg:block bg-white border-b">
         <div className="mx-auto max-w-7xl px-4">
           <div className="flex items-center gap-6 py-2 text-xs overflow-x-auto">
             <span className="font-bold text-gray-800 whitespace-nowrap">
@@ -379,7 +379,7 @@ export function SiteHeader() {
             ))}
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Mobile Menu */}
       {isMenuOpen && (
