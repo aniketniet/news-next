@@ -1,4 +1,38 @@
 import Link from "next/link"
+import { fetchPages } from "@/lib/api/pages"
+import { Suspense } from "react"
+
+async function DynamicFooterLinks() {
+  let pages = []
+  try {
+    pages = await fetchPages()
+    // Filter out the index page from footer links
+    pages = pages.filter(page => page.url_key !== 'index')
+    console.log("Fetched pages for footer:", pages) // Debug log
+  } catch (error) {
+    console.error("Failed to fetch pages:", error)
+    // Fallback to static pages if API fails
+    pages = [
+      { page_id: 1, page_name: "About Us", url_key: "about-us" },
+      { page_id: 2, page_name: "Contact Us", url_key: "contact-us" },
+      { page_id: 3, page_name: "Advertise With Us", url_key: "advertise-with-us" }
+    ]
+  }
+  
+  return (
+    <>
+      {pages.map((page) => (
+        <Link 
+          key={page.page_id}
+          href={`/page/${page.url_key}`}
+          className="hover:text-white transition-colors"
+        >
+          {page.page_name}
+        </Link>
+      ))}
+    </>
+  )
+}
 
 export function SiteFooter() {
   // Map footer items and columns to homepage section anchors
@@ -122,10 +156,16 @@ export function SiteFooter() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex flex-wrap items-center gap-4 text-sm text-gray-400">
               <Link href="/" className="hover:text-white transition-colors">Home</Link>
-              <Link href="/about" className="hover:text-white transition-colors">About Us</Link>
-              <Link href="/contact" className="hover:text-white transition-colors">Contact Us</Link>
-              <Link href="/advertise" className="hover:text-white transition-colors">Advertise With Us</Link>
-              <Link href="/archives" className="hover:text-white transition-colors">Archives</Link>
+              <Suspense fallback={
+                <>
+                  <Link href="/about" className="hover:text-white transition-colors">About Us</Link>
+                  <Link href="/contact" className="hover:text-white transition-colors">Contact Us</Link>
+                  <Link href="/advertise" className="hover:text-white transition-colors">Advertise With Us</Link>
+                </>
+              }>
+                <DynamicFooterLinks />
+              </Suspense>
+              <Link href="/subscription" className="hover:text-white transition-colors">Subscription</Link>
             </div>
             <p className="text-xs text-gray-400">
               Copyright © 2025 The Pioneer. All Rights Reserved
