@@ -1646,141 +1646,94 @@
     </style>
 
     <style>
-      .venue-transport-section {
-        max-width: 1200px;
-        margin: 0 auto;
-      }
+         .venue-transport-section {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
 
+    .venu-section-title {
+      text-align: center;
+      color: rgb(0, 0, 0);
+      font-size: 42px;
+      font-weight: 700;
+      margin-bottom: 50px;
+      margin-top: 30px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .venue-row-wrapper {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 40px;
+    }
+
+    .venue-card-wrapper {
+      background: white;
+      padding: 35px;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+      transition: all 0.4s ease;
+    }
+
+    .venue-card-wrapper:hover {
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
+      transform: translateY(-5px);
+    }
+
+    .venue-location-pin-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    }
+
+    .venue-title-heading {
+      color: #2c3e50;
+      font-size: 28px;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    .venue-description-text {
+      color: #555;
+      line-height: 1.9;
+      font-size: 15px;
+      margin-bottom: 25px;
+    }
+
+    .map-container {
+      width: 100%;
+      height: 200px;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+    }
+
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    @media (max-width: 768px) {
       .venue-row-wrapper {
-        display: flex;
-        gap: 30px;
-        flex-wrap: wrap;
+        grid-template-columns: 1fr;
       }
 
-      .venue-column-half {
-        flex: 1;
-        min-width: 300px;
+      .venu-section-title {
+        font-size: 32px;
       }
 
-      .venue-card-wrapper {
-        background: white;
-        padding: 30px;
-        border-radius: 12px;
-        /* box-shadow: 0 2px 10px rgba(0,0,0,0.08); */
-        position: relative;
-        overflow: hidden;
-        transition: all 0.3s ease;
-        cursor: pointer;
-        height: 100%;
+      .map-container {
+        height: 250px;
       }
-
-      .venue-card-wrapper:hover {
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-        transform: translateY(-5px);
-      }
-
-      .venue-title-heading {
-        color: #2c3e50;
-        font-size: 24px;
-        margin-bottom: 20px;
-        font-weight: 600;
-        position: relative;
-        padding-bottom: 12px;
-      }
-
-      .venue-title-heading::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 50px;
-        height: 3px;
-        background: linear-gradient(90deg, #3498db, #2ecc71);
-      }
-
-      .venue-description-text {
-        color: #555;
-        line-height: 1.8;
-        font-size: 15px;
-        margin-bottom: 20px;
-      }
-
-      .venue-map-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(255, 255, 255, 0.98);
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.4s ease;
-        display: flex;
-        flex-direction: column;
-        padding: 20px;
-        z-index: 10;
-      }
-
-      .venue-card-wrapper:hover .venue-map-overlay {
-        opacity: 1;
-        visibility: visible;
-      }
-
-      .venue-map-header-info {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 15px;
-      }
-
-      .venue-map-title-text {
-        font-size: 18px;
-        font-weight: 600;
-        color: #2c3e50;
-      }
-
-      .venue-map-close-hint {
-        font-size: 12px;
-        color: #999;
-        font-style: italic;
-      }
-
-      .venue-map-iframe {
-        flex: 1;
-        border: none;
-        border-radius: 8px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      }
-
-      .venue-location-pin-icon {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        width: 40px;
-        height: 40px;
-        background: linear-gradient(135deg, #3498db, #2ecc71);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 18px;
-        transition: all 0.3s ease;
-      }
-
-      .venue-card-wrapper:hover .venue-location-pin-icon {
-        transform: scale(1.2) rotate(360deg);
-      }
-
-      @media (max-width: 768px) {
-        .venue-row-wrapper {
-          flex-direction: column;
-        }
-
-        .venue-column-half {
-          min-width: 100%;
-        }
-      }
+    }
 
     /* //why telengana css */
 
@@ -1804,7 +1757,7 @@
         }
 
         .container-venue {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             position: relative;
             z-index: 1;
@@ -2136,17 +2089,11 @@
       <!-- HEADER
 			============================================= -->
       <header id="header" class="header">
-        <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-tra">
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white">
           <div class="container-fluid">
             <!-- LOGO IMAGE -->
             <!-- Recommended sizes for Retina Ready displays is 310x60px; -->
-            <a href="#hero-2" class="navbar-brand logo-white"
-              ><img
-                src="images/logo.png"
-                width="250"
-                height="60"
-                alt="header-logo"
-            /></a>
+         
             <a href="#hero-2" class="navbar-brand logo-black"
               ><img
                 src="images/logo.png"
@@ -2198,10 +2145,10 @@
                   <a class="nav-link" href="#whyAttend">Why Attend?</a>
                 </li>
                 <li class="nav-item nl-simple">
-                  <a class="nav-link" href="#schedule">conference schedule </a>
+                  <a class="nav-link" href="#schedule">Conference Schedule </a>
                 </li>
                 <li class="nav-item nl-simple">
-                  <a class="nav-link" href="#sponsors-1">Sponsers</a>
+                  <a class="nav-link" href="#sponsors-1">Sponsors </a>
                 </li>
                 <li class="nav-item nl-simple">
                   <a class="nav-link" href="#media-3"
@@ -2256,6 +2203,8 @@
           </div>
         </div>
         <!-- End container -->
+        <!-- Overlay for better text visibility -->
+        <div class="hero-overlay"></div>
       </section>
       <!-- END HERO-2 -->
       <!-- BANNER-1
@@ -2268,7 +2217,7 @@
               <div class="banner-txt p-right-30">
                 <!-- Title -->
                 <h4 class="h4-small">We are</h4>
-                <h3>Comming soon</h3>
+                <h3>Coming soon</h3>
 
                 <!-- Text -->
                 <p>
@@ -2290,6 +2239,27 @@
       </section>
 
       <!-- END BANNER-1 -->
+
+      <style>
+        .hero-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.574);
+          z-index: 1;
+        }
+        
+        .hero-section {
+          position: relative;
+        }
+        
+        .hero-section .container {
+          position: relative;
+          z-index: 2;
+        }
+      </style>
 
       <!-- ABOUT-3
 			============================================= -->
@@ -2709,6 +2679,115 @@
         });
       </script>
 
+         <!-- Opportunities Section -->
+      <section class="opportunities-section">
+        <div class="container">
+          <h2 class="section-title text-start">
+            Opportunities for Global Companies
+          </h2>
+          <p class="lead text-center mb-5">
+            India International Mine Expo 2026 will encompass the entire
+            spectrum of Mines, Minerals, Coal, Steel, Heavy, and Downstream
+            Industries and envisioned as a truly Global Platform, bringing
+            together resource-rich countries and industrial powerhouses.
+          </p>
+
+          <div class="row">
+            <div class="col-12 mb-4">
+              <h4 class="mb-3">
+                <i class="fas fa-globe-americas"></i> Participating Regions
+              </h4>
+              <div class="region-list">
+                <span
+                  class="region-tag active"
+                  data-map="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d61999672.01387872!2d51.13914637574331!3d-3.778978938886369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2b2bfd076787c5df%3A0x538267a1955b1352!2sAustralia!5e1!3m2!1sen!2sin!4v1761812439611!5m2!1sen!2sin"
+                  >Australia</span
+                >
+
+                <span
+                  class="region-tag"
+                  data-map="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d27097462.497840457!2d-130.23225611678046!3d-29.282847260252282!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1c34a689d9ee1251%3A0xe85d630c1fa4e8a0!2sSouth%20Africa!5e1!3m2!1sen!2sin!4v1761812412478!5m2!1sen!2sin"
+                  >South Africa</span
+                >
+
+                <span
+                  class="region-tag"
+                  data-map="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d27097462.497840457!2d-130.23225611678046!3d-29.282847260252282!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662c5410425af2f%3A0x505e1131102b91d!2sChile!5e1!3m2!1sen!2sin!4v1761812390626!5m2!1sen!2sin"
+                  >Chile</span
+                >
+
+                <span
+                  class="region-tag"
+                  data-map="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30219926.81420294!2d-73.16447107577312!3d-13.413332832511053!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9c59c7ebcc28cf%3A0x295a1506f2293e63!2sBrazil!5e1!3m2!1sen!2sin!4v1761812314853!5m2!1sen!2sin"
+                  >Brazil</span
+                >
+
+                <span
+                  class="region-tag"
+                  data-map="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d40905909.78940605!2d-135.5378995672093!3d48.8264772057962!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4b0d03d337cc6ad9%3A0x9968b72aa2438fa5!2sCanada!5e1!3m2!1sen!2sin!4v1761812353739!5m2!1sen!2sin"
+                  >Canada</span
+                >
+
+                <span
+                  class="region-tag"
+                  data-map="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10717037.637332318!2d93.2678966485313!3d46.37605841570914!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3627050669aa6d4b%3A0xe0dd213937e6e096!2sMongolia!5e1!3m2!1sen!2sin!4v1761812272727!5m2!1sen!2sin"
+                  >Mongolia</span
+                >
+
+                <span
+                  class="region-tag"
+                  data-map="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d61999672.01387872!2d51.13914637574331!3d-3.778978938886369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2c4c07d7496404b7%3A0xe37b4de71badf485!2sIndonesia!5e1!3m2!1sen!2sin!4v1761812466669!5m2!1sen!2sin"
+                  >Indonesia</span
+                >
+              </div>
+
+              <!-- Map display area (below tags) -->
+              <div class="country-map-display mt-4">
+                <iframe
+                  id="main-country-map"
+                  width="100%"
+                  height="600"
+                  frameborder="0"
+                  style="border: 0; border-radius: 8px"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d61999672.01387872!2d51.13914637574331!3d-3.778978938886369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2b2bfd076787c5df%3A0x538267a1955b1352!2sAustralia!5e1!3m2!1sen!2sin!4v1761812439611!5m2!1sen!2sin"
+                  allowfullscreen
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"
+                >
+                </iframe>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col-lg-6">
+              <div class="opportunity-item">
+                <i class="fas fa-leaf"></i> Exchange of best practices in
+                Sustainable & Green Mining
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="opportunity-item">
+                <i class="fas fa-microchip"></i> Showcasing of Cutting-Edge
+                Technologies
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="opportunity-item">
+                <i class="fas fa-chart-bar"></i> Exploration of Strategic Trade
+                & Investment Opportunities
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="opportunity-item">
+                <i class="fas fa-battery-full"></i> Collaborations in Critical
+                Minerals for Energy Transition
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section id="whyAttend" class="why-attend-section">
         <div class="container">
           <div>
@@ -2748,7 +2827,7 @@
               <!-- Card 1 -->
               <div class="feature-card">
                 <div class="feature-icon">
-                  <i class="fas fa-handshake"></i>
+                  <img src="images/Engage with Policy Makers.png" width="50" alt="Engage with Policy Makers">
                 </div>
                 <h4>Engage with Policy Makers</h4>
                 <p>
@@ -2759,7 +2838,7 @@
               <!-- Card 2 -->
               <div class="feature-card">
                 <div class="feature-icon">
-                  <i class="fas fa-network-wired"></i>
+                  <img src="images/Network with Industry Leaders.png" width="50" alt="Network with Industry Leaders">
                 </div>
                 <h4>Network with Industry Leaders</h4>
                 <p>CEOs, Decision-Makers, and Innovators under one roof.</p>
@@ -2768,7 +2847,7 @@
               <!-- Card 3 -->
               <div class="feature-card">
                 <div class="feature-icon">
-                  <i class="fas fa-lightbulb"></i>
+                  <img src="images/Showcase Innovation.png" width="50" alt="Showcase Innovation">
                 </div>
                 <h4>Showcase Innovation</h4>
                 <p>
@@ -2779,7 +2858,7 @@
               <!-- Card 4 -->
               <div class="feature-card">
                 <div class="feature-icon">
-                  <i class="fas fa-chart-line"></i>
+                  <img src="images/Explore Opportunities.png" width="50" alt="Investment & Collaboration">
                 </div>
                 <h4>Explore Opportunities</h4>
                 <p>
@@ -2791,7 +2870,7 @@
               <!-- Card 5 -->
               <div class="feature-card">
                 <div class="feature-icon">
-                  <i class="fas fa-graduation-cap"></i>
+                  <img src="images/Gain Insights.png" width="50" alt="Gain Insights">
                 </div>
                 <h4>Gain Insights</h4>
                 <p>
@@ -2956,7 +3035,7 @@
             <div class="attendee-card">
               <div class="attendee-count">1</div>
               <div class="attendee-icon">
-                <i class="fas fa-landmark"></i>
+               <img src="images/Government & Policy Makers.png" width="50" alt="Government & Policy Makers">
               </div>
               <h3>Government & Policy Makers</h3>
               <p>
@@ -2968,7 +3047,7 @@
             <div class="attendee-card">
               <div class="attendee-count">2</div>
               <div class="attendee-icon">
-                <i class="fas fa-industry"></i>
+                <img src="images/Coal & Mineral Producers.png" width="50" alt="Coal & Mineral Producers">
               </div>
               <h3>Coal & Mineral Producers</h3>
               <p>
@@ -2980,7 +3059,7 @@
             <div class="attendee-card">
               <div class="attendee-count">3</div>
               <div class="attendee-icon">
-                <i class="fas fa-cogs"></i>
+                <img src="images/Heavy Industry Manufacturers.png" width="50" alt="Heavy Industry Manufacturers">
               </div>
               <h3>Heavy Industry Manufacturers</h3>
               <p>
@@ -2992,7 +3071,7 @@
             <div class="attendee-card">
               <div class="attendee-count">4</div>
               <div class="attendee-icon">
-                <i class="fas fa-laptop-code"></i>
+                <img src="images/Technology Providers.png" width="50" alt="Technology Providers">
               </div>
               <h3>Technology Providers</h3>
               <p>
@@ -3004,7 +3083,7 @@
             <div class="attendee-card">
               <div class="attendee-count">5</div>
               <div class="attendee-icon">
-                <i class="fas fa-globe"></i>
+               <img src="images/International Trade Delegations.png" width="50" alt="International Trade Delegations">
               </div>
               <h3>International Trade Delegations</h3>
               <p>
@@ -3016,7 +3095,7 @@
             <div class="attendee-card">
               <div class="attendee-count">6</div>
               <div class="attendee-icon">
-                <i class="fas fa-dollar-sign"></i>
+                <img src="images/Investors & Financial Institutions.png" width="50" alt="Investors & Financial Institutions">
               </div>
               <h3>Investors & Financial Institutions</h3>
               <p>
@@ -3027,7 +3106,7 @@
             <div class="attendee-card">
               <div class="attendee-count">7</div>
               <div class="attendee-icon">
-                <i class="fas fa-university"></i>
+                <img src="images/Academia & Research.png" width="50" alt="Academia & Research">
               </div>
               <h3>Academia & Research</h3>
               <p>
@@ -3039,7 +3118,7 @@
             <div class="attendee-card">
               <div class="attendee-count">8</div>
               <div class="attendee-icon">
-                <i class="fas fa-star"></i>
+                <img src="images/Global Leaders.png" width="50" alt="Global Leaders">
               </div>
               <h3>Global Leaders</h3>
               <p>
@@ -3072,114 +3151,7 @@
         </div>
       </section>
 
-      <!-- Opportunities Section -->
-      <section class="opportunities-section">
-        <div class="container">
-          <h2 class="section-title text-start">
-            Opportunities for Global Companies
-          </h2>
-          <p class="lead text-center mb-5">
-            India International Mine Expo 2026 will encompass the entire
-            spectrum of Mines, Minerals, Coal, Steel, Heavy, and Downstream
-            Industries and envisioned as a truly Global Platform, bringing
-            together resource-rich countries and industrial powerhouses.
-          </p>
-
-          <div class="row">
-            <div class="col-12 mb-4">
-              <h4 class="mb-3">
-                <i class="fas fa-globe-americas"></i> Participating Regions
-              </h4>
-              <div class="region-list">
-                <span
-                  class="region-tag active"
-                  data-map="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d61999672.01387872!2d51.13914637574331!3d-3.778978938886369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2b2bfd076787c5df%3A0x538267a1955b1352!2sAustralia!5e1!3m2!1sen!2sin!4v1761812439611!5m2!1sen!2sin"
-                  >Australia</span
-                >
-
-                <span
-                  class="region-tag"
-                  data-map="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d27097462.497840457!2d-130.23225611678046!3d-29.282847260252282!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1c34a689d9ee1251%3A0xe85d630c1fa4e8a0!2sSouth%20Africa!5e1!3m2!1sen!2sin!4v1761812412478!5m2!1sen!2sin"
-                  >South Africa</span
-                >
-
-                <span
-                  class="region-tag"
-                  data-map="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d27097462.497840457!2d-130.23225611678046!3d-29.282847260252282!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662c5410425af2f%3A0x505e1131102b91d!2sChile!5e1!3m2!1sen!2sin!4v1761812390626!5m2!1sen!2sin"
-                  >Chile</span
-                >
-
-                <span
-                  class="region-tag"
-                  data-map="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30219926.81420294!2d-73.16447107577312!3d-13.413332832511053!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9c59c7ebcc28cf%3A0x295a1506f2293e63!2sBrazil!5e1!3m2!1sen!2sin!4v1761812314853!5m2!1sen!2sin"
-                  >Brazil</span
-                >
-
-                <span
-                  class="region-tag"
-                  data-map="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d40905909.78940605!2d-135.5378995672093!3d48.8264772057962!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4b0d03d337cc6ad9%3A0x9968b72aa2438fa5!2sCanada!5e1!3m2!1sen!2sin!4v1761812353739!5m2!1sen!2sin"
-                  >Canada</span
-                >
-
-                <span
-                  class="region-tag"
-                  data-map="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10717037.637332318!2d93.2678966485313!3d46.37605841570914!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3627050669aa6d4b%3A0xe0dd213937e6e096!2sMongolia!5e1!3m2!1sen!2sin!4v1761812272727!5m2!1sen!2sin"
-                  >Mongolia</span
-                >
-
-                <span
-                  class="region-tag"
-                  data-map="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d61999672.01387872!2d51.13914637574331!3d-3.778978938886369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2c4c07d7496404b7%3A0xe37b4de71badf485!2sIndonesia!5e1!3m2!1sen!2sin!4v1761812466669!5m2!1sen!2sin"
-                  >Indonesia</span
-                >
-              </div>
-
-              <!-- Map display area (below tags) -->
-              <div class="country-map-display mt-4">
-                <iframe
-                  id="main-country-map"
-                  width="100%"
-                  height="600"
-                  frameborder="0"
-                  style="border: 0; border-radius: 8px"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d61999672.01387872!2d51.13914637574331!3d-3.778978938886369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2b2bfd076787c5df%3A0x538267a1955b1352!2sAustralia!5e1!3m2!1sen!2sin!4v1761812439611!5m2!1sen!2sin"
-                  allowfullscreen
-                  loading="lazy"
-                  referrerpolicy="no-referrer-when-downgrade"
-                >
-                </iframe>
-              </div>
-            </div>
-          </div>
-
-          <div class="row mt-4">
-            <div class="col-lg-6">
-              <div class="opportunity-item">
-                <i class="fas fa-leaf"></i> Exchange of best practices in
-                Sustainable & Green Mining
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="opportunity-item">
-                <i class="fas fa-microchip"></i> Showcasing of Cutting-Edge
-                Technologies
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="opportunity-item">
-                <i class="fas fa-chart-bar"></i> Exploration of Strategic Trade
-                & Investment Opportunities
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="opportunity-item">
-                <i class="fas fa-battery-full"></i> Collaborations in Critical
-                Minerals for Energy Transition
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+   
 
       <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -3248,7 +3220,7 @@
             <div class="col-lg-6">
               <div class="hyderabad-image-container">
                 <img
-                  src="images/30.jpg"
+                  src="images/65.jpg"
                   alt="Hyderabad - India's Mining Hub"
                   class="img-fluid rounded shadow-lg"
                 />
@@ -3877,7 +3849,7 @@
             <div class="col-lg-4 col-md-6 mb-4">
               <div class="track-card">
                 <div class="track-icon">
-                  <i class="fas fa-leaf"></i>
+                  <img src="images/Sustainable Mining Practices & ESG Compliance.png" width="50" alt="Sustainable Mining Practices & ESG Compliance">
                 </div>
                 <h5>Sustainable Mining Practices & ESG Compliance</h5>
                 <p>
@@ -3890,7 +3862,7 @@
             <div class="col-lg-4 col-md-6 mb-4">
               <div class="track-card">
                 <div class="track-icon">
-                  <i class="fas fa-cogs"></i>
+                 <img src="images/Mining Equipment Innovation & Automation.png" width="50" alt="Mining Equipment Innovation & Automation">
                 </div>
                 <h5>Mining Equipment Innovation & Automation</h5>
                 <p>
@@ -3903,7 +3875,7 @@
             <div class="col-lg-4 col-md-6 mb-4">
               <div class="track-card">
                 <div class="track-icon">
-                  <i class="fas fa-robot"></i>
+                  <img src="images/Digital Mining & Smart Mines.png" width="50" alt="Robotics & AI">
                 </div>
                 <h5>Digital Mining & Smart Mines</h5>
                 <p>
@@ -3916,7 +3888,7 @@
             <div class="col-lg-4 col-md-6 mb-4">
               <div class="track-card">
                 <div class="track-icon">
-                  <i class="fas fa-map-marked-alt"></i>
+                  <img src="images/Exploration & Resource Management.png" width="50" alt="Exploration & Resource Management">
                 </div>
                 <h5>Exploration & Resource Management</h5>
                 <p>
@@ -3929,7 +3901,7 @@
             <div class="col-lg-4 col-md-6 mb-4">
               <div class="track-card">
                 <div class="track-icon">
-                  <i class="fas fa-hard-hat"></i>
+                  <img src="images/Mining Safety & Workforce Development.png" width="50" alt="Mining Safety & Workforce Development">
                 </div>
                 <h5>Mining Safety & Workforce Development</h5>
                 <p>
@@ -3942,7 +3914,7 @@
             <div class="col-lg-4 col-md-6 mb-4">
               <div class="track-card">
                 <div class="track-icon">
-                  <i class="fas fa-hands-helping"></i>
+                  <img src="images/Environmental Rehabilitation & Community Engagement.png" width="50" alt="Environmental Rehabilitation & Community Engagement">
                 </div>
                 <h5>Environmental Rehabilitation & Community Engagement</h5>
                 <p>
@@ -4021,12 +3993,12 @@
             <div class="col-lg-5">
               <div class="exhibition-images">
                 <img
-                  src="https://images.unsplash.com/photo-1581094271901-8022df4466f9?w=800&h=500&fit=crop"
+                  src="images/30.jpg"
                   alt="Mining Equipment"
                   class="img-fluid mb-3"
                 />
                 <img
-                  src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800&h=500&fit=crop"
+                  src="images/16.jpg"
                   alt="Mining Truck"
                   class="img-fluid"
                 />
@@ -4101,7 +4073,7 @@
         <div class="container">
           <div class="row">
             <div class="col-md-10 col-lg-8 section-title">
-              <span class="section-id">Event Sponsors</span>
+              <!-- <span class="section-id">Event Sponsors</span> -->
               <h2 class="banner-regular">Our Sponsors & Partners</h2>
             </div>
           </div>
@@ -4133,7 +4105,7 @@
       <section class="venue-section">
         <div class="container-venue">
             <div class="section-header">
-                <span class="section-id">Why Hyderabad & Telangana?</span>
+                <span class="section-id" style="font-size: 24px;">Why Hyderabad & Telangana?</span>
             </div>
 
             <div class="content-wrapper">
@@ -4175,6 +4147,14 @@
                 <div class="image-content">
                     <div class="venue-preview">
                         <img src="https://images.unsplash.com/photo-1582510003544-4d00b7f74220?w=800&h=1000&fit=crop" alt="Hyderabad Cityscape">
+                        <div class="image-overlay">
+                            <h4>Hyderabad</h4>
+                            <p>Gateway to India's Mining & Industrial Future</p>
+                        </div>
+                        <div class="decorative-border"></div>
+                    </div>
+                    <div class="venue-preview mt-5">
+                        <img src="images/32.jpg" alt="Hyderabad Cityscape">
                         <div class="image-overlay">
                             <h4>Hyderabad</h4>
                             <p>Gateway to India's Mining & Industrial Future</p>
@@ -4263,90 +4243,58 @@
         </div>
        
       </section> -->
-
-      <div class="venue-transport-section">
-        <div class="venue-row-wrapper">
-          <!-- HITEX VENUE -->
-          <div class="venue-column-half">
-            <div class="venue-card-wrapper">
-              <div class="venue-location-pin-icon">📍</div>
-
-              <!-- Title -->
-              <h4 class="venue-title-heading">Venue – HITEX</h4>
-
-              <!-- Text -->
-              <p class="venue-description-text">
-                Established in 2003, Hyderabad International Trade Expositions
-                Limited, also known as HITEX, was created with the vision of
-                providing a world-class facility for organizing events,
-                exhibitions, conferences, live shows and trade fairs. Located in
-                the heart of Hyderabad, India, HITEX is a premier MICE
-                destination and has hosted 1500+ national and international
-                events and expositions over the years, as well as its own
-                initiatives to promote trade and commerce in the region. With a
-                decade of experience and success, HITEX is committed to
-                continually upholding and improving standards and best
-                practices.
-              </p>
-
-              <!-- Map Container (appears on hover) -->
-              <div class="venue-map-overlay">
-                <div class="venue-map-header-info">
-                  <span class="venue-map-title-text">HITEX Location</span>
-                  <span class="venue-map-close-hint">Move away to close</span>
-                </div>
-                <iframe
-                  class="venue-map-iframe"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3617.468087000874!2d78.37400377493674!3d17.470496983430937!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb922d7708a939%3A0x6608389e21aa1310!2sHITEX!5e1!3m2!1sen!2sin!4v1762323476385!5m2!1sen!2sin"
-                 
-                  allowfullscreen=""
-                  loading="lazy"
-                >
-                </iframe>
-
-              </div>
-            </div>
-          </div>
-
-          <!-- HICC VENUE -->
-          <div class="venue-column-half">
-            <div class="venue-card-wrapper">
-              <div class="venue-location-pin-icon">📍</div>
-
-              <!-- Title -->
-              <h4 class="venue-title-heading">Venue – HICC</h4>
-
-              <!-- Text -->
-              <p class="venue-description-text">
-                Hyderabad International Convention Centre (HICC) is managed by
-                Accor, one of the world's leading hotel operators, and is
-                jointly owned by Emaar Properties PJSC Dubai and Telangana State
-                Industrial Infrastructure Corporation Ltd. HICC is a
-                purpose-built, state-of-the-art convention facility, the
-                first-of-its-kind and the best standalone convention centre in
-                South Asia. It features an internal hall measuring 6,480 square
-                meters that can be partitioned into six smaller halls.
-              </p>
-
-              <!-- Map Container (appears on hover) -->
-              <div class="venue-map-overlay">
-                <div class="venue-map-header-info">
-                  <span class="venue-map-title-text">HICC Location</span>
-                  <span class="venue-map-close-hint">Move away to close</span>
-                </div>
-                <iframe
-                  class="venue-map-iframe"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3805.777339856773!2d78.38313731487634!3d17.486995488027805!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb9158f7777777%3A0x2222222222222222!2sHyderabad%20International%20Convention%20Centre!5e0!3m2!1sen!2sin!4v1234567890123!5m2!1sen!2sin"
-                  allowfullscreen=""
-                  loading="lazy"
-                >
-                </iframe>
-              </div>
-            </div>
-          </div>
+ <div class="venue-transport-section">
+    <h2 class="venu-section-title">📍 Our Venues</h2>
+    
+    <div class="venue-row-wrapper">
+      <!-- HITEX VENUE -->
+      <div class="venue-card-wrapper">
+        <div class="venue-location-pin-icon">📍</div>
+        <h4 class="venue-title-heading">Venue – HITEX</h4>
+        <p class="venue-description-text">
+          Established in 2003, Hyderabad International Trade Expositions
+          Limited, also known as HITEX, was created with the vision of
+          providing a world-class facility for organizing events,
+          exhibitions, conferences, live shows and trade fairs. Located in
+          the heart of Hyderabad, India, HITEX is a premier MICE
+          destination and has hosted 1500+ national and international
+          events and expositions over the years.
+        </p>
+        <div class="map-container">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3617.468087000874!2d78.37400377493674!3d17.470496983430937!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb922d7708a939%3A0x6608389e21aa1310!2sHITEX!5e1!3m2!1sen!2sin!4v1762323476385!5m2!1sen!2sin" 
+            allowfullscreen="" 
+            loading="lazy"
+            style="border:0;"
+            referrerpolicy="no-referrer-when-downgrade"
+            >
+          </iframe>
         </div>
       </div>
 
+      <!-- HICC VENUE -->
+      <div class="venue-card-wrapper">
+        <div class="venue-location-pin-icon">📍</div>
+        <h4 class="venue-title-heading">Venue – HICC</h4>
+        <p class="venue-description-text">
+          Hyderabad International Convention Centre (HICC) is managed by
+          Accor, one of the world's leading hotel operators, and is
+          jointly owned by Emaar Properties PJSC Dubai and Telangana State
+          Industrial Infrastructure Corporation Ltd. HICC is a
+          purpose-built, state-of-the-art convention facility, the
+          first-of-its-kind and the best standalone convention centre in
+          South Asia.
+        </p>
+        <div class="map-container">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3805.777339856773!2d78.38313731487634!3d17.486995488027805!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb9158f7777777%3A0x2222222222222222!2sHyderabad%20International%20Convention%20Centre!5e0!3m2!1sen!2sin!4v1234567890123!5m2!1sen!2sin" 
+            allowfullscreen="" 
+            loading="lazy">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </div>
       <!-- FOOTER-1
 			============================================= -->
       <footer id="footer-1" class="bg-lightgrey footer division">

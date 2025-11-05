@@ -74,7 +74,7 @@ export function Hero() {
                   className="object-cover transition-transform duration-300 hover:scale-105"
                   sizes="(max-width: 1024px) 100vw, 66vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
                 <div className="absolute top-4 left-4">
                   <span className="bg-[#FCCD04] text-black px-3 py-1 text-xs font-semibold uppercase tracking-wide">
                     {mainStory.category || 'NEWS'}
@@ -107,7 +107,7 @@ export function Hero() {
                       className="object-cover transition-transform duration-300 group-hover:scale-105"
                       sizes="(max-width: 1024px) 100vw, 33vw"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
                     <div className="absolute top-3 left-3">
                       <span className="bg-[#FCCD04] text-black px-2 py-1 text-xs font-semibold uppercase tracking-wide">
                         {story.category || 'NEWS'}
