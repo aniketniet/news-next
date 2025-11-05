@@ -24,7 +24,7 @@ export default function Section({ title, items, columns }: { title: string; item
               />
             </a>
             <div className="mt-2">
-              <span className="inline-block rounded bg-yellow-400 px-2 py-0.5 text-[10px] font-semibold text-black">
+              <span className="inline-block rounded bg-[#1a59a9] px-2 py-0.5 text-[10px] font-semibold text-black">
                 {it.tag}
               </span>
               <h3 className="mt-1 text-sm font-semibold leading-snug hover:underline">

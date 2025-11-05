@@ -26,7 +26,7 @@ export function VideosSection({ videos }: VideosSectionProps) {
           Videos
         </h2>
            <div className="mt-2 h-1 w-full bg-gray-200 rounded">
-            <div className="h-full bg-[#FCCD04] rounded" style={{ width: '20%' }} />
+            <div className="h-full bg-[#1a59a9] rounded" style={{ width: '20%' }} />
           </div>
       </div>
 
@@ -69,7 +69,7 @@ export function VideosSection({ videos }: VideosSectionProps) {
               <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 to-transparent">
                 <div className="mb-2">
                   <span className="bg-black/70 text-white text-xs px-2 py-1 rounded flex items-center gap-1 w-fit">
-                    <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                    <div className="w-2 h-2 bg-[#1a59a9] rounded-full"></div>
                     {featuredVideo.duration}
                   </span>
                 </div>

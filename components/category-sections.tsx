@@ -28,21 +28,21 @@ export function CategorySections({
         <CategorySection
           title="Entertainment"
           stories={entertainment}
-          accentColor="bg-yellow-400"
+          accentColor="bg-[#1a59a9]"
         />
 
         {/* Travel Section */}
         <CategorySection
           title="Travel"
           stories={travel}
-          accentColor="bg-yellow-400"
+          accentColor="bg-[#1a59a9]"
         />
 
         {/* Food & Wellness Section */}
         <CategorySection
           title="Food & Wellness"
           stories={foodWellness}
-          accentColor="bg-yellow-400"
+          accentColor="bg-[#1a59a9]"
         />
       </div>
     </section>

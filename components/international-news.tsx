@@ -19,7 +19,7 @@ type InternationalNewsProps = {
 }
 
 const countries = [
-  { id: "USA", label: "USA", color: "bg-yellow-400" },
+  { id: "USA", label: "USA", color: "bg-[#1a59a9]" },
   { id: "China", label: "China", color: "bg-gray-200" },
   { id: "UK", label: "UK", color: "bg-gray-200" },
   { id: "Europe", label: "Europe", color: "bg-gray-200" },

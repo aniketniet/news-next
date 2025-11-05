@@ -47,7 +47,7 @@ export function NewsCard({
       </Link>
       <div className={cn("pt-2", compact ? "space-y-1" : "space-y-2")}>
         {category ? (
-          <span className="inline-flex items-center text-[10px] uppercase tracking-wide font-bold bg-yellow-400 text-black px-1.5 py-0.5 rounded">
+          <span className="inline-flex items-center text-[10px] uppercase tracking-wide font-bold bg-[#1a59a9] text-black px-1.5 py-0.5 rounded">
             {category}
           </span>
         ) : null}

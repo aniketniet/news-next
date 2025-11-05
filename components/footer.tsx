@@ -91,7 +91,7 @@ export function SiteFooter() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-6xl mx-auto">
           {cols.map((col) => (
             <nav key={col.title} aria-label={col.title} className="space-y-4">
-              <h4 className="text-lg font-bold text-white border-b-2 border-yellow-400 pb-1 inline-block">
+              <h4 className="text-lg font-bold text-white border-b-2 border-[#1a59a9] pb-1 inline-block">
                 {col.title}
               </h4>
               <ul className="space-y-2">
@@ -99,7 +99,7 @@ export function SiteFooter() {
                   <li key={item}>
                     <Link
                       href={getItemHref(col.title, item)}
-                      className="text-sm text-gray-300 hover:text-yellow-400 transition-colors duration-200"
+                      className="text-sm text-gray-300 hover:text-[#1a59a9] transition-colors duration-200"
                       prefetch={false}
                     >
                       {item}

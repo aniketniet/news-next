@@ -398,7 +398,7 @@ export default async function HomePage() {
     <div className="min-h-screen bg-white">
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-yellow-400 text-black px-2 py-1 rounded"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-[#1a59a9] text-black px-2 py-1 rounded"
       >
         Skip to content
       </a>
@@ -435,7 +435,7 @@ export default async function HomePage() {
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
                       <div className="absolute bottom-4 left-4 right-4 text-white">
-                        <span className="inline-flex items-center text-[10px] uppercase tracking-wide font-bold bg-yellow-400 text-black px-2 py-1 rounded mb-2">
+                        <span className="inline-flex items-center text-[10px] uppercase tracking-wide font-bold bg-[#1a59a9] text-white px-2 py-1 rounded mb-2">
                           {story.category || "NEWS"}
                         </span>
                         <h3 className="text-lg font-bold leading-tight mb-2">

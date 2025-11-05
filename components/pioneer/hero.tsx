@@ -18,7 +18,7 @@ export default function Hero({ lead, side }: { lead: Card; side: Card[] }) {
             />
           </a>
           <div className="mt-3">
-            <span className="inline-block  bg-yellow-400 px-2 py-0.5 text-xs font-medium text-black">
+            <span className="inline-block  bg-[#1a59a9] px-2 py-0.5 text-xs font-medium text-black">
               {lead.tag}
             </span>
             <h3 className="mt-2 text-pretty text-2xl font-bold leading-snug hover:underline">
@@ -39,7 +39,7 @@ export default function Hero({ lead, side }: { lead: Card; side: Card[] }) {
                 />
               </a>
               <div className="col-span-2">
-                <span className="inline-block rounded bg-yellow-400 px-2 py-0.5 text-[10px] font-semibold text-black">
+                <span className="inline-block rounded bg-[#1a59a9] px-2 py-0.5 text-[10px] font-semibold text-black">
                   {s.tag}
                 </span>
                 <h4 className="mt-1 text-sm font-semibold leading-snug hover:underline">

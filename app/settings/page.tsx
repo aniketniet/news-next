@@ -52,7 +52,7 @@ export default function SettingsPage() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-400 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1a59a9] mx-auto mb-4"></div>
           <p className="text-gray-600">Loading...</p>
         </div>
       </div>
@@ -67,7 +67,7 @@ export default function SettingsPage() {
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="bg-white rounded-lg shadow-lg overflow-hidden">
           {/* Settings Header */}
-          <div className="bg-gradient-to-r from-yellow-400 to-yellow-500 px-6 py-8">
+          <div className="bg-gradient-to-r from-[#1a59a9] to-yellow-500 px-6 py-8">
             <div className="flex items-center space-x-6">
               <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center text-yellow-600 font-bold text-2xl shadow-lg">
                 <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -119,7 +119,7 @@ export default function SettingsPage() {
                     <button
                       onClick={() => setEmailNotifications(!emailNotifications)}
                       className={`relative inline-flex h-6 w-11 items-center rounded-full ${
-                        emailNotifications ? 'bg-yellow-400' : 'bg-gray-200'
+                        emailNotifications ? 'bg-[#1a59a9]' : 'bg-gray-200'
                       }`}
                     >
                       <span
@@ -138,7 +138,7 @@ export default function SettingsPage() {
                     <button
                       onClick={() => setPushNotifications(!pushNotifications)}
                       className={`relative inline-flex h-6 w-11 items-center rounded-full ${
-                        pushNotifications ? 'bg-yellow-400' : 'bg-gray-200'
+                        pushNotifications ? 'bg-[#1a59a9]' : 'bg-gray-200'
                       }`}
                     >
                       <span
@@ -157,7 +157,7 @@ export default function SettingsPage() {
                     <button
                       onClick={() => setNewsletterSubscription(!newsletterSubscription)}
                       className={`relative inline-flex h-6 w-11 items-center rounded-full ${
-                        newsletterSubscription ? 'bg-yellow-400' : 'bg-gray-200'
+                        newsletterSubscription ? 'bg-[#1a59a9]' : 'bg-gray-200'
                       }`}
                     >
                       <span
@@ -182,7 +182,7 @@ export default function SettingsPage() {
                     <button
                       onClick={() => setDarkMode(!darkMode)}
                       className={`relative inline-flex h-6 w-11 items-center rounded-full ${
-                        darkMode ? 'bg-yellow-400' : 'bg-gray-200'
+                        darkMode ? 'bg-[#1a59a9]' : 'bg-gray-200'
                       }`}
                     >
                       <span
@@ -198,7 +198,7 @@ export default function SettingsPage() {
                     <select
                       value={language}
                       onChange={(e) => setLanguage(e.target.value)}
-                      className="w-full max-w-xs px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
+                      className="w-full max-w-xs px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1a59a9] focus:border-transparent"
                     >
                       <option value="english">English</option>
                       <option value="hindi">Hindi</option>
@@ -263,7 +263,7 @@ export default function SettingsPage() {
             <div className="flex items-center justify-between pt-8 border-t border-gray-200 mt-8">
               <button
                 onClick={handleSaveSettings}
-                className="bg-yellow-400 hover:bg-yellow-500 text-black px-6 py-3 rounded-lg font-medium transition-colors flex items-center gap-2"
+                className="bg-[#1a59a9] hover:bg-yellow-500 text-black px-6 py-3 rounded-lg font-medium transition-colors flex items-center gap-2"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />

@@ -21,7 +21,7 @@ type CategorySectionProps = {
 export function CategorySection({ 
   title, 
   stories, 
-  accentColor = "bg-[#FCCD04]" 
+  accentColor = "bg-[#1a59a9]" 
 }: CategorySectionProps) {
   const featuredStory = stories.find(story => story.featured) || stories[0]
   const secondaryStories = stories.filter(story => !story.featured).slice(0, 4)
@@ -33,7 +33,7 @@ export function CategorySection({
           {title}
         </h2>
            <div className="mt-2 h-1 w-full bg-gray-200 rounded">
-            <div className="h-full bg-[#FCCD04] rounded" style={{ width: '20%' }} />
+            <div className="h-full bg-[#1a59a9] rounded" style={{ width: '20%' }} />
           </div>
       </div>
 
@@ -55,7 +55,7 @@ export function CategorySection({
                 <span className={`inline-flex items-center text-xs uppercase tracking-wide font-bold ${accentColor} text-black px-2 py-1 rounded mb-2`}>
                   {featuredStory.category}
                 </span>
-                <h3 className="text-xl font-bold leading-tight mb-2 group-hover:text-[#FCCD04] transition-colors">
+                <h3 className="text-xl font-bold leading-tight mb-2 group-hover:text-[#1a59a9] transition-colors">
                   {featuredStory.title}
                 </h3>
                 <p className="text-sm opacity-90">

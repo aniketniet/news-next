@@ -23,15 +23,15 @@ export function TechnologySection({ stories }: TechnologySectionProps) {
           Technology
         </h2>
            <div className="mt-2 h-1 w-full bg-gray-200 rounded">
-            <div className="h-full bg-[#FCCD04] rounded" style={{ width: '20%' }} />
+            <div className="h-full bg-[#1a59a9] rounded" style={{ width: '20%' }} />
           </div>
         {/* <div className="flex items-center gap-4">
           <input
             type="email"
             placeholder="Your email address"
-            className="px-3 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-yellow-400 focus:border-yellow-400"
+            className="px-3 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-[#1a59a9] focus:border-[#1a59a9]"
           />
-          <button className="px-4 py-1 bg-yellow-400 text-black text-sm font-semibold rounded hover:bg-yellow-500 transition-colors">
+          <button className="px-4 py-1 bg-[#1a59a9] text-black text-sm font-semibold rounded hover:bg-yellow-500 transition-colors">
             SIGN UP
           </button>
         </div> */}
@@ -53,12 +53,12 @@ export function TechnologySection({ stories }: TechnologySectionProps) {
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="inline-block px-2 py-1 text-xs font-semibold text-white bg-[#FCCD04] rounded">
+                    <span className="inline-block px-2 py-1 text-xs font-semibold text-white bg-[#1a59a9] rounded">
                       {story.category}
                     </span>
                     <span className="text-xs text-gray-500">{story.date}</span>
                   </div>
-                  <h3 className="font-bold text-gray-900 group-hover:text-[#FCCD04] transition-colors duration-200 line-clamp-2 mb-2">
+                  <h3 className="font-bold text-gray-900 group-hover:text-[#1a59a9] transition-colors duration-200 line-clamp-2 mb-2">
                     {story.title}
                   </h3>
                   <p className="text-sm text-gray-600 line-clamp-2">

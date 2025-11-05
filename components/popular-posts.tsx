@@ -15,7 +15,7 @@ export function PopularPosts({ top, limit = 6, offset = 0 }: PopularPostsProps) 
       <div className="px-3 py-2">
         <h3 className="font-semibold text-lg">Popular Post</h3>
         <div className="mt-2 h-1 w-full bg-gray-200 rounded">
-          <div className="h-full bg-[#FCCD04] rounded" style={{ width: '20%' }} />
+          <div className="h-full bg-[#1a59a9] rounded" style={{ width: '20%' }} />
         </div>
       </div>
       <div className="p-3 space-y-4">
@@ -28,7 +28,7 @@ export function PopularPosts({ top, limit = 6, offset = 0 }: PopularPostsProps) 
               {index + 1}
             </span>
             <div className="flex-1 min-w-0">
-              <span className="inline-flex items-center text-[9px] uppercase tracking-wide font-bold px-2 py-1 rounded mb-2 bg-yellow-400 text-black">
+              <span className="inline-flex items-center text-[9px] uppercase tracking-wide font-bold px-2 py-1 rounded mb-2 bg-[#1a59a9] text-white">
                 {story.category || 'NEWS'}
               </span>
               <h4 className="text-sm font-semibold leading-tight text-gray-900 hover:text-blue-600 line-clamp-2">

@@ -16,7 +16,7 @@ export function Section({
           <div>
             <h3 className="text-lg md:text-xl font-semibold text-balance">{title}</h3>
             <div className="mt-2 h-1 w-full bg-gray-200 rounded">
-              <div className="h-full bg-[#FCCD04] rounded" style={{ width: '20%' }} />
+              <div className="h-full bg-[#1a59a9] rounded" style={{ width: '20%' }} />
             </div>
           </div>
           {action}

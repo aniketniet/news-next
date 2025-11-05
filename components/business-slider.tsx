@@ -80,7 +80,7 @@ export function BusinessSlider({ stories, title }: BusinessSliderProps) {
 
       <div className="mt-2 h-1 w-full bg-gray-200 rounded mb-6 overflow-hidden">
         <div
-          className="h-full bg-[#FCCD04] rounded transition-[width] duration-300"
+          className="h-full bg-[#1a59a9] rounded transition-[width] duration-300"
           style={{ width: `${progress}%` }}
         />
       </div>

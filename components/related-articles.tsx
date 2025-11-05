@@ -16,7 +16,7 @@ export function RelatedArticles({ articles, topNews }: RelatedArticlesProps) {
             <h2 className="text-2xl font-bold text-gray-900">Related News</h2>
             <div className="mt-2 h-1 w-full mb-6 bg-gray-200 rounded">
               <div
-                className="h-full bg-[#FCCD04] rounded"
+                className="h-full bg-[#1a59a9] rounded"
                 style={{ width: "20%" }}
               />
             </div>
@@ -35,14 +35,14 @@ export function RelatedArticles({ articles, topNews }: RelatedArticlesProps) {
                           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         />
                         <div className="absolute top-3 left-3">
-                          <span className="inline-block px-2 py-1 text-xs font-semibold text-white bg-[#FCCD04] rounded">
+                          <span className="inline-block px-2 py-1 text-xs font-semibold text-white bg-[#1a59a9] rounded">
                             {article.category}
                           </span>
                         </div>
                       </div>
 
                       <div className="p-4">
-                        <h3 className="font-bold text-gray-900 group-hover:text-[#FCCD04] transition-colors line-clamp-2 mb-2">
+                        <h3 className="font-bold text-gray-900 group-hover:text-[#1a59a9] transition-colors line-clamp-2 mb-2">
                           {article.title}
                         </h3>
                         <p className="text-sm text-gray-500">
@@ -63,7 +63,7 @@ export function RelatedArticles({ articles, topNews }: RelatedArticlesProps) {
                 <h2 className="text-lg font-bold text-gray-900">Top News</h2>
                 <div className="mt-2 h-1 w-full bg-gray-200 rounded">
                   <div
-                    className="h-full bg-[#FCCD04] rounded"
+                    className="h-full bg-[#1a59a9] rounded"
                     style={{ width: "20%" }}
                   />
                 </div>
@@ -88,11 +88,11 @@ export function RelatedArticles({ articles, topNews }: RelatedArticlesProps) {
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="mb-1">
-                            <span className="inline-block px-2 py-0.5 text-xs font-semibold text-white bg-[#FCCD04]">
+                            <span className="inline-block px-2 py-0.5 text-xs font-semibold text-white bg-[#1a59a9]">
                               {news.category}
                             </span>
                           </div>
-                          <h3 className="font-semibold text-sm text-gray-900 group-hover:text-[#FCCD04] transition-colors line-clamp-2 mb-1">
+                          <h3 className="font-semibold text-sm text-gray-900 group-hover:text-[#1a59a9] transition-colors line-clamp-2 mb-1">
                             {news.title}
                           </h3>
                           <p className="text-xs text-gray-500">

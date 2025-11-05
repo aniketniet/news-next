@@ -62,7 +62,7 @@ export default function ProfilePage() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-400 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1a59a9] mx-auto mb-4"></div>
           <p className="text-gray-600">Loading...</p>
         </div>
       </div>
@@ -78,7 +78,7 @@ export default function ProfilePage() {
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="bg-white rounded-lg shadow-lg overflow-hidden">
           {/* Profile Header */}
-          <div className="bg-gradient-to-r from-yellow-400 to-yellow-500 px-6 py-8">
+          <div className="bg-gradient-to-r from-[#1a59a9] to-yellow-500 px-6 py-8">
             <div className="flex items-center space-x-6">
               <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center text-yellow-600 font-bold text-3xl shadow-lg">
                 {user.name.charAt(0).toUpperCase()}
@@ -99,7 +99,7 @@ export default function ProfilePage() {
               {!isEditing && (
                 <button
                   onClick={() => setIsEditing(true)}
-                  className="bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-2 rounded-lg font-medium transition-colors flex items-center gap-2"
+                  className="bg-[#1a59a9] hover:bg-yellow-500 text-black px-4 py-2 rounded-lg font-medium transition-colors flex items-center gap-2"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -144,7 +144,7 @@ export default function ProfilePage() {
                       required
                       value={formData.name}
                       onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1a59a9] focus:border-transparent"
                       placeholder="Enter your full name"
                     />
                   </div>
@@ -157,7 +157,7 @@ export default function ProfilePage() {
                       required
                       value={formData.email}
                       onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1a59a9] focus:border-transparent"
                       placeholder="Enter your email address"
                     />
                   </div>
@@ -167,7 +167,7 @@ export default function ProfilePage() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="bg-yellow-400 hover:bg-yellow-500 disabled:opacity-50 text-black px-6 py-2 rounded-lg font-medium transition-colors flex items-center gap-2"
+                    className="bg-[#1a59a9] hover:bg-yellow-500 disabled:opacity-50 text-black px-6 py-2 rounded-lg font-medium transition-colors flex items-center gap-2"
                   >
                     {loading ? (
                       <>

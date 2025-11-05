@@ -30,7 +30,7 @@ export function SportsSection({ title, stories }: SportsSectionProps) {
     <div className="border border-gray-200 rounded-lg overflow-hidden bg-white">
       {/* Header with title and navigation (match Opinion) */}
       <div className="flex items-center justify-between p-4 border-b border-gray-200">
-        <h3 className="text-lg font-bold text-gray-900 border-b-2 border-yellow-400 pb-1">{title}</h3>
+        <h3 className="text-lg font-bold text-gray-900 border-b-2 border-[#1a59a9] pb-1">{title}</h3>
         <div className="flex items-center gap-1">
           <button
             className="p-1 hover:bg-gray-100 rounded transition-colors"

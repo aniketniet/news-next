@@ -24,7 +24,7 @@ export function NewsDetailSidebar({ latestNews, popularNews }: NewsDetailSidebar
           <h2 className="text-lg font-bold text-gray-900">Latest News</h2>
           {/* Underline bar with 20% filled segment */}
           <div className="mt-2 h-1 w-full bg-gray-200 rounded">
-            <div className="h-full bg-[#FCCD04] rounded" style={{ width: '20%' }} />
+            <div className="h-full bg-[#1a59a9] rounded" style={{ width: '20%' }} />
           </div>
         </div>
         
@@ -44,11 +44,11 @@ export function NewsDetailSidebar({ latestNews, popularNews }: NewsDetailSidebar
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="mb-1">
-                      <span className="inline-block px-2 py-0.5 text-xs font-semibold text-white bg-[#FCCD04]">
+                      <span className="inline-block px-2 py-0.5 text-xs font-semibold text-white bg-[#1a59a9]">
                         {news.category}
                       </span>
                     </div>
-                    <h3 className="font-semibold text-sm text-gray-900 group-hover:text-[#FCCD04] transition-colors line-clamp-2 mb-1">
+                    <h3 className="font-semibold text-sm text-gray-900 group-hover:text-[#1a59a9] transition-colors line-clamp-2 mb-1">
                       {news.title}
                     </h3>
                     <p className="text-xs text-gray-500">{news.publishedAt}</p>
@@ -79,7 +79,7 @@ export function NewsDetailSidebar({ latestNews, popularNews }: NewsDetailSidebar
         <div className="bg-gray-50 px-4 py-3 border-b border-gray-200">
           <h2 className="text-lg font-bold text-gray-900">Popular News</h2>
            <div className="mt-2 h-1 w-full bg-gray-200 rounded">
-            <div className="h-full bg-[#FCCD04] rounded" style={{ width: '20%' }} />
+            <div className="h-full bg-[#1a59a9] rounded" style={{ width: '20%' }} />
           </div>
         </div>
         
@@ -99,11 +99,11 @@ export function NewsDetailSidebar({ latestNews, popularNews }: NewsDetailSidebar
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="mb-1">
-                      <span className="inline-block px-2 py-0.5 text-xs font-semibold text-white bg-[#FCCD04] ">
+                      <span className="inline-block px-2 py-0.5 text-xs font-semibold text-white bg-[#1a59a9] ">
                         {news.category}
                       </span>
                     </div>
-                    <h3 className="font-semibold text-sm text-gray-900 group-hover:text-[#FCCD04] transition-colors line-clamp-2 mb-1">
+                    <h3 className="font-semibold text-sm text-gray-900 group-hover:text-[#1a59a9] transition-colors line-clamp-2 mb-1">
                       {news.title}
                     </h3>
                     <p className="text-xs text-gray-500">{news.publishedAt}</p>
@@ -125,11 +125,11 @@ export function NewsDetailSidebar({ latestNews, popularNews }: NewsDetailSidebar
           <input
             type="email"
             placeholder="Your email address"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#FCCD04] focus:border-transparent"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1a59a9] focus:border-transparent"
           />
           <button
             type="submit"
-            className="w-full px-4 py-2 bg-[#FCCD04] text-white font-semibold rounded-md hover:bg-yellow-600 transition-colors"
+            className="w-full px-4 py-2 bg-[#1a59a9] text-white font-semibold rounded-md hover:bg-yellow-600 transition-colors"
           >
             Subscribe
           </button>

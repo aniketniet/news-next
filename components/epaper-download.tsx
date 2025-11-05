@@ -43,7 +43,7 @@ export function EPaperDownload() {
       <div className="px-3 py-2">
         <h3 className="font-semibold text-lg">Daily Pioneer E-Paper</h3>
         <div className="mt-2 h-1 w-full bg-gray-200 rounded">
-          <div className="h-full bg-[#FCCD04] rounded" style={{ width: "20%" }} />
+          <div className="h-full bg-[#1a59a9] rounded" style={{ width: "20%" }} />
         </div>
       </div>
       <div className="p-3 space-y-3">
@@ -81,7 +81,7 @@ export function EPaperDownload() {
               href={delhi.pdfUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center w-full bg-yellow-400 text-black font-medium py-2 rounded hover:bg-yellow-300 transition-colors"
+              className="inline-flex items-center justify-center w-full bg-[#1a59a9] text-white font-medium py-2 rounded hover:bg-yellow-300 transition-colors"
             >
               Download PDF
             </Link>

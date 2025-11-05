@@ -4,7 +4,7 @@ export function AdvertiseSection() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-gray-900 border-b-2 border-yellow-400 pb-1">
+        <h2 className="text-2xl font-bold text-gray-900 border-b-2 border-[#1a59a9] pb-1">
           Advertise
         </h2>
       </div>
@@ -35,7 +35,7 @@ export function AdvertiseSection() {
                 THIS WEEKEND ONLY
               </p>
               
-              <div className="inline-flex items-center px-4 py-2 bg-white text-red-600 font-bold rounded-full group-hover:bg-yellow-400 group-hover:text-red-700 transition-colors duration-200 text-sm">
+              <div className="inline-flex items-center px-4 py-2 bg-white text-red-600 font-bold rounded-full group-hover:bg-[#1a59a9] group-hover:text-red-700 transition-colors duration-200 text-sm">
                 Shop Now
                 <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />

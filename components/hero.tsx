@@ -42,7 +42,7 @@ export function Hero() {
         <div className="mb-6">
           <h2 className="text-2xl font-bold text-gray-900">Top Stories</h2>
            <div className="mt-2 h-1 w-full bg-gray-200 rounded">
-            <div className="h-full bg-[#FCCD04] rounded" style={{ width: '20%' }} />
+            <div className="h-full bg-[#1a59a9] rounded" style={{ width: '20%' }} />
           </div>
         </div>
 
@@ -76,13 +76,13 @@ export function Hero() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
                 <div className="absolute top-4 left-4">
-                  <span className="bg-[#FCCD04] text-black px-3 py-1 text-xs font-semibold uppercase tracking-wide">
+                  <span className="bg-[#1a59a9] text-white px-3 py-1 text-xs font-semibold uppercase tracking-wide">
                     {mainStory.category || 'NEWS'}
                   </span>
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                   <h3 className="text-2xl lg:text-3xl font-bold leading-tight mb-2">
-                    <Link href={`/news/${mainStory.id || mainStory.id}`} className="hover:text-[#FCCD04] transition-colors">
+                    <Link href={`/news/${mainStory.id || mainStory.id}`} className="hover:text-[#1a59a9] transition-colors">
                       {mainStory.title}
                     </Link>
                   </h3>
@@ -109,13 +109,13 @@ export function Hero() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
                     <div className="absolute top-3 left-3">
-                      <span className="bg-[#FCCD04] text-black px-2 py-1 text-xs font-semibold uppercase tracking-wide">
+                      <span className="bg-[#1a59a9] text-white px-2 py-1 text-xs font-semibold uppercase tracking-wide">
                         {story.category || 'NEWS'}
                       </span>
                     </div>
                     <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
                       <h4 className="text-lg font-semibold leading-tight mb-2 line-clamp-2">
-                        <Link href={`/news/${story.id || story.id}`} className="hover:text-yellow-400 transition-colors">
+                        <Link href={`/news/${story.id || story.id}`} className="hover:text-[#1a59a9] transition-colors">
                           {story.title}
                         </Link>
                       </h4>
@@ -147,11 +147,11 @@ export function Hero() {
                   />
                 </div>
                 <div className="flex flex-1 flex-col p-4">
-                  <span className="mb-2 inline-block w-fit rounded bg-yellow-400 text-black px-2 py-1 text-[10px] font-semibold tracking-wide">
+                  <span className="mb-2 inline-block w-fit rounded bg-[#1a59a9] text-white px-2 py-1 text-[10px] font-semibold tracking-wide">
                     {story.category || 'NEWS'}
                   </span>
                   <h4 className="mb-2 line-clamp-2 text-base font-semibold leading-snug text-gray-900">
-                    <Link href={`/news/${story.id || story.id}`} className="transition-colors hover:text-[#FCCD04]">
+                    <Link href={`/news/${story.id || story.id}`} className="transition-colors hover:text-[#1a59a9]">
                       {story.title}
                     </Link>
                   </h4>

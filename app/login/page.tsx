@@ -60,7 +60,7 @@ export default function LoginPage() {
         </h2>
         <p className="mt-2 text-center text-sm text-gray-600">
           Or{" "}
-          <Link href="/register" className="font-medium text-[#FCCD04]">
+          <Link href="/register" className="font-medium text-[#1a59a9]">
             create a new account
           </Link>
         </p>
@@ -123,7 +123,7 @@ export default function LoginPage() {
                   id="remember-me"
                   name="remember-me"
                   type="checkbox"
-                  className="h-4 w-4 text-black focus:ring-[#FCCD04] border-gray-300 rounded"
+                  className="h-4 w-4 text-black focus:ring-[#1a59a9] border-gray-300 rounded"
                 />
                 <label
                   htmlFor="remember-me"
@@ -136,7 +136,7 @@ export default function LoginPage() {
               <div className="text-sm">
                 <Link
                   href="/forgot-password"
-                  className="font-medium text-[#FCCD04] "
+                  className="font-medium text-[#1a59a9] "
                 >
                   Forgot your password?
                 </Link>
@@ -168,7 +168,7 @@ export default function LoginPage() {
                       </svg>
                     ) : (
                       <svg
-                        className="h-5 w-5 text-[#FCCD04]"
+                        className="h-5 w-5 text-[#1a59a9]"
                         viewBox="0 0 20 20"
                         fill="currentColor"
                       >
@@ -192,7 +192,7 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-[#000000] bg-[#FCCD04]   focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-[#000000] bg-[#1a59a9]   focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? (
                   <div className="flex items-center">
