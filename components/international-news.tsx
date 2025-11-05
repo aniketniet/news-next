@@ -20,9 +20,9 @@ type InternationalNewsProps = {
 
 const countries = [
   { id: "USA", label: "USA", color: "bg-[#1a59a9]" },
-  { id: "China", label: "China", color: "bg-gray-200" },
-  { id: "UK", label: "UK", color: "bg-gray-200" },
-  { id: "Europe", label: "Europe", color: "bg-gray-200" },
+  { id: "China", label: "China", color: "bg-[#1a59a9]" },
+  { id: "UK", label: "UK", color: "bg-[#1a59a9]" },
+  { id: "Europe", label: "Europe", color: "bg-[#1a59a9]" },
 ]
 
 export function InternationalNews({ stories }: InternationalNewsProps) {
@@ -50,7 +50,7 @@ export function InternationalNews({ stories }: InternationalNewsProps) {
                   className={cn(
                     "px-3 py-1.5 text-sm font-medium rounded transition-colors duration-200",
                     activeCountry === country.id
-                      ? country.color + " text-black"
+                      ? country.color + " text-white"
                       : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                   )}
                 >

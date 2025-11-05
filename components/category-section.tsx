@@ -40,7 +40,7 @@ export function CategorySection({
       {/* Featured Story */}
       <div className="mb-6">
         <article className="relative group">
-          <Link href="#" className="block">
+          <Link href={`/news/${featuredStory.id}`} className="block">
             <div className="relative aspect-[16/9] w-full overflow-hidden  mb-3">
               <Image
                 src={featuredStory.image}

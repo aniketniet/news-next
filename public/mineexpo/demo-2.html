@@ -892,88 +892,315 @@
         font-weight: 600;
       }
 
-      .hyderabad-section {
-        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-        padding: 80px 0;
-      }
-
-      .access-point {
-        background: white;
-        border-radius: 10px;
-        padding: 25px;
-        margin-bottom: 20px;
-        border-left: 5px solid var(--primary-color);
-        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-      }
-
-      .access-point i {
-        color: var(--secondary-color);
-        font-size: 1.5rem;
-        margin-right: 15px;
-      }
-      .region-tag {
-        cursor: pointer;
-        transition: all 0.2s;
-      }
-
-      .region-tag.active {
-        background: white !important;
-        color: var(--dark-bg) !important;
-        font-weight: 700;
-        transform: scale(1.05);
-      }
-      .hyderabad-image-container {
-        position: relative;
-        overflow: hidden;
-        border-radius: 15px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-      }
-
-      .hyderabad-image-container img {
-        width: 100%;
-        height: 500px;
-        object-fit: cover;
-        transition: transform 0.3s ease;
-      }
-
-      .hyderabad-image-container:hover img {
-        transform: scale(1.05);
-      }
-
-      .image-overlay {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
-        color: white;
-        padding: 30px;
-        transform: translateY(0);
-        transition: transform 0.3s ease;
-      }
-
-      .image-overlay h4 {
-        font-size: 1.8rem;
-        font-weight: 700;
-        margin-bottom: 5px;
-      }
-
-      .image-overlay p {
-        font-size: 1rem;
-        margin: 0;
-        opacity: 0.9;
-      }
-
-      /* Responsive adjustments */
-      @media (max-width: 991px) {
-        .hyderabad-image-container {
-          margin-top: 40px;
+      .expo-hyderabad-wrapper {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
         }
 
-        .hyderabad-image-container img {
-          height: 400px;
+        .expo-hyderabad-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--expo-primary), var(--expo-secondary), var(--expo-accent));
         }
-      }
+
+        .expo-main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .expo-title-block {
+            text-align: center;
+            margin-bottom: 70px;
+            position: relative;
+        }
+
+        .expo-main-heading {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--expo-dark);
+            margin-bottom: 20px;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+        }
+
+        .expo-main-heading .expo-highlight-text {
+            color: var(--expo-primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        .expo-main-heading .expo-highlight-text::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--expo-primary), transparent);
+        }
+
+        .expo-subtitle-text {
+            font-size: 1.25rem;
+            color: #555;
+            max-width: 700px;
+            margin: 0 auto;
+            font-weight: 400;
+            line-height: 1.7;
+        }
+
+        .expo-content-grid {
+            display: flex;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .expo-grid-column {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .expo-features-list {
+            display: grid;
+            gap: 25px;
+        }
+
+        .expo-feature-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px 35px;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid #e0e0e0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .expo-feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--expo-primary), var(--expo-accent));
+            transform: scaleY(0);
+            transition: transform 0.4s ease;
+        }
+
+        .expo-feature-card:hover {
+            transform: translateX(10px);
+            box-shadow: -10px 15px 40px rgba(0, 0, 0, 0.12);
+            border-color: var(--expo-primary);
+        }
+
+        .expo-feature-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .expo-icon-circle {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--expo-primary), var(--expo-accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .expo-feature-card:hover .expo-icon-circle {
+            transform: rotate(360deg) scale(1.1);
+        }
+
+        .expo-feature-card i {
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .expo-feature-text {
+            flex: 1;
+        }
+
+        .expo-feature-card strong {
+            font-size: 1.1rem;
+            color: var(--expo-dark);
+            font-weight: 600;
+            line-height: 1.6;
+            display: block;
+        }
+
+        .expo-image-frame {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            height: 600px;
+        }
+
+        .expo-image-frame::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.3), rgba(26, 35, 126, 0.3));
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 1;
+        }
+
+        .expo-image-frame:hover::before {
+            opacity: 1;
+        }
+
+        .expo-image-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .expo-image-frame:hover img {
+            transform: scale(1.08);
+        }
+
+        .expo-image-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 60%, transparent 100%);
+            color: white;
+            padding: 40px;
+            z-index: 2;
+            transform: translateY(10px);
+            transition: transform 0.4s ease;
+        }
+
+        .expo-image-frame:hover .expo-image-caption {
+            transform: translateY(0);
+        }
+
+        .expo-image-caption h4 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .expo-image-caption p {
+            font-size: 1.2rem;
+            margin: 0;
+            color: var(--expo-primary);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .expo-year-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--expo-primary);
+            color: var(--expo-dark);
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            z-index: 3;
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.5);
+            animation: expo-pulse 2s infinite;
+        }
+
+        @keyframes expo-pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @media (max-width: 991px) {
+            .expo-content-grid {
+                flex-direction: column;
+            }
+
+            .expo-main-heading {
+                font-size: 2.2rem;
+            }
+
+            .expo-image-frame {
+                height: 450px;
+                margin-top: 50px;
+            }
+
+            .expo-feature-card {
+                padding: 25px 30px;
+            }
+
+            .expo-icon-circle {
+                width: 55px;
+                height: 55px;
+            }
+
+            .expo-feature-card i {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .expo-hyderabad-wrapper {
+                padding: 60px 0;
+            }
+
+            .expo-main-heading {
+                font-size: 1.8rem;
+            }
+
+            .expo-subtitle-text {
+                font-size: 1.05rem;
+            }
+
+            .expo-feature-card {
+                padding: 20px 25px;
+                gap: 20px;
+            }
+
+            .expo-icon-circle {
+                width: 50px;
+                height: 50px;
+            }
+
+            .expo-feature-card i {
+                font-size: 1.3rem;
+            }
+
+            .expo-feature-card strong {
+                font-size: 0.95rem;
+            }
+
+            .expo-image-frame {
+                height: 350px;
+            }
+
+            .expo-image-caption h4 {
+                font-size: 1.8rem;
+            }
+
+            .expo-image-caption p {
+                font-size: 1rem;
+            }
+        }
     </style>
     <style>
       :root {
@@ -1408,6 +1635,102 @@
           transform: translateY(-20px) rotate(180deg);
         }
       }
+
+
+       /* Event Spectrum Section - Different class names */
+    .spectrum-section {
+      padding: 80px 0;
+      background: var(--light-gray);
+    }
+
+    .spectrum-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 15px;
+    }
+
+    .spectrum-subtitle {
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 50px;
+    }
+
+    .spectrum-card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 25px;
+      border-left: 5px solid var(--primary-red);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .spectrum-card:hover {
+      box-shadow: 0 10px 30px rgba(220, 0, 0, 0.2);
+      border-left-width: 8px;
+      transform: translateX(5px);
+    }
+
+    .spectrum-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--black), var(--primary-red));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+    }
+
+    .spectrum-card h5 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--black);
+      margin-bottom: 15px;
+    }
+
+    .spectrum-card p {
+      color: #666;
+      line-height: 1.6;
+      flex-grow: 1;
+      margin-bottom: 0;
+    }
+
+    .btn-spectrum {
+      background: linear-gradient(135deg, var(--primary-red), #a00000);
+      color: var(--white);
+      padding: 15px 40px;
+      border-radius: 50px;
+      border: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-spectrum:hover {
+      background: linear-gradient(135deg, #a00000, var(--primary-red));
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(220, 0, 0, 0.3);
+      color: var(--white);
+    }
+
+    @media (max-width: 768px) {
+      .spectrum-title {
+        font-size: 2rem;
+      }
+      
+      .spectrum-section {
+        padding: 60px 0;
+      }
+    }
 
       /* Decorative Badge */
       .tech-badge {
@@ -2565,146 +2888,97 @@
 
       <!-- FEATURES-2
 			============================================= -->
-      <section
-        id="features-2"
-        class="bg-scroll bg-lightgrey wide-60 features-section division"
-      >
-        <div class="container">
-          <!-- SECTION TITLE 	-->
-          <div class="row">
-            <div class="col-md-9 col-lg-8 section-title">
-              <!-- Section ID -->
-              <!-- <span class="section-id">About Eventador 2022</span> -->
+    <section class="spectrum-section">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="spectrum-title">Event Spectrum</h2>
+        <p class="spectrum-subtitle">
+          A comprehensive platform connecting innovators, industry leaders, and stakeholders
+        </p>
+      </div>
 
-              <!-- Title -->
-              <h2 class="banner-regular">Event Spectrum</h2>
+      <div class="row">
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="spectrum-card">
+            <div class="spectrum-icon">
+              <img src="images/Exploration & Resource Management.png" width="50" alt="Exploration & Resource Management">
             </div>
-          </div>
-          <!-- END SECTION TITLE -->
-
-          <div class="row">
-            <!-- FEATURE BOX #1 -->
-            <div class="col-md-4">
-              <div class="fbox m-bottom-40">
-                <!-- Title -->
-                <h4 class="h4-medium">Expo</h4>
-
-                <!-- Text -->
-                <p class="m-bottom-25">
-                  Showcasing the latest Mining Equipment, Technologies and
-                  Services
-                </p>
-
-                <!-- Link -->
-                <!-- <a href="#speakers" class="internal-link grey-color"
-          >Find Out More<i class="fas fa-arrow-right"></i
-            ></a> -->
-              </div>
-            </div>
-            <!-- END FEATURE BOX #1 -->
-
-            <!-- FEATURE BOX #2 -->
-            <div class="col-md-4">
-              <div class="fbox m-bottom-40">
-                <!-- Title -->
-                <h4 class="h4-medium">Conference</h4>
-
-                <!-- Text -->
-                <p class="m-bottom-25">
-                  A platform to unite Innovators, Policymakers, & Industry
-                  Leaders
-                </p>
-
-                <!-- Link -->
-                <!-- <a href="#schedule" class="internal-link grey-color"
-          >Find Out More<i class="fas fa-arrow-right"></i
-            ></a> -->
-              </div>
-            </div>
-            <!-- END FEATURE BOX #2 -->
-
-            <!-- FEATURE BOX #3 -->
-            <div class="col-md-4">
-              <div class="fbox m-bottom-40">
-                <!-- Title -->
-                <h4 class="h4-medium">Workshops</h4>
-
-                <!-- Text -->
-                <p class="m-bottom-25">
-                  Conducted by Experts, Universities, and Research Institutions
-                </p>
-
-                <!-- Link -->
-                <!-- <a href="#schedule" class="internal-link grey-color"
-          >Find Out More<i class="fas fa-arrow-right"></i
-            ></a> -->
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="fbox m-bottom-40">
-                <!-- Title -->
-                <h4 class="h4-medium">Product Launches</h4>
-
-                <!-- Text -->
-                <p class="m-bottom-25">
-                  Excellent Opportunities to launch New Products with Live Demos
-                </p>
-
-                <!-- Link -->
-                <!-- <a href="#schedule" class="internal-link grey-color"
-          >Find Out More<i class="fas fa-arrow-right"></i
-            ></a> -->
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="fbox m-bottom-40">
-                <!-- Title -->
-                <h4 class="h4-medium">B2B,B2G,B2C Meetings</h4>
-
-                <!-- Text -->
-                <p class="m-bottom-25">
-                  Exclusive Networking Platform Connecting Industry
-                  Leaders,Buyers, Stakeholders and Policymakers
-                </p>
-
-                <!-- Link -->
-                <!-- <a href="#schedule" class="internal-link grey-color"
-          >Find Out More<i class="fas fa-arrow-right"></i
-            ></a> -->
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="fbox m-bottom-40">
-                <!-- Title -->
-                <h4 class="h4-medium">Startups</h4>
-
-                <!-- Text -->
-                <p class="m-bottom-25">
-                  Dedicated space for Mining Tech Startups and Innovation
-                  showcases.
-                </p>
-
-                <!-- Link -->
-                <!-- <a href="#schedule" class="internal-link grey-color"
-          >Find Out More<i class="fas fa-arrow-right"></i
-            ></a> -->
-              </div>
-            </div>
-            <!-- END FEATURE BOX #3 -->
-          </div>
-          <!-- End row -->
-
-          <!-- CTA Button -->
-          <div class="row">
-            <div class="col-12 text-center mt-4">
-              <a href="#register" class="btn btn-medium"
-                >Explore Opportunities</a
-              >
-            </div>
+            <h5>Expo</h5>
+            <p>
+              Showcasing the latest Mining Equipment, Technologies and Services
+            </p>
           </div>
         </div>
-        <!-- End container -->
-      </section>
+
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="spectrum-card">
+            <div class="spectrum-icon">
+              <img src="images/Environmental Rehabilitation & Community Engagement.png" width="50" alt="Environmental Rehabilitation & Community Engagement">
+            </div>
+            <h5>Conference</h5>
+            <p>
+              A platform to unite Innovators, Policymakers, & Industry Leaders
+            </p>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="spectrum-card">
+            <div class="spectrum-icon">
+               <img src="images/Heavy Industry Manufacturers.png" width="50" alt="Heavy Industry Manufacturers">
+            </div>
+            <h5>Workshops</h5>
+            <p>
+              Conducted by Experts, Universities, and Research Institutions
+            </p>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="spectrum-card">
+            <div class="spectrum-icon">
+              <i class="fas fa-rocket"></i>
+            </div>
+            <h5>Product Launches</h5>
+            <p>
+              Excellent Opportunities to launch New Products with Live Demos
+            </p>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="spectrum-card">
+            <div class="spectrum-icon">
+              <img src="images/Environmental Rehabilitation & Community Engagement.png" width="50" alt="Environmental Rehabilitation & Community Engagement">
+            </div>
+            <h5>B2B, B2G, B2C Meetings</h5>
+            <p>
+              Exclusive Networking Platform Connecting Industry Leaders, Buyers, Stakeholders and Policymakers
+            </p>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="spectrum-card">
+            <div class="spectrum-icon">
+               <img src="images/Showcase Innovation.png" width="50" alt="Showcase Innovation">
+            </div>
+            <h5>Startups</h5>
+            <p>
+              Dedicated space for Mining Tech Startups and Innovation showcases
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA Button -->
+      <div class="row mt-4">
+        <div class="col-12 text-center">
+          <a href="#register" class="btn-spectrum">Explore Opportunities</a>
+        </div>
+      </div>
+    </div>
+  </section>
       <!-- END FEATURES-2 -->
 
       <script>
@@ -3295,64 +3569,71 @@
       </script>
 
       <!-- Why Hyderabad Section -->
-      <!-- Why Hyderabad Section -->
-      <section class="hyderabad-section">
-        <div class="container">
-          <h2 class="section-title text-center">
-            Why Hyderabad for the Global Mining Community?
-          </h2>
-          <p class="lead text-center mb-5">
-            By hosting India International Mine Expo 2026 in Hyderabad,
-            international participants gain direct access to:
-          </p>
-
-          <div class="row align-items-center">
-            <!-- Left Side: Access Points -->
-            <div class="col-lg-6">
-              <div class="access-point">
-                <i class="fas fa-user-tie"></i>
-                <strong>India's Mining Leadership and Policy Makers.</strong>
-              </div>
-
-              <div class="access-point">
-                <i class="fas fa-gem"></i>
-                <strong>One of the Richest Mineral Belts in South Asia.</strong>
-              </div>
-
-              <div class="access-point">
-                <i class="fas fa-users"></i>
-                <strong
-                  >Industry Leaders from Mines, Minerals, Coal, Steel, Heavy,
-                  and Downstream Industries.</strong
-                >
-              </div>
-
-              <div class="access-point">
-                <i class="fas fa-city"></i>
-                <strong
-                  >A city that blends heritage with Global Business potential,
-                  offering both opportunity and experience.</strong
-                >
-              </div>
+     <section class="expo-hyderabad-wrapper">
+        <div class="expo-main-container">
+            <div class="expo-title-block">
+                <h2 class="expo-main-heading">
+                    Why <span class="expo-highlight-text">Hyderabad</span> for the Global Mining Community?
+                </h2>
+                <p class="expo-subtitle-text">
+                    Hosting India International Mine Expo 2026 in Hyderabad gives you direct access to:
+                </p>
             </div>
 
-            <!-- Right Side: Image -->
-            <div class="col-lg-6">
-              <div class="hyderabad-image-container">
-                <img
-                  src="images/65.jpg"
-                  alt="Hyderabad - India's Mining Hub"
-                  class="img-fluid rounded shadow-lg"
-                />
-                <div class="image-overlay">
-                  <h4 style="color: white">Hyderabad</h4>
-                  <p>Gateway to India's Mining Industry</p>
+            <div class="expo-content-grid">
+                <div class="expo-grid-column">
+                    <div class="expo-features-list">
+                        <div class="expo-feature-card">
+                            <div class="expo-icon-circle">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                            <div class="expo-feature-text">
+                                <strong>India's Mining Leadership and Policy Makers</strong>
+                            </div>
+                        </div>
+
+                        <div class="expo-feature-card">
+                            <div class="expo-icon-circle">
+                                <i class="fas fa-gem"></i>
+                            </div>
+                            <div class="expo-feature-text">
+                                <strong>One of the Richest Mineral Belts in South Asia</strong>
+                            </div>
+                        </div>
+
+                        <div class="expo-feature-card">
+                            <div class="expo-icon-circle">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="expo-feature-text">
+                                <strong>Industry Leaders from Mines, Minerals, Coal, Steel, and Heavy Industries</strong>
+                            </div>
+                        </div>
+
+                        <div class="expo-feature-card">
+                            <div class="expo-icon-circle">
+                                <i class="fas fa-city"></i>
+                            </div>
+                            <div class="expo-feature-text">
+                                <strong>A City Blending Heritage with Global Business Potential</strong>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
+
+                <div class="expo-grid-column">
+                    <div class="expo-image-frame">
+                        <div class="expo-year-badge">2026</div>
+                        <img src="images/65.jpg" alt="Hyderabad - India's Mining Hub" />
+                        <div class="expo-image-caption">
+                            <h4>Hyderabad</h4>
+                            <p>Gateway to India's Mining Industry</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </section>
+    </section>
 
       <!-- SCHEDULE
 			============================================= -->
@@ -4201,20 +4482,24 @@
           <!-- Centered Sponsors Row -->
           <div class="sponsors-row">
             <div class="sponsor">
+              <a href="https://www.mmactiv.in/" target="_blank">
               <div class="brand-holder">
                 <img class="img-fluid" src="images/37.png" alt="sponsor-logo" />
               </div>
+              </a>
             </div>
             <div class="sponsor">
+              <a href="https://africancentre.in/" target="_blank" >
               <div class="brand-holder">
                 <img class="img-fluid" src="images/38.png" alt="sponsor-logo" />
               </div>
+              </a>
             </div>
-            <div class="sponsor">
+            <!-- <div class="sponsor">
               <div class="brand-holder">
                 <img class="img-fluid" src="images/39.png" alt="sponsor-logo" />
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </section>
@@ -4417,86 +4702,97 @@
   </div>
       <!-- FOOTER-1
 			============================================= -->
-      <footer id="footer-1" class="bg-lightgrey footer division">
-        <div class="container">
-          <div class="row align-items-start">
-            <!-- FOOTER ABOUT -->
-            <div class="col-md-4">
-              <div class="footer-about m-bottom-30">
-                <!-- Brand Logo -->
-                <div class="footer-logo mb-3">
-                  <img
-                    src="images/logo.png"
-                    alt="IIMX Logo"
-                    class="img-fluid"
-                    style="max-width: 180px"
-                  />
-                </div>
+    <footer id="footer-1" class="bg-lightgrey footer division">
+  <div class="container">
+    <div class="row align-items-start">
+      <!-- FOOTER ABOUT -->
+      <div class="col-md-4">
+        <div class="footer-about m-bottom-30">
+          <!-- Brand Logo -->
+          <!-- <div class="footer-logo mb-3">
+            <img
+              src="images/logo.png"
+              alt="IIMX Logo"
+              class="img-fluid"
+              style="max-width: 180px"
+            />
+          </div> -->
 
-                <!-- Title -->
-                <h4 class="h4-small">About the Organisers</h4>
+          <!-- Title -->
+          <h4 class="h4-small">About the Organisers</h4>
 
-                <!-- Text -->
-                <p class="p-medium">
-                  The <b>Pioneer</b> – Established 1865, one of India’s oldest
-                  English dailies, credible journalism, business & economy
-                  focus. MM Activ Sci-Tech Communications – Event organiser in
-                  Science & Tech, expert in global B2B partnerships and
-                  innovation platforms.
-                </p>
-              </div>
-            </div>
-
-            <!-- FOOTER CONTACT INFO -->
-            <div class="col-md-4 col-lg-4 offset-lg-1">
-              <div class="footer-info m-bottom-30">
-                <h4 class="h4-small">Contact Us</h4>
-                <p class="p-medium">
-                  <i class="fa fa-map-marker"></i> MM Activ Sci-Tech
-                  Communications 103-104, Rohit House, 3 Tolstoy Marg, New Delhi
-                  – 110001
-                </p>
-                <p class="p-medium">
-                  <i class="fas fa-phone"></i> +91 98992 08916
-                </p>
-                <p class="p-medium">
-                  <i class="fab fa-skype"></i> www.iimexpo.in
-                </p>
-                <p class="p-medium">
-                  <i class="far fa-envelope"></i>
-                  <a href="mailto:secretariat@iiminexpo.com">
-                    secretariat@iiminexpo.com
-                  </a>
-                </p>
-              </div>
-            </div>
-
-            <!-- FOOTER SOCIAL LINKS -->
-            <div class="col-md-3">
-              <div class="footer-socials m-bottom-30">
-                <h4 class="h4-small">Follow Us:</h4>
-                <div class="footer-social">
-                  <a href="#"><i class="fab fa-facebook-square"></i></a>
-                  <a href="#"><i class="fab fa-twitter"></i></a>
-                  <a href="#"><i class="fab fa-youtube"></i></a>
-                  <a href="#"><i class="fab fa-linkedin"></i></a>
-                  <a href="#"><i class="fab fa-google-plus-g"></i></a>
-                </div>
-              </div>
-            </div>
+          <!-- Added Logo with Link -->
+          <div class="organiser-logo mb-3">
+            <a href="https://www.dailypioneer.com/" target="_blank" rel="noopener">
+              <img
+                src="images/dailypioneer-logo.png"
+                alt="The Daily Pioneer Logo"
+                class="img-fluid"
+                style="max-width: 200px; background: white; padding: 6px; border-radius: 8px;"
+              />
+            </a>
           </div>
 
-          <hr />
+          <!-- Text -->
+          <p class="p-medium">
+            The <b>Pioneer</b> – Established 1865, one of India’s oldest
+            English dailies, credible journalism, business & economy focus. MM
+            Activ Sci-Tech Communications – Event organiser in Science & Tech,
+            expert in global B2B partnerships and innovation platforms.
+          </p>
+        </div>
+      </div>
 
-          <div class="row">
-            <div class="col-md-12">
-              <div class="footer-copyright p-top-30 text-center">
-                <p>&copy; 2025 <span>PIONEER.</span> All Rights Reserved</p>
-              </div>
-            </div>
+      <!-- FOOTER CONTACT INFO -->
+      <div class="col-md-4 col-lg-4 offset-lg-1">
+        <div class="footer-info m-bottom-30">
+          <h4 class="h4-small">Contact Us</h4>
+          <p class="p-medium">
+            <i class="fa fa-map-marker"></i> MM Activ Sci-Tech Communications
+            103-104, Rohit House, 3 Tolstoy Marg, New Delhi – 110001
+          </p>
+          <p class="p-medium">
+            <i class="fas fa-phone"></i> +91 98992 08916
+          </p>
+          <p class="p-medium">
+            <i class="fab fa-skype"></i> www.iimexpo.in
+          </p>
+          <p class="p-medium">
+            <i class="far fa-envelope"></i>
+            <a href="mailto:secretariat@iiminexpo.com">
+              secretariat@iiminexpo.com
+            </a>
+          </p>
+        </div>
+      </div>
+
+      <!-- FOOTER SOCIAL LINKS -->
+      <div class="col-md-3">
+        <div class="footer-socials m-bottom-30">
+          <h4 class="h4-small">Follow Us:</h4>
+          <div class="footer-social">
+            <a href="#"><i class="fab fa-facebook-square"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-google-plus-g"></i></a>
           </div>
         </div>
-      </footer>
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="footer-copyright p-top-30 text-center">
+          <p>&copy; 2025 <span>PIONEER.</span> All Rights Reserved</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
 
       <!-- END FOOTER-1	-->
     </div>

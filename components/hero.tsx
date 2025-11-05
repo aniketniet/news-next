@@ -82,7 +82,7 @@ export function Hero() {
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                   <h3 className="text-2xl lg:text-3xl font-bold leading-tight mb-2">
-                    <Link href={`/news/${mainStory.id || mainStory.id}`} className="hover:text-[#1a59a9] transition-colors">
+                    <Link href={`/news/${mainStory.id || mainStory.id}`} className="hover:underline hover:text-white transition-colors">
                       {mainStory.title}
                     </Link>
                   </h3>
@@ -115,7 +115,7 @@ export function Hero() {
                     </div>
                     <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
                       <h4 className="text-lg font-semibold leading-tight mb-2 line-clamp-2">
-                        <Link href={`/news/${story.id || story.id}`} className="hover:text-[#1a59a9] transition-colors">
+                        <Link href={`/news/${story.id || story.id}`} className="hover:underline hover:text-white transition-colors">
                           {story.title}
                         </Link>
                       </h4>
