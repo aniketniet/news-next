@@ -93,7 +93,7 @@
         color: var(--primary-color);
         font-weight: 700;
         font-size: 2.5rem;
-        margin-bottom: 3rem;
+        margin-bottom: 1rem;
         position: relative;
         padding-bottom: 20px;
       }
@@ -111,9 +111,12 @@
 
       .why-attend-section {
         background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-        padding: 80px 0;
+        padding: 80px 20px;
         position: relative;
         overflow: hidden;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
       }
 
       .why-attend-section::before {
@@ -129,6 +132,7 @@
           transparent 70%
         );
         animation: pulse 15s ease-in-out infinite;
+        z-index: 0;
       }
 
       @keyframes pulse {
@@ -142,89 +146,139 @@
       }
 
       .container {
-        max-width: 1200px;
+        max-width: 1400px;
         margin: 0 auto;
-        padding: 0 20px;
         position: relative;
         z-index: 1;
+        width: 100%;
+      }
+
+      .text-muted {
+        color: #6c757d;
+        font-size: 18px;
+        margin-bottom: 2rem;
       }
 
       /* Scroll Controls */
+      .controls-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+      }
+
       .scroll-controls {
         display: flex;
-        justify-content: flex-end;
         gap: 10px;
-        margin-bottom: 20px;
+        z-index: 10;
       }
 
       .scroll-btn {
         background: var(--secondary-color);
         color: white;
         border: none;
-        width: 40px;
-        height: 40px;
+        width: 45px;
+        height: 45px;
         border-radius: 50%;
         cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
         transition: all 0.3s ease;
-        box-shadow: 0 4px 10px #e35029;
+        box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+        font-size: 16px;
       }
 
       .scroll-btn:hover {
-        background: #e35029;
+        background: linear-gradient(135deg, #ff6b35, #f7931e);
         transform: scale(1.1);
+        box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
       }
 
       .scroll-btn:active {
         transform: scale(0.95);
       }
 
+      /* Scroll Indicators */
+      .scroll-indicators {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+
+      .indicator {
+        width: 40px;
+        height: 4px;
+        background: #dee2e6;
+        border-radius: 2px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .indicator.active {
+        background: linear-gradient(90deg, var(--secondary-color), #f7931e);
+        width: 60px;
+      }
+
+      .indicator:hover {
+        background: #adb5bd;
+      }
+
+      /* Horizontal scroll wrapper */
+      .horizontal-scroll-wrapper {
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 1.5rem;
+      }
+
       /* Horizontal scroll container */
       .horizontal-scroll {
         display: flex;
-        gap: 25px;
+        gap: 24px;
         overflow-x: auto;
         scroll-behavior: smooth;
-        padding: 20px 5px 30px;
-        scrollbar-width: thin;
-        scrollbar-color: var(--secondary-color) #e9ecef;
+        padding: 20px 5px;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
       }
 
       .horizontal-scroll::-webkit-scrollbar {
-        height: 10px;
+        display: none;
       }
 
-      .horizontal-scroll::-webkit-scrollbar-track {
-        background: #e9ecef;
-        border-radius: 10px;
-      }
-
-      .horizontal-scroll::-webkit-scrollbar-thumb {
-        background: linear-gradient(90deg, var(--secondary-color), #e35029);
-        border-radius: 10px;
-        border: 2px solid #e9ecef;
-      }
-
-      .horizontal-scroll::-webkit-scrollbar-thumb:hover {
-        background: linear-gradient(90deg, #e35029, var(--secondary-color));
-      }
-
+      /* Feature Cards */
       .feature-card {
+        flex: 0 0 calc(25% - 18px);
+        min-width: 280px;
         background: var(--card-bg);
-        border-radius: 15px;
-        padding: 35px 25px;
-        min-width: 300px;
-        flex: 0 0 auto;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border-radius: 20px;
+        padding: 32px 24px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: pointer;
         position: relative;
         overflow: hidden;
+        height: 320px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
         border: 2px solid transparent;
       }
 
       .feature-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(90deg, var(--secondary-color), #f7931e);
+        transform: scaleX(0);
+        transition: transform 0.4s ease;
+      }
+
+      .feature-card::after {
         content: "";
         position: absolute;
         top: 0;
@@ -234,42 +288,59 @@
         background: linear-gradient(
           90deg,
           transparent,
-          rgba(243, 156, 18, 0.1),
+          rgba(255, 107, 53, 0.05),
           transparent
         );
         transition: left 0.5s ease;
       }
 
       .feature-card:hover::before {
+        transform: scaleX(1);
+      }
+
+      .feature-card:hover::after {
         left: 100%;
       }
 
       .feature-card:hover {
-        transform: translateY(-10px) scale(1.02);
-        box-shadow: 0 15px 40px var(--hover-shadow);
+        transform: translateY(-10px);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
         border-color: var(--secondary-color);
       }
 
       .feature-icon {
-        font-size: 3.5rem;
-        color: var(--secondary-color);
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, var(--secondary-color), #f7931e);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         margin-bottom: 20px;
-        display: inline-block;
         transition: all 0.4s ease;
         position: relative;
+        z-index: 1;
       }
 
       .feature-card:hover .feature-icon {
-        transform: scale(1.15) rotate(5deg);
-        filter: drop-shadow(0 5px 15px #e35029);
+        transform: scale(1.1) rotate(5deg);
+        box-shadow: 0 10px 30px rgba(255, 107, 53, 0.4);
+      }
+
+      .feature-icon i {
+        font-size: 36px;
+        color: white;
       }
 
       .feature-card h4 {
+        font-size: 20px;
+        font-weight: 700;
         color: var(--primary-color);
-        font-size: 1.35rem;
-        margin-bottom: 15px;
-        font-weight: 600;
+        margin-bottom: 12px;
+        line-height: 1.4;
         transition: color 0.3s ease;
+        position: relative;
+        z-index: 1;
       }
 
       .feature-card:hover h4 {
@@ -277,72 +348,100 @@
       }
 
       .feature-card p {
-        color: #555;
-        font-size: 1rem;
-        line-height: 1.7;
+        font-size: 15px;
+        color: #6c757d;
+        line-height: 1.6;
         margin: 0;
+        position: relative;
+        z-index: 1;
       }
 
-      /* Scroll indicator */
-      .scroll-indicator {
-        text-align: center;
-        margin-top: 20px;
-        color: #666;
-        font-size: 0.9rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        animation: fadeInOut 2s ease-in-out infinite;
+      /* Gradient Fade Effects */
+      .scroll-fade {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 60px;
+        pointer-events: none;
+        z-index: 5;
       }
 
-      @keyframes fadeInOut {
-        0%,
-        100% {
-          opacity: 0.5;
-        }
-        50% {
-          opacity: 1;
-        }
+      .scroll-fade-left {
+        left: 0;
+        background: linear-gradient(
+          to right,
+          rgba(248, 249, 250, 1),
+          transparent
+        );
       }
 
-      .scroll-indicator i {
-        color: var(--secondary-color);
+      .scroll-fade-right {
+        right: 0;
+        background: linear-gradient(
+          to left,
+          rgba(233, 236, 239, 1),
+          transparent
+        );
+      }
+
+      /* Progress Bar */
+      .scroll-progress-container {
+        width: 100%;
+        height: 4px;
+        background: #dee2e6;
+        border-radius: 2px;
+        overflow: hidden;
+      }
+
+      .scroll-progress-bar {
+        height: 100%;
+        background: linear-gradient(90deg, var(--secondary-color), #f7931e);
+        width: 0%;
+        transition: width 0.3s ease;
+        border-radius: 2px;
       }
 
       /* Responsive Design */
-      @media (max-width: 1024px) {
+      @media (max-width: 1199px) {
+        .feature-card {
+          flex: 0 0 calc(33.333% - 16px);
+          min-width: 260px;
+        }
+      }
+
+      @media (max-width: 991px) {
         .why-attend-section {
-          padding: 60px 0;
+          padding: 60px 20px;
         }
 
         .section-title {
           font-size: 2.2rem;
-          margin-bottom: 2.5rem;
         }
 
         .feature-card {
-          min-width: 280px;
-          padding: 30px 20px;
+          flex: 0 0 calc(50% - 12px);
+          min-width: 240px;
+          height: 300px;
         }
 
         .feature-icon {
-          font-size: 3rem;
+          width: 70px;
+          height: 70px;
+        }
+
+        .feature-icon i {
+          font-size: 32px;
         }
       }
 
       @media (max-width: 768px) {
         .why-attend-section {
-          padding: 50px 0;
-        }
-
-        .container {
-          padding: 0 15px;
+          padding: 50px 15px;
         }
 
         .section-title {
           font-size: 1.9rem;
-          margin-bottom: 2rem;
+          margin-bottom: 1rem;
         }
 
         .section-title::after {
@@ -350,101 +449,103 @@
           height: 3px;
         }
 
-        .scroll-controls {
-          margin-bottom: 15px;
+        .text-muted {
+          font-size: 16px;
         }
 
         .scroll-btn {
-          width: 35px;
-          height: 35px;
-          font-size: 0.9rem;
+          width: 40px;
+          height: 40px;
+          font-size: 14px;
         }
 
         .horizontal-scroll {
           gap: 20px;
-          padding: 15px 5px 25px;
         }
 
         .feature-card {
-          min-width: 260px;
-          padding: 25px 18px;
-        }
-
-        .feature-icon {
-          font-size: 2.5rem;
-          margin-bottom: 15px;
+          padding: 28px 20px;
         }
 
         .feature-card h4 {
-          font-size: 1.2rem;
-          margin-bottom: 12px;
+          font-size: 18px;
         }
 
         .feature-card p {
-          font-size: 0.95rem;
+          font-size: 14px;
+        }
+
+        .scroll-fade {
+          width: 40px;
         }
       }
 
-      @media (max-width: 480px) {
+      @media (max-width: 575px) {
         .why-attend-section {
-          padding: 40px 0;
+          padding: 40px 10px;
         }
 
         .section-title {
           font-size: 1.6rem;
-          margin-bottom: 1.5rem;
+          margin-bottom: 0.5rem;
+        }
+
+        .scroll-indicators {
+          display: none !important;
         }
 
         .horizontal-scroll {
           gap: 15px;
-          padding: 10px 5px 20px;
         }
 
         .feature-card {
-          min-width: 240px;
-          padding: 22px 16px;
+          flex: 0 0 calc(100% - 20px);
+          min-width: auto;
+          height: auto;
+          padding: 25px 18px;
         }
 
         .feature-icon {
-          font-size: 2.2rem;
+          width: 65px;
+          height: 65px;
+        }
+
+        .feature-icon i {
+          font-size: 28px;
         }
 
         .feature-card h4 {
-          font-size: 1.1rem;
+          font-size: 17px;
         }
 
         .feature-card p {
-          font-size: 0.9rem;
-          line-height: 1.6;
+          font-size: 14px;
         }
 
-        .scroll-indicator {
-          font-size: 0.85rem;
+        .scroll-btn {
+          width: 38px;
+          height: 38px;
+          font-size: 13px;
         }
-      }
 
-      /* Accessibility improvements */
-      .feature-card:focus-within {
-        outline: 3px solid var(--secondary-color);
-        outline-offset: 3px;
+        .scroll-fade {
+          width: 30px;
+        }
       }
 
       @media (prefers-reduced-motion: reduce) {
         .horizontal-scroll {
           scroll-behavior: auto;
         }
-
         .feature-card,
         .feature-icon,
         .scroll-btn {
           transition: none;
         }
-
         .why-attend-section::before {
           animation: none;
         }
       }
-
       .who-attend-section {
         background: #ffffff;
         padding: 80px 0;
@@ -821,6 +922,58 @@
         font-weight: 700;
         transform: scale(1.05);
       }
+      .hyderabad-image-container {
+        position: relative;
+        overflow: hidden;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      }
+
+      .hyderabad-image-container img {
+        width: 100%;
+        height: 500px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+      }
+
+      .hyderabad-image-container:hover img {
+        transform: scale(1.05);
+      }
+
+      .image-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+        color: white;
+        padding: 30px;
+        transform: translateY(0);
+        transition: transform 0.3s ease;
+      }
+
+      .image-overlay h4 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 5px;
+      }
+
+      .image-overlay p {
+        font-size: 1rem;
+        margin: 0;
+        opacity: 0.9;
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 991px) {
+        .hyderabad-image-container {
+          margin-top: 40px;
+        }
+
+        .hyderabad-image-container img {
+          height: 400px;
+        }
+      }
     </style>
     <style>
       :root {
@@ -862,96 +1015,96 @@
         font-size: 1.1rem;
         margin-bottom: 3rem;
       }
-.plenary-section {
-  padding: 100px 0;
-  background: linear-gradient(135deg, #f9fafb 0%, #f0f2f5 100%);
-}
+      .plenary-section {
+        padding: 100px 0;
+        background: linear-gradient(135deg, #f9fafb 0%, #f0f2f5 100%);
+      }
 
-.plenary-image-wrapper img {
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
-  width: 100%;
-  height: auto;
-  transition: transform 0.4s ease;
-}
+      .plenary-image-wrapper img {
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        width: 100%;
+        height: auto;
+        transition: transform 0.4s ease;
+      }
 
-.plenary-image-wrapper img:hover {
-  transform: scale(1.02);
-}
+      .plenary-image-wrapper img:hover {
+        transform: scale(1.02);
+      }
 
-.plenary-cta-box {
-  background: white;
-  padding: 45px;
-  border-radius: 20px;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
-  max-width: 550px;
-}
+      .plenary-cta-box {
+        background: white;
+        padding: 45px;
+        border-radius: 20px;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+        max-width: 550px;
+      }
 
-.plenary-tag {
-  display: inline-block;
-  background: #e35029;
-  color: white;
-  font-size: 0.85rem;
-  font-weight: 700;
-  padding: 4px 14px;
-  border-radius: 20px;
-  margin-bottom: 16px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
+      .plenary-tag {
+        display: inline-block;
+        background: #e35029;
+        color: white;
+        font-size: 0.85rem;
+        font-weight: 700;
+        padding: 4px 14px;
+        border-radius: 20px;
+        margin-bottom: 16px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
 
-.plenary-cta-box h2 {
-  font-size: 2.1rem;
-  font-weight: 800;
-  color: #111;
-  margin-bottom: 18px;
-  line-height: 1.25;
-}
+      .plenary-cta-box h2 {
+        font-size: 2.1rem;
+        font-weight: 800;
+        color: #111;
+        margin-bottom: 18px;
+        line-height: 1.25;
+      }
 
-.plenary-cta-box p {
-  font-size: 1.05rem;
-  color: #444;
-  line-height: 1.6;
-  margin-bottom: 30px;
-}
+      .plenary-cta-box p {
+        font-size: 1.05rem;
+        color: #444;
+        line-height: 1.6;
+        margin-bottom: 30px;
+      }
 
-/* Primary CTA Button */
-.btn-plenary-primary {
-  display: inline-block;
-  background: #e35029;
-  color: white;
-  font-weight: 700;
-  font-size: 1.1rem;
-  text-decoration: none;
-  padding: 14px 36px;
-  border-radius: 50px;
-  transition: all 0.3s ease;
-  box-shadow: 0 6px 18px rgba(236, 0, 0, 0.35);
-  margin-bottom: 16px;
-  width: 100%;
-  text-align: center;
-}
+      /* Primary CTA Button */
+      .btn-plenary-primary {
+        display: inline-block;
+        background: #e35029;
+        color: white;
+        font-weight: 700;
+        font-size: 1.1rem;
+        text-decoration: none;
+        padding: 14px 36px;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+        box-shadow: 0 6px 18px rgba(236, 0, 0, 0.35);
+        margin-bottom: 16px;
+        width: 100%;
+        text-align: center;
+      }
 
-.btn-plenary-primary:hover {
-  background: #c00000;
-  transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(236, 0, 0, 0.45);
-}
+      .btn-plenary-primary:hover {
+        background: #c00000;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 24px rgba(236, 0, 0, 0.45);
+      }
 
-/* Secondary CTA Link */
-.btn-plenary-secondary {
-  display: inline-block;
-  color: #e35029;
-  font-weight: 600;
-  text-decoration: none;
-  font-size: 1rem;
-  transition: color 0.2s;
-}
+      /* Secondary CTA Link */
+      .btn-plenary-secondary {
+        display: inline-block;
+        color: #e35029;
+        font-weight: 600;
+        text-decoration: none;
+        font-size: 1rem;
+        transition: color 0.2s;
+      }
 
-.btn-plenary-secondary:hover {
-  color: #e35029;
-  text-decoration: underline;
-}
+      .btn-plenary-secondary:hover {
+        color: #e35029;
+        text-decoration: underline;
+      }
 
       /* Technical Conference Section */
       .technical-section {
@@ -1000,37 +1153,90 @@
       }
 
       .exhibition-section {
-        padding: 60px 0;
-        background: #f8f9fa; /* Light gray background */
+        padding: 80px 0;
+        position: relative;
       }
 
+      /* Animated Background Particles */
+      .exhibition-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+            circle at 20% 30%,
+            rgba(227, 80, 41, 0.05) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 70%,
+            rgba(227, 80, 41, 0.08) 0%,
+            transparent 50%
+          );
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .container {
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Header with Gradient & Animation */
       .exhibition-header {
-        background: #e35029; /* Orange header */
-        padding: 20px 30px;
-        border-radius: 12px 12px 0 0;
-        margin-bottom: 20px;
+        background: linear-gradient(135deg, #e35029 0%, #d43f1e 100%);
+        padding: 40px 50px;
+        border-radius: 20px;
+        margin-bottom: 50px;
+        box-shadow: 0 15px 40px rgba(227, 80, 41, 0.3);
+        position: relative;
+        overflow: hidden;
+        animation: fadeInDown 0.8s ease;
+      }
+
+      .exhibition-header::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        right: -10%;
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.1) 0%,
+          transparent 70%
+        );
+        border-radius: 50%;
+        animation: float 6s ease-in-out infinite;
       }
 
       .exhibition-header h2 {
-        color: white;
-        font-size: 1.8rem;
-        font-weight: 700;
-        margin: 0 0 10px 0;
+        color: #fff;
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 12px;
+        position: relative;
+        z-index: 1;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
       }
 
       .exhibition-header p {
-        color: white;
-        font-size: 1.1rem;
-        margin: 0;
-        opacity: 0.9;
+        color: #fff;
+        font-size: 1.2rem;
+        opacity: 0.95;
+        position: relative;
+        z-index: 1;
+        font-weight: 300;
       }
 
+      /* Content Grid with Staggered Animation */
       .exhibition-content-box {
-        background: #e35029; /* Orange box */
-        padding: 30px;
-        border-radius: 12px;
-        color: white;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        animation: fadeInLeft 0.8s ease;
       }
 
       .exhibition-content-box ul {
@@ -1040,40 +1246,243 @@
       }
 
       .exhibition-content-box li {
-        padding: 8px 0;
+        padding: 20px 25px 20px 55px;
         position: relative;
-        padding-left: 20px;
-        font-size: 1rem;
-        line-height: 1.5;
+        font-size: 1.05rem;
+        line-height: 1.7;
+        color: #fff;
+        background: linear-gradient(135deg, #e35029 0%, #d43f1e 100%);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        border-left: 4px solid transparent;
+        animation: fadeInUp 0.6s ease backwards;
+      }
+
+      .exhibition-content-box li:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      .exhibition-content-box li:nth-child(2) {
+        animation-delay: 0.15s;
+      }
+      .exhibition-content-box li:nth-child(3) {
+        animation-delay: 0.2s;
+      }
+      .exhibition-content-box li:nth-child(4) {
+        animation-delay: 0.25s;
+      }
+      .exhibition-content-box li:nth-child(5) {
+        animation-delay: 0.3s;
+      }
+      .exhibition-content-box li:nth-child(6) {
+        animation-delay: 0.35s;
+      }
+      .exhibition-content-box li:nth-child(7) {
+        animation-delay: 0.4s;
+      }
+      .exhibition-content-box li:nth-child(8) {
+        animation-delay: 0.45s;
+      }
+      .exhibition-content-box li:nth-child(9) {
+        animation-delay: 0.5s;
+      }
+      .exhibition-content-box li:nth-child(10) {
+        animation-delay: 0.55s;
+      }
+
+      .exhibition-content-box li:nth-child(even) {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        color: #2d3748;
+      }
+
+      .exhibition-content-box li strong {
+        font-weight: 700;
+        display: block;
+        margin-bottom: 4px;
+        font-size: 1.1rem;
       }
 
       .exhibition-content-box li::before {
-        content: "•";
+        content: "◆";
         position: absolute;
-        left: 0;
-        color: #fff;
+        left: 22px;
         font-weight: bold;
-        font-size: 1.2rem;
+        font-size: 1.3rem;
+        color: #fff;
+        transition: transform 0.3s ease;
       }
 
-      /* Optional: Add subtle shadow */
-      .exhibition-content-box {
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      .exhibition-content-box li:nth-child(even)::before {
+        color: #e35029;
       }
 
-      /* Responsive for mobile */
-      @media (max-width: 768px) {
+      .exhibition-content-box li:hover {
+        transform: translateX(10px);
+        border-left-color: #ffb800;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      .exhibition-content-box li:hover::before {
+        transform: scale(1.3) rotate(360deg);
+      }
+
+      /* Image Gallery with Hover Effects */
+      .exhibition-images {
+        animation: fadeInRight 0.8s ease;
+      }
+
+      .exhibition-images img {
+        border-radius: 16px;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        position: relative;
+      }
+
+      .exhibition-images img:hover {
+        transform: scale(1.05) translateY(-5px);
+        box-shadow: 0 15px 40px rgba(227, 80, 41, 0.3);
+      }
+
+      /* Bottom Gallery */
+      .exhibition-bottom-img {
+        animation: fadeInUp 1s ease;
+        margin-top: 50px;
+      }
+
+      .exhibition-bottom-img img {
+        max-width: 50%;
+        /* border-radius: 16px; */
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        transition: all 0.4s ease;
+      }
+
+      /* Keyframe Animations */
+      @keyframes fadeInDown {
+        from {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeInLeft {
+        from {
+          opacity: 0;
+          transform: translateX(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes fadeInRight {
+        from {
+          opacity: 0;
+          transform: translateX(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-20px) rotate(180deg);
+        }
+      }
+
+      /* Decorative Badge */
+      .tech-badge {
+        position: absolute;
+        top: -15px;
+        right: 30px;
+        background: linear-gradient(135deg, #ffb800 0%, #ff8c00 100%);
+        color: #fff;
+        padding: 8px 20px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 700;
+        box-shadow: 0 5px 15px rgba(255, 184, 0, 0.4);
+        animation: pulse 2s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+
+      /* Responsive Design */
+      @media (max-width: 992px) {
         .exhibition-header {
-          padding: 15px 20px;
+          padding: 30px 35px;
         }
-        .exhibition-content-box {
-          padding: 20px;
+
+        .exhibition-header h2 {
+          font-size: 2rem;
         }
+
+        .exhibition-content-box li {
+          font-size: 1rem;
+          padding: 18px 20px 18px 45px;
+        }
+
+        .exhibition-bottom-img img {
+          max-width: 100%;
+          margin-bottom: 15px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .exhibition-section {
+          padding: 50px 0;
+        }
+
+        .exhibition-header {
+          padding: 25px 20px;
+          margin-bottom: 30px;
+        }
+
+        .exhibition-header h2 {
+          font-size: 1.75rem;
+        }
+
+        .exhibition-header p {
+          font-size: 1rem;
+        }
+
         .exhibition-content-box li {
           font-size: 0.95rem;
+          padding: 16px 15px 16px 40px;
+        }
+
+        .tech-badge {
+          font-size: 0.75rem;
+          padding: 6px 15px;
         }
       }
-
       /* Innovation Zone Highlight */
       .innovation-highlight {
         background: linear-gradient(
@@ -1212,28 +1621,471 @@
         }
       }
       .sponsors-row {
-  display: flex;
-  justify-content: center;       /* Centers horizontally */
-  align-items: center;           /* Optional: vertical center if needed */
-  flex-wrap: wrap;               /* Allows wrapping on small screens */
-  gap: 40px;                     /* Space between logos */
-  margin-top: 40px;
-}
+        display: flex;
+        justify-content: center; /* Centers horizontally */
+        align-items: center; /* Optional: vertical center if needed */
+        flex-wrap: wrap; /* Allows wrapping on small screens */
+        gap: 40px; /* Space between logos */
+        margin-top: 40px;
+      }
 
-.sponsor .brand-holder {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  /* Optional: set max width for consistent sizing */
-  max-width: 180px;
-  height: auto;
-}
+      .sponsor .brand-holder {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        /* Optional: set max width for consistent sizing */
+        max-width: 180px;
+        height: auto;
+      }
 
-.sponsor img {
-  max-width: 100%;
-  height: auto;
-  object-fit: contain;
-}
+      .sponsor img {
+        max-width: 100%;
+        height: auto;
+        object-fit: contain;
+      }
+    </style>
+
+    <style>
+      .venue-transport-section {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .venue-row-wrapper {
+        display: flex;
+        gap: 30px;
+        flex-wrap: wrap;
+      }
+
+      .venue-column-half {
+        flex: 1;
+        min-width: 300px;
+      }
+
+      .venue-card-wrapper {
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        /* box-shadow: 0 2px 10px rgba(0,0,0,0.08); */
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        height: 100%;
+      }
+
+      .venue-card-wrapper:hover {
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        transform: translateY(-5px);
+      }
+
+      .venue-title-heading {
+        color: #2c3e50;
+        font-size: 24px;
+        margin-bottom: 20px;
+        font-weight: 600;
+        position: relative;
+        padding-bottom: 12px;
+      }
+
+      .venue-title-heading::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 50px;
+        height: 3px;
+        background: linear-gradient(90deg, #3498db, #2ecc71);
+      }
+
+      .venue-description-text {
+        color: #555;
+        line-height: 1.8;
+        font-size: 15px;
+        margin-bottom: 20px;
+      }
+
+      .venue-map-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.98);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.4s ease;
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        z-index: 10;
+      }
+
+      .venue-card-wrapper:hover .venue-map-overlay {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .venue-map-header-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+
+      .venue-map-title-text {
+        font-size: 18px;
+        font-weight: 600;
+        color: #2c3e50;
+      }
+
+      .venue-map-close-hint {
+        font-size: 12px;
+        color: #999;
+        font-style: italic;
+      }
+
+      .venue-map-iframe {
+        flex: 1;
+        border: none;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .venue-location-pin-icon {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, #3498db, #2ecc71);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 18px;
+        transition: all 0.3s ease;
+      }
+
+      .venue-card-wrapper:hover .venue-location-pin-icon {
+        transform: scale(1.2) rotate(360deg);
+      }
+
+      @media (max-width: 768px) {
+        .venue-row-wrapper {
+          flex-direction: column;
+        }
+
+        .venue-column-half {
+          min-width: 100%;
+        }
+      }
+
+    /* //why telengana css */
+
+     .venue-section {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 80px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .venue-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h100v100H0z" fill="none"/><path d="M50 0L100 50L50 100L0 50z" fill="%23ffffff" opacity="0.05"/></svg>');
+            background-size: 100px 100px;
+            pointer-events: none;
+        }
+
+        .container-venue {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-header {
+            margin-bottom: 60px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .section-id {
+            display: inline-block;
+            color: #e74c3c;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .section-id::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 2px;
+            background: #e74c3c;
+        }
+
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .text-content {
+            animation: fadeInLeft 0.8s ease-out;
+        }
+
+        .main-title {
+            font-size: 42px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            line-height: 1.3;
+        }
+
+        .strength-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .strength-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 5px;
+            background: linear-gradient(180deg, #f39c12 0%, #e74c3c 100%);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .strength-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .strength-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .strength-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #e74c3c;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .strength-title::before {
+            content: '•';
+            margin-right: 12px;
+            font-size: 28px;
+        }
+
+        .strength-description {
+            color: #555;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        .ecosystem-section {
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            margin-top: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .ecosystem-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #f39c12;
+        }
+
+        .features-list {
+            list-style: none;
+        }
+
+        .features-list li {
+            padding: 15px 0 15px 40px;
+            position: relative;
+            color: #555;
+            font-size: 16px;
+            line-height: 1.7;
+            border-bottom: 1px solid #eee;
+        }
+
+        .features-list li:last-child {
+            border-bottom: none;
+        }
+
+        .features-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .features-list li strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .image-content {
+            animation: fadeInRight 0.8s ease-out;
+        }
+
+        .venue-preview {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .venue-preview:hover {
+            transform: scale(1.02);
+        }
+
+        .venue-preview img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .venue-preview:hover img {
+            transform: scale(1.05);
+        }
+
+        .image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+            padding: 30px;
+            color: white;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .venue-preview:hover .image-overlay {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .image-overlay h4 {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .decorative-border {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 100px;
+            height: 100px;
+            border: 4px solid #f39c12;
+            border-radius: 20px;
+            z-index: -1;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @media (max-width: 968px) {
+            .content-wrapper {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .main-title {
+                font-size: 32px;
+            }
+
+            .venue-section {
+                padding: 60px 20px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .main-title {
+                font-size: 26px;
+            }
+
+            .strength-title {
+                font-size: 18px;
+            }
+
+            .strength-card {
+                padding: 20px;
+            }
+
+            .ecosystem-section {
+                padding: 25px;
+            }
+        }
+
+
     </style>
   </head>
 
@@ -1285,7 +2137,7 @@
 			============================================= -->
       <header id="header" class="header">
         <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-tra">
-          <div class="container">
+          <div class="container-fluid">
             <!-- LOGO IMAGE -->
             <!-- Recommended sizes for Retina Ready displays is 310x60px; -->
             <a href="#hero-2" class="navbar-brand logo-white"
@@ -1352,7 +2204,9 @@
                   <a class="nav-link" href="#sponsors-1">Sponsers</a>
                 </li>
                 <li class="nav-item nl-simple">
-                  <a class="nav-link" href="#media-3">State Partners</a>
+                  <a class="nav-link" href="#media-3"
+                    >Co-Host & Partner State</a
+                  >
                 </li>
 
                 <!-- Button -->
@@ -1382,9 +2236,12 @@
               <!-- Event Description -->
               <div class="hero-txt white-color">
                 <!-- Event Date -->
-                <h3>From Mines to Minerals:Powering a Sustainable Future</h3>
+                <h3 style="font-size: 20px">
+                  From Mines to Minerals:Powering a Sustainable Future
+                </h3>
 
                 <!-- Title -->
+                <h2 style="font-size: 40px">india international</h2>
                 <h2>Minexpo 2026</h2>
 
                 <!-- Text -->
@@ -1431,73 +2288,189 @@
         </div>
         <!-- End container -->
       </section>
+
       <!-- END BANNER-1 -->
 
       <!-- ABOUT-3
 			============================================= -->
-      <section id="about-3" class="about-section division">
-        <div class="container">
-          <div class="row d-flex align-items-center">
-            <!-- ABOUT TEXT -->
-            <div class="col-md-5">
-              <div class="about-txt m-bottom-40">
-                <!-- Section ID -->
-                <span class="section-id">About the Event</span>
+      <section
+        id="about-3"
+        class="position-relative text-white overflow-hidden"
+        style="
+          background-image: url('images/20.jpg');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+        "
+      >
+        <!-- Full Dark Overlay -->
 
-                <!-- Title -->
-                <h2 class="h2-medium">Do not miss the upcoming event</h2>
+        <!-- Content -->
+        <div
+          class="container position-relative py-5 py-lg-6"
+          style="z-index: 2"
+        >
+          <div class="row justify-content-center">
+            <div class="col-12 col-xl-10">
+              <!-- Header Section -->
+              <div class="text-center text-lg-start mb-5 px-3 px-md-0">
+                <div
+                  class="d-inline-block mb-3 px-4 py-2 rounded-pill"
+                  style="
+                    background: rgba(255, 255, 255, 0.1);
+                    backdrop-filter: blur(10px);
+                  "
+                >
+                  <span
+                    style="
+                      font-size: 24px;
+                      font-weight: 600;
+                      letter-spacing: 1px;
+                    "
+                  >
+                    About the Event
+                  </span>
+                </div>
 
-                <!-- Text -->
-                <p>
-                  India International Mine Expo 2026 (IIMX 2026) is set to be
-                  the country’s premier International Platform bringing together
-                  Policymakers, Industry Leaders, Innovators, and Stakeholders
-                  from the Mining, Coal, Steel, and Heavy Industries sectors. As
-                  India advances toward Self-Reliance, Energy Security, and
-                  Sustainable Growth, this landmark event will spotlight
-                  Cutting-Edge Technologies, Innovative Solutions, Progressive
-                  Policies, and Strategic Partnerships shaping the future of
-                  Mining and Allied Industries. The Expo will offer unparalleled
-                  opportunities for Dialogue, Collaboration, and Investment
-                  across one of the world’s most vital sectors driving global
-                  economic progress. Featuring High-Level Conference Sessions, a
-                  Dynamic Exhibition, B2B Meetings, an Exhibitor Forum, and
-                  Special Inaugural and Valedictory Ceremonies, IIMX 2026 will
-                  encompass the entire spectrum of Mines, Minerals, Coal, Steel,
-                  Heavy, and Downstream Industries — marking a milestone in
-                  charting the future of Sustainable Mining and Industrial
-                  Growth.
-                </p>
-
-                <!-- Singnature -->
-                <!-- <div class="singnature m-top-35">
-                 
-                  <p class="p-small m-bottom-20">Randon Pexon, Organizer</p>
-
-                 
-                  <img
-                    class="img-fluid"
-                    src="images/signature.png"
-                    width="200"
-                    height="34"
-                    alt="signature-image"
-                  />
-                </div> -->
+                <h2
+                  class="display-4 fw-bold mb-4"
+                  style="
+                    font-size: clamp(32px, 5vw, 56px);
+                    line-height: 1.2;
+                    color: white;
+                    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+                  "
+                >
+                  Don't Miss the Upcoming Event
+                </h2>
               </div>
-            </div>
-            <!-- END ABOUT TEXT -->
 
-            <!-- ABOUT IMAGE -->
-            <div class="col-md-7">
-              <div class="about-img">
-                <img class="img-fluid" src="images/13.jpg" alt="about-image" />
+              <!-- Content Cards -->
+              <div class="row g-4">
+                <!-- Card 1 -->
+                <div class="col-12 col-lg-6">
+                  <div
+                    class="h-100 p-4 p-md-5 rounded-4"
+                    style="
+                      background: rgba(255, 255, 255, 0.08);
+                      backdrop-filter: blur(15px);
+                      border: 1px solid rgba(255, 255, 255, 0.15);
+                      transition: all 0.3s ease;
+                    "
+                    onmouseover="this.style.background='rgba(255, 255, 255, 0.12)'; this.style.transform='translateY(-5px)'"
+                    onmouseout="this.style.background='rgba(255, 255, 255, 0.08)'; this.style.transform='translateY(0)'"
+                  >
+                    <p
+                      class="m-0 lh-lg"
+                      style="
+                        font-size: clamp(15px, 2vw, 17px);
+                        color: rgba(255, 255, 255, 0.95);
+                        text-align: justify;
+                      "
+                    >
+                      <b class="fs-3"
+                        >India International Mine Expo 2026 (IIMX 2026) </b
+                      >is set to be the country's premier International Platform
+                      bringing together Policymakers, Industry Leaders,
+                      Innovators, and Stakeholders from the Mining, Coal, Steel,
+                      and Heavy Industries sectors. As India advances toward
+                      Self-Reliance, Energy Security, and Sustainable Growth,
+                      this landmark event will spotlight Cutting-Edge
+                      Technologies, Innovative Solutions, Progressive Policies,
+                      and Strategic Partnerships shaping the future of Mining
+                      and Allied Industries.
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="col-12 col-lg-6">
+                  <div
+                    class="h-100 p-4 p-md-5 rounded-4"
+                    style="
+                      background: rgba(255, 255, 255, 0.08);
+                      backdrop-filter: blur(15px);
+                      border: 1px solid rgba(255, 255, 255, 0.15);
+                      transition: all 0.3s ease;
+                    "
+                    onmouseover="this.style.background='rgba(255, 255, 255, 0.12)'; this.style.transform='translateY(-5px)'"
+                    onmouseout="this.style.background='rgba(255, 255, 255, 0.08)'; this.style.transform='translateY(0)'"
+                  >
+                    <p
+                      class="m-0 lh-lg"
+                      style="
+                        font-size: clamp(15px, 2vw, 17px);
+                        color: rgba(255, 255, 255, 0.95);
+                        text-align: justify;
+                      "
+                    >
+                      <b>The Expo will offer unparalleled opportunities </b> for
+                      Dialogue, Collaboration, and Investment across one of the
+                      world's most vital sectors driving global economic
+                      progress. Featuring High-Level Conference Sessions, a
+                      Dynamic Exhibition, B2B Meetings, an Exhibitor Forum, and
+                      Special Inaugural and Valedictory Ceremonies, IIMX 2026
+                      will encompass the entire spectrum of Mines, Minerals,
+                      Coal, Steel, Heavy, and Downstream Industries — marking a
+                      milestone in charting the future of Sustainable Mining and
+                      Industrial Growth.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Optional CTA Button -->
+              <div class="text-center mt-5 pt-3">
+                <a
+                  href="#register"
+                  class="btn btn-lg px-5 py-3 rounded-pill fw-semibold"
+                  style="
+                    background: linear-gradient(
+                      135deg,
+                      #ff6b35 0%,
+                      #f7931e 100%
+                    );
+                    border: none;
+                    color: white;
+                    font-size: 18px;
+                    letter-spacing: 0.5px;
+                    box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
+                    transition: all 0.3s ease;
+                  "
+                  onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 15px 40px rgba(255, 107, 53, 0.4)'"
+                  onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 30px rgba(255, 107, 53, 0.3)'"
+                >
+                  Register Now →
+                </a>
               </div>
             </div>
           </div>
-          <!-- End row -->
         </div>
-        <!-- End container -->
       </section>
+
+      <style>
+        /* Additional responsive spacing */
+        @media (min-width: 992px) {
+          .py-lg-6 {
+            padding-top: 5rem !important;
+            padding-bottom: 5rem !important;
+          }
+        }
+
+        /* Smooth transitions for all interactive elements */
+        .rounded-4 {
+          border-radius: 1.5rem !important;
+        }
+
+        /* Fix for mobile view */
+        @media (max-width: 768px) {
+          #about-3 {
+            background-attachment: scroll !important;
+          }
+        }
+      </style>
+
       <!-- END ABOUT-3 -->
 
       <!-- FEATURES-2
@@ -1509,133 +2482,135 @@
         <div class="container">
           <!-- SECTION TITLE 	-->
           <div class="row">
-        <div class="col-md-9 col-lg-8 section-title">
-          <!-- Section ID -->
-          <!-- <span class="section-id">About Eventador 2022</span> -->
+            <div class="col-md-9 col-lg-8 section-title">
+              <!-- Section ID -->
+              <!-- <span class="section-id">About Eventador 2022</span> -->
 
-          <!-- Title -->
-          <h2 class="banner-regular">Event Spectrum</h2>
-        </div>
+              <!-- Title -->
+              <h2 class="banner-regular">Event Spectrum</h2>
+            </div>
           </div>
           <!-- END SECTION TITLE -->
 
           <div class="row">
-        <!-- FEATURE BOX #1 -->
-        <div class="col-md-4">
-          <div class="fbox m-bottom-40">
-            <!-- Title -->
-            <h4 class="h4-medium">Expo</h4>
+            <!-- FEATURE BOX #1 -->
+            <div class="col-md-4">
+              <div class="fbox m-bottom-40">
+                <!-- Title -->
+                <h4 class="h4-medium">Expo</h4>
 
-            <!-- Text -->
-            <p class="m-bottom-25">
-          Showcasing the latest Mining Equipment, Technologies and
-          Services
-            </p>
+                <!-- Text -->
+                <p class="m-bottom-25">
+                  Showcasing the latest Mining Equipment, Technologies and
+                  Services
+                </p>
 
-            <!-- Link -->
-            <!-- <a href="#speakers" class="internal-link grey-color"
+                <!-- Link -->
+                <!-- <a href="#speakers" class="internal-link grey-color"
           >Find Out More<i class="fas fa-arrow-right"></i
             ></a> -->
-          </div>
-        </div>
-        <!-- END FEATURE BOX #1 -->
+              </div>
+            </div>
+            <!-- END FEATURE BOX #1 -->
 
-        <!-- FEATURE BOX #2 -->
-        <div class="col-md-4">
-          <div class="fbox m-bottom-40">
-            <!-- Title -->
-            <h4 class="h4-medium">Conference</h4>
+            <!-- FEATURE BOX #2 -->
+            <div class="col-md-4">
+              <div class="fbox m-bottom-40">
+                <!-- Title -->
+                <h4 class="h4-medium">Conference</h4>
 
-            <!-- Text -->
-            <p class="m-bottom-25">
-          A platform to unite Innovators, Policymakers, & Industry
-          Leaders
-            </p>
+                <!-- Text -->
+                <p class="m-bottom-25">
+                  A platform to unite Innovators, Policymakers, & Industry
+                  Leaders
+                </p>
 
-            <!-- Link -->
-            <!-- <a href="#schedule" class="internal-link grey-color"
+                <!-- Link -->
+                <!-- <a href="#schedule" class="internal-link grey-color"
           >Find Out More<i class="fas fa-arrow-right"></i
             ></a> -->
-          </div>
-        </div>
-        <!-- END FEATURE BOX #2 -->
+              </div>
+            </div>
+            <!-- END FEATURE BOX #2 -->
 
-        <!-- FEATURE BOX #3 -->
-        <div class="col-md-4">
-          <div class="fbox m-bottom-40">
-            <!-- Title -->
-            <h4 class="h4-medium">Workshops</h4>
+            <!-- FEATURE BOX #3 -->
+            <div class="col-md-4">
+              <div class="fbox m-bottom-40">
+                <!-- Title -->
+                <h4 class="h4-medium">Workshops</h4>
 
-            <!-- Text -->
-            <p class="m-bottom-25">
-          Conducted by Experts, Universities, and Research Institutions
-            </p>
+                <!-- Text -->
+                <p class="m-bottom-25">
+                  Conducted by Experts, Universities, and Research Institutions
+                </p>
 
-            <!-- Link -->
-            <!-- <a href="#schedule" class="internal-link grey-color"
+                <!-- Link -->
+                <!-- <a href="#schedule" class="internal-link grey-color"
           >Find Out More<i class="fas fa-arrow-right"></i
             ></a> -->
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="fbox m-bottom-40">
-            <!-- Title -->
-            <h4 class="h4-medium">Product Launches</h4>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="fbox m-bottom-40">
+                <!-- Title -->
+                <h4 class="h4-medium">Product Launches</h4>
 
-            <!-- Text -->
-            <p class="m-bottom-25">
-          Excellent Opportunities to launch New Products with Live Demos
-            </p>
+                <!-- Text -->
+                <p class="m-bottom-25">
+                  Excellent Opportunities to launch New Products with Live Demos
+                </p>
 
-            <!-- Link -->
-            <!-- <a href="#schedule" class="internal-link grey-color"
+                <!-- Link -->
+                <!-- <a href="#schedule" class="internal-link grey-color"
           >Find Out More<i class="fas fa-arrow-right"></i
             ></a> -->
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="fbox m-bottom-40">
-            <!-- Title -->
-            <h4 class="h4-medium">B2B,B2G,B2C Meetings</h4>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="fbox m-bottom-40">
+                <!-- Title -->
+                <h4 class="h4-medium">B2B,B2G,B2C Meetings</h4>
 
-            <!-- Text -->
-            <p class="m-bottom-25">
-          Exclusive Networking Platform Connecting Industry
-          Leaders,Buyers, Stakeholders and Policymakers
-            </p>
+                <!-- Text -->
+                <p class="m-bottom-25">
+                  Exclusive Networking Platform Connecting Industry
+                  Leaders,Buyers, Stakeholders and Policymakers
+                </p>
 
-            <!-- Link -->
-            <!-- <a href="#schedule" class="internal-link grey-color"
+                <!-- Link -->
+                <!-- <a href="#schedule" class="internal-link grey-color"
           >Find Out More<i class="fas fa-arrow-right"></i
             ></a> -->
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="fbox m-bottom-40">
-            <!-- Title -->
-            <h4 class="h4-medium">Startups</h4>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="fbox m-bottom-40">
+                <!-- Title -->
+                <h4 class="h4-medium">Startups</h4>
 
-            <!-- Text -->
-            <p class="m-bottom-25">
-          Dedicated space for Mining Tech Startups and Innovation
-          showcases.
-            </p>
+                <!-- Text -->
+                <p class="m-bottom-25">
+                  Dedicated space for Mining Tech Startups and Innovation
+                  showcases.
+                </p>
 
-            <!-- Link -->
-            <!-- <a href="#schedule" class="internal-link grey-color"
+                <!-- Link -->
+                <!-- <a href="#schedule" class="internal-link grey-color"
           >Find Out More<i class="fas fa-arrow-right"></i
             ></a> -->
-          </div>
-        </div>
-        <!-- END FEATURE BOX #3 -->
+              </div>
+            </div>
+            <!-- END FEATURE BOX #3 -->
           </div>
           <!-- End row -->
 
           <!-- CTA Button -->
           <div class="row">
-        <div class="col-12 text-center mt-4">
-          <a href="#register" class="btn btn-medium">Explore Opportunities</a>
-        </div>
+            <div class="col-12 text-center mt-4">
+              <a href="#register" class="btn btn-medium"
+                >Explore Opportunities</a
+              >
+            </div>
           </div>
         </div>
         <!-- End container -->
@@ -1736,48 +2711,241 @@
 
       <section id="whyAttend" class="why-attend-section">
         <div class="container">
-          <h2 class="section-title text-start">Why Attend?</h2>
-          <div class="horizontal-scroll">
-            <div class="feature-card">
-              <div class="feature-icon"><i class="fas fa-handshake"></i></div>
-              <h4>Engage with Policy Makers</h4>
-              <p>Direct interaction with key Ministries shaping the Sector.</p>
+          <div>
+            <h2 class="section-title">Why Attend?</h2>
+            <p class="text-muted">
+              Discover the benefits of joining India's premier mining expo
+            </p>
+          </div>
+
+          <!-- Scroll Controls -->
+          <div class="controls-wrapper">
+            <div class="scroll-indicators">
+              <span class="indicator active" data-index="0"></span>
+              <span class="indicator" data-index="1"></span>
+              <span class="indicator" data-index="2"></span>
             </div>
-            <div class="feature-card">
-              <div class="feature-icon">
-                <i class="fas fa-network-wired"></i>
+            <div class="scroll-controls">
+              <button
+                class="scroll-btn"
+                id="pauseBtn"
+                aria-label="Pause auto-scroll"
+              >
+                <i class="fas fa-pause"></i>
+              </button>
+              <button class="scroll-btn" id="prevBtn" aria-label="Previous">
+                <i class="fas fa-chevron-left"></i>
+              </button>
+              <button class="scroll-btn" id="nextBtn" aria-label="Next">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Horizontal Scroll Container -->
+          <div class="horizontal-scroll-wrapper">
+            <div class="horizontal-scroll" id="cardContainer">
+              <!-- Card 1 -->
+              <div class="feature-card">
+                <div class="feature-icon">
+                  <i class="fas fa-handshake"></i>
+                </div>
+                <h4>Engage with Policy Makers</h4>
+                <p>
+                  Direct interaction with key Ministries shaping the Sector.
+                </p>
               </div>
-              <h4>Network with Industry Leaders</h4>
-              <p>CEOs, Decision-Makers, and Innovators under one roof.</p>
-            </div>
-            <div class="feature-card">
-              <div class="feature-icon"><i class="fas fa-lightbulb"></i></div>
-              <h4>Showcase Innovation</h4>
-              <p>
-                Demonstrate cutting-edge Technology, Equipment, and Services.
-              </p>
-            </div>
-            <div class="feature-card">
-              <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
-              <h4>Explore Opportunities</h4>
-              <p>
-                Investment, Partnerships, and Collaborations in Mining & Allied
-                Industries.
-              </p>
-            </div>
-            <div class="feature-card">
-              <div class="feature-icon">
-                <i class="fas fa-graduation-cap"></i>
+
+              <!-- Card 2 -->
+              <div class="feature-card">
+                <div class="feature-icon">
+                  <i class="fas fa-network-wired"></i>
+                </div>
+                <h4>Network with Industry Leaders</h4>
+                <p>CEOs, Decision-Makers, and Innovators under one roof.</p>
               </div>
-              <h4>Gain Insights</h4>
-              <p>
-                Access to Expert Sessions on Policy, Sustainability,
-                Digitization, and the Future of Mining.
-              </p>
+
+              <!-- Card 3 -->
+              <div class="feature-card">
+                <div class="feature-icon">
+                  <i class="fas fa-lightbulb"></i>
+                </div>
+                <h4>Showcase Innovation</h4>
+                <p>
+                  Demonstrate cutting-edge Technology, Equipment, and Services.
+                </p>
+              </div>
+
+              <!-- Card 4 -->
+              <div class="feature-card">
+                <div class="feature-icon">
+                  <i class="fas fa-chart-line"></i>
+                </div>
+                <h4>Explore Opportunities</h4>
+                <p>
+                  Investment, Partnerships, and Collaborations in Mining &
+                  Allied Industries.
+                </p>
+              </div>
+
+              <!-- Card 5 -->
+              <div class="feature-card">
+                <div class="feature-icon">
+                  <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h4>Gain Insights</h4>
+                <p>
+                  Access to Expert Sessions on Policy, Sustainability,
+                  Digitization, and the Future of Mining.
+                </p>
+              </div>
             </div>
+
+            <!-- Gradient Overlays -->
+            <div class="scroll-fade scroll-fade-left"></div>
+            <div class="scroll-fade scroll-fade-right"></div>
+          </div>
+
+          <!-- Progress Bar -->
+          <div class="scroll-progress-container">
+            <div class="scroll-progress-bar" id="progressBar"></div>
           </div>
         </div>
       </section>
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const container = document.getElementById("cardContainer");
+          const prevBtn = document.getElementById("prevBtn");
+          const nextBtn = document.getElementById("nextBtn");
+          const pauseBtn = document.getElementById("pauseBtn");
+          const progressBar = document.getElementById("progressBar");
+          const indicators = document.querySelectorAll(".indicator");
+
+          let isPaused = false;
+          let isHovered = false;
+          let autoScrollFrame = null;
+          let scrollSpeed = 1.2; // pixels per frame
+
+          /** --- 1. Duplicate cards for infinite scroll illusion --- **/
+          const originalCards = Array.from(container.children);
+          const cloneCards = originalCards.map((card) => card.cloneNode(true));
+          cloneCards.forEach((clone) => container.appendChild(clone));
+
+          /** --- 2. Update progress bar --- **/
+          function updateProgressBar() {
+            const maxScroll = container.scrollWidth / 2 - container.clientWidth;
+            const scrollPercentage =
+              ((container.scrollLeft % maxScroll) / maxScroll) * 100;
+            progressBar.style.width = `${scrollPercentage}%`;
+          }
+
+          /** --- 3. Update indicators --- **/
+          function updateIndicators() {
+            const maxScroll = container.scrollWidth / 2 - container.clientWidth;
+            const scrollPercentage =
+              (container.scrollLeft % maxScroll) / maxScroll;
+            const totalIndicators = indicators.length;
+            const currentIndex = Math.round(
+              scrollPercentage * (totalIndicators - 1)
+            );
+
+            indicators.forEach((indicator, index) => {
+              indicator.classList.toggle("active", index === currentIndex);
+            });
+          }
+
+          /** --- 4. Smooth infinite auto-scroll --- **/
+          function startInfiniteScroll() {
+            function smoothScroll() {
+              if (!isPaused && !isHovered) {
+                container.scrollLeft += scrollSpeed;
+                const halfScrollWidth = container.scrollWidth / 2;
+                if (container.scrollLeft >= halfScrollWidth) {
+                  container.scrollLeft = 0; // reset seamlessly
+                }
+              }
+              updateProgressBar();
+              updateIndicators();
+              autoScrollFrame = requestAnimationFrame(smoothScroll);
+            }
+            cancelAnimationFrame(autoScrollFrame);
+            autoScrollFrame = requestAnimationFrame(smoothScroll);
+          }
+
+          function stopInfiniteScroll() {
+            cancelAnimationFrame(autoScrollFrame);
+          }
+
+          /** --- 5. Navigation Buttons --- **/
+          function getScrollAmount() {
+            const card = container.querySelector(".feature-card");
+            if (!card) return 300;
+            const cardWidth = card.offsetWidth;
+            const gap = 24;
+            const cardsPerView =
+              window.innerWidth >= 1200
+                ? 4
+                : window.innerWidth >= 992
+                ? 3
+                : window.innerWidth >= 576
+                ? 2
+                : 1;
+            return (cardWidth + gap) * cardsPerView;
+          }
+
+          nextBtn.addEventListener("click", () => {
+            container.scrollBy({ left: getScrollAmount(), behavior: "smooth" });
+          });
+
+          prevBtn.addEventListener("click", () => {
+            container.scrollBy({
+              left: -getScrollAmount(),
+              behavior: "smooth",
+            });
+          });
+
+          /** --- 6. Pause/Play Button --- **/
+          pauseBtn.addEventListener("click", () => {
+            isPaused = !isPaused;
+            const icon = pauseBtn.querySelector("i");
+            if (isPaused) {
+              icon.classList.remove("fa-pause");
+              icon.classList.add("fa-play");
+              stopInfiniteScroll();
+            } else {
+              icon.classList.remove("fa-play");
+              icon.classList.add("fa-pause");
+              startInfiniteScroll();
+            }
+          });
+
+          /** --- 7. Hover Pause --- **/
+          container.addEventListener("mouseenter", () => {
+            isHovered = true;
+            stopInfiniteScroll();
+          });
+          container.addEventListener("mouseleave", () => {
+            isHovered = false;
+            if (!isPaused) startInfiniteScroll();
+          });
+
+          /** --- 8. Visibility Pause --- **/
+          document.addEventListener("visibilitychange", () => {
+            if (document.hidden) stopInfiniteScroll();
+            else if (!isPaused && !isHovered) startInfiniteScroll();
+          });
+
+          /** --- 9. Initialize --- **/
+          updateProgressBar();
+          updateIndicators();
+          startInfiniteScroll();
+
+          window.addEventListener("resize", () => {
+            updateProgressBar();
+            updateIndicators();
+          });
+        });
+      </script>
 
       <!-- Who Will Attend Section -->
       <section class="who-attend-section">
@@ -2035,6 +3203,7 @@
       </script>
 
       <!-- Why Hyderabad Section -->
+      <!-- Why Hyderabad Section -->
       <section class="hyderabad-section">
         <div class="container">
           <h2 class="section-title text-center">
@@ -2045,20 +3214,19 @@
             international participants gain direct access to:
           </p>
 
-          <div class="row">
+          <div class="row align-items-center">
+            <!-- Left Side: Access Points -->
             <div class="col-lg-6">
               <div class="access-point">
                 <i class="fas fa-user-tie"></i>
                 <strong>India's Mining Leadership and Policy Makers.</strong>
               </div>
-            </div>
-            <div class="col-lg-6">
+
               <div class="access-point">
                 <i class="fas fa-gem"></i>
                 <strong>One of the Richest Mineral Belts in South Asia.</strong>
               </div>
-            </div>
-            <div class="col-lg-6">
+
               <div class="access-point">
                 <i class="fas fa-users"></i>
                 <strong
@@ -2066,14 +3234,28 @@
                   and Downstream Industries.</strong
                 >
               </div>
-            </div>
-            <div class="col-lg-6">
+
               <div class="access-point">
                 <i class="fas fa-city"></i>
                 <strong
                   >A city that blends heritage with Global Business potential,
                   offering both opportunity and experience.</strong
                 >
+              </div>
+            </div>
+
+            <!-- Right Side: Image -->
+            <div class="col-lg-6">
+              <div class="hyderabad-image-container">
+                <img
+                  src="images/30.jpg"
+                  alt="Hyderabad - India's Mining Hub"
+                  class="img-fluid rounded shadow-lg"
+                />
+                <div class="image-overlay">
+                  <h4 style="color: white">Hyderabad</h4>
+                  <p>Gateway to India's Mining Industry</p>
+                </div>
               </div>
             </div>
           </div>
@@ -2513,16 +3695,16 @@
 
       <!-- MEDIA-3 
 			============================================= -->
-      <section
+      <!-- <section
         id="media-3"
         class="bg-scroll bg-dark wide-60 media-section division"
         style="background-image: url(images/bg-tra.png)"
       >
         <div class="container white-color">
-          <!-- MEDIA-3-1 CONTENT -->
+         
           <div class="media-3-1 m-bottom-60">
             <div class="row d-flex align-items-center">
-              <!-- MEDIA IMAGE -->
+              
               <div class="col-md-6">
                 <div class="media-img text-center m-bottom-40">
                   <img
@@ -2535,13 +3717,13 @@
                 </div>
               </div>
 
-              <!-- MEDIA TEXT -->
+              
               <div class="col-md-6">
                 <div class="media-txt p-left-40 m-bottom-40">
-                  <!-- Title -->
+                
                   <h2>Co-Host & Partner State Telengana</h2>
 
-                  <!-- Text -->
+                  
                   <p>
                     It gives me immense pleasure to extend my best wishes to the
                     India International Mines Expo being held in Hyderabad — a
@@ -2550,7 +3732,7 @@
                     industries.
                   </p>
 
-                  <!-- Text -->
+                  
                   <p>
                     Telangana is proud to host this significant event that
                     unites policymakers, industry captains, investors, and
@@ -2558,7 +3740,7 @@
                     partnerships that will shape the future of the sector
                   </p>
 
-                  <!-- Text -->
+                
                   <p>
                     Telangana has been a pioneer in harnessing its vast mineral
                     wealth responsibly and effectively, creating a conducive
@@ -2578,27 +3760,25 @@
                 </div>
               </div>
             </div>
-            <!-- End row -->
+        
           </div>
-          <!-- END MEDIA-3-1 CONTENT -->
-
-          <!-- MEDIA-3-2 CONTENT -->
+        
           <div class="media-3-2">
             <div class="row d-flex align-items-center">
-              <!-- MEDIA TEXT -->
+              
               <div class="col-md-6">
                 <div class="media-txt p-right-40 m-bottom-40">
-                  <!-- Title -->
+                
                   <h2>Shri D. Sridhar Babu</h2>
 
-                  <!-- Text -->
+              
                   <p>
                     Hon’ble Minister for Information Technology, Electronics &
                     Communications, Industries & Commerce, and Legislative
                     Affairs, Telangana
                   </p>
 
-                  <!-- Text -->
+                 
                   <p>
                     I extend my best wishes to the India International Mines
                     Expo, being hosted in Hyderabad — a landmark platform that
@@ -2607,7 +3787,7 @@
                     coal, and downstream sectors.
                   </p>
 
-                  <!-- List -->
+                 
                   <ul class="features-list">
                     <li>
                       I urge all stakeholders to actively participate in this
@@ -2626,7 +3806,7 @@
                 </div>
               </div>
 
-              <!-- MEDIA IMAGE -->
+             
               <div class="col-md-6">
                 <div class="media-img m-bottom-40">
                   <img
@@ -2637,46 +3817,51 @@
                 </div>
               </div>
             </div>
-            <!-- End row -->
+           
           </div>
-          <!-- END MEDIA-3-2 CONTENT -->
+         
         </div>
-        <!-- End container -->
-      </section>
-      <!-- END MEDIA-3 -->
+        
+      </section> -->
 
       <!-- Plenary & Keynote Section -->
-     <section class="plenary-section">
-  <div class="container">
-    <div class="row align-items-center">
-      <!-- Left: Image -->
-      <div class="col-lg-6 mb-4 mb-lg-0">
-        <div class="plenary-image-wrapper">
-          <img
-            src="images/14.jpg"
-            alt="Mining Tunnel"
-            class="img-fluid rounded"
-          />
-        </div>
-      </div>
+      <section class="plenary-section">
+        <div class="container">
+          <div class="row align-items-center">
+            <!-- Left: Image -->
+            <div class="col-lg-6 mb-4 mb-lg-0">
+              <div class="plenary-image-wrapper">
+                <img
+                  src="images/14.jpg"
+                  alt="Mining Tunnel"
+                  class="img-fluid rounded"
+                />
+              </div>
+            </div>
 
-      <!-- Right: CTA-Focused Content -->
-      <div class="col-lg-6">
-        <div class="plenary-cta-box">
-          <span class="plenary-tag">Featured</span>
-          <h2>Plenary & Keynote Sessions</h2>
-          <p>Join global leaders, ministers, and innovators shaping the future of mining through powerful insights on ESG, technology, and industry transformation.</p>
-          
-          <!-- Primary CTA Button -->
-          <a href="#register" class="btn-plenary-primary">Reserve Your Seat</a>
-          
-          <!-- Secondary Link -->
-          <!-- <a href="#agenda" class="btn-plenary-secondary">View Full Agenda →</a> -->
+            <!-- Right: CTA-Focused Content -->
+            <div class="col-lg-6">
+              <div class="plenary-cta-box">
+                <span class="plenary-tag">Featured</span>
+                <h2>Plenary & Keynote Sessions</h2>
+                <p>
+                  Join global leaders, ministers, and innovators shaping the
+                  future of mining through powerful insights on ESG, technology,
+                  and industry transformation.
+                </p>
+
+                <!-- Primary CTA Button -->
+                <a href="#register" class="btn-plenary-primary"
+                  >Reserve Your Seat</a
+                >
+
+                <!-- Secondary Link -->
+                <!-- <a href="#agenda" class="btn-plenary-secondary">View Full Agenda →</a> -->
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
+      </section>
 
       <!-- Technical Conference Section -->
       <section class="technical-section">
@@ -2774,89 +3959,90 @@
       <section class="exhibition-section">
         <div class="container">
           <!-- Header -->
-          <div class="exhibition-header">
+          <div class="exhibition-header text-center">
+            <!-- <div class="tech-badge">2025</div> -->
             <h2>Exhibition & Technology Showcase</h2>
-            <p>Indoor & outdoor Exhibition Zones showcasing :</p>
+            <p>Indoor & Outdoor Exhibition Zones Showcasing</p>
           </div>
 
           <!-- Main Content Row -->
           <div class="row align-items-start">
-            <!-- Left: Orange Box with Bullet Points -->
-            <div class="col-lg-7">
+            <!-- Left: Content Box -->
+            <div class="col-lg-7 mb-4 mb-lg-0">
               <div class="exhibition-content-box">
                 <ul>
                   <li>
-                    <strong>Mining Machinery & Equipment</strong> - Automated
-                    Drills, Loaders, Crushers, Conveyors
+                    <strong>Mining Machinery & Equipment</strong>
+                    Automated Drills, Loaders, Crushers, Conveyors
                   </li>
                   <li>
-                    <strong>GIS & Geospatial Technologies</strong> - Mapping,
-                    Exploration, Resource Modelling, Survey Solutions
+                    <strong>GIS & Geospatial Technologies</strong>
+                    Mapping, Exploration, Resource Modelling, Survey Solutions
                   </li>
                   <li>
-                    <strong>Data Analytics & AI/ML Solutions</strong> -
+                    <strong>Data Analytics & AI/ML Solutions</strong>
                     Predictive Maintenance, Mine Planning, Operational
                     Optimization
                   </li>
                   <li>
-                    <strong>IoT & Smart Sensors</strong> - Equipment Monitoring,
-                    Environmental Sensing, Safety Tracking
+                    <strong>IoT & Smart Sensors</strong>
+                    Equipment Monitoring, Environmental Sensing, Safety Tracking
                   </li>
                   <li>
-                    <strong>Drones & Robotics</strong> - Aerial Surveys,
-                    Autonomous Vehicles, Robotic Mining Operations
+                    <strong>Drones & Robotics</strong>
+                    Aerial Surveys, Autonomous Vehicles, Robotic Mining
+                    Operations
                   </li>
                   <li>
                     <strong>Environmental & Sustainability Technologies</strong>
-                    - Water Management, Emissions Reduction, Mine Rehabilitation
+                    Water Management, Emissions Reduction, Mine Rehabilitation
                   </li>
                   <li>
-                    <strong>Energy Solutions & Renewable Integration</strong> -
+                    <strong>Energy Solutions & Renewable Integration</strong>
                     Hybrid Mining Equipment, Solar/Wind Power Solutions
                   </li>
                   <li>
-                    <strong>Safety & Protective Equipment Innovations</strong> -
+                    <strong>Safety & Protective Equipment Innovations</strong>
                     Wearable Tech, AI-Assisted Hazard Detection
                   </li>
                   <li>
-                    <strong>Tech Startups & Innovation Zone</strong> - GIS,
-                    Analytics, AI/ML, IoT, Drones, Sustainability Solutions
+                    <strong>Tech Startups & Innovation Zone</strong>
+                    GIS, Analytics, AI/ML, IoT, Drones, Sustainability Solutions
                   </li>
                   <li>
-                    <strong>International Country Pavilions</strong> - LATAM,
-                    Africa, Russia, UAE, Asia-Pacific.
+                    <strong>International Country Pavilions</strong>
+                    LATAM, Africa, Russia, UAE, Asia-Pacific
                   </li>
                 </ul>
               </div>
             </div>
 
-            <!-- Right: Image -->
+            <!-- Right: Images -->
             <div class="col-lg-5">
-              <img
-                src="images/13.webp"
-                alt="Mining Truck"
-                class="img-fluid rounded mb-2"
-              />
-              <img
-                src="images/16.jpg"
-                alt="Mining Truck"
-                class="img-fluid rounded"
-              />
+              <div class="exhibition-images">
+                <img
+                  src="https://images.unsplash.com/photo-1581094271901-8022df4466f9?w=800&h=500&fit=crop"
+                  alt="Mining Equipment"
+                  class="img-fluid mb-3"
+                />
+                <img
+                  src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800&h=500&fit=crop"
+                  alt="Mining Truck"
+                  class="img-fluid"
+                />
+              </div>
             </div>
           </div>
 
-          <!-- Bottom Full-Width Image -->
-          <div class="mt-4 d-flex justify-content-center">
-          
+          <!-- Bottom Gallery -->
+          <div
+            class="exhibition-bottom-img d-flex flex-wrap justify-content-center gap-5"
+          >
+            <img src="images/26.jpg" alt="Mining Excavator" class="img-fluid" />
             <img
               src="images/26.jpg"
-              alt="Excavator in Mine"
-              class="img-fluid rounded"
-            />
-            <img
-              src="images/26.jpg"
-              alt="Excavator in Mine"
-              class="img-fluid rounded"
+              alt="Mining Operations"
+              class="img-fluid"
             />
           </div>
         </div>
@@ -2911,242 +4097,107 @@
 
       <!-- SPONSORS-1
 			============================================= -->
-     <section id="sponsors-1" class="wide-100 sponsors-section division">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-10 col-lg-8 section-title">
-        <span class="section-id">Event Sponsors</span>
-        <h2 class="banner-regular">Our Sponsors & Partners</h2>
-      </div>
-    </div>
+      <section id="sponsors-1" class="wide-100 sponsors-section division">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-10 col-lg-8 section-title">
+              <span class="section-id">Event Sponsors</span>
+              <h2 class="banner-regular">Our Sponsors & Partners</h2>
+            </div>
+          </div>
 
-    <!-- Centered Sponsors Row -->
-    <div class="sponsors-row">
-      <div class="sponsor">
-        <div class="brand-holder">
-          <img class="img-fluid" src="images/37.png" alt="sponsor-logo" />
+          <!-- Centered Sponsors Row -->
+          <div class="sponsors-row">
+            <div class="sponsor">
+              <div class="brand-holder">
+                <img class="img-fluid" src="images/37.png" alt="sponsor-logo" />
+              </div>
+            </div>
+            <div class="sponsor">
+              <div class="brand-holder">
+                <img class="img-fluid" src="images/38.png" alt="sponsor-logo" />
+              </div>
+            </div>
+            <div class="sponsor">
+              <div class="brand-holder">
+                <img class="img-fluid" src="images/39.png" alt="sponsor-logo" />
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="sponsor">
-        <div class="brand-holder">
-          <img class="img-fluid" src="images/38.png" alt="sponsor-logo" />
-        </div>
-      </div>
-      <div class="sponsor">
-        <div class="brand-holder">
-          <img class="img-fluid" src="images/39.png" alt="sponsor-logo" />
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+      </section>
       <!-- END SPONSORS-1 -->
 
       <!-- VENUE-1
 			============================================= -->
-      <section id="venue-1" class="bg-lightgrey wide-60 venue-section division">
-        <div class="container">
-          <!-- SECTION TITLE 	-->
-          <div class="row">
-            <div class="col-md-10 col-lg-8 section-title">
-              <!-- Section ID -->
-              <span class="section-id">Why Hyderabad & Telangana?</span>
-
-              <!-- Title -->
-              <!-- <h2 class="banner-regular">A Strategic Gateway to India’s Mining & Heavy Industry</h2> -->
+      <section class="venue-section">
+        <div class="container-venue">
+            <div class="section-header">
+                <span class="section-id">Why Hyderabad & Telangana?</span>
             </div>
-          </div>
-          <!-- END SECTION TITLE -->
 
-          <div class="row">
-            <!-- VENUE LOCATION -->
-            <div class="col-lg-7 col-xl-8">
-              <div class="v-location p-right-30 m-bottom-40">
-                <!-- VENUE PREVIEW -->
-                <div class="venue-preview">
-                  <!-- Preview -->
-                  <img
-                    class="img-fluid"
-                    src="images/32.jpg"
-                    alt="venue-photo"
-                  />
+            <div class="content-wrapper">
+                <!-- TEXT CONTENT - LEFT SIDE -->
+                <div class="text-content">
+                    <h2 class="main-title">Mining & Mineral Strengths of Telangana</h2>
 
-                  <!-- Venue Data -->
-                  <!-- <div class="venue-data">
-                    <h4 class="h4-lg">Premier Business Center</h4>
-                    <p class="p-medium">
-                      121 King Street, Melbourne, VIC 3000 Australia
-                    </p>
-                    <a href="#" class="red-color">www.premier-center.com</a>
-                  </div> -->
-
-                  <div class="border-box yellow-border"></div>
-                </div>
-                <!-- END VENUE PREVIEW -->
-
-                <!-- TRANSPORT -->
-                <div class="transport">
-                  <div class="row">
-                    <!-- GETTING BY CARS -->
-                    <div class="col-md-6">
-                      <div class="transport-data">
-                        <!-- Title -->
-                        <h4 class="h4-small">Venue – HITEX</h4>
-
-                        <!-- Text -->
-                        <p class="m-bottom-20">
-                          Established in 2003, Hyderabad International Trade
-                          Expositions Limited, also known as HITEX, was created
-                          with the vision of providing a world-class facility
-                          for organizing events, exhibitions,conferences, live
-                          shows and trade fairs. Located in the heart of
-                          Hyderabad, India, HITEX is a premier MICE destination
-                          and has hosted 1500+ national and international events
-                          and expositions over the years, as well as its own
-                          initiatives to promote trade and commerce in the
-                          region. With a decade of experience and success, HITEX
-                          is committed to continually upholding and improving
-                          standard sand best practices.
+                    <div class="strength-card">
+                        <h3 class="strength-title">Coal Powerhouse</h3>
+                        <p class="strength-description">
+                            Home to Singareni Collieries Company Limited (SCCL), Telangana is one of India's largest coal producers, contributing significantly to the nation's power sector with over 65 million tonnes annually.
                         </p>
-                        <!-- Link -->
-                        <!-- <a
-                          href="http://www.secureparking.com.au/car-parks/australia/vic/melbourne/southern-cross"
-                          target="_blank"
-                          class="grey-color"
-                        >
-                          SecureParking<i class="fas fa-arrow-right"></i>
-                        </a> -->
-                      </div>
                     </div>
 
-                    <!--  GETTING BY TRAIN -->
-                    <div class="col-md-6">
-                      <div class="transport-data">
-                        <!-- Title -->
-                        <h4 class="h4-small">Venue – HICC</h4>
-
-                        <!-- Text -->
-                        <p class="m-bottom-20">
-                          Hyderabad International Convention Centre (HICC) is
-                          managed by Accor, one of the world’s leading hotel
-                          operators, and is jointly owned by Emaar Properties
-                          PJSC Dubai and Telangana State Industrial
-                          Infrastructure Corporation Ltd. HICC is a
-                          purpose-built, state-of-the-art convention facility,
-                          the frst-of-its-kind and the best standalone
-                          convention centre in South Asia. It features an
-                          internal hall measuring 6,480 square meters that can
-                          be partitioned into six smaller halls.
+                    <div class="strength-card">
+                        <h3 class="strength-title">Strategic Minerals</h3>
+                        <p class="strength-description">
+                            Rich deposits of barytes, dolomite, bauxite, uranium, and other rare earth minerals strengthen Telangana's role in resource security and future industrial growth.
                         </p>
-
-                        <!-- Link -->
-                        <!-- <a
-                          href="http://www.greatsouthernrail.com.au/rail-australia"
-                          target="_blank"
-                          class="grey-color"
-                        >
-                          National Rail<i class="fas fa-arrow-right"></i>
-                        </a> -->
-                      </div>
                     </div>
-                  </div>
-                  <!-- End row -->
+
+                    <div class="ecosystem-section">
+                        <h4 class="ecosystem-title">Industrial & Business Ecosystem</h4>
+                        <ul class="features-list">
+                            <li>
+                                <strong>Heavy Industry Hub:</strong> Hyderabad is a stronghold for engineering, heavy machinery, and mining equipment manufacturers, making it a natural host city for global collaborations.
+                            </li>
+                            <li>
+                                <strong>Innovation & Technology:</strong> With world-class research institutions, startups, and global corporations, Hyderabad integrates technology with traditional industries, driving sustainable growth.
+                            </li>
+                            <li>
+                                <strong>Logistics & Connectivity:</strong> With an international airport, strong rail and road networks, and central geographic location, Hyderabad offers seamless access to domestic and global markets.
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <!-- END TRANSPORT -->
-              </div>
-            </div>
-            <!-- END VENUE LOCATION -->
 
-            <!-- VENUE INFORMATION -->
-            <div class="col-lg-5 col-xl-4">
-              <div class="venue-info m-top-20 m-bottom-40">
-                <!-- Title -->
-                <h3 class="h3-lg m-bottom-20">
-                  Mining & Mineral Strengths of Telangana
-                </h3>
-
-                <!-- Text -->
-                <p>
-                  • Coal Powerhouse : Home to Singareni Collieries Company
-                  Limited (SCCL), Telangana is one of India’s largest coal
-                  producers, contributing significantly to the nation’s power
-                  sector with over 65 million tonnes annually.
-                </p>
-
-                <!-- Text -->
-                <p>
-                  • Strategic Minerals : Rich deposits of barytes, dolomite,
-                  bauxite, uranium, and other rare earth minerals strengthen
-                  Telangana’s role in resource security and future industrial
-                  growth.
-                </p>
-
-                <!-- Get Direction Link -->
-                <!-- <div class="maps-link m-top-25">
-                  <a
-                    href="https://www.google.com/maps/dir//121+King+St,+Melbourne+VIC+3000,+Австралия/@-37.8172982,144.9536174,17z/data=!4m8!4m7!1m0!1m5!1m1!1s0x6ad65d4dd58ef1f9:0x924c91f561a4fd11!2m2!1d144.9558061!2d-37.8172982"
-                    target="_blank"
-                    class="btn btn-medium tra-red-hover"
-                    >Get Maps & Directions</a
-                  >
-                </div> -->
-
-                <!-- Additional Info -->
-                <div class="venue-add-info m-top-45">
-                  <!-- Title -->
-                  <h4 class="h4-small m-bottom-15">
-                    Industrial & Business Ecosystem
-                  </h4>
-
-                  <!-- Text -->
-
-                  <!-- List -->
-                  <ul class="features-list">
-                    <li>
-                      Heavy Industry Hub : H yderabad is a stronghold for
-                      engineering, heavy machinery, and mining equipment
-                      manufacturers, making it a natural host city for global
-                      collaborations.
-                    </li>
-                    <li>
-                      Innovation & Technology : W ith world-class research
-                      institutions, startups, and global corporations, Hyderabad
-                      integrates technology with traditional industries, driving
-                    </li>
-                    <li>
-                      Logistics & Connectivity : With an international airport,
-                      strong rail and road networks, and central geographic
-                      location, Hyderabad offers seamless access to domestic and
-                      global markets.
-                    </li>
-                    <!-- <li>
-                      Mollis in eget velit aliquam quaerat sodales sapien undo
-                      euismod
-                    </li> -->
-                  </ul>
+                <!-- IMAGE CONTENT - RIGHT SIDE -->
+                <div class="image-content">
+                    <div class="venue-preview">
+                        <img src="https://images.unsplash.com/photo-1582510003544-4d00b7f74220?w=800&h=1000&fit=crop" alt="Hyderabad Cityscape">
+                        <div class="image-overlay">
+                            <h4>Hyderabad</h4>
+                            <p>Gateway to India's Mining & Industrial Future</p>
+                        </div>
+                        <div class="decorative-border"></div>
+                    </div>
                 </div>
-                <!-- End Additional Info -->
-              </div>
             </div>
-            <!-- END VENUE INFORMATION -->
-          </div>
-          <!-- End row -->
         </div>
-        <!-- End container -->
-      </section>
+    </section>
       <!-- END VENUE-1 -->
 
       <!-- REGISTER FORM 
 			============================================= -->
-      <section id="register" class="bg-scroll wide-100 pre-register division">
+      <!-- <section id="register" class="bg-scroll wide-100 pre-register division">
         <div class="container white-color">
-          <!-- SECTION TITLE 	-->
+        
           <div class="row">
             <div class="col-md-10 col-lg-9 section-title">
-              <!-- Title -->
+            
               <h2 class="banner-regular">Register Now</h2>
 
-              <!-- Text -->
+           
               <p>
                 A limited number of passes are
                 <span>now available for $225 ex. VAT</span>, but for a shot time
@@ -3155,17 +4206,17 @@
               </p>
             </div>
           </div>
-          <!-- END SECTION TITLE -->
+         
 
           <div class="row">
             <div class="col-md-12">
-              <!-- Register Form -->
+            
               <form
                 id="register-form"
                 name="registerform"
                 class="row register-form"
               >
-                <!-- Form Inputs -->
+              
                 <div id="input_name" class="col-md-3">
                   <input
                     class="form-control name"
@@ -3184,7 +4235,7 @@
                   />
                 </div>
 
-                <!-- Form Select -->
+             
                 <div id="input_ticket" class="col-md-3">
                   <select class="form-control get_ticket" name="ticket">
                     <option>Select Your Ticket</option>
@@ -3194,43 +4245,136 @@
                   </select>
                 </div>
 
-                <!-- Form Submit Button -->
+             
                 <div id="form_register_btn" class="col-md-3">
                   <button class="btn btn-medium" type="submit">
                     Reserve My Seat
                   </button>
                 </div>
 
-                <!-- Form Message -->
+            
                 <div class="col-md-12 register-form-msg text-center">
                   <span class="loading"></span>
                 </div>
               </form>
             </div>
           </div>
-          <!-- End row -->
+         
         </div>
-        <!-- End container -->
-      </section>
-      <!-- END REGISTER FORM  -->
+       
+      </section> -->
+
+      <div class="venue-transport-section">
+        <div class="venue-row-wrapper">
+          <!-- HITEX VENUE -->
+          <div class="venue-column-half">
+            <div class="venue-card-wrapper">
+              <div class="venue-location-pin-icon">📍</div>
+
+              <!-- Title -->
+              <h4 class="venue-title-heading">Venue – HITEX</h4>
+
+              <!-- Text -->
+              <p class="venue-description-text">
+                Established in 2003, Hyderabad International Trade Expositions
+                Limited, also known as HITEX, was created with the vision of
+                providing a world-class facility for organizing events,
+                exhibitions, conferences, live shows and trade fairs. Located in
+                the heart of Hyderabad, India, HITEX is a premier MICE
+                destination and has hosted 1500+ national and international
+                events and expositions over the years, as well as its own
+                initiatives to promote trade and commerce in the region. With a
+                decade of experience and success, HITEX is committed to
+                continually upholding and improving standards and best
+                practices.
+              </p>
+
+              <!-- Map Container (appears on hover) -->
+              <div class="venue-map-overlay">
+                <div class="venue-map-header-info">
+                  <span class="venue-map-title-text">HITEX Location</span>
+                  <span class="venue-map-close-hint">Move away to close</span>
+                </div>
+                <iframe
+                  class="venue-map-iframe"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3617.468087000874!2d78.37400377493674!3d17.470496983430937!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb922d7708a939%3A0x6608389e21aa1310!2sHITEX!5e1!3m2!1sen!2sin!4v1762323476385!5m2!1sen!2sin"
+                 
+                  allowfullscreen=""
+                  loading="lazy"
+                >
+                </iframe>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- HICC VENUE -->
+          <div class="venue-column-half">
+            <div class="venue-card-wrapper">
+              <div class="venue-location-pin-icon">📍</div>
+
+              <!-- Title -->
+              <h4 class="venue-title-heading">Venue – HICC</h4>
+
+              <!-- Text -->
+              <p class="venue-description-text">
+                Hyderabad International Convention Centre (HICC) is managed by
+                Accor, one of the world's leading hotel operators, and is
+                jointly owned by Emaar Properties PJSC Dubai and Telangana State
+                Industrial Infrastructure Corporation Ltd. HICC is a
+                purpose-built, state-of-the-art convention facility, the
+                first-of-its-kind and the best standalone convention centre in
+                South Asia. It features an internal hall measuring 6,480 square
+                meters that can be partitioned into six smaller halls.
+              </p>
+
+              <!-- Map Container (appears on hover) -->
+              <div class="venue-map-overlay">
+                <div class="venue-map-header-info">
+                  <span class="venue-map-title-text">HICC Location</span>
+                  <span class="venue-map-close-hint">Move away to close</span>
+                </div>
+                <iframe
+                  class="venue-map-iframe"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3805.777339856773!2d78.38313731487634!3d17.486995488027805!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb9158f7777777%3A0x2222222222222222!2sHyderabad%20International%20Convention%20Centre!5e0!3m2!1sen!2sin!4v1234567890123!5m2!1sen!2sin"
+                  allowfullscreen=""
+                  loading="lazy"
+                >
+                </iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <!-- FOOTER-1
 			============================================= -->
       <footer id="footer-1" class="bg-lightgrey footer division">
         <div class="container">
-          <div class="row">
+          <div class="row align-items-start">
             <!-- FOOTER ABOUT -->
             <div class="col-md-4">
               <div class="footer-about m-bottom-30">
+                <!-- Brand Logo -->
+                <div class="footer-logo mb-3">
+                  <img
+                    src="images/logo.png"
+                    alt="IIMX Logo"
+                    class="img-fluid"
+                    style="max-width: 180px"
+                  />
+                </div>
+
                 <!-- Title -->
                 <h4 class="h4-small">About the Organisers</h4>
 
                 <!-- Text -->
                 <p class="p-medium">
-                  The Pioneer – Established 1865, India’s oldest English daily,
-                  credible journalism, business & economy focus. MM Activ
-                  Sci-Tech Communications – Event organiser in Science & Tech,
-                  expert in global B2B partnerships and innovation platforms.
+                  The <b>Pioneer</b> – Established 1865, one of India’s oldest
+                  English dailies, credible journalism, business & economy
+                  focus. MM Activ Sci-Tech Communications – Event organiser in
+                  Science & Tech, expert in global B2B partnerships and
+                  innovation platforms.
                 </p>
               </div>
             </div>
@@ -3238,27 +4382,23 @@
             <!-- FOOTER CONTACT INFO -->
             <div class="col-md-4 col-lg-4 offset-lg-1">
               <div class="footer-info m-bottom-30">
-                <!-- Title -->
                 <h4 class="h4-small">Contact Us</h4>
-
-                <!-- Contact Info -->
-
                 <p class="p-medium">
-                  <i class="fa fa-map-marker"></i>MM Activ Sci-Tech
+                  <i class="fa fa-map-marker"></i> MM Activ Sci-Tech
                   Communications 103-104, Rohit House, 3 Tolstoy Marg, New Delhi
                   – 110001
                 </p>
                 <p class="p-medium">
-                  <i class="fas fa-phone"></i>+91 98992 08916
+                  <i class="fas fa-phone"></i> +91 98992 08916
                 </p>
                 <p class="p-medium">
-                  <i class="fab fa-skype"></i>www.iimexpo.in
+                  <i class="fab fa-skype"></i> www.iimexpo.in
                 </p>
                 <p class="p-medium">
-                  <i class="far fa-envelope"></i
-                  ><a href="mailto:secretariat@iiminexpo.com"
-                    >secretariat@iiminexpo.com</a
-                  >
+                  <i class="far fa-envelope"></i>
+                  <a href="mailto:secretariat@iiminexpo.com">
+                    secretariat@iiminexpo.com
+                  </a>
                 </p>
               </div>
             </div>
@@ -3266,10 +4406,7 @@
             <!-- FOOTER SOCIAL LINKS -->
             <div class="col-md-3">
               <div class="footer-socials m-bottom-30">
-                <!-- Title -->
                 <h4 class="h4-small">Follow Us:</h4>
-
-                <!-- Social Links -->
                 <div class="footer-social">
                   <a href="#"><i class="fab fa-facebook-square"></i></a>
                   <a href="#"><i class="fab fa-twitter"></i></a>
@@ -3280,27 +4417,19 @@
               </div>
             </div>
           </div>
-          <!-- End row -->
 
-          <!-- GREY GORIZONTAL LINE -->
           <hr />
 
-          <!-- FOOTER COPYRIGHT -->
           <div class="row">
             <div class="col-md-12">
-              <div class="footer-copyright p-top-30">
-                <p>&copy; 2022 <span>PIONEER.</span> All Rights Reserved</p>
-                <!-- <p>
-                  Landing Page Template Designed & Developed By:
-                  <a href="#">DSAThemes</a>
-                </p> -->
+              <div class="footer-copyright p-top-30 text-center">
+                <p>&copy; 2025 <span>PIONEER.</span> All Rights Reserved</p>
               </div>
             </div>
           </div>
-          <!-- END FOOTER COPYRIGHT -->
         </div>
-        <!-- End container -->
       </footer>
+
       <!-- END FOOTER-1	-->
     </div>
     <!-- END PAGE CONTENT -->
