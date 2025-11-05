@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 export default function ForgotPasswordPage() {
   const { forgotPassword, loading } = useAuth();
@@ -29,7 +30,7 @@ export default function ForgotPasswordPage() {
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <Link href="/" className="flex justify-center">
           <div className="text-3xl font-bold text-gray-900" style={{ fontFamily: 'serif' }}>
-            The Pioneer
+            <Image src="/logo.png" alt="The Pioneer" width={200} height={80} />
           </div>
         </Link>
         <h2 className="mt-6 text-center text-2xl font-bold text-gray-900">Forgot your password?</h2>
@@ -61,14 +62,14 @@ export default function ForgotPasswordPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-orange-600 hover:bg-orange-700 disabled:opacity-60"
+                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#1a59a9] hover:bg-[#1a59a9] disabled:opacity-60"
               >
                 {loading ? 'Sending...' : 'Send OTP'}
               </button>
             </div>
           </form>
           <div className="mt-6 text-center text-sm">
-            <Link href="/login" className="text-orange-600 hover:text-orange-500">Back to sign in</Link>
+            <Link href="/login" className="text-[#1a59a9] hover:text-[#1a59a9]">Back to sign in</Link>
           </div>
         </div>
       </div>

@@ -53,7 +53,7 @@ export default function LoginPage() {
       {/* Header */}
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <Link href="/" className="flex justify-center">
-          <Image src="/logo.png" alt="The Pioneer" width={150} height={50} />
+          <Image src="/logo.png" alt="The Pioneer" width={200} height={80} />
         </Link>
         <h2 className="mt-6 text-center text-3xl font-bold text-gray-900">
           Sign in to your account
@@ -192,7 +192,7 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-[#000000] bg-[#1a59a9]   focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#1a59a9]   focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? (
                   <div className="flex items-center">

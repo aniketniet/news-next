@@ -3,6 +3,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 function ResetPasswordInner() {
   const params = useSearchParams();
@@ -39,9 +40,7 @@ function ResetPasswordInner() {
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <Link href="/" className="flex justify-center">
-          <div className="text-3xl font-bold text-gray-900" style={{ fontFamily: 'serif' }}>
-            The Pioneer
-          </div>
+          <Image src="/logo.png" alt="The Pioneer" width={200} height={80} />
         </Link>
         <h2 className="mt-6 text-center text-2xl font-bold text-gray-900">Reset password</h2>
         <p className="mt-2 text-center text-sm text-gray-600">Enter the OTP sent to your email and your new password.</p>
@@ -103,14 +102,14 @@ function ResetPasswordInner() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-orange-600 hover:bg-orange-700 disabled:opacity-60"
+                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#1a59a9] hover:bg-[#1a59a9] disabled:opacity-60"
               >
                 {loading ? 'Resetting...' : 'Reset Password'}
               </button>
             </div>
           </form>
           <div className="mt-6 text-center text-sm">
-            <Link href="/login" className="text-orange-600 hover:text-orange-500">Back to sign in</Link>
+            <Link href="/login" className="text-[#1a59a9] hover:text-[#1a59a9]">Back to sign in</Link>
           </div>
         </div>
       </div>
