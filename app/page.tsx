@@ -294,6 +294,8 @@ export default async function HomePage() {
         }),
       }))
     : [];
+
+
   const mid = Math.ceil(opinionStoriesAll.length / 2);
   const dynamicOpinion = opinionStoriesAll;
   const dynamicAnalysis = analysisStoriesAll.length

@@ -67,19 +67,19 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({
 
   // Smooth scroll to top of gallery on page change (helps on mobile)
   // Skip on initial mount to avoid auto-scrolling the homepage.
-  useEffect(() => {
-    if (!didMountRef.current) {
-      didMountRef.current = true;
-      return;
-    }
-    if (containerRef.current) {
-      try {
-        containerRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      } catch {
-        // no-op
-      }
-    }
-  }, [currentPage]);
+  // useEffect(() => {
+  //   if (!didMountRef.current) {
+  //     didMountRef.current = true;
+  //     return;
+  //   }
+  //   if (containerRef.current) {
+  //     try {
+  //       containerRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  //     } catch {
+  //       // no-op
+  //     }
+  //   }
+  // }, [currentPage]);
 
   // Build a condensed, responsive page list with ellipses for larger screens
   const getVisiblePages = (total: number, current: number): Array<number | 'ellipsis'> => {
@@ -233,6 +233,7 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({
           </div>
 
           {/* Desktop/Tablet (detailed) */}
+          
           <div className="hidden sm:flex items-center">
             <button
               onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
