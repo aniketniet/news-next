@@ -1,6 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { SecondaryStory } from "./secondary-story"
+import { ScrollToTop } from "./scroll-to-top"
 
 type CategoryStory = {
   id: string
@@ -23,6 +24,7 @@ export function CategorySection({
   stories, 
   accentColor = "bg-[#1a59a9]" 
 }: CategorySectionProps) {
+  if (!stories || stories.length === 0) return null
   const featuredStory = stories.find(story => story.featured) || stories[0]
   const secondaryStories = stories.filter(story => !story.featured).slice(0, 4)
 
@@ -40,7 +42,7 @@ export function CategorySection({
       {/* Featured Story */}
       <div className="mb-6">
         <article className="relative group">
-          <Link href={`/news/${featuredStory.id}`} className="block">
+          <Link href={`/news/${featuredStory.id}`} onClick={ScrollToTop} className="block">
             <div className="relative aspect-[16/9] w-full overflow-hidden  mb-3">
               <Image
                 src={featuredStory.image}
@@ -52,7 +54,7 @@ export function CategorySection({
               {/* Overlay with content */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
               <div className="absolute bottom-4 left-4 right-4 text-white">
-                <span className={`inline-flex items-center text-xs uppercase tracking-wide font-bold ${accentColor} text-black px-2 py-1 rounded mb-2`}>
+                <span className={`inline-flex items-center text-xs uppercase tracking-wide font-bold ${accentColor} text-white px-2 py-1 rounded mb-2`}>
                   {featuredStory.category}
                 </span>
                 <h3 className="text-xl font-bold leading-tight mb-2 group-hover:text-[#1a59a9] transition-colors">

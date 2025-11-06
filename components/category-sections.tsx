@@ -25,25 +25,31 @@ export function CategorySections({
     <section className="w-full">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Entertainment Section */}
-        <CategorySection
-          title="Entertainment"
-          stories={entertainment}
-          accentColor="bg-[#1a59a9]"
-        />
+        {entertainment?.length > 0 && (
+          <CategorySection
+            title="Entertainment"
+            stories={entertainment}
+            accentColor="bg-[#1a59a9]"
+          />
+        )}
 
         {/* Travel Section */}
-        <CategorySection
-          title="Travel"
-          stories={travel}
-          accentColor="bg-[#1a59a9]"
-        />
+        {travel?.length > 0 && (
+          <CategorySection
+            title="Travel"
+            stories={travel}
+            accentColor="bg-[#1a59a9]"
+          />
+        )}
 
-        {/* Food & Wellness Section */}
-        <CategorySection
-          title="Food & Wellness"
-          stories={foodWellness}
-          accentColor="bg-[#1a59a9]"
-        />
+        {/* Health & Fitness Section */}
+        {foodWellness?.length > 0 && (
+          <CategorySection
+            title="Health & Fitness"
+            stories={foodWellness}
+            accentColor="bg-[#1a59a9]"
+          />
+        )}
       </div>
     </section>
   )

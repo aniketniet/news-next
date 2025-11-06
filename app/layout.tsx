@@ -4,7 +4,7 @@ import { GeistMono } from 'geist/font/mono'
 import { Analytics } from '@vercel/analytics/next'
 import { AuthProvider } from '@/contexts/AuthContext'
 import './globals.css'
-import { ScrollToTop } from '@/components/scroll-to-top'
+// import { ScrollToTop } from '@/components/scroll-to-top'
 
 export const metadata: Metadata = {
   title:"English News Paper | Breaking News | Latest Today News in English | News Headlines India - The Pioneer",
@@ -27,7 +27,7 @@ export default function RootLayout({
         <AuthProvider>
           {children}
         </AuthProvider>
-  <ScrollToTop />
+  {/* <ScrollToTop /> */}
         <Analytics />
       </body>
     </html>

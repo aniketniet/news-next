@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { fetchPages } from "@/lib/api/pages"
 import { Suspense } from "react"
+import { ScrollToTop } from "./scroll-to-top"
 
 async function DynamicFooterLinks() {
   let pages = []
@@ -25,6 +26,7 @@ async function DynamicFooterLinks() {
         <Link 
           key={page.page_id}
           href={`/page/${page.url_key}`}
+          onClick={ScrollToTop}
           className="hover:text-white transition-colors"
         >
           {page.page_name}

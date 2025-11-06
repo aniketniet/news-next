@@ -5,6 +5,7 @@ import Link from "next/link"
 import { fetchStories, type StorySummary } from "@/lib/api/stories"
 import { useEffect, useState } from "react"
 import Skeleton from "react-loading-skeleton"
+// Removed per-link ScrollToTop handler; global navigation or default behavior will handle scroll position.
 
 // Hero now client-fetches top stories and shows skeletons while loading
 export function Hero() {

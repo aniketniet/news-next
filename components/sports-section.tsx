@@ -26,6 +26,8 @@ export function SportsSection({ title, stories }: SportsSectionProps) {
     el.scrollBy({ top: amount, behavior: "smooth" })
   }
 
+  if (!stories || stories.length === 0) return null
+
   return (
     <div className="border border-gray-200 rounded-lg overflow-hidden bg-white">
       {/* Header with title and navigation (match Opinion) */}

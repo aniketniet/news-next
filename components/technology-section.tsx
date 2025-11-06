@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ScrollToTop } from "./scroll-to-top";
 
 interface TechnologyStory {
   id: string;
@@ -40,7 +41,7 @@ export function TechnologySection({ stories }: TechnologySectionProps) {
       <div className="space-y-4">
         {stories.map((story) => (
           <article key={story.id} className="group cursor-pointer">
-            <Link href={`/news/${story.id}`} className="block">
+            <Link href={`/news/${story.id}`} onClick={ScrollToTop} className="block">
               <div className="flex gap-4 p-4  hover:bg-gray-50 transition-colors duration-200">
                 <div className="relative w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden">
                   <Image

@@ -28,147 +28,11 @@ import PhotoGallery from "@/components/PhotoGallery";
 import { fetchStories } from "@/lib/api/stories";
 import { getCategoriesNormalized } from "@/lib/api/categories";
 import { EPaperDownload } from "@/components/epaper-download";
+import { ScrollToTop } from "@/components/scroll-to-top";
 
-
-
-
-const entertainmentStories = [
-  {
-    id: "ent-1",
-    title: "Republican Senator Vital to Health Indonesia.",
-    category: "ENTERTAINMENT",
-    image: "/feature-story.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-    featured: true,
-  },
-  {
-    id: "ent-2",
-    title: "6 Best Tips For Building A Good Shipping Boat",
-    category: "ENTERTAINMENT",
-    image: "/photo-feature.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-  {
-    id: "ent-3",
-    title: "Many Flag Have A Spirit Freedom Placerat Solution Ut Est",
-    category: "ENTERTAINMENT",
-    image: "/feature-photo.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-  {
-    id: "ent-4",
-    title: "Many Flag Have A Spirit Freedom Placerat Solution Ut Est",
-    category: "ENTERTAINMENT",
-    image: "/photo-gallery.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-  {
-    id: "ent-5",
-    title: "Many Flag Have A Spirit Freedom Placerat Solution Ut Est",
-    category: "ENTERTAINMENT",
-    image: "/video-news.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-];
-
-const travelStories = [
-  {
-    id: "travel-1",
-    title: "Republican Senator Vital to Health Indonesia.",
-    category: "TRAVEL",
-    image: "/world.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-    featured: true,
-  },
-  {
-    id: "travel-2",
-    title: "6 Best Tips For Building A Good Shipping Boat",
-    category: "TRAVEL",
-    image: "/world-summit.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-  {
-    id: "travel-3",
-    title: "Many Flag Have A Spirit Freedom Placerat Solution Ut Est",
-    category: "TRAVEL",
-    image: "/abstract-feature.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-  {
-    id: "travel-4",
-    title: "Many Flag Have A Spirit Freedom Placerat Solution Ut Est",
-    category: "TRAVEL",
-    image: "/abstract-geometric-shapes.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-  {
-    id: "travel-5",
-    title: "Many Flag Have A Spirit Freedom Placerat Solution Ut Est",
-    category: "TRAVEL",
-    image: "/diverse-group-candid-photo.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-];
-
-const foodWellnessStories = [
-  {
-    id: "food-1",
-    title: "Republican Senator Vital to Health Indonesia.",
-    category: "FOOD & WELLNESS",
-    image: "/diverse-group-playing-various-sports.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-    featured: true,
-  },
-  {
-    id: "food-2",
-    title: "6 Best Tips For Building A Good Shipping Boat",
-    category: "FOOD & WELLNESS",
-    image: "/sports-football.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-  {
-    id: "food-3",
-    title: "Many Flag Have A Spirit Freedom Placerat Solution Ut Est",
-    category: "FOOD & WELLNESS",
-    image: "/vibrant-cricket-match.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-  {
-    id: "food-4",
-    title: "Many Flag Have A Spirit Freedom Placerat Solution Ut Est",
-    category: "FOOD & WELLNESS",
-    image: "/sports-football.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-  {
-    id: "food-5",
-    title: "Many Flag Have A Spirit Freedom Placerat Solution Ut Est",
-    category: "FOOD & WELLNESS",
-    image: "/diverse-group-playing-various-sports.png",
-    byline: "David Hall",
-    time: "December 09, 2020",
-  },
-];
+// Travel & Health & Fitness stories are derived inside HomePage from API
 
 // Static sports placeholders removed – dynamic mapping from API
-
-
-
-
 
 const videoStories = [
   {
@@ -208,8 +72,6 @@ const videoStories = [
     duration: "12:09",
   },
 ];
-
-
 
 const podcastStories = [
   {
@@ -312,7 +174,7 @@ export default async function HomePage() {
   // consistently with what you see in Postman.
   const [{ latest, top, stateEditions }, categories] = await Promise.all([
     fetchStories({ limit: 20, offset: 0 }),
-    getCategoriesNormalized({ limit: 12, offset: 0, noCache: true })
+    getCategoriesNormalized({ limit: 12, offset: 0, noCache: true }),
   ]);
 
   console.log("Fetched Categories:", categories);
@@ -320,79 +182,180 @@ export default async function HomePage() {
   const trendingNews = latest; // repurpose latest as "Trending News" section per request
 
   // Map Business category stories -> BusinessSlider shape
-  const businessStoriesMapped = categories.business.map(s => ({
+  const businessStoriesMapped = categories.business.map((s) => ({
     id: String(s.story_id),
     title: s.story_title,
     category: s.section_name || s.category_name || "Business",
     image: s.image_url_medium || s.image_url_big || "/leaderboard-ad.png",
-    date: new Date(s.published_date).toLocaleDateString(undefined, { day: "2-digit", month: "short", year: "numeric" })
+    date: new Date(s.published_date).toLocaleDateString(undefined, {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    }),
   }));
 
-  // Sports mapping (split into three buckets for existing layout)
-  const sportsStoriesAll = categories.sports.map(s => ({
-    id: String(s.story_id),
-    title: s.story_title,
-    category: s.section_name || "Sports",
-    image: s.image_url_medium || s.image_url_big || "/diverse-group-playing-various-sports.png",
-    byline: s.author_name || "",
-    time: new Date(s.published_date).toLocaleDateString(undefined, { day: "2-digit", month: "short", year: "numeric" })
-  }));
-  const sportsThird = Math.ceil(sportsStoriesAll.length / 3) || 1;
-  const cricketStories = sportsStoriesAll.slice(0, sportsThird);
-  const footballStories = sportsStoriesAll.slice(sportsThird, sportsThird * 2);
-  const otherSportsStories = sportsStoriesAll.slice(sportsThird * 2);
+  // Sports mapping by category_id (1086: Cricket, 1087: Football, 1088: Hockey)
+  const sportsRaw: any[] = (categories as any).sports || [];
+  const byCategoryId = (id: number) =>
+    sportsRaw.filter((s) => Number((s as any).category_id) === id);
+  const mapSports = (list: any[]) =>
+    list.map((s: any) => ({
+      id: String(s.story_id),
+      title: s.story_title,
+      category: s.category_name || s.section_name || "Sports",
+      image:
+        s.image_url_medium ||
+        s.image_url_big ||
+        "/diverse-group-playing-various-sports.png",
+      byline: s.author_name || "",
+      time: new Date(s.published_date).toLocaleDateString(undefined, {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      }),
+    }));
+  const cricketStories = mapSports(byCategoryId(1086));
+  const footballStories = mapSports(byCategoryId(1087));
+  const hockeyStories = mapSports(byCategoryId(1088));
+  const otherSportsStories = mapSports(
+    sportsRaw.filter(
+      (s) => ![1086, 1087, 1088].includes(Number((s as any).category_id))
+    )
+  );
 
   // Technology mapping
-  const technologyStories = categories.technology.map(s => ({
+  const technologyStories = categories.technology.map((s) => ({
     id: String(s.story_id),
     title: s.story_title,
     description: "", // no description in payload
-    image: s.image_url_medium || s.image_url_big || "/interconnected-technology.png",
+    image:
+      s.image_url_medium || s.image_url_big || "/interconnected-technology.png",
     category: s.section_name || "TECHNOLOGY",
-    date: new Date(s.published_date).toLocaleDateString(undefined, { day: "2-digit", month: "short", year: "numeric" })
+    date: new Date(s.published_date).toLocaleDateString(undefined, {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    }),
   }));
 
   // Impact mapping -> reuse BusinessSlider component as a horizontal carousel
-  const impactStoriesMapped = categories.impact.map(s => ({
+  const impactStoriesMapped = categories.impact.map((s) => ({
     id: String(s.story_id),
     title: s.story_title,
     category: s.section_name || "Impact",
     image: s.image_url_medium || s.image_url_big || "/abstract-feature.png",
-    date: new Date(s.published_date).toLocaleDateString(undefined, { day: "2-digit", month: "short", year: "numeric" })
+    date: new Date(s.published_date).toLocaleDateString(undefined, {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    }),
   }));
 
   // Map World category stories -> InternationalNews shape (single country: World)
-  const internationalWorldStories = categories.world.map(s => ({
+  const internationalWorldStories = categories.world.map((s) => ({
     id: String(s.story_id),
     title: s.story_title,
     description: "", // API does not supply short description
     image: s.image_url_medium || s.image_url_big || "/world.png",
-    timeAgo: new Date(s.published_date).toLocaleDateString(undefined, { day: "2-digit", month: "short", year: "numeric" }),
+    timeAgo: new Date(s.published_date).toLocaleDateString(undefined, {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    }),
     source: s.author_name || "",
-    country: "USA" // re-using existing tab system; could be adapted to 'World'
+    country: "USA", // re-using existing tab system; could be adapted to 'World'
   }));
 
   // Split Opinion stories into Opinion (first half) & Analysis (second half) for existing component contract
-  const opinionStoriesAll = categories.opinion.map(s => ({
+  const opinionStoriesAll = categories.opinion.map((s) => ({
     id: String(s.story_id),
     title: s.story_title,
     category: "OPINION",
     image: s.image_url_medium || s.image_url_big || "",
     byline: s.author_name || "",
-    time: new Date(s.published_date).toLocaleDateString(undefined, { day: "2-digit", month: "short", year: "numeric" })
+    time: new Date(s.published_date).toLocaleDateString(undefined, {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    }),
   }));
   // Use dedicated Analysis array if provided; fallback to split
-  const analysisStoriesAll = categories.analysis.length ? categories.analysis.map(s => ({
-    id: String(s.story_id),
-    title: s.story_title,
-    category: "ANALYSIS",
-    image: s.image_url_medium || s.image_url_big || "",
-    byline: s.author_name || "",
-    time: new Date(s.published_date).toLocaleDateString(undefined, { day: "2-digit", month: "short", year: "numeric" })
-  })) : [];
+  const analysisStoriesAll = categories.analysis.length
+    ? categories.analysis.map((s) => ({
+        id: String(s.story_id),
+        title: s.story_title,
+        category: "ANALYSIS",
+        image: s.image_url_medium || s.image_url_big || "",
+        byline: s.author_name || "",
+        time: new Date(s.published_date).toLocaleDateString(undefined, {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+        }),
+      }))
+    : [];
   const mid = Math.ceil(opinionStoriesAll.length / 2);
   const dynamicOpinion = opinionStoriesAll;
-  const dynamicAnalysis = analysisStoriesAll.length ? analysisStoriesAll : opinionStoriesAll.slice(mid);
+  const dynamicAnalysis = analysisStoriesAll.length
+    ? analysisStoriesAll
+    : opinionStoriesAll.slice(mid);
+
+  const entertainmentStories = (
+    (categories as any).entertainment ||
+    (categories as any).section?.Entertainment ||
+    []
+  ).map((s: any) => ({
+    id: String(s.story_id),
+    title: s.story_title,
+    category: s.section_name || "Entertainment",
+    image: s.image_url_medium || s.image_url_big || "/abstract-feature.png",
+    byline: s.author_name || "",
+    time: new Date(s.published_date).toLocaleDateString(undefined, {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    }),
+  }));
+
+  // Travel: dynamic from API; hide section if empty
+  const travelStories = (
+    (categories as any).travel ||
+    (categories as any).section?.Travel ||
+    []
+  ).map((s: any) => ({
+    id: String(s.story_id),
+    title: s.story_title,
+    category: s.section_name || s.category_name || "TRAVEL",
+    image: s.image_url_medium || s.image_url_big || "/world.png",
+    byline: s.author_name || "",
+    time: new Date(s.published_date).toLocaleDateString(undefined, {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    }),
+  }));
+
+  // Health & Fitness: dynamic from API; hide section if empty
+  const healthFitnessStories = (
+    (categories as any).healthFitness ||
+    (categories as any).section?.["Health & Fitness"] ||
+    (categories as any).section?.Health ||
+    []
+  ).map((s: any) => ({
+    id: String(s.story_id),
+    title: s.story_title,
+    category: s.section_name || s.category_name || "HEALTH & FITNESS",
+    image:
+      s.image_url_medium ||
+      s.image_url_big ||
+      "/diverse-group-playing-various-sports.png",
+    byline: s.author_name || "",
+    time: new Date(s.published_date).toLocaleDateString(undefined, {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    }),
+  }));
 
   return (
     <div className="min-h-screen bg-white">
@@ -420,6 +383,7 @@ export default async function HomePage() {
                   <article key={i} className="relative group">
                     <Link
                       href={`/news/${story.id || story.id}`}
+                      onClick={ScrollToTop}
                       className="relative block aspect-[4/3] w-full overflow-hidden"
                     >
                       <Image
@@ -489,7 +453,10 @@ export default async function HomePage() {
         </section>
 
         {/* Business & Money Slider */}
-        <section id="section-business" className="px-3 md:px-6 py-6 scroll-mt-24">
+        <section
+          id="section-business"
+          className="px-3 md:px-6 py-6 scroll-mt-24"
+        >
           <div className="mx-auto w-full max-w-6xl">
             <BusinessSlider
               stories={businessStoriesMapped}
@@ -523,24 +490,28 @@ export default async function HomePage() {
             <CategorySections
               entertainment={entertainmentStories}
               travel={travelStories}
-              foodWellness={foodWellnessStories}
+              foodWellness={healthFitnessStories}
             />
           </div>
         </section>
 
-  {/* Sports Sections: Cricket, Football, Other Sports (dynamic) */}
+        {/* Sports Sections: Cricket, Football, Other Sports (dynamic) */}
         <section id="section-sports" className="px-3 md:px-6 py-6 scroll-mt-24">
           <div className="mx-auto w-full max-w-6xl">
             <SportsSections
               cricket={cricketStories}
               football={footballStories}
+              hockey={hockeyStories}
               otherSports={otherSportsStories}
             />
           </div>
         </section>
 
         {/* Opinion & Analysis Sections with Advertisement */}
-        <section id="section-opinion" className="px-3 md:px-6 py-6 scroll-mt-24">
+        <section
+          id="section-opinion"
+          className="px-3 md:px-6 py-6 scroll-mt-24"
+        >
           <div className="mx-auto w-full max-w-6xl">
             <OpinionAnalysisSections
               opinion={dynamicOpinion}
