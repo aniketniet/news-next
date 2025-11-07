@@ -543,7 +543,7 @@ export default async function HomePage() {
         </section>
 
         {/* Technology and Tarot Sections */}
-        {/* Anchors for technology and tarot in the combined section */}
+        
         <div id="section-technology" className="scroll-mt-24" />
         <div id="section-tarot" className="scroll-mt-24" />
         <section className="px-3 md:px-6 py-6">

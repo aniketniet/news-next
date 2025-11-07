@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   description: 'Created with Daily Pioneer',
   generator: 'Daily Pioneer',
   icons: {
-    icon: '/logo.png',
+    icon: '/TP.png',
   },
   manifest: '/site.webmanifest',
 }
