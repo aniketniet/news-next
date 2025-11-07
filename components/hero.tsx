@@ -98,7 +98,7 @@ export function Hero() {
                   const poster = story.image || "/lead-story.png"
                   return (
                     <SwiperSlide key={`feature-${story.id}`}>
-                      <div className="relative aspect-[16/10] overflow-hidden">
+                      <div className="relative aspect-[16/10] overflow-hidden z-10">
                         {fileSrc ? (
                           <video
                             className="h-full w-full object-cover"
@@ -106,6 +106,7 @@ export function Hero() {
                             poster={poster || undefined}
                             controls
                             playsInline
+                            autoPlay
                           />
                         ) : embedUrl ? (
                           <iframe
@@ -114,6 +115,8 @@ export function Hero() {
                             title={story.title}
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             allowFullScreen
+                            loading="lazy"
+                            
                           />
                         ) : (
                           <Image
@@ -124,22 +127,22 @@ export function Hero() {
                             sizes="(max-width: 1024px) 100vw, 66vw"
                           />
                         )}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-                        <div className="absolute top-4 left-4">
+                        {/* <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" /> */}
+                        <div className="absolute top-4 left-4 pointer-events-none">
                           <span className="bg-[#1a59a9] text-white px-3 py-1 text-xs font-semibold uppercase tracking-wide">
                             {story.category || 'NEWS'}
                           </span>
                         </div>
-                        <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                          <h3 className="text-2xl lg:text-3xl font-bold leading-tight mb-2">
-                            <Link href={`/news/${story.id}`} className="hover:underline hover:text-white transition-colors">
+                        <div className="absolute bottom-0 left-0 right-0 p-6 text-white pointer-events-none">
+                          <h3 className="text-2xl lg:text-3xl font-bold leading-tight mb-2 pointer-events-auto">
+                            <Link href={`/news/${story.id}`} className="hover:underline hover:text-white transition-colors pointer-events-auto">
                               {story.title}
                             </Link>
                           </h3>
-                          <div className="flex items-center text-sm text-white/80">
-                            {story.author && <span>{story.author}</span>}
-                            {story.author && <span className="mx-2">•</span>}
-                            <time>{new Date(story.publishedDate).toLocaleDateString(undefined, { day: '2-digit', month: 'short', year: 'numeric' })}</time>
+                          <div className="flex items-center text-sm text-white/80 pointer-events-none">
+                            {story.author && <span className="pointer-events-auto">{story.author}</span>}
+                            {story.author && <span className="mx-2 pointer-events-none">•</span>}
+                            <time className="pointer-events-none">{new Date(story.publishedDate).toLocaleDateString(undefined, { day: '2-digit', month: 'short', year: 'numeric' })}</time>
                           </div>
                         </div>
                       </div>
