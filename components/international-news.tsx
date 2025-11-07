@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import { InternationalNewsCard } from "./international-news-card"
 import { cn } from "@/lib/utils"
 
@@ -19,18 +19,29 @@ type InternationalNewsProps = {
 }
 
 const countries = [
-  { id: "USA", label: "USA", color: "bg-[#1a59a9]" },
-  { id: "China", label: "China", color: "bg-[#1a59a9]" },
-  { id: "UK", label: "UK", color: "bg-[#1a59a9]" },
-  { id: "Europe", label: "Europe", color: "bg-[#1a59a9]" },
+  { id: "1095", label: "Europe", color: "bg-[#1a59a9]" },
+  { id: "1094", label: "Australia", color: "bg-[#1a59a9]" },
+  { id: "1093", label: "Africa", color: "bg-[#1a59a9]" },
+  { id: "1092", label: "South America", color: "bg-[#1a59a9]" },
+  { id: "1091", label: "North America", color: "bg-[#1a59a9]" },
+  { id: "1090", label: "Middle East", color: "bg-[#1a59a9]" },
+  { id: "1089", label: "Asia", color: "bg-[#1a59a9]" },
+  { id: "other", label: "Other", color: "bg-[#1a59a9]" },
 ]
 
 export function InternationalNews({ stories }: InternationalNewsProps) {
-  const [activeCountry, setActiveCountry] = useState("USA")
+  // Default to 'Other' tab per user request
+  const [activeCountry, setActiveCountry] = useState("other")
 
   // console.log("International News Stories:", stories)
 // 
-  const filteredStories = stories.filter(story => story.country === activeCountry)
+  const knownIds = useMemo(() => countries.map(c => c.id).filter(id => id !== "other"), [])
+  const filteredStories = useMemo(() => {
+    if (activeCountry === "other") {
+      return stories.filter(story => !knownIds.includes(String(story.country)))
+    }
+    return stories.filter(story => String(story.country) === String(activeCountry))
+  }, [stories, activeCountry, knownIds])
   // console.log("Filtered Stories for country", activeCountry, ":", filteredStories)
 
   return (

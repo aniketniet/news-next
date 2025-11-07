@@ -5,9 +5,13 @@ import Link from "next/link"
 import { fetchStories, type StorySummary } from "@/lib/api/stories"
 import { useEffect, useState } from "react"
 import Skeleton from "react-loading-skeleton"
+import { Swiper, SwiperSlide } from "swiper/react"
+import { Navigation, Pagination, Autoplay } from "swiper/modules"
+import "swiper/css"
+import "swiper/css/navigation"
+import "swiper/css/pagination"
 
-// Her// Removed per-link ScrollToTop handler; global navigation or default behavior will handle scroll position.
-// o now client-fetches top stories and shows skeletons while loading
+// Hero now client-fetches top stories and shows skeletons while loading
 export function Hero() {
   const [top, setTop] = useState<StorySummary[]>([])
   const [loading, setLoading] = useState(true)
@@ -35,6 +39,20 @@ export function Hero() {
   const [mainStory, ...rest] = top
   const topStories = rest.slice(0, 2)
   const bottomStories = rest.slice(2, 6)
+  const featuredSlides = [mainStory, ...topStories].filter(Boolean)
+
+  const getEmbedUrl = (story: StorySummary): string | undefined => {
+    const raw = story.video_embed || story.external_url || ""
+    if (!raw) return undefined
+    const match = raw.match(/https?:\/\/[^\s"']+/)
+    return match ? match[0] : undefined
+  }
+
+  const getFileUrl = (story: StorySummary): string | undefined => {
+    if (!story.video_name) return undefined
+    // Note: If backend provides a video base URL, prefer that. Using known uploads path for now.
+    return `https://www.dailypioneer.com/uploads/2025/story/video/${story.video_name}`
+  }
 
   return (
     <section className="bg-white">
@@ -67,33 +85,68 @@ export function Hero() {
           <div className="grid grid-cols-1 lg:grid-cols-3 mb-8">
             {/* Large Featured Article */}
             <article className="lg:col-span-2 relative">
-              <div className="relative aspect-[16/10] overflow-hidden">
-                <Image
-                  src={mainStory.image || "/lead-story.png" || "/placeholder.svg"}
-                  alt={mainStory.title}
-                  fill
-                  className="object-cover transition-transform duration-300 hover:scale-105"
-                  sizes="(max-width: 1024px) 100vw, 66vw"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-                <div className="absolute top-4 left-4">
-                  <span className="bg-[#1a59a9] text-white px-3 py-1 text-xs font-semibold uppercase tracking-wide">
-                    {mainStory.category || 'NEWS'}
-                  </span>
-                </div>
-                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                  <h3 className="text-2xl lg:text-3xl font-bold leading-tight mb-2">
-                    <Link href={`/news/${mainStory.id || mainStory.id}`} className="hover:underline hover:text-white transition-colors">
-                      {mainStory.title}
-                    </Link>
-                  </h3>
-                  <div className="flex items-center text-sm text-white/80">
-                    {mainStory.author && <span>{mainStory.author}</span>}
-                    {mainStory.author && <span className="mx-2">•</span>}
-                    <time>{new Date(mainStory.publishedDate).toLocaleDateString(undefined, { day: '2-digit', month: 'short', year: 'numeric' })}</time>
-                  </div>
-                </div>
-              </div>
+              <Swiper
+                modules={[Navigation, Pagination, Autoplay]}
+                navigation
+                pagination={{ clickable: true }}
+                autoplay={{ delay: 5000, disableOnInteraction: false }}
+                className="relative w-full"
+              >
+                {featuredSlides.map((story) => {
+                  const fileSrc = getFileUrl(story)
+                  const embedUrl = getEmbedUrl(story)
+                  const poster = story.image || "/lead-story.png"
+                  return (
+                    <SwiperSlide key={`feature-${story.id}`}>
+                      <div className="relative aspect-[16/10] overflow-hidden">
+                        {fileSrc ? (
+                          <video
+                            className="h-full w-full object-cover"
+                            src={fileSrc}
+                            poster={poster || undefined}
+                            controls
+                            playsInline
+                          />
+                        ) : embedUrl ? (
+                          <iframe
+                            className="h-full w-full"
+                            src={embedUrl}
+                            title={story.title}
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowFullScreen
+                          />
+                        ) : (
+                          <Image
+                            src={poster}
+                            alt={story.title}
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 1024px) 100vw, 66vw"
+                          />
+                        )}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                        <div className="absolute top-4 left-4">
+                          <span className="bg-[#1a59a9] text-white px-3 py-1 text-xs font-semibold uppercase tracking-wide">
+                            {story.category || 'NEWS'}
+                          </span>
+                        </div>
+                        <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                          <h3 className="text-2xl lg:text-3xl font-bold leading-tight mb-2">
+                            <Link href={`/news/${story.id}`} className="hover:underline hover:text-white transition-colors">
+                              {story.title}
+                            </Link>
+                          </h3>
+                          <div className="flex items-center text-sm text-white/80">
+                            {story.author && <span>{story.author}</span>}
+                            {story.author && <span className="mx-2">•</span>}
+                            <time>{new Date(story.publishedDate).toLocaleDateString(undefined, { day: '2-digit', month: 'short', year: 'numeric' })}</time>
+                          </div>
+                        </div>
+                      </div>
+                    </SwiperSlide>
+                  )
+                })}
+              </Swiper>
             </article>
 
             {/* Side Stories */}

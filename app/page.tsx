@@ -27,51 +27,13 @@ import { StateEditions } from "@/components/state-editions";
 import PhotoGallery from "@/components/PhotoGallery";
 import { fetchStories } from "@/lib/api/stories";
 import { getCategoriesNormalized } from "@/lib/api/categories";
+import { fetchGalleryAssets, mapVideosToSectionItems } from "@/lib/api/images";
 import { EPaperDownload } from "@/components/epaper-download";
 import { ScrollToTop } from "@/components/scroll-to-top";
 
 // Travel & Health & Fitness stories are derived inside HomePage from API
 
 // Static sports placeholders removed – dynamic mapping from API
-
-const videoStories = [
-  {
-    id: "video-1",
-    title:
-      "In Telangana, from where Justice Reddy hails, the Bharat Rashtra Samithi said it was yet to decide",
-    image: "/parliament-building.png",
-    duration: "12:09",
-  },
-  {
-    id: "video-2",
-    title:
-      "In Telangana, from where Justice Reddy hails, the Bharat Rashtra Samithi said it was yet to decide",
-    image: "/world-summit.png",
-    duration: "12:09",
-  },
-  {
-    id: "video-3",
-    title:
-      "In Telangana, from where Justice Reddy hails, the Bharat Rashtra Samithi said it was yet to decide its stand",
-    image: "/video-news.png",
-    duration: "12:09",
-    featured: true,
-  },
-  {
-    id: "video-4",
-    title:
-      "In Telangana, from where Justice Reddy hails, the Bharat Rashtra Samithi said it was yet to decide",
-    image: "/business-meeting-diversity.png",
-    duration: "12:09",
-  },
-  {
-    id: "video-5",
-    title:
-      "In Telangana, from where Justice Reddy hails, the Bharat Rashtra Samithi said it was yet to decide",
-    image: "/world.png",
-    duration: "12:09",
-  },
-];
 
 const podcastStories = [
   {
@@ -172,9 +134,10 @@ export default async function HomePage() {
   // sections like Technology & Impact (which may have older dates and
   // were previously missing due to cached / truncated responses) appear
   // consistently with what you see in Postman.
-  const [{ latest, top, stateEditions }, categories] = await Promise.all([
+  const [{ latest, top, stateEditions }, categories, gallery] = await Promise.all([
     fetchStories({ limit: 20, offset: 0 }),
     getCategoriesNormalized({ limit: 12, offset: 0, noCache: true }),
+    fetchGalleryAssets({ limit: 20, offset: 0 }),
   ]);
 
   console.log("Fetched Categories:", categories);
@@ -251,7 +214,7 @@ export default async function HomePage() {
     }),
   }));
 
-  // Map World category stories -> InternationalNews shape (single country: World)
+  // Map World category stories -> InternationalNews shape grouped by category_id (continents)
   const internationalWorldStories = categories.world.map((s) => ({
     id: String(s.story_id),
     title: s.story_title,
@@ -263,7 +226,8 @@ export default async function HomePage() {
       year: "numeric",
     }),
     source: s.author_name || "",
-    country: "USA", // re-using existing tab system; could be adapted to 'World'
+    // Use category_id to align with continent tabs in InternationalNews (e.g., 1089 Asia, 1090 Middle East, ...)
+    country: String((s as any).category_id || "other"),
   }));
 
   // Split Opinion stories into Opinion (first half) & Analysis (second half) for existing component contract
@@ -318,6 +282,9 @@ export default async function HomePage() {
       year: "numeric",
     }),
   }));
+
+  // Videos: dynamic from images API combined payload
+  const dynamicVideos = mapVideosToSectionItems(gallery?.videos || []);
 
   // Travel: dynamic from API; hide section if empty
   const travelStories = (
@@ -522,12 +489,14 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* Videos Section */}
-        <section id="section-videos" className="px-3 md:px-6 py-6 scroll-mt-24">
-          <div className="mx-auto w-full max-w-6xl">
-            <VideosSection videos={videoStories} />
-          </div>
-        </section>
+        {/* Videos Section (dynamic) */}
+        {dynamicVideos.length > 0 && (
+          <section id="section-videos" className="px-3 md:px-6 py-6 scroll-mt-24">
+            <div className="mx-auto w-full max-w-6xl">
+              <VideosSection videos={dynamicVideos} />
+            </div>
+          </section>
+        )}
 
         {/* Podcast and Horoscope Sections */}
         {/* Anchors for podcast and horoscope in the combined section */}
@@ -543,7 +512,7 @@ export default async function HomePage() {
         </section>
 
         {/* Technology and Tarot Sections */}
-        
+        {/* Anchors for technology and tarot in the combined section */}
         <div id="section-technology" className="scroll-mt-24" />
         <div id="section-tarot" className="scroll-mt-24" />
         <section className="px-3 md:px-6 py-6">

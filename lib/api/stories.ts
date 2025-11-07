@@ -125,6 +125,11 @@ export interface StorySummary {
     image?: string | null
     image_url_medium?: string | null
     urlKey: string
+    // Optional media fields for hero/video rendering
+    video_name?: string | null
+    video_embed?: string | null
+    external_url?: string | null
+    video_type?: string | null
 }
 
 interface ListEnvelope<T = any[]> {
@@ -218,7 +223,11 @@ export async function fetchStories(
             publishedDate: item.published_date || item.story_date,
             image: item.image_url_big ?? null,
             image_url_medium: item.image_url_medium ?? null,
-            urlKey: item.url_key
+            urlKey: item.url_key,
+            video_name: item.video_name ?? null,
+            video_embed: item.video_embed ?? null,
+            external_url: item.external_url ?? null,
+            video_type: item.video_type ?? null,
         })
 
         const mapStateEditions: Record<string, StorySummary[]> = {}

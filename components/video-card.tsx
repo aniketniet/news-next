@@ -8,6 +8,8 @@ type VideoCardProps = {
   image: string
   duration: string
   className?: string
+  href?: string
+  onClick?: (e: React.MouseEvent) => void
 }
 
 export function VideoCard({
@@ -15,10 +17,12 @@ export function VideoCard({
   image,
   duration,
   className,
+  href = "#",
+  onClick,
 }: VideoCardProps) {
   return (
-    <article className={cn("flex flex-col group", className)}>
-      <Link href="#" className="relative block aspect-[16/9] w-full overflow-hidden rounded">
+  <article className={cn("flex flex-col group", className)} onClick={onClick}>
+      <Link href={href} className="relative block aspect-[16/9] w-full overflow-hidden rounded">
         <Image
           src={image}
           alt={title}
@@ -48,7 +52,7 @@ export function VideoCard({
       
       <div className="pt-3">
         <h3 className="font-medium leading-snug text-gray-900 group-hover:text-blue-600 transition-colors duration-200">
-          <Link href="#" className="hover:underline">
+          <Link href={href} className="hover:underline">
             {title}
           </Link>
         </h3>

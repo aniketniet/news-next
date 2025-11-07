@@ -41,7 +41,7 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({
         const items = await fetchGalleryImages({ limit: 50, offset: 0 });
         console.log('Fetched gallery images:', items);
         if (!active) return;
-        const mapped = mapGalleryImagesToPhotos(items);
+        const mapped = mapGalleryImagesToPhotos(items.images);
         setPhotos(mapped.length ? mapped : initialPhotos);
         setCurrentPage(1);
       } catch (e: any) {
