@@ -184,11 +184,11 @@ export function SiteHeader() {
                   download
                   className="hidden lg:block text-xs font-semibold text-gray-600 hover:underline hover:text-black"
                 >
-                  Today's News
+                  Today's Paper
                 </a>
               ) : (
                 <span className="hidden lg:block text-xs text-gray-600">
-                  Today's News
+                  Today's ePaper
                 </span>
               )}
               </div>
