@@ -84,7 +84,7 @@ export function Hero() {
         {!loading && mainStory && (
           <div className="grid grid-cols-1 lg:grid-cols-3 mb-8">
             {/* Large Featured Article */}
-            <article className="lg:col-span-2 relative">
+            <article className="lg:col-span-2 relative ">
               <Swiper
                 modules={[Navigation, Pagination, Autoplay]}
                 navigation
@@ -98,7 +98,7 @@ export function Hero() {
                   const poster = story.image || "/lead-story.png"
                   return (
                     <SwiperSlide key={`feature-${story.id}`}>
-                      <div className="relative aspect-[16/10] overflow-hidden z-10">
+                      <div className="relative aspect-[16/10] overflow-hidden rounded-l-sm z-10">
                         {fileSrc ? (
                           <video
                             className="h-full w-full object-cover"
@@ -129,7 +129,7 @@ export function Hero() {
                         )}
                         {/* <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" /> */}
                         <div className="absolute top-4 left-4 pointer-events-none">
-                          <span className="bg-[#1a59a9] text-white px-3 py-1 text-xs font-semibold uppercase tracking-wide">
+                          <span className="bg-[#1a59a9] text-white px-3 rounded py-1 text-xs font-semibold uppercase tracking-wide">
                             {story.category || 'NEWS'}
                           </span>
                         </div>
@@ -156,7 +156,7 @@ export function Hero() {
             <aside className="grid grid-rows-2">
               {topStories.map((story) => (
                 <article key={story.id} className="relative group">
-                  <div className="relative aspect-[16/10] overflow-hidden">
+                  <div className="relative aspect-[16/10] overflow-hidden rounded-r-sm">
                     <Image
                       src={story.image || "/news-image.png"}
                       alt={story.title}
@@ -166,7 +166,7 @@ export function Hero() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
                     <div className="absolute top-3 left-3">
-                      <span className="bg-[#1a59a9] text-white px-2 py-1 text-xs font-semibold uppercase tracking-wide">
+                      <span className="bg-[#1a59a9] text-white px-2 py-1 text-xs font-semibold rounded uppercase tracking-wide">
                         {story.category || 'NEWS'}
                       </span>
                     </div>
@@ -194,7 +194,7 @@ export function Hero() {
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
             {bottomStories.map((story) => (
               <article key={story.id} className="group flex flex-col overflow-hidden bg-white transition">
-                <div className="relative aspect-[16/10] w-full overflow-hidden">
+                <div className="relative aspect-[16/10] rounded-sm w-full overflow-hidden">
                   <Image
                     src={story.image_url_medium || story.image || "/news-image.png"}
                     alt={story.title}

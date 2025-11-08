@@ -23,7 +23,7 @@ export function BusinessCard({
   return (
     <article className={cn("group", className)}>
       <Link href={`/news/${id}`} onClick={ScrollToTop} className="block">
-        <div className="relative aspect-[4/3] w-full overflow-hidden mb-3">
+        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-sm mb-3">
           <Image
             src={image}
             alt={title}

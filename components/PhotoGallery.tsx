@@ -168,7 +168,7 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({
             }`}
           >
             {/* Image Container */}
-            <div className="relative aspect-[4/3] w-full">
+            <div className="relative aspect-[4/3] w-full rounded-sm overflow-hidden ">
               <Image
                 src={`${photo.src}`}
                 alt={photo.alt}

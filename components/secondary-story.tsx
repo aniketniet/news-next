@@ -21,7 +21,7 @@ export function SecondaryStory({
 }: SecondaryStoryProps) {
   return (
     <article className="flex gap-4 group">
-      <Link href={`/news/${id}`} onClick={ScrollToTop} className="relative block w-24 h-16 flex-shrink-0 overflow-hidden ">
+      <Link href={`/news/${id}`} onClick={ScrollToTop} className="relative block w-24 h-16 flex-shrink-0 overflow-hidden rounded-sm ">
         <Image
           src={image}
           alt={title}

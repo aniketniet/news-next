@@ -26,7 +26,7 @@ export function RelatedArticles({ articles, topNews }: RelatedArticlesProps) {
                 <article key={article.id} className="group">
                   <Link href={`/news/${article.id}`} className="block">
                     <div className="bg-white border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-200">
-                      <div className="relative aspect-[16/9] overflow-hidden">
+                      <div className="relative aspect-[16/9] overflow-hidden rounded-sm">
                         <Image
                           src={article.image}
                           alt={article.title}
@@ -77,7 +77,7 @@ export function RelatedArticles({ articles, topNews }: RelatedArticlesProps) {
                   >
                     <Link href={`/news/${news.id}`} className="block group">
                       <div className="flex gap-3">
-                        <div className="relative w-20 h-16 flex-shrink-0 overflow-hidden ">
+                        <div className="relative w-20 h-16 rounded-sm flex-shrink-0 overflow-hidden ">
                           <Image
                             src={news.image}
                             alt={news.title}
@@ -88,7 +88,7 @@ export function RelatedArticles({ articles, topNews }: RelatedArticlesProps) {
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="mb-1">
-                            <span className="inline-block px-2 py-0.5 text-xs font-semibold text-white bg-[#1a59a9]">
+                            <span className="inline-block px-2 py-0.5 text-xs rounded font-semibold text-white bg-[#1a59a9]">
                               {news.category}
                             </span>
                           </div>

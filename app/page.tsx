@@ -353,7 +353,7 @@ export default async function HomePage() {
                     <Link
                       href={`/news/${story.id || story.id}`}
                       onClick={ScrollToTop}
-                      className="relative block aspect-[4/3] w-full overflow-hidden"
+                      className="relative block aspect-[4/3] rounded-sm w-full overflow-hidden"
                     >
                       <Image
                         src={

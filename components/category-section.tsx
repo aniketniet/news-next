@@ -43,7 +43,7 @@ export function CategorySection({
       <div className="mb-6">
         <article className="relative group">
           <Link href={`/news/${featuredStory.id}`} onClick={ScrollToTop} className="block">
-            <div className="relative aspect-[16/9] w-full overflow-hidden  mb-3">
+            <div className="relative aspect-[16/9] w-full overflow-hidden rounded-sm  mb-3">
               <Image
                 src={featuredStory.image}
                 alt={featuredStory.title}
@@ -57,7 +57,7 @@ export function CategorySection({
                 <span className={`inline-flex items-center text-xs uppercase tracking-wide font-bold ${accentColor} text-white px-2 py-1 rounded mb-2`}>
                   {featuredStory.category}
                 </span>
-                <h3 className="text-xl font-bold leading-tight mb-2 group-hover:text-[#1a59a9] transition-colors">
+                <h3 className="text-xl font-bold leading-tight mb-2 group-hover:underline transition-colors">
                   {featuredStory.title}
                 </h3>
                 <p className="text-sm opacity-90">

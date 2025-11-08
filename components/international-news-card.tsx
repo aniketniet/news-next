@@ -26,7 +26,7 @@ export function InternationalNewsCard({
   return (
     <article className={cn("group", className)}>
       <Link href={`/news/${id}`} onClick={ScrollToTop} className="block">
-        <div className="relative aspect-[16/10] w-full overflow-hidden  mb-3">
+        <div className="relative aspect-[16/10] w-full rounded-sm overflow-hidden  mb-3">
           <Image
             src={image}
             alt={title}
