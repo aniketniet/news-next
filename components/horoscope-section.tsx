@@ -22,18 +22,18 @@ interface HoroscopeSectionProps {
 export function HoroscopeSection({ data }: HoroscopeSectionProps) {
   return (
     <div className="space-y-6">
-      <div>
+      {/* <div>
         <h2 className="text-2xl font-bold text-gray-900  pb-1">
           Horoscope
         </h2>
           <div className="mt-2 h-1 w-full bg-gray-200 rounded">
             <div className="h-full bg-[#1a59a9] rounded" style={{ width: '20%' }} />
           </div>
-      </div>
+      </div> */}
 
       {/* Main horoscope card */}
-      <article className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden border border-gray-200">
-        {/* Zodiac signs grid at top */}
+      {/* <article className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden border border-gray-200">
+      
         <div className="bg-gradient-to-r from-purple-50 to-pink-50 p-4">
           <div className="grid grid-cols-4 gap-3">
             {data.signs.map((sign, index) => (
@@ -53,7 +53,7 @@ export function HoroscopeSection({ data }: HoroscopeSectionProps) {
           </div>
         </div>
 
-        {/* Content section */}
+     
         <div className="p-6">
           <span className="inline-block px-3 py-1 text-xs font-semibold text-purple-600 bg-purple-100 rounded-full mb-3">
             {data.date}
@@ -84,7 +84,7 @@ export function HoroscopeSection({ data }: HoroscopeSectionProps) {
             </svg>
           </Link>
         </div>
-      </article>
+      </article> */}
       <AdvertiseSection />
       <NewsletterSection />
     </div>
