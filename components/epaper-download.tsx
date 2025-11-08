@@ -90,7 +90,7 @@ export function EPaperDownload() {
                 href={delhi.pdfUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center w-full bg-[#1a59a9] text-white font-medium py-2 rounded hover:bg-[#144a8f] transition-colors"
+                className="inline-flex items-center w-full justify-center text-[#1a59a9] border border-[#1a59a9] font-medium py-2 rounded hover:bg-[#144a8f] transition-colors"
               >
                 Download PDF
               </Link>
