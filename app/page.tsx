@@ -411,11 +411,9 @@ export default async function HomePage() {
         {/* Main grid with Sidebar */}
         <section className="px-3 md:px-6 py-6">
           <div className="mx-auto w-full max-w-6xl">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
               {/* <MainContent nation={nation} world={world} opinion={opinion} /> */}
               <StateEditions stateEditions={stateEditions || {}} />
-              {/* Right: Sidebar */}
-              {/* <PopularPosts top={top} /> */}
               <EPaperDownload />
             </div>
           </div>
@@ -476,6 +474,24 @@ export default async function HomePage() {
           </div>
         </section>
 
+        {/* Other Sports Slider presented like Business & Impact carousels */}
+        {otherSportsStories.length > 0 && (
+          <section className="px-3 md:px-6 py-6">
+            <div className="mx-auto w-full max-w-6xl">
+              <BusinessSlider
+                stories={otherSportsStories.map(s => ({
+                  id: s.id,
+                  title: s.title,
+                  category: s.category,
+                  image: s.image,
+                  date: s.time,
+                }))}
+                title="Other Sports"
+              />
+            </div>
+          </section>
+        )}
+
         {/* Opinion & Analysis Sections with Advertisement */}
         <section
           id="section-opinion"
@@ -518,7 +534,7 @@ export default async function HomePage() {
         <section className="px-3 md:px-6 py-6">
           <div className="mx-auto w-full max-w-6xl">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              <TechnologySection stories={technologyStories} />
+              <TechnologySection stories={technologyStories} limit={5} seeMoreHref="/section/tech" />
               <TarotSection data={tarotData} />
             </div>
           </div>

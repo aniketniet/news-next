@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils"
 import { ScrollToTop } from "./scroll-to-top"
 
 type BusinessCardProps = {
+  id: string
   title: string
   category: string
   image: string

@@ -39,58 +39,68 @@ export function EPaperDownload() {
   }, [])
 
   return (
-    <div>
-      <div className="px-3 py-2">
+    <div className="h-full flex flex-col">
+      {/* Header with progress bar */}
+      <div className="px-3 py-2 flex-shrink-0">
         <h3 className="font-semibold text-lg">Daily Pioneer E-Paper</h3>
         <div className="mt-2 h-1 w-full bg-gray-200 rounded">
           <div className="h-full bg-[#1a59a9] rounded" style={{ width: "20%" }} />
         </div>
       </div>
-      <div className="p-3 space-y-3">
-        <div className="relative w-full aspect-[3/4] overflow-hidden rounded">
-          {loading ? (
-            <Skeleton height="100%" width="100%" />
-          ) : (
-            <Image
-              src="/e-paper.jpg"
-              alt="Daily Pioneer E-paper front page"
-              fill
-              className="object-contain"
-              sizes="(max-width: 768px) 100vw, 320px"
-              priority={false}
-            />
-          )}
+
+      {/* Content area with fixed structure */}
+      <div className="flex-1 flex flex-col p-3 min-h-0">
+        {/* Image container - takes remaining space but allows button to stay visible */}
+        <div className="flex-1 flex items-center justify-center mb-3 min-h-0">
+          <div className="relative w-full h-full max-w-xs">
+            {loading ? (
+              <Skeleton height="100%" width="100%" />
+            ) : (
+              <Image
+                src="/e-paper.jpg"
+                alt="Daily Pioneer E-paper front page"
+                fill
+                className="object-contain"
+                sizes="(max-width: 768px) 100vw, 320px"
+                priority={false}
+              />
+            )}
+          </div>
         </div>
 
-        {loading && (
-          <div className="space-y-2">
-            <Skeleton height={14} width={160} />
-            <Skeleton height={40} />
-          </div>
-        )}
-        {error && !loading && (
-          <div className="text-xs text-red-500">{error}</div>
-        )}
-
-        {delhi ? (
-          <>
-            <div className="text-sm text-gray-600">
-              Delhi — {delhi.language} • {delhi.date}
+        {/* Bottom section - fixed height */}
+        <div className="flex-shrink-0 space-y-3">
+          {loading && (
+            <div className="space-y-2">
+              <Skeleton height={14} width={160} />
+              <Skeleton height={40} />
             </div>
-            <Link
-              href={delhi.pdfUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center w-full bg-[#1a59a9] text-white font-medium py-2 rounded hover:bg-yellow-300 transition-colors"
-            >
-              Download PDF
-            </Link>
-          </>
-        ) : (
-          !loading && !error && (
-            <div className="text-sm text-gray-500">Delhi edition not available</div>
-          )
-        )}
+          )}
+          
+          {error && !loading && (
+            <div className="text-xs text-red-500">{error}</div>
+          )}
+
+          {delhi ? (
+            <>
+              <div className="text-sm text-gray-600">
+                Delhi — {delhi.language} • {delhi.date}
+              </div>
+              <Link
+                href={delhi.pdfUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center w-full bg-[#1a59a9] text-white font-medium py-2 rounded hover:bg-[#144a8f] transition-colors"
+              >
+                Download PDF
+              </Link>
+            </>
+          ) : (
+            !loading && !error && (
+              <div className="text-sm text-gray-500">Delhi edition not available</div>
+            )
+          )}
+        </div>
       </div>
     </div>
   )

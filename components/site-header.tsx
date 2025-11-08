@@ -21,6 +21,7 @@ export function SiteHeader() {
   const [epaperLoading, setEpaperLoading] = useState(false);
   const [epaperError, setEpaperError] = useState<string | null>(null);
   const [epaperData, setEpaperData] = useState<EpaperLanguage[] | null>(null);
+  const [epaperDelhi, setEpaperDelhi] = useState<{ pdfUrl: string; language: string; date: string } | null>(null);
 
   const onSearchSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -39,6 +40,7 @@ export function SiteHeader() {
       setEpaperError(null);
       const data = await fetchEpaper();
       setEpaperData(data);
+      setEpaperDelhi(pickDelhiEdition(data));
     } catch (e: any) {
       setEpaperError(e?.message || "Failed to load e-paper");
     } finally {
@@ -164,7 +166,7 @@ export function SiteHeader() {
                   )}
                 </svg>
               </button>
-
+              <div className="flex flex-col gap-2">
               {/* Date (Desktop only) */}
               <span className="hidden lg:block text-xs text-gray-600">
                 {new Date().toLocaleDateString("en-IN", {
@@ -174,7 +176,25 @@ export function SiteHeader() {
                   year: "numeric",
                 })}
               </span>
+              {epaperDelhi?.pdfUrl ? (
+                <a
+                  href={epaperDelhi.pdfUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  download
+                  className="hidden lg:block text-xs font-semibold text-gray-600 hover:underline hover:text-black"
+                >
+                  Today's News
+                </a>
+              ) : (
+                <span className="hidden lg:block text-xs text-gray-600">
+                  Today's News
+                </span>
+              )}
+              </div>
             </div>
+
+
 
             {/* Center: Logo */}
             <Link href="/" className="flex-shrink-0">
@@ -319,6 +339,22 @@ export function SiteHeader() {
           }
         }
       `}</style>
+      {/* Helper for Delhi edition selection */}
     </header>
   );
+}
+
+function pickDelhiEdition(data: EpaperLanguage[] | null): { pdfUrl: string; language: string; date: string } | null {
+  if (!data || !Array.isArray(data) || data.length === 0) return null;
+  const normEq = (a: string, b: string) => a.trim().toLowerCase() === b.trim().toLowerCase();
+  const english = data.find((d) => normEq(d.language, "English Edition"));
+  const englishDelhi = english?.locations.find((l) => normEq(l.location, "Delhi"));
+  if (englishDelhi) {
+    return { pdfUrl: englishDelhi.pdf_url, language: "English", date: englishDelhi.published_date };
+  }
+  for (const lang of data) {
+    const match = lang.locations.find((l) => normEq(l.location, "Delhi"));
+    if (match) return { pdfUrl: match.pdf_url, language: lang.language, date: match.published_date };
+  }
+  return null;
 }

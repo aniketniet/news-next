@@ -13,10 +13,16 @@ interface TechnologyStory {
 
 interface TechnologySectionProps {
   stories: TechnologyStory[];
+  limit?: number;
+  seeMoreHref?: string;
 }
 
-export function TechnologySection({ stories }: TechnologySectionProps) {
+export function TechnologySection({ stories, limit, seeMoreHref }: TechnologySectionProps) {
   console.log("Technology Stories:", stories);
+  const visibleStories = Array.isArray(stories)
+    ? (typeof limit === "number" && limit > 0 ? stories.slice(0, limit) : stories)
+    : [];
+  const hasMore = Array.isArray(stories) && visibleStories.length < stories.length;
   return (
     <div className="space-y-6">
       <div >
@@ -39,7 +45,7 @@ export function TechnologySection({ stories }: TechnologySectionProps) {
       </div>
 
       <div className="space-y-4">
-        {stories.map((story) => (
+        {visibleStories.map((story) => (
           <article key={story.id} className="group cursor-pointer">
             <Link href={`/news/${story.id}`} onClick={ScrollToTop} className="block">
               <div className="flex gap-4 p-4  hover:bg-gray-50 transition-colors duration-200">
@@ -70,6 +76,17 @@ export function TechnologySection({ stories }: TechnologySectionProps) {
             </Link>
           </article>
         ))}
+        {hasMore && (
+          <div className="pt-2 flex justify-end">
+            <Link
+              href={seeMoreHref || "/section/tech"}
+              className="text-sm font-semibold text-[#1a59a9] hover:underline"
+              onClick={ScrollToTop}
+            >
+              See more
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

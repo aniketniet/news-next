@@ -27,7 +27,10 @@ export function SportsSections({
   const hasHockey = Array.isArray(hockey) && hockey.length > 0
   const hasOther = Array.isArray(otherSports) && otherSports.length > 0
 
-  if (!hasCricket && !hasFootball && !hasHockey && !hasOther) return null
+  // Only render this section for the three primary sports columns. The
+  // "Other Sports" content will be rendered as a separate carousel section
+  // (BusinessSlider-style) after this block from the page.
+  if (!hasCricket && !hasFootball && !hasHockey) return null
 
   return (
     <section className="w-full space-y-8">
@@ -38,7 +41,6 @@ export function SportsSections({
           {hasHockey && <SportsSection title="Hockey" stories={hockey} />}
         </div>
       )}
-      {hasOther && <SportsSection title="Other Sports" stories={otherSports} />}
     </section>
   )
 }
