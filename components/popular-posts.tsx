@@ -2,13 +2,13 @@ import Link from "next/link"
 import { StorySummary } from "@/lib/api/stories"
 
 interface PopularPostsProps {
-  top: StorySummary[]
-  limit?: number
-  offset?: number
+  popular: StorySummary[]
+  limit?: number // optional override
 }
 
-export function PopularPosts({ top, limit = 6, offset = 0 }: PopularPostsProps) {
-  const items = (top || []).slice(offset, offset + limit)
+export function PopularPosts({ popular, limit }: PopularPostsProps) {
+  const effectiveLimit = typeof limit === 'number' && limit > 0 ? limit : 6
+  const items = (popular || []).slice(0, effectiveLimit)
 
   return (
     <div>

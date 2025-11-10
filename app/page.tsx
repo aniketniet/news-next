@@ -134,13 +134,14 @@ export default async function HomePage() {
   // sections like Technology & Impact (which may have older dates and
   // were previously missing due to cached / truncated responses) appear
   // consistently with what you see in Postman.
-  const [{ latest, top, stateEditions }, categories, gallery] = await Promise.all([
+  const [{ latest, popular, stateEditions }, categories, gallery] = await Promise.all([
     fetchStories({ limit: 20, offset: 0 }),
     getCategoriesNormalized({ limit: 12, offset: 0, noCache: true }),
     fetchGalleryAssets({ limit: 20, offset: 0 }),
   ]);
 
-  console.log("Fetched Categories:", categories);
+  // console.log("Fetched Categories:", categories);
+  console.log("Fetched Popular Stories:", popular);
 
   const trendingNews = latest; // repurpose latest as "Trending News" section per request
 
@@ -404,7 +405,7 @@ export default async function HomePage() {
               </div>
             </div>
             {/* Right: Sidebar */}
-            <PopularPosts top={top} offset={8} />
+            <PopularPosts popular={popular} />
           </div>
         </Section>
 

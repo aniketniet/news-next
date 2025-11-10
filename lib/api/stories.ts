@@ -188,6 +188,7 @@ export interface StoriesGrouped {
     latest: StorySummary[]
     top: StorySummary[]
     stateEditions?: Record<string, StorySummary[]>
+    popular: StorySummary[]
 }
 
 interface TopStoriesApiResponse {
@@ -197,6 +198,7 @@ interface TopStoriesApiResponse {
         latest_news?: Partial<StoryApiFull>[] // lighter objects
         top_stories?: StoryApiFull[]
     state_editions?: Record<string, any[]>
+        popular_news?: Partial<StoryApiFull>[]
     }
 }
 
@@ -212,6 +214,7 @@ export async function fetchStories(
     const latestRaw = data?.data?.latest_news ?? []
     const topRaw = data?.data?.top_stories ?? []
     const stateRaw = data?.data?.state_editions ?? {}
+    const popularRaw = data?.data?.popular_news ?? []
 
     
 
@@ -253,10 +256,11 @@ export async function fetchStories(
         return {
             latest: latestRaw.map(mapItem),
             top: topRaw.map(mapItem),
-            stateEditions: mapStateEditions
+            stateEditions: mapStateEditions,
+            popular: popularRaw.map(mapItem)
         }
     } catch (e) {
         console.error('fetchStories error', e)
-        return { latest: [], top: [], stateEditions: {} }
+        return { latest: [], top: [], stateEditions: {}, popular: [] }
     }
 }

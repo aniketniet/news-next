@@ -16,6 +16,7 @@ interface NewsDetailSidebarProps {
 
 export function NewsDetailSidebar({ latestNews, popularNews }: NewsDetailSidebarProps) {
   console.log(latestNews,"latestNews in sidebar");
+  const limitedPopular = (popularNews || []).slice(0,8)
   return (
     <aside className="space-y-8">
       {/* Related News Section */}
@@ -84,7 +85,7 @@ export function NewsDetailSidebar({ latestNews, popularNews }: NewsDetailSidebar
         </div>
         
         <div>
-          {popularNews.map((news) => (
+          {limitedPopular.map((news) => (
             <article key={news.id} className="p-4 hover:bg-gray-50 transition-colors">
               <Link href={`/news/${news.id}`} className="block group">
                 <div className="flex gap-3">
