@@ -24,7 +24,7 @@ interface PhotoGalleryProps {
 
 const PhotoGallery: React.FC<PhotoGalleryProps> = ({
   photos: initialPhotos = defaultPhotos,
-  itemsPerPage = 6,
+  itemsPerPage = 12,
 }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -189,7 +189,7 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({
 
               {/* Content */}
               <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                <h3 className="text-lg font-bold mb-2 leading-tight">
+                <h3 className="text-base font-medium mb-2 leading-tight">
                   {photo.title}
                 </h3>
                 <div className="flex items-center text-sm opacity-90">
