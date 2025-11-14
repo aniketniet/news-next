@@ -86,7 +86,7 @@ export function Hero() {
             {/* Large Featured Article */}
             <article className="lg:col-span-2 relative ">
               <Swiper
-                modules={[Navigation, Pagination, Autoplay]}
+                modules={[Navigation, Pagination]}
                 navigation
                 pagination={{ clickable: true }}
                 autoplay={{ delay: 5000, disableOnInteraction: false }}
@@ -95,6 +95,7 @@ export function Hero() {
                 {featuredSlides.map((story) => {
                   const fileSrc = getFileUrl(story)
                   const embedUrl = getEmbedUrl(story)
+                  console.log({ fileSrc, embedUrl }, "fileSrc, embedUrl")
                   const poster = story.image || "/lead-story.png"
                   return (
                     <SwiperSlide key={`feature-${story.id}`}>

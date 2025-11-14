@@ -14,7 +14,7 @@ export type EpaperResponse = {
   data: EpaperLanguage[];
 };
 
-const DEFAULT_BASE = "https://shopninja.in/pioneer/public/api";
+const DEFAULT_BASE = "http://103.119.171.20/api";
 
 export async function fetchEpaper(): Promise<EpaperLanguage[]> {
   const base = process.env.NEXT_PUBLIC_API_URL || DEFAULT_BASE;
