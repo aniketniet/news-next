@@ -8,8 +8,8 @@ const nextConfig = {
   },
   images: {
     unoptimized: true,
-    domains: ["www.dailypioneer.com", "dailypioneer.com"],
+    domains: ["http://103.119.171.20", "http://103.119.171.20"],
   },
-}
+};
 
-export default nextConfig
+export default nextConfig;

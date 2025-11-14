@@ -17,7 +17,7 @@ type Props = {
   };
 };
 
-const DAILYPIONEER_BASE = "https://www.dailypioneer.com/";
+const DAILYPIONEER_BASE = "http://103.119.171.20/";
 
 function normalizeImageUrl(raw?: string): string | "" {
   if (!raw) return "";
@@ -37,7 +37,9 @@ function normalizeImageUrl(raw?: string): string | "" {
   }
 }
 
-export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
+export async function generateMetadata({
+  searchParams,
+}: Props): Promise<Metadata> {
   const title = searchParams?.title || "Preview";
   const description = searchParams?.description || "";
   const image = normalizeImageUrl(searchParams?.image);
@@ -125,7 +127,8 @@ export default async function PreviewPage({ searchParams }: Props) {
       items.slice(0, 6).map((it) => ({
         id: String(it.id),
         title: it.title,
-        image: it.image_url_medium || (it as any).image || "/news-thumbnail.png",
+        image:
+          it.image_url_medium || (it as any).image || "/news-thumbnail.png",
         category: it.category || "NEWS",
         publishedAt: new Date(it.publishedDate).toLocaleDateString(undefined, {
           month: "short",
@@ -149,7 +152,10 @@ export default async function PreviewPage({ searchParams }: Props) {
               <NewsDetailContent article={article as any} />
             </div>
             <div className="lg:col-span-1">
-              <NewsDetailSidebar latestNews={latestNews as any} popularNews={popularNews as any} />
+              <NewsDetailSidebar
+                latestNews={latestNews as any}
+                popularNews={popularNews as any}
+              />
             </div>
           </div>
         </div>

@@ -96,8 +96,8 @@ export function mapVideosToSectionItems(videos: VideoApiItem[]) {
     return match ? match[0] : undefined;
   };
   return videos.map(v => {
-    const poster = v.image_name ? `https://www.dailypioneer.com/uploads/vgallery/${v.image_name}` : '/video-news.png';
-    const fileSrc = v.video_name ? `https://www.dailypioneer.com/uploads/vgallery/${v.video_name}` : undefined;
+    const poster = v.image_name ? `http://103.119.171.20/uploads/vgallery/${v.image_name}` : '/video-news.png';
+    const fileSrc = v.video_name ? `http://103.119.171.20/uploads/vgallery/${v.video_name}` : undefined;
     const embedUrl = v.external_url || extractFirstUrl(v.video_embed);
     const href = embedUrl || fileSrc || '#';
     const sourceType: 'file' | 'embed' = fileSrc ? 'file' : 'embed';
