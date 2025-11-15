@@ -33,6 +33,7 @@ export interface CategoryNewsData {
         Sports?: Story[];
         Technology?: Story[];
         Impact?: Story[];
+        "Trending News"?: Story[];
         [k: string]: Story[] | undefined;
     };
 }
@@ -46,6 +47,7 @@ export interface CategoryNewsResponse {
 export interface NormalizedCategories {
     opinion: Story[];
     analysis: Story[];
+    trending: Story[];
     business: Story[];
     world: Story[];
     sports: Story[];
@@ -80,6 +82,7 @@ export function normalizeCategoryNews(data: CategoryNewsData): NormalizedCategor
     console.log("Normalizing Category News Data:", data);
     const opinion = data.Opinion || [];
     const analysis = data.Analysis || [];
+    const trending = data.section?.["Trending News"] || [];
     const business = data.section?.Business || [];
     const world = data.section?.World || [];
     const sports = data.section?.Sports || [];
@@ -88,8 +91,9 @@ export function normalizeCategoryNews(data: CategoryNewsData): NormalizedCategor
     const entertainment = data.section?.Entertainment || [];
     const travel = data.section?.Travel || [];
     const healthFitness = data.section?.["Health & Fitness"] || [];
-    const all = dedupeStories(opinion, analysis, business, world, sports, technology, impact, entertainment, travel, healthFitness);
-    return { opinion, analysis, business, world, sports, technology, impact, all, entertainment, travel, healthFitness };
+    
+    const all = dedupeStories(opinion, analysis, trending, business, world, sports, technology, impact, entertainment, travel, healthFitness);
+    return { opinion, analysis, trending, business, world, sports, technology, impact, all, entertainment, travel, healthFitness };
 }
 
   

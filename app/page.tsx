@@ -143,7 +143,17 @@ export default async function HomePage() {
   // console.log("Fetched Categories:", categories);
   console.log("Fetched Popular Stories:", popular);
 
-  const trendingNews = latest; // repurpose latest as "Trending News" section per request
+  // Map trending news from categories API to match StorySummary format
+  const trendingNews = (categories.trending.length > 0 ? categories.trending : latest).map((s: any) => ({
+    id: s.story_id || s.id,
+    title: s.story_title || s.title,
+    category: s.section_name || s.category_name || s.category || "NEWS",
+    author: s.author_name || s.author,
+    publishedDate: s.published_date || s.publishedDate,
+    image: s.image_url_big || s.image,
+    image_url_medium: s.image_url_medium,
+    urlKey: s.url_key || s.urlKey,
+  }));
 
   // Map Business category stories -> BusinessSlider shape
   const businessStoriesMapped = categories.business.map((s) => ({
