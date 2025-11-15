@@ -11,6 +11,7 @@ type NewsCardProps = {
   compact?: boolean;
   className?: string;
   id?: string;
+  href?: string;
 };
 
 export function NewsCard({
@@ -22,19 +23,15 @@ export function NewsCard({
   compact,
   className,
   id,
+  href,
 }: NewsCardProps) {
-  // Create a slug from the title for the URL
-  const slug =
-    id ||
-    title
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-|-$/g, "");
+  // Use href if provided, otherwise fall back to id
+  const linkUrl = href || (id ? `/news/${id}` : '#');
 
   return (
     <article className={cn("flex flex-col", className)}>
       <Link
-        href={`/news/${slug}`}
+        href={linkUrl}
         className="relative block aspect-[16/9] w-full overflow-hidden rounded"
       >
         <Image
@@ -47,7 +44,7 @@ export function NewsCard({
       </Link>
       <div className={cn("pt-2", compact ? "space-y-1" : "space-y-2")}>
         {category ? (
-          <span className="inline-flex items-center text-[10px] uppercase tracking-wide font-bold bg-[#1a59a9] text-black px-1.5 py-0.5 rounded">
+          <span className="inline-flex items-center text-[10px] uppercase tracking-wide font-bold bg-[#1a59a9] text-white px-1.5 py-0.5 rounded">
             {category}
           </span>
         ) : null}
@@ -57,7 +54,7 @@ export function NewsCard({
             compact ? "text-sm" : "text-base"
           )}
         >
-          <Link href={`/news/${slug}`} className="hover:underline">
+          <Link href={linkUrl} className="hover:underline">
             {title}
           </Link>
         </h3>

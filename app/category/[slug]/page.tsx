@@ -35,7 +35,7 @@ export default async function CategoryListingPage({ params, searchParams }: Prop
                     <Image src={ it.image_url_medium || "/news-thumbnail.png"} alt={it.title} fill className="object-cover" />
                   </div>
                   <div className="p-4">
-                    <span className="inline-flex items-center text-[10px] uppercase tracking-wide font-bold bg-[#1a59a9] text-black px-2 py-1  mb-2">{it.category || params.slug}</span>
+                    <span className="inline-flex items-center text-[10px] uppercase tracking-wide font-bold bg-[#1a59a9] text-white px-2 py-1  mb-2">{it.category || params.slug}</span>
                     <h3 className="font-semibold mb-1 line-clamp-2">{it.title}</h3>
                     <p className="text-xs text-gray-500">{it.author ? `By ${it.author} • ` : ''}{new Date(it.publishedDate).toLocaleDateString(undefined, { day: '2-digit', month: 'short', year: 'numeric' })}</p>
                   </div>

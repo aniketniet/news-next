@@ -103,7 +103,7 @@ export default async function StatePage({ params }: { params: { slug: string } }
                   year: "numeric",
                 }
               )}
-              href={`/news/${story.story_id}`}
+              href={`/news/${story.url_key}`}
             />
           ))}
         </div>
