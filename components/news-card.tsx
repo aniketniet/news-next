@@ -26,7 +26,7 @@ export function NewsCard({
   href,
 }: NewsCardProps) {
   // Use href if provided, otherwise fall back to id
-  const linkUrl = href || (id ? `/news/${id}` : '#');
+  const linkUrl = href || `/news/${id}`;
 
   return (
     <article className={cn("flex flex-col", className)}>
