@@ -33,6 +33,7 @@ async function fetchStateStories(state: string, limit = 20, offset = 0): Promise
       },
     });
 
+
     if (!res.ok) {
       console.error(`State API failed: ${res.status}`);
       return [];
@@ -53,6 +54,8 @@ async function fetchStateStories(state: string, limit = 20, offset = 0): Promise
 export default async function StatePage({ params }: { params: { slug: string } }) {
   const { slug } = params;
   const stories = await fetchStateStories(slug);
+
+  console.log(stories, "stories");
 
   if (!stories || stories.length === 0) {
     notFound();
@@ -94,7 +97,7 @@ export default async function StatePage({ params }: { params: { slug: string } }
               key={story.story_id}
               title={story.story_title}
               category={story.section_name || story.category_name || stateName}
-              image={story.image_url_medium || story.image_url_big || "/news-image.png"}
+              image={story.image_url_medium || story.image_url_big || "/news-image.jpg"}
               time={new Date(story.published_date || story.story_date).toLocaleDateString(
                 undefined,
                 {

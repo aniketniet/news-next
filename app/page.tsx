@@ -42,7 +42,7 @@ const podcastStories = [
     description: "Cara membuat asap dan memfoto menjadi penuh warna.",
     subtitle:
       "In Telangana, from where Justice Reddy hails, the Bharat Rashtra Samithi (BRS) said it was yet to decide its stand",
-    image: "/placeholder.svg?height=200&width=200&query=fashion%20scoop",
+    image: "/news-image.jpg",
     category: "LIFESTYLE",
     host: "Fashion Expert",
     duration: "45:30",
@@ -53,7 +53,7 @@ const podcastStories = [
     description: "Cara membuat asap dan memfoto menjadi penuh warna.",
     subtitle:
       "In Telangana, from where Justice Reddy hails, the Bharat Rashtra Samithi (BRS) said it was yet to decide its stand",
-    image: "/placeholder.svg?height=200&width=200&query=right%20swipe",
+    image: "/news-image.jpg",
     category: "RELATIONSHIPS",
     host: "Dating Coach",
     duration: "32:15",
@@ -64,7 +64,7 @@ const podcastStories = [
     description: "Cara membuat asap dan memfoto menjadi penuh warna.",
     subtitle:
       "In Telangana, from where Justice Reddy hails, the Bharat Rashtra Samithi (BRS) said it was yet to decide its stand",
-    image: "/placeholder.svg?height=200&width=200&query=truth%20podcast",
+    image: "/news-image.jpg",
     category: "NEWS",
     host: "Raj Chengappa",
     duration: "28:45",
@@ -75,7 +75,7 @@ const podcastStories = [
     description: "Cara membuat asap dan memfoto menjadi penuh warna.",
     subtitle:
       "In Telangana, from where Justice Reddy hails, the Bharat Rashtra Samithi (BRS) said it was yet to decide its stand",
-    image: "/placeholder.svg?height=200&width=200&query=defence%20podcast",
+    image: "/news-image.jpg",
     category: "POLITICS",
     host: "Defense Analyst",
     duration: "41:20",
@@ -121,7 +121,7 @@ const tarotData = {
     { name: "Aquarius", icon: "♒" },
     { name: "Pisces", icon: "♓" },
   ],
-  promoImage: "/placeholder.svg?height=300&width=400&query=tarot%20smile",
+  promoImage: "/news-image.jpg",
   promoTitle: "SMILE WITH STRENGTH",
   promoSubtitle: "Discover your inner power with our tarot readings",
 };
@@ -148,9 +148,9 @@ export default async function HomePage() {
     id: s.story_id || s.id,
     title: s.story_title || s.title,
     category: s.section_name || s.category_name || s.category || "NEWS",
-    author: s.author_name || s.author,
+    author: s.author_name || s.author || "",
     publishedDate: s.published_date || s.publishedDate,
-    image: s.image_url_big || s.image,
+    image: s.image_url_big || s.image || "/news-image.jpg",
     image_url_medium: s.image_url_medium,
     urlKey: s.url_key || s.urlKey,
   }));
@@ -160,7 +160,7 @@ export default async function HomePage() {
     id: String(s.story_id),
     title: s.story_title,
     category: s.section_name || s.category_name || "Business",
-    image: s.image_url_medium || s.image_url_big || "/leaderboard-ad.png",
+    image: s.image_url_medium || s.image_url_big || "/news-image.jpg",
     date: new Date(s.published_date).toLocaleDateString(undefined, {
       day: "2-digit",
       month: "short",
@@ -180,7 +180,7 @@ export default async function HomePage() {
       image:
         s.image_url_medium ||
         s.image_url_big ||
-        "/diverse-group-playing-various-sports.png",
+        " /news-image.jpg",
       byline: s.author_name || "",
       time: new Date(s.published_date).toLocaleDateString(undefined, {
         day: "2-digit",
@@ -203,7 +203,7 @@ export default async function HomePage() {
     title: s.story_title,
     description: "", // no description in payload
     image:
-      s.image_url_medium || s.image_url_big || "/interconnected-technology.png",
+      s.image_url_medium || s.image_url_big || "/news-image.jpg",
     category: s.section_name || "TECHNOLOGY",
     date: new Date(s.published_date).toLocaleDateString(undefined, {
       day: "2-digit",
@@ -217,7 +217,7 @@ export default async function HomePage() {
     id: String(s.story_id),
     title: s.story_title,
     category: s.section_name || "Impact",
-    image: s.image_url_medium || s.image_url_big || "/abstract-feature.png",
+    image: s.image_url_medium || s.image_url_big || "/news-image.jpg",
     date: new Date(s.published_date).toLocaleDateString(undefined, {
       day: "2-digit",
       month: "short",
@@ -230,7 +230,7 @@ export default async function HomePage() {
     id: String(s.story_id),
     title: s.story_title,
     description: "", // API does not supply short description
-    image: s.image_url_medium || s.image_url_big || "/world.png",
+    image: s.image_url_medium || s.image_url_big || "/news-image.jpg",
     timeAgo: new Date(s.published_date).toLocaleDateString(undefined, {
       day: "2-digit",
       month: "short",
@@ -246,7 +246,7 @@ export default async function HomePage() {
     id: String(s.story_id),
     title: s.story_title,
     category: "OPINION",
-    image: s.image_url_medium || s.image_url_big || "",
+    image: s.image_url_medium || s.image_url_big || "/news-image.jpg",
     byline: s.author_name || "",
     time: new Date(s.published_date).toLocaleDateString(undefined, {
       day: "2-digit",
@@ -260,7 +260,7 @@ export default async function HomePage() {
         id: String(s.story_id),
         title: s.story_title,
         category: "ANALYSIS",
-        image: s.image_url_medium || s.image_url_big || "",
+        image: s.image_url_medium || s.image_url_big || "/news-image.jpg",
         byline: s.author_name || "",
         time: new Date(s.published_date).toLocaleDateString(undefined, {
           day: "2-digit",
@@ -285,7 +285,7 @@ export default async function HomePage() {
     id: String(s.story_id),
     title: s.story_title,
     category: s.section_name || "Entertainment",
-    image: s.image_url_medium || s.image_url_big || "/abstract-feature.png",
+    image: s.image_url_medium || s.image_url_big || "/news-image.jpg",
     byline: s.author_name || "",
     time: new Date(s.published_date).toLocaleDateString(undefined, {
       day: "2-digit",
@@ -308,7 +308,7 @@ export default async function HomePage() {
     id: String(s.story_id),
     title: s.story_title,
     category: s.section_name || s.category_name || "TRAVEL",
-    image: s.image_url_medium || s.image_url_big || "/world.png",
+    image: s.image_url_medium || s.image_url_big || "/news-image.jpg",
     byline: s.author_name || "",
     time: new Date(s.published_date).toLocaleDateString(undefined, {
       day: "2-digit",
@@ -330,7 +330,7 @@ export default async function HomePage() {
     image:
       s.image_url_medium ||
       s.image_url_big ||
-      "/diverse-group-playing-various-sports.png",
+      "/news-image.jpg",
     byline: s.author_name || "",
     time: new Date(s.published_date).toLocaleDateString(undefined, {
       day: "2-digit",
@@ -372,7 +372,7 @@ export default async function HomePage() {
                         src={
                           story.image_url_medium ||
                           (story as any).image ||
-                          "/news-lead-image.png"
+                          "/news-image.jpg"
                         }
                         alt={story.title}
                         fill

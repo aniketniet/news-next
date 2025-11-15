@@ -32,7 +32,7 @@ export default async function SectionListingPage({ params, searchParams }: Props
               <li key={it.id} className="border rounded-sm  overflow-hidden bg-white hover:shadow transition-shadow">
                 <Link href={`/news/${it.id}`} className="block">
                   <div className="relative aspect-[16/9] w-full bg-gray-100">
-                    <Image src={it.image_url_medium || "/news-thumbnail.png"} alt={it.title} fill className="object-cover" />
+                    <Image src={it.image_url_medium || "/news-image.jpg"} alt={it.title} fill className="object-cover" />
                   </div>
                   <div className="p-4">
                     <span className="inline-flex items-center text-[10px] rounded-sm uppercase tracking-wide font-bold bg-[#1a59a9] text-white px-2 py-1  mb-2">{it.category || params.slug}</span>

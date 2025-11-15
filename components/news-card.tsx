@@ -17,7 +17,7 @@ type NewsCardProps = {
 export function NewsCard({
   title,
   category,
-  image = "/news-image.png",
+  image,
   byline,
   time,
   compact,
@@ -28,6 +28,8 @@ export function NewsCard({
   // Use href if provided, otherwise fall back to id
   const linkUrl = href || `/news/${id}`;
 
+  
+
   return (
     <article className={cn("flex flex-col", className)}>
       <Link
@@ -35,7 +37,7 @@ export function NewsCard({
         className="relative block aspect-[16/9] w-full overflow-hidden rounded"
       >
         <Image
-          src={image || "/news-image.png"}
+          src={image || "/news-image.jpg"}
           alt={title}
           fill
           className="object-cover transition-transform duration-300 hover:scale-105"
