@@ -325,7 +325,7 @@ export function SiteHeader() {
                           {stateNames.map((state) => (
                             <Link
                               key={state}
-                              href={`#section-${state.toLowerCase().replace(/\s+/g, '-')}`}
+                              href={`/state/${state.toLowerCase().replace(/\s+/g, '-')}`}
                               className="px-2 py-1.5 text-xs text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded transition-colors"
                               onClick={() => setStateEditionsOpen(false)}
                             >
@@ -448,7 +448,7 @@ export function SiteHeader() {
                           {stateNames.map((state) => (
                             <Link
                               key={state}
-                              href={`#section-${state.toLowerCase().replace(/\s+/g, '-')}`}
+                              href={`/state/${state.toLowerCase().replace(/\s+/g, '-')}`}
                               className="text-xs text-blue-600 hover:underline py-1"
                               onClick={() => {
                                 setIsMenuOpen(false);
