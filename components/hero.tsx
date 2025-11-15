@@ -41,17 +41,40 @@ export function Hero() {
   const bottomStories = rest.slice(2, 6);
   const featuredSlides = [mainStory, ...topStories].filter(Boolean);
 
-  const getEmbedUrl = (story: StorySummary): string | undefined => {
-    const raw = story.video_embed || story.external_url || "";
-    if (!raw) return undefined;
-    const match = raw.match(/https?:\/\/[^\s"']+/);
-    return match ? match[0] : undefined;
+  const convertYouTubeUrl = (url?: string | null): string | undefined => {
+    if (!url) return undefined;
+    // Convert YouTube watch URL to embed URL
+    const watchMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/);
+    if (watchMatch) {
+      const videoId = watchMatch[1];
+      return `https://www.youtube.com/embed/${videoId}?rel=0`;
+    }
+    // If already an embed URL, return as is
+    if (url.includes('youtube.com/embed/')) {
+      return url;
+    }
+    return url;
   };
 
-  const getFileUrl = (story: StorySummary): string | undefined => {
-    if (!story.video_name) return undefined;
-    // Note: If backend provides a video base URL, prefer that. Using known uploads path for now.
-    return `http://103.119.171.20/uploads/2025/story/video/${story.video_name}`;
+  const getVideoData = (story: StorySummary): { type: 'file' | 'embed' | 'none', url?: string } => {
+    const isFileType = story.video_type?.toUpperCase() === 'FILE';
+    const isEmbedType = story.video_type?.toUpperCase() === 'EMBED';
+    
+    if (isFileType && story.video_name) {
+      return {
+        type: 'file',
+        url: `http://103.119.171.20/uploads/2025/story/video/${story.video_name}`
+      };
+    }
+    
+    if (isEmbedType && (story.video_embed || story.external_url)) {
+      return {
+        type: 'embed',
+        url: convertYouTubeUrl(story.video_embed || story.external_url)
+      };
+    }
+    
+    return { type: 'none' };
   };
 
   return (
@@ -96,30 +119,27 @@ export function Hero() {
                 className="relative w-full"
               >
                 {featuredSlides.map((story) => {
-                  const fileSrc = getFileUrl(story);
-                  const embedUrl = getEmbedUrl(story);
-                  console.log({ fileSrc, embedUrl }, "fileSrc, embedUrl");
+                  const videoData = getVideoData(story);
                   const poster = story.image || "/lead-story.png";
                   return (
                     <SwiperSlide key={`feature-${story.id}`}>
                       <div className="relative aspect-[16/10] overflow-hidden rounded-l-sm z-10">
-                        {fileSrc ? (
-                          <video
-                            className="h-full w-full object-cover"
-                            src={fileSrc}
-                            poster={poster || undefined}
-                            controls
-                            playsInline
-                            autoPlay
-                          />
-                        ) : embedUrl ? (
+                        {videoData.type === 'embed' && videoData.url ? (
                           <iframe
                             className="h-full w-full"
-                            src={embedUrl}
+                            src={videoData.url}
                             title={story.title}
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             allowFullScreen
-                            loading="lazy"
+                            frameBorder="0"
+                          />
+                        ) : videoData.type === 'file' && videoData.url ? (
+                          <video
+                            className="h-full w-full object-cover"
+                            src={videoData.url}
+                            poster={poster || undefined}
+                            controls
+                            playsInline
                           />
                         ) : (
                           <Image

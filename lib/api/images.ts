@@ -89,18 +89,34 @@ export async function fetchGalleryAssets({ limit = 50, offset = 0, signal }: { l
 }
 
 export function mapVideosToSectionItems(videos: VideoApiItem[]) {
-  const base = process.env.NEXT_PUBLIC_API_UPLOADS_URL || '';
-  const extractFirstUrl = (embed?: string) => {
-    if (!embed) return undefined;
-    const match = embed.match(/https?:\/\/[^\s"']+/);
-    return match ? match[0] : undefined;
+  const convertYouTubeUrl = (url?: string) => {
+    if (!url) return undefined;
+    // Convert YouTube watch URL to embed URL
+    const watchMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/);
+    if (watchMatch) {
+      const videoId = watchMatch[1];
+      return `https://www.youtube.com/embed/${videoId}?rel=0`;
+    }
+    // If already an embed URL, return as is
+    if (url.includes('youtube.com/embed/')) {
+      return url;
+    }
+    return url;
   };
+  
   return videos.map(v => {
     const poster = v.image_name ? `http://103.119.171.20/uploads/vgallery/${v.image_name}` : '/video-news.png';
-    const fileSrc = v.video_name ? `http://103.119.171.20/uploads/vgallery/${v.video_name}` : undefined;
-    const embedUrl = v.external_url || extractFirstUrl(v.video_embed);
-    const href = embedUrl || fileSrc || '#';
-    const sourceType: 'file' | 'embed' = fileSrc ? 'file' : 'embed';
+    
+    // Determine source type based on video_type field from API
+    const isFileType = v.video_type?.toUpperCase() === 'FILE';
+    const isEmbedType = v.video_type?.toUpperCase() === 'EMBED';
+    
+    const fileSrc = isFileType && v.video_name ? `http://103.119.171.20/uploads/vgallery/${v.video_name}` : undefined;
+    const embedUrl = isEmbedType ? convertYouTubeUrl(v.video_embed || v.external_url || undefined) : undefined;
+    
+    const sourceType: 'file' | 'embed' = isFileType ? 'file' : 'embed';
+    const href = isFileType ? (fileSrc || '#') : (embedUrl || '#');
+    
     return {
       id: String(v.story_id),
       title: v.story_title,

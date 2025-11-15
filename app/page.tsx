@@ -287,6 +287,8 @@ export default async function HomePage() {
   // Videos: dynamic from images API combined payload
   const dynamicVideos = mapVideosToSectionItems(gallery?.videos || []);
 
+  
+
   // Travel: dynamic from API; hide section if empty
   const travelStories = (
     (categories as any).travel ||

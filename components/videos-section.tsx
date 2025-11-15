@@ -22,12 +22,16 @@ type VideoStory = {
 type VideosSectionProps = { videos: VideoStory[] }
 
 export function VideosSection({ videos }: VideosSectionProps) {
+
+  console.log("VideosSection props:", videos)
   const initial = useMemo(() => videos.find(v => v.featured) || videos[0], [videos])
   const [selected, setSelected] = useState<VideoStory | undefined>(initial)
   const sideVideos = useMemo(
     () => videos.filter(v => v.id !== (selected?.id || initial?.id)).slice(0, 4),
     [videos, selected, initial]
   )
+
+  console.log("VideosSection state:", selected, sideVideos)
 
   return (
     <section className="w-full">
@@ -60,23 +64,23 @@ export function VideosSection({ videos }: VideosSectionProps) {
         <div className="lg:col-span-1">
           <article className="group">
             <div className="relative aspect-[16/9] w-full overflow-hidden rounded-lg bg-black">
-              {selected?.sourceType === 'file' && selected?.src ? (
-                <video
-                  key={selected.src}
-                  controls
-                  poster={selected.poster}
-                  className="w-full h-full"
-                  src={selected.src}
-                />
-              ) : selected?.embed ? (
+              {selected?.sourceType === 'embed' && selected?.embed ? (
                 <iframe
                   key={selected.embed}
                   src={selected.embed}
                   className="w-full h-full"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen
-                  loading="lazy"
                   title={selected.title}
+                  frameBorder="0"
+                />
+              ) : selected?.sourceType === 'file' && selected?.src ? (
+                <video
+                  key={selected.src}
+                  controls
+                  poster={selected.poster}
+                  className="w-full h-full"
+                  src={selected.src}
                 />
               ) : selected ? (
                 <Link href={selected.href || '#'} className="relative block w-full h-full">

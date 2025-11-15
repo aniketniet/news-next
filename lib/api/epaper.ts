@@ -36,6 +36,7 @@ export async function fetchEpaper(): Promise<EpaperLanguage[]> {
     throw new Error(`Failed to load e-paper (${res.status})`);
   }
   const json = (await res.json()) as EpaperResponse;
+  console.log("Epaper response:", json.data);
   if (!json?.success || !Array.isArray(json?.data)) return [];
   return json.data;
 }

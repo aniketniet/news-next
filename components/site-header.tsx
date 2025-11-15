@@ -26,6 +26,9 @@ export function SiteHeader() {
     language: string;
     date: string;
   } | null>(null);
+  
+
+ 
 
   const onSearchSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -65,8 +68,8 @@ export function SiteHeader() {
     { label: "SPORTS", href: "/section/sport" },
     { label: "OPINION", href: "/category/opinion" },
     { label: "ANALYTICS", href: "/category/analysis" },
-    { label: "POLITICS", href: "/politics" },
-    { label: "EDUCATION", href: "/education" },
+    // { label: "POLITICS", href: "/politics" },
+    // { label: "EDUCATION", href: "/education" },
     { label: "E-PAPER", href: "/e-paper" },
     { label: "TECH", href: "/section/tech" },
     { label: "EXOTICA", href: "/exotica" },
@@ -285,16 +288,69 @@ export function SiteHeader() {
       <nav className="hidden lg:block bg-[#1a59a9]">
         <div className="mx-auto max-w-7xl">
           <ul className="flex flex-wrap items-center justify-center text-[13px] xl:text-sm text-white font-semibold">
-            {categories.map((category) => (
-              <li key={category.label}>
-                <Link
-                  href={category.href}
-                  className="block px-3 py-3 hover:bg-blue-900 transition-colors"
-                >
-                  {category.label}
-                </Link>
-              </li>
-            ))}
+            {categories.map((category) => {
+              if (category.label === 'E-PAPER') {
+                return (
+                  <li key={category.label} className="relative group">
+                    <button
+                      className="block px-3 py-3 hover:bg-blue-900 transition-colors"
+                      onMouseEnter={() => setEpaperOpen(true)}
+                      onMouseLeave={() => setEpaperOpen(false)}
+                    >
+                      {category.label}
+                    </button>
+                    {epaperOpen && (
+                      <div
+                        className="absolute left-0 top-full bg-white shadow-lg rounded-b-lg min-w-[250px] z-50"
+                        onMouseEnter={() => setEpaperOpen(true)}
+                        onMouseLeave={() => setEpaperOpen(false)}
+                      >
+                        {epaperLoading ? (
+                          <div className="p-4 text-gray-600 text-sm">Loading...</div>
+                        ) : epaperError ? (
+                          <div className="p-4 text-red-600 text-sm">{epaperError}</div>
+                        ) : epaperData && epaperData.length > 0 ? (
+                          <div className="py-2">
+                            {epaperData.map((lang) => (
+                              <div key={lang.language} className="border-b border-gray-100 last:border-0">
+                                <div className="px-4 py-2 text-sm font-semibold text-gray-800 bg-gray-50">
+                                  {lang.language}
+                                </div>
+                                <div className="grid grid-cols-2 gap-1 px-2 py-1">
+                                  {lang.locations.map((loc) => (
+                                    <a
+                                      key={loc.location}
+                                      href={loc.pdf_url}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="px-2 py-1.5 text-xs text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded transition-colors"
+                                    >
+                                      {loc.location}
+                                    </a>
+                                  ))}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <div className="p-4 text-gray-600 text-sm">No e-paper available</div>
+                        )}
+                      </div>
+                    )}
+                  </li>
+                );
+              }
+              return (
+                <li key={category.label}>
+                  <Link
+                    href={category.href}
+                    className="block px-3 py-3 hover:bg-blue-900 transition-colors"
+                  >
+                    {category.label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </nav>
@@ -318,16 +374,71 @@ export function SiteHeader() {
               ))}
           </div>
           <nav className="px-4 py-2 space-y-1">
-            {categories.map((category) => (
-              <Link
-                key={category.label}
-                href={category.href}
-                className="block py-2 text-gray-800 font-medium border-b border-gray-100"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {category.label}
-              </Link>
-            ))}
+            {categories.map((category) => {
+              if (category.label === 'E-PAPER') {
+                return (
+                  <div key={category.label}>
+                    <button
+                      onClick={() => setMobileEpaperOpen(!mobileEpaperOpen)}
+                      className="w-full flex items-center justify-between py-2 text-gray-800 font-medium border-b border-gray-100"
+                    >
+                      <span>{category.label}</span>
+                      <svg
+                        className={`w-4 h-4 transition-transform ${mobileEpaperOpen ? 'rotate-180' : ''}`}
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                    {mobileEpaperOpen && (
+                      <div className="pl-4 py-2 space-y-2">
+                        {epaperLoading ? (
+                          <div className="text-sm text-gray-600">Loading...</div>
+                        ) : epaperError ? (
+                          <div className="text-sm text-red-600">{epaperError}</div>
+                        ) : epaperData && epaperData.length > 0 ? (
+                          epaperData.map((lang) => (
+                            <div key={lang.language} className="mb-3">
+                              <div className="text-xs font-semibold text-gray-800 mb-1">
+                                {lang.language}
+                              </div>
+                              <div className="grid grid-cols-2 gap-1">
+                                {lang.locations.map((loc) => (
+                                  <a
+                                    key={loc.location}
+                                    href={loc.pdf_url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-xs text-blue-600 hover:underline py-1"
+                                    onClick={() => setIsMenuOpen(false)}
+                                  >
+                                    {loc.location}
+                                  </a>
+                                ))}
+                              </div>
+                            </div>
+                          ))
+                        ) : (
+                          <div className="text-sm text-gray-600">No e-paper available</div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                );
+              }
+              return (
+                <Link
+                  key={category.label}
+                  href={category.href}
+                  className="block py-2 text-gray-800 font-medium border-b border-gray-100"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {category.label}
+                </Link>
+              );
+            })}
           </nav>
         </div>
       )}
