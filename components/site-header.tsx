@@ -8,6 +8,7 @@ import { fetchBreakingNews, mapBreakingTitles } from "@/lib/api/breakingNews";
 import { ProfileDropdown } from "./ProfileDropdown";
 import { useRouter } from "next/navigation";
 import { fetchEpaper, type EpaperLanguage } from "@/lib/api/epaper";
+import { fetchStories } from "@/lib/api/stories";
 import Skeleton from "react-loading-skeleton";
 
 export function SiteHeader() {
@@ -18,9 +19,12 @@ export function SiteHeader() {
   const router = useRouter();
   const [epaperOpen, setEpaperOpen] = useState(false);
   const [mobileEpaperOpen, setMobileEpaperOpen] = useState(false);
+  const [stateEditionsOpen, setStateEditionsOpen] = useState(false);
+  const [mobileStateEditionsOpen, setMobileStateEditionsOpen] = useState(false);
   const [epaperLoading, setEpaperLoading] = useState(false);
   const [epaperError, setEpaperError] = useState<string | null>(null);
   const [epaperData, setEpaperData] = useState<EpaperLanguage[] | null>(null);
+  const [stateEditionsData, setStateEditionsData] = useState<Record<string, any[]>>({});
   const [epaperDelhi, setEpaperDelhi] = useState<{
     pdfUrl: string;
     language: string;
@@ -55,8 +59,18 @@ export function SiteHeader() {
     }
   };
 
+  const loadStateEditions = async () => {
+    try {
+      const { stateEditions } = await fetchStories({ limit: 5, offset: 0 });
+      setStateEditionsData(stateEditions || {});
+    } catch (e) {
+      console.error('Failed to load state editions', e);
+    }
+  };
+
   useEffect(() => {
     void ensureEpaperLoaded();
+    void loadStateEditions();
   }, []);
 
   const categories = [
@@ -68,8 +82,9 @@ export function SiteHeader() {
     { label: "SPORTS", href: "/section/sport" },
     { label: "OPINION", href: "/category/opinion" },
     { label: "ANALYTICS", href: "/category/analysis" },
-    // { label: "POLITICS", href: "/politics" },
-    // { label: "EDUCATION", href: "/education" },
+    { label: "POLITICS", href: "/politics" },
+    { label: "EDUCATION", href: "/education" },
+    { label: "STATE EDITIONS", href: "#" },
     { label: "E-PAPER", href: "/e-paper" },
     { label: "TECH", href: "/section/tech" },
     { label: "EXOTICA", href: "/exotica" },
@@ -289,6 +304,40 @@ export function SiteHeader() {
         <div className="mx-auto max-w-7xl">
           <ul className="flex flex-wrap items-center justify-center text-[13px] xl:text-sm text-white font-semibold">
             {categories.map((category) => {
+              if (category.label === 'STATE EDITIONS') {
+                const stateNames = Object.keys(stateEditionsData);
+                return (
+                  <li key={category.label} className="relative group">
+                    <button
+                      className="block px-3 py-3 hover:bg-blue-900 transition-colors"
+                      onMouseEnter={() => setStateEditionsOpen(true)}
+                      onMouseLeave={() => setStateEditionsOpen(false)}
+                    >
+                      {category.label}
+                    </button>
+                    {stateEditionsOpen && stateNames.length > 0 && (
+                      <div
+                        className="absolute left-0 top-full bg-white shadow-lg rounded-b-lg min-w-[200px] z-50"
+                        onMouseEnter={() => setStateEditionsOpen(true)}
+                        onMouseLeave={() => setStateEditionsOpen(false)}
+                      >
+                        <div className="py-2 grid grid-cols-2 gap-1 px-2">
+                          {stateNames.map((state) => (
+                            <Link
+                              key={state}
+                              href={`#section-${state.toLowerCase().replace(/\s+/g, '-')}`}
+                              className="px-2 py-1.5 text-xs text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded transition-colors"
+                              onClick={() => setStateEditionsOpen(false)}
+                            >
+                              {state}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </li>
+                );
+              }
               if (category.label === 'E-PAPER') {
                 return (
                   <li key={category.label} className="relative group">
@@ -375,6 +424,46 @@ export function SiteHeader() {
           </div>
           <nav className="px-4 py-2 space-y-1">
             {categories.map((category) => {
+              if (category.label === 'STATE EDITIONS') {
+                const stateNames = Object.keys(stateEditionsData);
+                return (
+                  <div key={category.label}>
+                    <button
+                      onClick={() => setMobileStateEditionsOpen(!mobileStateEditionsOpen)}
+                      className="w-full flex items-center justify-between py-2 text-gray-800 font-medium border-b border-gray-100"
+                    >
+                      <span>{category.label}</span>
+                      <svg
+                        className={`w-4 h-4 transition-transform ${mobileStateEditionsOpen ? 'rotate-180' : ''}`}
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                    {mobileStateEditionsOpen && stateNames.length > 0 && (
+                      <div className="pl-4 py-2">
+                        <div className="grid grid-cols-2 gap-1">
+                          {stateNames.map((state) => (
+                            <Link
+                              key={state}
+                              href={`#section-${state.toLowerCase().replace(/\s+/g, '-')}`}
+                              className="text-xs text-blue-600 hover:underline py-1"
+                              onClick={() => {
+                                setIsMenuOpen(false);
+                                setMobileStateEditionsOpen(false);
+                              }}
+                            >
+                              {state}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              }
               if (category.label === 'E-PAPER') {
                 return (
                   <div key={category.label}>

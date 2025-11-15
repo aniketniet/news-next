@@ -12,6 +12,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 // Hero now client-fetches top stories and shows skeletons while loading
+
 export function Hero() {
   const [top, setTop] = useState<StorySummary[]>([]);
   const [loading, setLoading] = useState(true);
