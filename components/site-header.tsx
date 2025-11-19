@@ -8,7 +8,7 @@ import { fetchBreakingNews, mapBreakingTitles } from "@/lib/api/breakingNews";
 import { ProfileDropdown } from "./ProfileDropdown";
 import { useRouter } from "next/navigation";
 import { fetchEpaper, type EpaperLanguage } from "@/lib/api/epaper";
-import { fetchStories } from "@/lib/api/stories";
+import { fetchStories, fetchStates, type State } from "@/lib/api/stories";
 import Skeleton from "react-loading-skeleton";
 
 export function SiteHeader() {
@@ -24,7 +24,8 @@ export function SiteHeader() {
   const [epaperLoading, setEpaperLoading] = useState(false);
   const [epaperError, setEpaperError] = useState<string | null>(null);
   const [epaperData, setEpaperData] = useState<EpaperLanguage[] | null>(null);
-  const [stateEditionsData, setStateEditionsData] = useState<Record<string, any[]>>({});
+  const [stateEditionsLoading, setStateEditionsLoading] = useState(false);
+  const [statesData, setStatesData] = useState<State[]>([]);
   const [epaperDelhi, setEpaperDelhi] = useState<{
     pdfUrl: string;
     language: string;
@@ -61,10 +62,13 @@ export function SiteHeader() {
 
   const loadStateEditions = async () => {
     try {
-      const { stateEditions } = await fetchStories({ limit: 5, offset: 0 });
-      setStateEditionsData(stateEditions || {});
+      setStateEditionsLoading(true);
+      const states = await fetchStates();
+      setStatesData(states);
     } catch (e) {
       console.error('Failed to load state editions', e);
+    } finally {
+      setStateEditionsLoading(false);
     }
   };
 
@@ -305,7 +309,6 @@ export function SiteHeader() {
           <ul className="flex flex-wrap items-center justify-center text-[13px] xl:text-sm text-white font-semibold">
             {categories.map((category) => {
               if (category.label === 'STATE EDITIONS') {
-                const stateNames = Object.keys(stateEditionsData);
                 return (
                   <li key={category.label} className="relative group">
                     <button
@@ -315,21 +318,21 @@ export function SiteHeader() {
                     >
                       {category.label}
                     </button>
-                    {stateEditionsOpen && stateNames.length > 0 && (
+                    {stateEditionsOpen && statesData.length > 0 && (
                       <div
                         className="absolute left-0 top-full bg-white shadow-lg rounded-b-lg min-w-[200px] z-50"
                         onMouseEnter={() => setStateEditionsOpen(true)}
                         onMouseLeave={() => setStateEditionsOpen(false)}
                       >
                         <div className="py-2 grid grid-cols-2 gap-1 px-2">
-                          {stateNames.map((state) => (
+                          {statesData.map((state) => (
                             <Link
-                              key={state}
-                              href={`/state/${state.toLowerCase().replace(/\s+/g, '-')}`}
+                              key={state.url_key}
+                              href={`/state/${state.category_id}`}
                               className="px-2 py-1.5 text-xs text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded transition-colors"
                               onClick={() => setStateEditionsOpen(false)}
                             >
-                              {state}
+                              {state.category_name}
                             </Link>
                           ))}
                         </div>
@@ -425,7 +428,6 @@ export function SiteHeader() {
           <nav className="px-4 py-2 space-y-1">
             {categories.map((category) => {
               if (category.label === 'STATE EDITIONS') {
-                const stateNames = Object.keys(stateEditionsData);
                 return (
                   <div key={category.label}>
                     <button
@@ -442,20 +444,20 @@ export function SiteHeader() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                       </svg>
                     </button>
-                    {mobileStateEditionsOpen && stateNames.length > 0 && (
+                    {mobileStateEditionsOpen && statesData.length > 0 && (
                       <div className="pl-4 py-2">
                         <div className="grid grid-cols-2 gap-1">
-                          {stateNames.map((state) => (
+                          {statesData.map((state) => (
                             <Link
-                              key={state}
-                              href={`/state/${state.toLowerCase().replace(/\s+/g, '-')}`}
+                              key={state.url_key}
+                              href={`/state/${state.category_id}`}
                               className="text-xs text-blue-600 hover:underline py-1"
                               onClick={() => {
                                 setIsMenuOpen(false);
                                 setMobileStateEditionsOpen(false);
                               }}
                             >
-                              {state}
+                              {state.category_name}
                             </Link>
                           ))}
                         </div>

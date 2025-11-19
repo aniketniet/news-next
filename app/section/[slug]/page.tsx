@@ -17,6 +17,7 @@ export default async function SectionListingPage({ params, searchParams }: Props
   const offset = Number(searchParams.offset ?? 0) || 0
 
   const items = await fetchSectionList(sectionId, { limit, offset })
+  const currentPage = Math.floor(offset / limit) + 1;
 
   return (
     <div className="min-h-screen bg-white">
@@ -43,6 +44,31 @@ export default async function SectionListingPage({ params, searchParams }: Props
               </li>
             ))}
           </ul>
+          
+          {/* Pagination */}
+          <div className="mt-12 flex items-center justify-center gap-2">
+            {offset > 0 && (
+              <Link
+                href={`/section/${params.slug}?limit=${limit}&offset=${Math.max(0, offset - limit)}`}
+                className="px-4 py-2 rounded border border-gray-300 text-gray-700 hover:bg-gray-100 transition-colors"
+              >
+                ← Previous
+              </Link>
+            )}
+            
+            <span className="px-4 py-2 text-gray-700 font-medium">
+              Page {currentPage}
+            </span>
+            
+            {items.length === limit && (
+              <Link
+                href={`/section/${params.slug}?limit=${limit}&offset=${offset + limit}`}
+                className="px-4 py-2 rounded border border-gray-300 text-gray-700 hover:bg-gray-100 transition-colors"
+              >
+                Next →
+              </Link>
+            )}
+          </div>
         </div>
       </main>
       <SiteFooter />

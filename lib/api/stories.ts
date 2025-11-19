@@ -1,5 +1,20 @@
 import axios from 'axios'
 
+// State interface
+export interface State {
+    category_id: number
+    category_name: string
+    section_id: number
+    url_key: string
+    position: number
+}
+
+interface StatesApiResponse {
+    success: boolean
+    message: string
+    data: State[]
+}
+
 // Small item (used in trending / recent / related)
 export interface StoryListItem {
     story_id: number
@@ -52,6 +67,22 @@ interface StoryListEnvelope<T = StoryApiFull[]> {
 }
 
 const BASE = `${process.env.NEXT_PUBLIC_API_URL}`
+
+// Fetch all states
+export async function fetchStates(): Promise<State[]> {
+    try {
+        const { data } = await axios.get<StatesApiResponse>(
+            `${BASE}/get-all-states`,
+            { timeout: 15000 }
+        )
+        const states = Array.isArray(data?.data) ? data.data : []
+        // Sort by position
+        return states.sort((a, b) => a.position - b.position)
+    } catch (e) {
+        console.error('fetchStates error', e)
+        return []
+    }
+}
 
 // If you only want the raw/full API object (ALL fields)
 export async function fetchStoryFull(identifier: string): Promise<StoryApiFull | null> {

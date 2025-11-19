@@ -1,71 +1,33 @@
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/footer";
 import { NewsCard } from "@/components/news-card";
+import { fetchCategoryList } from "@/lib/api/stories";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-interface StateStory {
-  story_id: number;
-  story_title: string;
-  story_date: string;
-  published_date: string;
-  image_url_medium?: string;
-  image_url_big?: string;
-  url_key: string;
-  author_name?: string;
-  category_name?: string;
-  section_name?: string;
+interface Props { 
+  params: { slug: string };
+  searchParams: { limit?: string; offset?: string };
 }
 
-interface StateApiResponse {
-  success: boolean;
-  message: string;
-  data: StateStory[];
-}
+export const dynamic = "force-dynamic";
 
-async function fetchStateStories(state: string, limit = 20, offset = 0): Promise<StateStory[]> {
-  try {
-    const url = `http://103.119.171.20/api/news/city/${state}?limit=${limit}&offset=${offset}`;
-    const res = await fetch(url, {
-      cache: "no-store",
-      headers: {
-        "Accept": "application/json",
-      },
-    });
+export default async function StatePage({ params, searchParams }: Props) {
+  // slug is now the category ID
+  const categoryId = parseInt(params.slug, 10);
+  if (isNaN(categoryId)) notFound();
 
+  const limit = Number(searchParams.limit ?? 12) || 12;
+  const offset = Number(searchParams.offset ?? 0) || 0;
 
-    if (!res.ok) {
-      console.error(`State API failed: ${res.status}`);
-      return [];
-    }
+  const items = await fetchCategoryList(categoryId, { limit, offset });
 
-    const json: StateApiResponse = await res.json();
-    if (!json.success || !Array.isArray(json.data)) {
-      return [];
-    }
-
-    return json.data;
-  } catch (error) {
-    console.error("Error fetching state stories:", error);
-    return [];
-  }
-}
-
-export default async function StatePage({ params }: { params: { slug: string } }) {
-  const { slug } = params;
-  const stories = await fetchStateStories(slug);
-
-  console.log(stories, "stories");
-
-  if (!stories || stories.length === 0) {
+  if (!items || items.length === 0) {
     notFound();
   }
 
-  // Capitalize state name for display
-  const stateName = slug
-    .split("-")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
+  const stateName = items.length > 0 ? (items[0].category || params.slug) : params.slug;
+  const currentPage = Math.floor(offset / limit) + 1;
 
   return (
     <main className="min-h-screen bg-gray-50">
@@ -92,13 +54,13 @@ export default async function StatePage({ params }: { params: { slug: string } }
 
         {/* Stories Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {stories.map((story) => (
+          {items.map((item) => (
             <NewsCard
-              key={story.story_id}
-              title={story.story_title}
-              category={story.section_name || story.category_name || stateName}
-              image={story.image_url_medium || story.image_url_big || "/news-image.jpg"}
-              time={new Date(story.published_date || story.story_date).toLocaleDateString(
+              key={item.id}
+              title={item.title}
+              category={item.category || stateName}
+              image={item.image_url_medium || item.image || "/news-image.jpg"}
+              time={new Date(item.publishedDate).toLocaleDateString(
                 undefined,
                 {
                   day: "2-digit",
@@ -106,17 +68,35 @@ export default async function StatePage({ params }: { params: { slug: string } }
                   year: "numeric",
                 }
               )}
-              href={`/news/${story.story_id}`}
+              href={`/news/${item.id}`}
             />
           ))}
         </div>
 
-        {/* No More Results Message */}
-        {stories.length >= 20 && (
-          <div className="mt-8 text-center">
-            <p className="text-gray-600">Showing {stories.length} articles</p>
-          </div>
-        )}
+        {/* Pagination */}
+        <div className="mt-12 flex items-center justify-center gap-2">
+          {offset > 0 && (
+            <Link
+              href={`/state/${categoryId}?limit=${limit}&offset=${Math.max(0, offset - limit)}`}
+              className="px-4 py-2 rounded border border-gray-300 text-gray-700 hover:bg-gray-100 transition-colors"
+            >
+              ← Previous
+            </Link>
+          )}
+          
+          <span className="px-4 py-2 text-gray-700 font-medium">
+            Page {currentPage}
+          </span>
+          
+          {items.length === limit && (
+            <Link
+              href={`/state/${categoryId}?limit=${limit}&offset=${offset + limit}`}
+              className="px-4 py-2 rounded border border-gray-300 text-gray-700 hover:bg-gray-100 transition-colors"
+            >
+              Next →
+            </Link>
+          )}
+        </div>
       </div>
 
       <SiteFooter />
@@ -125,11 +105,12 @@ export default async function StatePage({ params }: { params: { slug: string } }
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const stateName = params.slug
-    .split("-")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
+  const categoryId = parseInt(params.slug, 10);
+  if (isNaN(categoryId)) return { title: "State Edition - The Pioneer" };
 
+  const items = await fetchCategoryList(categoryId, { limit: 1, offset: 0 });
+  const stateName = items.length > 0 ? (items[0].category || params.slug) : params.slug;
+  
   return {
     title: `${stateName} Edition - The Pioneer`,
     description: `Latest news and updates from ${stateName}`,
