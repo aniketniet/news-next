@@ -13,35 +13,35 @@ export default function SubscriptionSlider() {
       id: 1,
       title: 'Basic Plan',
       price: '$9.99/mo',
-      image: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&h=600&fit=crop',
+      image: '/sub1.png',
       features: ['10 Projects', '5GB Storage', 'Basic Support']
     },
     {
       id: 2,
       title: 'Pro Plan',
       price: '$29.99/mo',
-      image: 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&h=600&fit=crop',
+      image: '/sub2.png',
       features: ['Unlimited Projects', '50GB Storage', 'Priority Support']
     },
     {
       id: 3,
       title: 'Enterprise Plan',
       price: '$99.99/mo',
-      image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop',
+      image: '/sub3.png',
       features: ['Unlimited Everything', '500GB Storage', '24/7 Support']
     },
-    {
-      id: 4,
-      title: 'Starter Plan',
-      price: '$4.99/mo',
-      image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop',
-      features: ['5 Projects', '2GB Storage', 'Email Support']
-    }
+
   ];
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 py-16">
-    
+    <div className="w-full">
+          {/* Header with progress bar */}
+      <div className="px-3 py-2 flex-shrink-0">
+        <h3 className="font-semibold text-lg">Subscription</h3>
+        <div className="mt-2 h-1 w-full bg-gray-200 rounded">
+          <div className="h-full bg-[#1a59a9] rounded" style={{ width: "20%" }} />
+        </div>
+      </div>
 
       <Swiper
         modules={[Autoplay, Pagination, Navigation]}
@@ -69,12 +69,12 @@ export default function SubscriptionSlider() {
       >
         {subscriptionPlans.map((plan) => (
           <SwiperSlide key={plan.id}>
-            <div className="bg-white rounded-2xl shadow-xl overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-              <div className="relative  overflow-hidden">
+            <div className=" overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-2xl h-[300px]">
+              <div className="relative h-full overflow-hidden">
                 <img
                   src={plan.image}
                   alt={plan.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain"
                 />
               </div>
             </div>
@@ -92,8 +92,7 @@ export default function SubscriptionSlider() {
           color: #2563eb;
           width: 30px;
           height: 30px;
-          border-radius: 50%;
-          box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+       
         }
         
         .subscription-swiper .swiper-button-next:after,

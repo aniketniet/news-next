@@ -55,7 +55,7 @@ export function OpinionSection({ title, stories }: OpinionSectionProps) {
       {/* Stories list */}
       <div
         ref={listRef}
-        className="p-4 space-y-4 max-h-96 overflow-y-auto scroll-smooth"
+        className="p-4 space-y-4 max-h-96 overflow-y-auto scroll-smooth scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100 hover:scrollbar-thumb-gray-500"
       >
         {stories.map((story) => (
           <SecondaryStory
