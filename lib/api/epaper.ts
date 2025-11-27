@@ -38,5 +38,7 @@ export async function fetchEpaper(): Promise<EpaperLanguage[]> {
   const json = (await res.json()) as EpaperResponse;
   console.log("Epaper response:", json.data);
   if (!json?.success || !Array.isArray(json?.data)) return [];
-  return json.data;
+  
+  // Filter to show only English Edition
+  return json.data.filter(item => item.language === "English Edition");
 }
