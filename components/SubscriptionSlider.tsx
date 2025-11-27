@@ -69,7 +69,7 @@ export default function SubscriptionSlider() {
       >
         {subscriptionPlans.map((plan) => (
           <SwiperSlide key={plan.id}>
-            <div className=" overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-2xl h-[300px]">
+            <div className=" overflow-hidden transform transition-all duration-300  h-[300px]">
               <div className="relative h-full overflow-hidden">
                 <img
                   src={plan.image}
