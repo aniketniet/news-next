@@ -11,6 +11,7 @@ type InternationalNewsCardProps = {
   timeAgo: string
   source: string
   className?: string
+  urlKey?: string
 }
 
 export function InternationalNewsCard({
@@ -18,6 +19,7 @@ export function InternationalNewsCard({
   title,
   description,
   image,
+  urlKey,
   timeAgo,
   source,
   className,
@@ -25,7 +27,7 @@ export function InternationalNewsCard({
 
   return (
     <article className={cn("group", className)}>
-      <Link href={`/news/${id}`} onClick={ScrollToTop} className="block">
+      <Link href={`/news/${urlKey }`} onClick={ScrollToTop} className="block">
         <div className="relative aspect-[16/10] w-full rounded-sm overflow-hidden  mb-3">
           <Image
             src={image}

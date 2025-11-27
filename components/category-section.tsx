@@ -11,6 +11,7 @@ type CategoryStory = {
   byline: string
   time: string
   featured?: boolean
+  urlKey?: string
 }
 
 type CategorySectionProps = {
@@ -42,7 +43,7 @@ export function CategorySection({
       {/* Featured Story */}
       <div className="mb-6">
         <article className="relative group">
-          <Link href={`/news/${featuredStory.id}`} onClick={ScrollToTop} className="block">
+          <Link href={`/news/${featuredStory.urlKey || featuredStory.id}`} onClick={ScrollToTop} className="block">
             <div className="relative aspect-[16/9] w-full overflow-hidden rounded-sm  mb-3">
               <Image
                 src={featuredStory.image}
@@ -75,6 +76,7 @@ export function CategorySection({
           <SecondaryStory
             key={story.id}
             id={story.id}
+            urlKey={story.urlKey}
             title={story.title}
             category={story.category}
             image={story.image}

@@ -9,6 +9,7 @@ type SportsStory = {
   category: string
   image: string
   byline: string
+  urlKey?: string
   time: string
 }
 
@@ -57,6 +58,7 @@ export function SportsSection({ title, stories }: SportsSectionProps) {
           <SecondaryStory
             key={story.id}
             id={story.id}
+            urlKey={story.urlKey}
             title={story.title}
             category={story.category}
             image={story.image}

@@ -9,6 +9,7 @@ type SecondaryStoryProps = {
   image: string
   byline: string
   time: string
+  urlKey?: string
 }
 
 export function SecondaryStory({
@@ -18,10 +19,11 @@ export function SecondaryStory({
   id,
   byline,
   time,
+  urlKey,
 }: SecondaryStoryProps) {
   return (
     <article className="flex gap-4 group">
-      <Link href={`/news/${id}`} onClick={ScrollToTop} className="relative block w-24 h-16 flex-shrink-0 overflow-hidden rounded-sm ">
+      <Link href={`/news/${urlKey }`} onClick={ScrollToTop} className="relative block w-24 h-16 flex-shrink-0 overflow-hidden rounded-sm ">
         <Image
           src={image}
           alt={title}
@@ -35,7 +37,7 @@ export function SecondaryStory({
           {category}
         </span>
         <h4 className="text-sm font-semibold leading-tight mb-1 line-clamp-2">
-          <Link href={`/news/${id}`} onClick={ScrollToTop} className="hover:underline">
+          <Link href={`/news/${urlKey}`} onClick={ScrollToTop} className="hover:underline">
             {title}
           </Link>
         </h4>

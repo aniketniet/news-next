@@ -24,6 +24,15 @@ export interface StoryListItem {
     url_key: string
 }
 
+// Comment interface
+export interface Comment {
+    comment_id?: number
+    user_name?: string
+    comment_text?: string
+    comment_date?: string
+    [key: string]: any
+}
+
 // Full story shape (add every field you showed)
 export interface StoryApiFull {
     story_id: number
@@ -33,6 +42,7 @@ export interface StoryApiFull {
     published_date: string
     image_url_big: string | null
     image_url_medium: string | null
+    image_name?: string | null
     video_name?: string | null
     video_type?: string | null
     video_embed?: string | null
@@ -48,9 +58,14 @@ export interface StoryApiFull {
     category_name?: string
     section_name?: string
     author_name?: string
+    like_count?: number
+    dislike_count?: number
+    comment_count?: number
+    comments?: Comment[]
     trending_news?: StoryListItem[]
     recent_news?: StoryListItem[]
     related_articles?: StoryListItem[]
+    popular_news?: StoryListItem[]
 }
 
 interface StoryApiEnvelope<T = StoryApiFull> {
@@ -87,16 +102,14 @@ export async function fetchStates(): Promise<State[]> {
 // If you only want the raw/full API object (ALL fields)
 export async function fetchStoryFull(identifier: string): Promise<StoryApiFull | null> {
     try {
-        const { data } = await axios.get<StoryApiEnvelope | StoryApiFull>(
-            `${BASE}/stories/web/${identifier}`,
+        const { data } = await axios.get<StoryApiEnvelope>(
+            `${BASE}/news/${identifier}`,
             { timeout: 15000 }
         )
 
         console.log(data,"data");
 
-        const raw: StoryApiFull = (data as StoryApiEnvelope).data
-            ? (data as StoryApiEnvelope<StoryApiFull>).data
-            : (data as StoryApiFull)
+        const raw: StoryApiFull = data?.data
 
         return raw?.story_id ? raw : null
     } catch (e) {
@@ -118,10 +131,15 @@ export interface StoryMapped {
     metaKeywords?: string | null
     metaDescription?: string | null
     tags?: string[]
+    likeCount?: number
+    dislikeCount?: number
+    commentCount?: number
+    comments?: Comment[]
     // extra arrays if you still want them mapped
     trending?: StoryListItem[]
     recent?: StoryListItem[]
     related?: StoryListItem[]
+    popular?: StoryListItem[]
 }
 
 export async function fetchStory(identifier: string): Promise<StoryMapped | null> {
@@ -135,14 +153,19 @@ export async function fetchStory(identifier: string): Promise<StoryMapped | null
         authorName: raw.author_name || 'Staff Reporter',
         publishedDate: raw.published_date || raw.story_date,
         urlKey: raw.url_key,
-        imageName: raw.image_url_big ?? null,
+        imageName: raw.image_url_big || null,
         metaTitle: raw.meta_title ?? null,
         metaKeywords: raw.meta_keyword ?? null,
         metaDescription: raw.meta_description ?? null,
         tags: raw.story_tags ? raw.story_tags.split(',').map(s => s.trim()).filter(Boolean) : [],
+        likeCount: raw.like_count ?? 0,
+        dislikeCount: raw.dislike_count ?? 0,
+        commentCount: raw.comment_count ?? 0,
+        comments: raw.comments ?? [],
         trending: raw.trending_news ?? [],
         recent: raw.recent_news ?? [],
-        related: raw.related_articles ?? []
+        related: raw.related_articles ?? [],
+        popular: raw.popular_news ?? []
     }
 }
 

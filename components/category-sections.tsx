@@ -2,6 +2,7 @@ import { CategorySection } from "./category-section"
 
 type CategoryStory = {
   id: string
+  urlKey?: string
   title: string
   category: string
   image: string
@@ -27,7 +28,7 @@ export function CategorySections({
         {/* Entertainment Section */}
         {entertainment?.length > 0 && (
           <CategorySection
-            title="Entertainment"
+            title="Page 1"
             stories={entertainment}
             accentColor="bg-[#1a59a9]"
           />

@@ -9,31 +9,6 @@ import { fetchStory } from "@/lib/api/stories";
 
 export const dynamic = "force-dynamic";
 
-// Mock data - in real app, this would come from API/database
-// Build an Article object (matching NewsDetailContent) from API story
-function mapStoryToArticle(story: Awaited<ReturnType<typeof fetchStory>>) {
-  console.log(story,"story-dedicated");
-  if (!story) return null;
-  return {
-    id: String(story.id),
-    title: story.title,
-    subtitle: story.metaDescription || "",
-    content: story.contentHtml,
-    image: story.imageName
-      ? `${story.imageName}`
-      : "", 
-  category: story.metaTitle || "NEWS",
-    publishedAt: new Date(story.publishedDate).toLocaleDateString(undefined, {
-      year: "numeric",
-      month: "long",
-      day: "2-digit",
-    }),
-  author:story.authorName || "Staff Reporter",
-    readTime: "", // optional, can compute later
-    tags: story.tags || [],
-  };
-}
-
 function mapList(list?: { story_id: number; story_title: string; published_date: string; image_url_medium: string | null; url_key: string }[]) {
   // console.log(list,"list");
   return (list || []).map(i => ({
@@ -41,7 +16,8 @@ function mapList(list?: { story_id: number; story_title: string; published_date:
     title: i.story_title,
     image: i.image_url_medium ? `${i.image_url_medium}` : '',
     category: 'NEWS',
-    publishedAt: new Date(i.published_date).toLocaleDateString(undefined,{ month:'short', day:'2-digit' })
+    publishedAt: new Date(i.published_date).toLocaleDateString(undefined,{ month:'short', day:'2-digit' }),
+    urlKey: i.url_key || ''
   }))
 }
 
@@ -78,16 +54,37 @@ export async function generateMetadata({
 
 export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
   const story = await fetchStory(params.slug);
-
-  console.log("story", story)
   console.log(story,"story");
-  const article = mapStoryToArticle(story);
+  
+  if (!story) notFound();
+
+  const article = {
+    id: String(story.id),
+    title: story.title,
+    subtitle: story.metaDescription || "",
+    content: story.contentHtml,
+    image: story.imageName || "",
+    category: story.metaTitle || "NEWS",
+    publishedAt: new Date(story.publishedDate).toLocaleDateString(undefined, {
+      year: "numeric",
+      month: "long",
+      day: "2-digit",
+    }),
+    author: story.authorName || "Staff Reporter",
+    readTime: "",
+    tags: story.tags || [],
+    likeCount: story.likeCount || 0,
+    dislikeCount: story.dislikeCount || 0,
+    commentCount: story.commentCount || 0,
+    comments: story.comments || [],
+  };
+
   const latestNews = mapList(story?.recent)
   console.log(latestNews,"latestNews");
-  const popularNews = mapList(story?.trending)
+  const popularNews = mapList(story?.popular)
   const relatedArticles = mapList(story?.related)
-
-  if (!article) notFound();
+  const recentNews = mapList(story?.recent)
+  
 
   return (
     <div className="min-h-screen bg-white">
@@ -99,11 +96,13 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
               <NewsDetailContent article={article} />
             </div>
             <div className="lg:col-span-1">
-              <NewsDetailSidebar latestNews={latestNews} popularNews={popularNews} />
+              <div className="sticky top-20 self-start">
+                <NewsDetailSidebar latestNews={latestNews} popularNews={popularNews} />
+              </div>
             </div>
           </div>
           <div className="mt-12">
-            <RelatedArticles articles={relatedArticles} topNews={popularNews} />
+            <RelatedArticles articles={relatedArticles} topNews={recentNews} />
           </div>
         </div>
       </main>

@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils"
 type InternationalNewsStory = {
   id: string
   title: string
+  urlKey?: string
   description: string
   image: string
   timeAgo: string
@@ -79,6 +80,7 @@ export function InternationalNews({ stories }: InternationalNewsProps) {
               <InternationalNewsCard
                 id={story.id}
                 title={story.title}
+                urlKey={story.urlKey}
                 description={story.description}
                 image={story.image}
                 timeAgo={story.timeAgo}

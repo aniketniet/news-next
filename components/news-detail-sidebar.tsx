@@ -7,6 +7,7 @@ interface SidebarItem {
   image: string;
   category: string;
   publishedAt: string;
+  urlKey?: string;
 }
 
 interface NewsDetailSidebarProps {
@@ -32,7 +33,7 @@ export function NewsDetailSidebar({ latestNews, popularNews }: NewsDetailSidebar
         <div className="">
           {latestNews.map((news) => (
             <article key={news.id} className="p-4 hover:bg-gray-50 transition-colors">
-              <Link href={`/news/${news.id}`} className="block group">
+              <Link href={`/news/${news.urlKey || news.id}`} className="block group">
                 <div className="flex gap-3">
                   <div className="relative w-20 h-16 flex-shrink-0 rounded-sm overflow-hidden">
                     <Image
@@ -87,7 +88,7 @@ export function NewsDetailSidebar({ latestNews, popularNews }: NewsDetailSidebar
         <div>
           {limitedPopular.map((news) => (
             <article key={news.id} className="p-4 hover:bg-gray-50 transition-colors">
-              <Link href={`/news/${news.id}`} className="block group">
+              <Link href={`/news/${news.urlKey || news.id}`} className="block group">
                 <div className="flex gap-3">
                   <div className="relative w-20 h-16 flex-shrink-0 rounded-sm overflow-hidden">
                     <Image

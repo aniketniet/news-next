@@ -30,6 +30,7 @@ import { getCategoriesNormalized } from "@/lib/api/categories";
 import { fetchGalleryAssets, mapVideosToSectionItems } from "@/lib/api/images";
 import { EPaperDownload } from "@/components/epaper-download";
 import { ScrollToTop } from "@/components/scroll-to-top";
+import SubscriptionSlider from "@/components/SubscriptionSlider";
 
 // Travel & Health & Fitness stories are derived inside HomePage from API
 
@@ -166,6 +167,7 @@ export default async function HomePage() {
       month: "short",
       year: "numeric",
     }),
+    urlKey: s.url_key || '',
   }));
 
   // Sports mapping by category_id (1086: Cricket, 1087: Football, 1088: Hockey)
@@ -187,6 +189,7 @@ export default async function HomePage() {
         month: "short",
         year: "numeric",
       }),
+      urlKey: s.url_key || '',
     }));
   const cricketStories = mapSports(byCategoryId(1086));
   const footballStories = mapSports(byCategoryId(1087));
@@ -210,6 +213,7 @@ export default async function HomePage() {
       month: "short",
       year: "numeric",
     }),
+    urlKey: s.url_key || '',
   }));
 
   // Impact mapping -> reuse BusinessSlider component as a horizontal carousel
@@ -223,6 +227,7 @@ export default async function HomePage() {
       month: "short",
       year: "numeric",
     }),
+    urlKey: s.url_key || '',
   }));
 
   // Map World category stories -> InternationalNews shape grouped by category_id (continents)
@@ -239,6 +244,7 @@ export default async function HomePage() {
     source: s.author_name || "",
     // Use category_id to align with continent tabs in InternationalNews (e.g., 1089 Asia, 1090 Middle East, ...)
     country: String((s as any).category_id || "other"),
+    urlKey: s.url_key || '',
   }));
 
   // Split Opinion stories into Opinion (first half) & Analysis (second half) for existing component contract
@@ -253,6 +259,7 @@ export default async function HomePage() {
       month: "short",
       year: "numeric",
     }),
+    urlKey: s.url_key || '',
   }));
   // Use dedicated Analysis array if provided; fallback to split
   const analysisStoriesAll = categories.analysis.length
@@ -267,6 +274,7 @@ export default async function HomePage() {
           month: "short",
           year: "numeric",
         }),
+        urlKey: s.url_key || '',
       }))
     : [];
 
@@ -286,6 +294,25 @@ export default async function HomePage() {
     title: s.story_title,
     category: s.section_name || "Entertainment",
     image: s.image_url_medium || s.image_url_big || "/news-image.jpg",
+    date: new Date(s.published_date).toLocaleDateString(undefined, {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    }),
+    urlKey: s.url_key || '',
+  }));
+
+  //page1
+  const page1Stories = (
+    (categories as any).page1 ||
+    (categories as any).section?.["Page 1"] ||
+    []
+  ).map((s: any) => ({
+    id: String(s.story_id),
+    title: s.story_title,
+    urlKey: s.url_key || '',
+    category: s.section_name || s.category_name || "PAGE 1",
+    image: s.image_url_medium || s.image_url_big || "/news-image.jpg",
     byline: s.author_name || "",
     time: new Date(s.published_date).toLocaleDateString(undefined, {
       day: "2-digit",
@@ -293,7 +320,6 @@ export default async function HomePage() {
       year: "numeric",
     }),
   }));
-
   // Videos: dynamic from images API combined payload
   const dynamicVideos = mapVideosToSectionItems(gallery?.videos || []);
 
@@ -307,6 +333,7 @@ export default async function HomePage() {
   ).map((s: any) => ({
     id: String(s.story_id),
     title: s.story_title,
+    urlKey: s.url_key || '',
     category: s.section_name || s.category_name || "TRAVEL",
     image: s.image_url_medium || s.image_url_big || "/news-image.jpg",
     byline: s.author_name || "",
@@ -326,6 +353,7 @@ export default async function HomePage() {
   ).map((s: any) => ({
     id: String(s.story_id),
     title: s.story_title,
+    urlKey: s.url_key || '',
     category: s.section_name || s.category_name || "HEALTH & FITNESS",
     image:
       s.image_url_medium ||
@@ -364,7 +392,7 @@ export default async function HomePage() {
                 {trendingNews.slice(0, 2).map((story, i) => (
                   <article key={i} className="relative group">
                     <Link
-                      href={`/news/${story.id || story.id}`}
+                      href={`/news/${story.urlKey}`}
                       onClick={ScrollToTop}
                       className="relative block aspect-[4/3] rounded-sm w-full overflow-hidden"
                     >
@@ -401,9 +429,10 @@ export default async function HomePage() {
               </div>
               {/* Secondary (below) */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {trendingNews.slice(2, 10).map((story, i) => (
+                {trendingNews.slice(2, 6).map((story, i) => (
                   <SecondaryStory
                     id={String(story.id)}
+                    urlKey={story.urlKey}
                     title={story.title}
                     category={story.category || "NEWS"}
                     image={story.image_url_medium || (story as any).image || ""}
@@ -427,7 +456,8 @@ export default async function HomePage() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
               {/* <MainContent nation={nation} world={world} opinion={opinion} /> */}
               <StateEditions stateEditions={stateEditions || {}} />
-              <EPaperDownload />
+              {/* <EPaperDownload /> */}
+              <SubscriptionSlider />
             </div>
           </div>
         </section>
@@ -461,14 +491,21 @@ export default async function HomePage() {
           </section>
         )}
 
-        {/* Category Sections: Entertainment, Travel, Food & Wellness */}
-        {/* Anchors for Entertainment and Health (Food & Wellness) */}
-        <div id="section-entertainment" className="scroll-mt-24" />
+        {/* Entertainment Slider */}
+        {entertainmentStories.length > 0 && (
+          <section id="section-entertainment" className="px-3 md:px-6 py-6 scroll-mt-24">
+            <div className="mx-auto w-full max-w-6xl">
+              <BusinessSlider stories={entertainmentStories} title="Entertainment" />
+            </div>
+          </section>
+        )}
+
+        {/* Category Sections: Travel, Food & Wellness */}
         <div id="section-health" className="scroll-mt-24" />
         <section className="px-3 md:px-6 py-6">
           <div className="mx-auto w-full max-w-6xl">
             <CategorySections
-              entertainment={entertainmentStories}
+              entertainment={page1Stories}
               travel={travelStories}
               foodWellness={healthFitnessStories}
             />
@@ -519,26 +556,26 @@ export default async function HomePage() {
         </section>
 
         {/* Videos Section (dynamic) */}
-        {dynamicVideos.length > 0 && (
+        {/* {dynamicVideos.length > 0 && (
           <section id="section-videos" className="px-3 md:px-6 py-6 scroll-mt-24">
             <div className="mx-auto w-full max-w-6xl">
               <VideosSection videos={dynamicVideos} />
             </div>
           </section>
-        )}
+        )} */}
 
         {/* Podcast and Horoscope Sections */}
         {/* Anchors for podcast and horoscope in the combined section */}
         <div id="section-podcast" className="scroll-mt-24" />
         <div id="section-horoscope" className="scroll-mt-24" />
-        <section className="px-3 md:px-6 py-6">
+        {/* <section className="px-3 md:px-6 py-6">
           <div className="mx-auto w-full max-w-6xl">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <PodcastSection stories={podcastStories} />
               <HoroscopeSection data={horoscopeData} />
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* Technology and Tarot Sections */}
         {/* Anchors for technology and tarot in the combined section */}
@@ -554,7 +591,7 @@ export default async function HomePage() {
         </section>
       </main>
 
-      <PhotoGallery />
+      {/* <PhotoGallery /> */}
 
       <SiteFooter />
     </div>

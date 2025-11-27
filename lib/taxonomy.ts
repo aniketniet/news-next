@@ -3,7 +3,8 @@ export const SECTION_SLUG_TO_ID: Record<string, number> = {
   business: 1023,
   world: 1024,
   sport: 1027,
-    tech: 1052,
+  tech: 1052,
+  entertainment: 1028,
 }
 
 export const CATEGORY_SLUG_TO_ID: Record<string, number> = {

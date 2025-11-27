@@ -10,6 +10,7 @@ type BusinessCardProps = {
   image: string
   date: string
   className?: string
+  urlKey?: string
 }
 
 export function BusinessCard({
@@ -18,11 +19,12 @@ export function BusinessCard({
   category,
   image,
   date,
+  urlKey,
   className,
 }: BusinessCardProps) {
   return (
     <article className={cn("group", className)}>
-      <Link href={`/news/${id}`} onClick={ScrollToTop} className="block">
+      <Link href={`/news/${urlKey}`} onClick={ScrollToTop} className="block">
         <div className="relative aspect-[4/3] w-full overflow-hidden rounded-sm mb-3">
           <Image
             src={image}

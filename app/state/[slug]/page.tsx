@@ -68,7 +68,7 @@ export default async function StatePage({ params, searchParams }: Props) {
                   year: "numeric",
                 }
               )}
-              href={`/news/${item.id}`}
+              href={`/news/${item.urlKey || item.id}`}
             />
           ))}
         </div>

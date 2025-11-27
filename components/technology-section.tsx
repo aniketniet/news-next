@@ -9,6 +9,7 @@ interface TechnologyStory {
   image: string;
   category: string;
   date: string;
+  urlKey?: string;
 }
 
 interface TechnologySectionProps {
@@ -47,7 +48,7 @@ export function TechnologySection({ stories, limit, seeMoreHref }: TechnologySec
       <div className="space-y-4">
         {visibleStories.map((story) => (
           <article key={story.id} className="group cursor-pointer">
-            <Link href={`/news/${story.id}`} onClick={ScrollToTop} className="block">
+            <Link href={`/news/${story.urlKey || story.id}`} onClick={ScrollToTop} className="block">
               <div className="flex gap-4 p-4  hover:bg-gray-50 transition-colors duration-200">
                 <div className="relative w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden">
                   <Image

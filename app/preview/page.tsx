@@ -134,6 +134,7 @@ export default async function PreviewPage({ searchParams }: Props) {
           month: "short",
           day: "2-digit",
         }),
+        urlKey: it.urlKey || '',
       }));
     latestNews = toSidebar(latest);
     popularNews = toSidebar(top);

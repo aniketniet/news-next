@@ -33,7 +33,7 @@ export function OpinionAnalysisSections({
         </div>
 
         {/* Advertisement Banner */}
-        <div className="lg:col-span-4">
+        {/* <div className="lg:col-span-4">
           <div className="sticky top-4">
             <div className="relative aspect-[3/4] w-full overflow-hidden rounded-lg bg-gradient-to-br from-green-400 to-blue-500">
               <Image
@@ -43,7 +43,7 @@ export function OpinionAnalysisSections({
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 33vw"
               />
-              {/* Overlay content for the ad */}
+             
               <div className="absolute inset-0 bg-gradient-to-br from-green-400/90 to-blue-500/90 flex flex-col justify-center items-center text-white p-6">
                 <div className="text-center space-y-4">
                   <h3 className="text-2xl font-bold">SMILE</h3>
@@ -60,7 +60,7 @@ export function OpinionAnalysisSections({
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   )

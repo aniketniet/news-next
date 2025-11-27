@@ -35,6 +35,7 @@ export interface CategoryNewsData {
         Impact?: Story[];
         "Trending News"?: Story[];
         [k: string]: Story[] | undefined;
+        "Page 1"?: Story[];
     };
 }
 
@@ -91,9 +92,10 @@ export function normalizeCategoryNews(data: CategoryNewsData): NormalizedCategor
     const entertainment = data.section?.Entertainment || [];
     const travel = data.section?.Travel || [];
     const healthFitness = data.section?.["Health & Fitness"] || [];
+    const page1 = data.section?.["Page 1"] || [];
     
-    const all = dedupeStories(opinion, analysis, trending, business, world, sports, technology, impact, entertainment, travel, healthFitness);
-    return { opinion, analysis, trending, business, world, sports, technology, impact, all, entertainment, travel, healthFitness };
+    const all = dedupeStories(opinion, analysis, trending, business, world, sports, technology, impact, entertainment, travel, healthFitness , page1);
+    return { opinion, analysis, trending, business, world, sports, technology, impact, all, entertainment, travel, healthFitness , page1  };
 }
 
   

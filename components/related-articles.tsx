@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-interface ArticleItem { id: string; title: string; image: string; category: string; publishedAt: string }
+interface ArticleItem { id: string; title: string; image: string; category: string; publishedAt: string; urlKey?: string }
 interface RelatedArticlesProps { articles: ArticleItem[]; topNews: ArticleItem[] }
 
 export function RelatedArticles({ articles, topNews }: RelatedArticlesProps) {
@@ -10,7 +10,7 @@ export function RelatedArticles({ articles, topNews }: RelatedArticlesProps) {
   return (
     <section className="space-y-6">
       <div className="border-t border-gray-200 pt-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className=" gap-8">
           {/* Related News - Left Side (2/3 width) */}
           <div className="lg:col-span-2">
             <h2 className="text-2xl font-bold text-gray-900">Related News</h2>
@@ -21,12 +21,12 @@ export function RelatedArticles({ articles, topNews }: RelatedArticlesProps) {
               />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {relatedNews.map((article) => (
                 <article key={article.id} className="group">
-                  <Link href={`/news/${article.id}`} className="block">
+                  <Link href={`/news/${article.urlKey || article.id}`} className="block">
                     <div className="bg-white border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-200">
-                      <div className="relative aspect-[16/9] overflow-hidden rounded-sm">
+                      <div className="relative aspect-[16/9] overflow-hidden">
                         <Image
                           src={article.image}
                           alt={article.title}
@@ -57,10 +57,10 @@ export function RelatedArticles({ articles, topNews }: RelatedArticlesProps) {
           </div>
 
           {/* Top News - Right Side (1/3 width) */}
-          <div className="lg:col-span-1">
+          {/* <div className="lg:col-span-1">
             <div className="bg-white erflow-hidden sticky top-6">
               <div className="bg-gray-50 px-4 py-3 border-b border-gray-200">
-                <h2 className="text-lg font-bold text-gray-900">Top News</h2>
+                <h2 className="text-lg font-bold text-gray-900">Recent News</h2>
                 <div className="mt-2 h-1 w-full bg-gray-200 rounded">
                   <div
                     className="h-full bg-[#1a59a9] rounded"
@@ -75,7 +75,7 @@ export function RelatedArticles({ articles, topNews }: RelatedArticlesProps) {
                     key={news.id}
                     className="p-4 hover:bg-gray-50 transition-colors"
                   >
-                    <Link href={`/news/${news.id}`} className="block group">
+                    <Link href={`/news/${news.urlKey || news.id}`} className="block group">
                       <div className="flex gap-3">
                         <div className="relative w-20 h-16 rounded-sm flex-shrink-0 overflow-hidden ">
                           <Image
@@ -105,7 +105,7 @@ export function RelatedArticles({ articles, topNews }: RelatedArticlesProps) {
                 ))}
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 

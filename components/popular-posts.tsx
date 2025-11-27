@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { StorySummary } from "@/lib/api/stories"
+import { ScrollToTop } from "./scroll-to-top"
 
 interface PopularPostsProps {
   popular: StorySummary[]
@@ -32,7 +33,7 @@ export function PopularPosts({ popular, limit }: PopularPostsProps) {
                 {story.category || 'NEWS'}
               </span>
               <h4 className="text-sm font-semibold leading-tight text-gray-900 hover:text-blue-600 line-clamp-2">
-                <Link href={`/news/${story.id || story.id}`} className="hover:underline">
+                <Link href={`/news/${story.urlKey}`} onClick={ScrollToTop} className="hover:underline">
                   {story.title}
                 </Link>
               </h4>

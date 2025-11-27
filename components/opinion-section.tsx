@@ -7,6 +7,7 @@ type OpinionStory = {
   id: string
   title: string
   category: string
+  urlKey?: string
   image: string
   byline: string
   time: string
@@ -60,6 +61,7 @@ export function OpinionSection({ title, stories }: OpinionSectionProps) {
           <SecondaryStory
             key={story.id}
             id={story.id}
+            urlKey={story.urlKey}
             title={story.title}
             category={story.category}
             image={story.image}

@@ -51,7 +51,7 @@ export function TarotSection({ data }: TarotSectionProps) {
         </div>
 
         {/* Promotional card */}
-        <div className="relative rounded-lg overflow-hidden">
+        {/* <div className="relative rounded-lg overflow-hidden">
           <Link href="/tarot/consultation" className="block group">
             <div className="relative aspect-[4/3] w-full">
               <Image
@@ -72,7 +72,7 @@ export function TarotSection({ data }: TarotSectionProps) {
               </div>
             </div>
           </Link>
-        </div>
+        </div> */}
       </div>
     </div>
   );

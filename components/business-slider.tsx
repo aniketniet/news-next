@@ -15,6 +15,7 @@ type BusinessStory = {
   category: string
   image: string
   date: string
+  urlKey: string
 }
 
 type BusinessSliderProps = {
@@ -98,6 +99,7 @@ export function BusinessSlider({ stories, title }: BusinessSliderProps) {
             >
               <BusinessCard
                 id ={story.id}
+                urlKey={story.urlKey}
                 title={story.title}
                 category={story.category}
                 image={story.image}

@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useAuth } from "@/contexts/AuthContext";
 import { fetchBreakingNews, mapBreakingTitles } from "@/lib/api/breakingNews";
 import { ProfileDropdown } from "./ProfileDropdown";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { fetchEpaper, type EpaperLanguage } from "@/lib/api/epaper";
 import { fetchStories, fetchStates, type State } from "@/lib/api/stories";
 import Skeleton from "react-loading-skeleton";
@@ -17,6 +17,7 @@ export function SiteHeader() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { user, logout, ready } = useAuth();
   const router = useRouter();
+  const pathname = usePathname();
   const [epaperOpen, setEpaperOpen] = useState(false);
   const [mobileEpaperOpen, setMobileEpaperOpen] = useState(false);
   const [stateEditionsOpen, setStateEditionsOpen] = useState(false);
@@ -84,6 +85,7 @@ export function SiteHeader() {
     { label: "BUSINESS", href: "/section/business" },
     { label: "WORLD", href: "/section/world" },
     { label: "SPORTS", href: "/section/sport" },
+    { label: "ENTERTAINMENT", href: "/section/entertainment" },
     { label: "OPINION", href: "/category/opinion" },
     { label: "ANALYTICS", href: "/category/analysis" },
     // { label: "POLITICS", href: "/politics" },
@@ -93,6 +95,11 @@ export function SiteHeader() {
     { label: "TECH", href: "/section/tech" },
     { label: "EXOTICA", href: "/exotica" },
   ] as const;
+
+  const isActive = (href: string) => {
+    if (href === "/") return pathname === "/";
+    return pathname.startsWith(href);
+  };
 
   const [breakingItems, setBreakingItems] = useState<
     { id: number; title: string; urlKey: string }[]
@@ -122,10 +129,10 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 w-full bg-white shadow-sm">
       {/* Breaking News Ticker */}
-      <div className="bg-gray-100 border-b border-gray-200 text-xs">
+      <div className="bg-black border-b border-gray-800 text-xs">
         <div className="mx-auto max-w-7xl px-3 sm:px-4">
           <div className="flex items-center gap-2 sm:gap-3 py-2 overflow-hidden">
-            <span className="bg-gray-800 text-white px-2 py-1 text-[10px] sm:text-xs font-bold tracking-wide whitespace-nowrap rounded">
+            <span className="bg-red-600 text-white px-2 py-1 text-[10px] sm:text-xs font-bold tracking-wide whitespace-nowrap rounded">
               BREAKING NEWS
             </span>
             <div className="flex-1 relative overflow-hidden">
@@ -135,11 +142,11 @@ export function SiteHeader() {
                   <Skeleton height={10} width={200} />
                 </div>
               ) : breakingItems.length ? (
-                <ul className="flex animate-[ticker_30s_linear_infinite] gap-6 whitespace-nowrap text-gray-700">
+                <ul className="flex animate-[ticker_30s_linear_infinite] gap-6 whitespace-nowrap text-white">
                   {breakingItems.concat(breakingItems).map((item, i) => (
                     <li key={`${item.id}-${i}`} className="flex items-center">
                       <Link
-                        href={`/news/${item.id}`}
+                        href={`/news/${item.urlKey || item.id}`}
                         className="hover:underline text-[11px] sm:text-sm"
                       >
                         {item.title}
@@ -152,7 +159,7 @@ export function SiteHeader() {
                   ))}
                 </ul>
               ) : (
-                <div className="text-xs text-gray-500">No breaking news</div>
+                <div className="text-xs text-gray-400">No breaking news</div>
               )}
             </div>
           </div>
@@ -193,6 +200,7 @@ export function SiteHeader() {
                   )}
                 </svg>
               </button>
+
               <div className="flex flex-col gap-2">
                 {/* Date (Desktop only) */}
                 <span className="hidden lg:block text-xs text-gray-600">
@@ -309,10 +317,13 @@ export function SiteHeader() {
           <ul className="flex flex-wrap items-center justify-center text-[13px] xl:text-sm text-white font-semibold">
             {categories.map((category) => {
               if (category.label === 'STATE EDITIONS') {
+                const isStateActive = pathname.startsWith('/state/');
                 return (
                   <li key={category.label} className="relative group">
                     <button
-                      className="block px-3 py-3 hover:bg-blue-900 transition-colors"
+                      className={`block px-3 py-3 hover:bg-blue-900 transition-colors ${
+                        isStateActive ? 'bg-blue-900 border-b-2 border-white' : ''
+                      }`}
                       onMouseEnter={() => setStateEditionsOpen(true)}
                       onMouseLeave={() => setStateEditionsOpen(false)}
                     >
@@ -342,10 +353,13 @@ export function SiteHeader() {
                 );
               }
               if (category.label === 'E-PAPER') {
+                const isEpaperActive = pathname === '/e-paper';
                 return (
                   <li key={category.label} className="relative group">
                     <button
-                      className="block px-3 py-3 hover:bg-blue-900 transition-colors"
+                      className={`block px-3 py-3 hover:bg-blue-900 transition-colors ${
+                        isEpaperActive ? 'bg-blue-900 border-b-2 border-white' : ''
+                      }`}
                       onMouseEnter={() => setEpaperOpen(true)}
                       onMouseLeave={() => setEpaperOpen(false)}
                     >
@@ -396,7 +410,9 @@ export function SiteHeader() {
                 <li key={category.label}>
                   <Link
                     href={category.href}
-                    className="block px-3 py-3 hover:bg-blue-900 transition-colors"
+                    className={`block px-3 py-3 hover:bg-blue-900 transition-colors ${
+                      isActive(category.href) ? 'bg-blue-900 border-b-2 border-white' : ''
+                    }`}
                   >
                     {category.label}
                   </Link>

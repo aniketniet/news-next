@@ -1,5 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
+import { NewsInteractions } from "./news-interactions";
+
+interface Comment {
+  comment_id?: number;
+  user_name?: string;
+  comment_text?: string;
+  comment?: string;
+  comment_date?: string;
+  created_at?: string;
+  [key: string]: any;
+}
 
 interface Article {
   id: string;
@@ -12,6 +23,10 @@ interface Article {
   author: string;
   readTime: string;
   tags: string[];
+  likeCount?: number;
+  dislikeCount?: number;
+  commentCount?: number;
+  comments?: Comment[];
 }
 
 interface NewsDetailContentProps {
@@ -120,6 +135,15 @@ export function NewsDetailContent({ article }: NewsDetailContentProps) {
         style={{
           lineHeight: '1.8',
         }}
+      />
+
+      {/* Interactive Like/Dislike and Comments */}
+      <NewsInteractions
+        storyId={article.id}
+        initialLikeCount={article.likeCount || 0}
+        initialDislikeCount={article.dislikeCount || 0}
+        initialCommentCount={article.commentCount || 0}
+        initialComments={article.comments || []}
       />
 
       {/* Tags */}

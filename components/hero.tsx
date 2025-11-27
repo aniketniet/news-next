@@ -10,6 +10,7 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { ScrollToTop } from "./scroll-to-top";
 
 // Hero now client-fetches top stories and shows skeletons while loading
 
@@ -151,7 +152,7 @@ export function Hero() {
                             sizes="(max-width: 1024px) 100vw, 66vw"
                           />
                         )}
-                        {/* <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" /> */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
                         <div className="absolute top-4 left-4 pointer-events-none">
                           <span className="bg-[#1a59a9] text-white px-3 rounded py-1 text-xs font-semibold uppercase tracking-wide">
                             {story.category || "NEWS"}
@@ -160,7 +161,8 @@ export function Hero() {
                         <div className="absolute bottom-0 left-0 right-0 p-6 text-white pointer-events-none">
                           <h3 className="text-2xl lg:text-3xl font-bold leading-tight mb-2 pointer-events-auto">
                             <Link
-                              href={`/news/${story.id}`}
+                              href={`/news/${story.urlKey }`}
+                               onClick={ScrollToTop}
                               className="hover:underline hover:text-white transition-colors pointer-events-auto"
                             >
                               {story.title}
@@ -217,7 +219,8 @@ export function Hero() {
                     <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
                       <h4 className="text-lg font-semibold leading-tight mb-2 line-clamp-2">
                         <Link
-                          href={`/news/${story.id || story.id}`}
+                          href={`/news/${story.urlKey }`}
+                           onClick={ScrollToTop}
                           className="hover:underline hover:text-white transition-colors"
                         >
                           {story.title}
@@ -259,6 +262,7 @@ export function Hero() {
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
                 </div>
                 <div className="flex flex-1 flex-col p-4">
                   <span className="mb-2 inline-block w-fit rounded bg-[#1a59a9] text-white px-2 py-1 text-[10px] font-semibold tracking-wide">
@@ -266,7 +270,9 @@ export function Hero() {
                   </span>
                   <h4 className="mb-2 line-clamp-2 text-base font-semibold leading-snug text-gray-900">
                     <Link
-                      href={`/news/${story.id || story.id}`}
+                      href={`/news/${story.urlKey}`}
+                       onClick={ScrollToTop}
+                     
                       className="transition-colors hover:text-[#1a59a9]"
                     >
                       {story.title}
