@@ -11,24 +11,18 @@ export default function SubscriptionSlider() {
   const subscriptionPlans = [
     {
       id: 1,
-      title: 'Basic Plan',
-      price: '$9.99/mo',
       image: '/sub1.png',
-      features: ['10 Projects', '5GB Storage', 'Basic Support']
+   
     },
     {
       id: 2,
-      title: 'Pro Plan',
-      price: '$29.99/mo',
       image: '/sub2.png',
-      features: ['Unlimited Projects', '50GB Storage', 'Priority Support']
+   
     },
     {
       id: 3,
-      title: 'Enterprise Plan',
-      price: '$99.99/mo',
       image: '/sub3.png',
-      features: ['Unlimited Everything', '500GB Storage', '24/7 Support']
+   
     },
 
   ];
