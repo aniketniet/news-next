@@ -3,6 +3,7 @@ import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
 import { Analytics } from '@vercel/analytics/next'
 import { AuthProvider } from '@/contexts/AuthContext'
+import { Toaster } from '@/components/ui/sonner'
 import './globals.css'
 // import { ScrollToTop } from '@/components/scroll-to-top'
 
@@ -27,6 +28,7 @@ export default function RootLayout({
         <AuthProvider>
           {children}
         </AuthProvider>
+        <Toaster position="top-right" richColors />
   {/* <ScrollToTop /> */}
         <Analytics />
       </body>

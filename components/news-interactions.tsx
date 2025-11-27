@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import Cookies from 'js-cookie';
+import { toast } from 'sonner';
 
 interface Comment {
   comment_id?: number;
@@ -42,10 +44,23 @@ export function NewsInteractions({
   const [error, setError] = useState('');
   const [showAllComments, setShowAllComments] = useState(false);
 
-  const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://103.119.171.20/api';
-  const AUTH_TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXdzLXdlYi1hcGkiLCJpYXQiOjE3NjQyMjg1NjAsIm5iZiI6MTc2NDIyODU2MCwiZXhwIjoxNzY5NDEyNTYwLCJzdWIiOjE0fQ.fEVr0N-2MIPvwZ6eo98QL6yi8HgfkX-89bxq9g6iuRA';
+  function getAuthToken(): string | null {
+  if (typeof window === 'undefined') return null;
+  // Prefer cookie set by AuthContext, fallback to any localStorage token if present
+  const cookieToken = Cookies.get('auth_token');
 
+  return cookieToken;
+}
+
+  const API_BASE = process.env.NEXT_PUBLIC_API_URL;
+  
   const handleLikeDislike = async (action: 'like' | 'dislike') => {
+      const AUTH_TOKEN = getAuthToken();
+    if (!AUTH_TOKEN) {
+      toast.error('Please login first to like or dislike');
+      router.push('/login');
+      return;
+    }
     if (isLiking) return;
     if ((action === 'like' && hasLiked) || (action === 'dislike' && hasDisliked)) return;
 
@@ -84,6 +99,12 @@ export function NewsInteractions({
 
   const handleSubmitComment = async (e: React.FormEvent) => {
     e.preventDefault();
+    const AUTH_TOKEN = getAuthToken();
+    if (!AUTH_TOKEN) {
+      toast.error('Please login first to post a comment');
+      router.push('/login');
+      return;
+    }
     if (!newComment.trim() || isSubmitting) return;
 
     setIsSubmitting(true);
