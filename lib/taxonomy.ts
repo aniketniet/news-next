@@ -5,6 +5,7 @@ export const SECTION_SLUG_TO_ID: Record<string, number> = {
   sport: 1027,
   tech: 1052,
   entertainment: 1028,
+  trending:1046,
 }
 
 export const CATEGORY_SLUG_TO_ID: Record<string, number> = {

@@ -82,6 +82,7 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({
   // }, [currentPage]);
 
   // Build a condensed, responsive page list with ellipses for larger screens
+
   const getVisiblePages = (total: number, current: number): Array<number | 'ellipsis'> => {
     const pages: Array<number | 'ellipsis'> = [];
     const showWindow = 1; // number of neighbors to show around current
@@ -91,17 +92,20 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({
     const end = Math.min(last - 1, current + showWindow);
 
     pages.push(first);
+
     if (start > first + 1) pages.push('ellipsis');
     for (let p = start; p <= end; p++) pages.push(p);
     if (end < last - 1) pages.push('ellipsis');
     if (last > first) pages.push(last);
 
     // Ensure current is included if it's first/last
+
     if (!pages.includes(current)) {
       const insertAt = pages[1] === 'ellipsis' ? 1 : 0;
       pages.splice(insertAt + 1, 0, current);
     }
     // Deduplicate and sort order as they were pushed logically
+
     const seen = new Set<string>();
     const normalized = pages.filter((p) => {
       const key = typeof p === 'number' ? String(p) : p;
@@ -137,7 +141,9 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({
       </div>
 
       {/* Loading / Error */}
+
       {loading && (
+
         <div className="mb-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {Array.from({ length: itemsPerPage }).map((_, i) => (
             <div key={i} className="rounded overflow-hidden">
@@ -151,6 +157,7 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({
                 </div>
               </div>
             </div>
+            
           ))}
         </div>
       )}

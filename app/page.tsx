@@ -383,6 +383,7 @@ export default async function HomePage() {
 
         {/* Trending News */}
         <div id="section-trending" className="scroll-mt-24" />
+
         <Section title="Trending News">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Left: Featured + Secondary stories */}
@@ -444,6 +445,16 @@ export default async function HomePage() {
                   />
                 ))}
               </div>
+              {/* Show More Link */}
+             <div className="pt-2 flex justify-end">
+            <Link
+              href={ "/section/trending"}
+              className="text-sm font-semibold text-[#1a59a9] hover:underline"
+              onClick={ScrollToTop}
+            >
+              See more
+            </Link>
+          </div>
             </div>
             {/* Right: Sidebar */}
             <PopularPosts popular={popular} />

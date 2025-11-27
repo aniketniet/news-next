@@ -32,6 +32,7 @@ export function VideosSection({ videos }: VideosSectionProps) {
   )
 
   console.log("VideosSection state:", selected, sideVideos)
+  
 
   return (
     <section className="w-full">
