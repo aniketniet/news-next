@@ -9,7 +9,6 @@ async function DynamicFooterLinks() {
     pages = await fetchPages()
     // Filter out the index page from footer links
     pages = pages.filter(page => page.url_key !== 'index')
-    console.log("Fetched pages for footer:", pages) // Debug log
   } catch (error) {
     console.error("Failed to fetch pages:", error)
     // Fallback to static pages if API fails

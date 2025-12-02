@@ -31,7 +31,7 @@ export default async function CategoryListingPage({ params, searchParams }: Prop
           <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {items.map((it) => (
               <li key={it.id} className="border  overflow-hidden bg-white hover:shadow transition-shadow">
-                <Link href={`/news/${it.id}`} className="block">
+                <Link href={`/news/${it.urlKey}`} className="block">
                   <div className="relative aspect-[16/9] w-full bg-gray-100">
                     <Image src={ it.image_url_medium || "/news-thumbnail.png"} alt={it.title} fill className="object-cover" />
                   </div>

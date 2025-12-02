@@ -323,6 +323,45 @@ export default async function HomePage() {
   // Videos: dynamic from images API combined payload
   const dynamicVideos = mapVideosToSectionItems(gallery?.videos || []);
 
+  // agenda 
+  const agendaStories = (
+    (categories as any).agenda ||
+    (categories as any).section?.["Agenda"] ||
+    []
+  ).map((s: any) => ({
+    id: String(s.story_id),
+    title: s.story_title,
+    urlKey: s.url_key || '',
+    category: s.section_name || s.category_name || "AGENDA",
+    image: s.image_url_medium || s.image_url_big || "/news-image.jpg",
+    byline: s.author_name || "",
+    time: new Date(s.published_date).toLocaleDateString(undefined, {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    }),
+  }));
+  
+  // law and justice
+  const lawAndJusticeStories = (
+    (categories as any).lawAndJustice ||
+    (categories as any).section?.["Law & Justice"] ||
+    []
+  ).map((s: any) => ({
+    id: String(s.story_id),
+    title: s.story_title,
+    urlKey: s.url_key || '',
+    category: s.section_name || s.category_name || "LAW & JUSTICE",
+    image: s.image_url_medium || s.image_url_big || "/news-image.jpg",
+    byline: s.author_name || "",
+    time: new Date(s.published_date).toLocaleDateString(undefined, {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    }),
+  }));
+
+
   
 
   // Travel: dynamic from API; hide section if empty
@@ -516,9 +555,9 @@ export default async function HomePage() {
         <section className="px-3 md:px-6 py-6">
           <div className="mx-auto w-full max-w-6xl">
             <CategorySections
-              entertainment={page1Stories}
-              travel={travelStories}
-              foodWellness={healthFitnessStories}
+              page1={page1Stories}
+              lawAndJustice={lawAndJusticeStories}
+              agenda={agendaStories}
             />
           </div>
         </section>
@@ -562,6 +601,7 @@ export default async function HomePage() {
             <OpinionAnalysisSections
               opinion={dynamicOpinion}
               analysis={dynamicAnalysis}
+              entertainment={entertainmentStories}
             />
           </div>
         </section>

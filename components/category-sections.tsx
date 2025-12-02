@@ -12,42 +12,42 @@ type CategoryStory = {
 }
 
 type CategorySectionsProps = {
-  entertainment: CategoryStory[]
-  travel: CategoryStory[]
-  foodWellness: CategoryStory[]
+  page1: CategoryStory[]
+  lawAndJustice: CategoryStory[]
+  agenda: CategoryStory[]
 }
 
 export function CategorySections({ 
-  entertainment, 
-  travel, 
-  foodWellness 
+  page1, 
+  lawAndJustice, 
+  agenda   
 }: CategorySectionsProps) {
   return (
     <section className="w-full">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Entertainment Section */}
-        {entertainment?.length > 0 && (
+        {/* Page 1 Section */}
+        {page1?.length > 0 && (
           <CategorySection
             title="Page 1"
-            stories={entertainment}
+            stories={page1}
             accentColor="bg-[#1a59a9]"
           />
         )}
 
-        {/* Travel Section */}
-        {travel?.length > 0 && (
+        {/* Law & Justice Section */}
+        {lawAndJustice?.length > 0 && (
           <CategorySection
-            title="Travel"
-            stories={travel}
+            title="Law & Justice"
+            stories={lawAndJustice}
             accentColor="bg-[#1a59a9]"
           />
         )}
 
-        {/* Health & Fitness Section */}
-        {foodWellness?.length > 0 && (
+        {/* Agenda Section */}
+        {agenda?.length > 0 && (
           <CategorySection
-            title="Health & Fitness"
-            stories={foodWellness}
+            title="Agenda"
+            stories={agenda}
             accentColor="bg-[#1a59a9]"
           />
         )}

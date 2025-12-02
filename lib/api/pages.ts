@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { cache } from 'react'
 
 // Page list item
 export interface PageListItem {
@@ -46,8 +47,19 @@ interface PageListEnvelope<T = PageListItem[]> {
 
 const BASE = `${process.env.NEXT_PUBLIC_API_URL}`
 
-// Fetch all pages for footer navigation
-export async function fetchPages(): Promise<PageListItem[]> {
+// Cache for pages data - prevents repeated API calls
+let pagesCache: PageListItem[] | null = null
+let pagesCacheTime: number = 0
+const CACHE_DURATION = 5 * 60 * 1000 // 5 minutes
+
+// Fetch all pages for footer navigation - with caching
+export const fetchPages = cache(async (): Promise<PageListItem[]> => {
+    // Return cached data if still valid
+    const now = Date.now()
+    if (pagesCache && (now - pagesCacheTime) < CACHE_DURATION) {
+        return pagesCache
+    }
+
     try {
         const { data } = await axios.get<PageListEnvelope>(
             `${BASE}/pages`,
@@ -55,14 +67,18 @@ export async function fetchPages(): Promise<PageListItem[]> {
         )
 
         const arr = Array.isArray(data?.data) ? data.data : []
-        console.log(arr,"arr");
-        // Filter pages that should be shown in the footer (show_bottom = 1)
+        
+        // Update cache
+        pagesCache = arr
+        pagesCacheTime = now
+        
         return arr
     } catch (e) {
         console.error('fetchPages error', e)
-        return []
+        // Return cached data if available, otherwise empty array
+        return pagesCache || []
     }
-}
+})
 
 // Fetch a single page by URL key
 export async function fetchPage(urlKey: string): Promise<PageApiFull | null> {

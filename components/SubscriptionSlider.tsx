@@ -12,24 +12,21 @@ export default function SubscriptionSlider() {
     {
       id: 1,
       image: '/sub1.png',
-   
     },
     {
       id: 2,
       image: '/sub2.png',
-   
     },
     {
       id: 3,
       image: '/sub3.png',
-   
     },
 
   ];
 
   return (
     <div className="w-full">
-          {/* Header with progress bar */}
+     {/* Header with progress bar */}
       <div className="px-3 py-2 flex-shrink-0">
         <h3 className="font-semibold text-lg">Subscription</h3>
         <div className="mt-2 h-1 w-full bg-gray-200 rounded">
@@ -59,6 +56,7 @@ export default function SubscriptionSlider() {
           },
          
         }}
+
         className="subscription-swiper"
       >
         {subscriptionPlans.map((plan) => (
@@ -88,7 +86,6 @@ export default function SubscriptionSlider() {
           height: 30px;
        
         }
-        
         .subscription-swiper .swiper-button-next:after,
         .subscription-swiper .swiper-button-prev:after {
           font-size: 14px;
@@ -99,11 +96,11 @@ export default function SubscriptionSlider() {
           background: #2563eb;
           opacity: 0.5;
         }
-        
         .subscription-swiper .swiper-pagination-bullet-active {
           opacity: 1;
         }
-      `}</style>
+      `}
+      </style>
     </div>
   );
 }

@@ -36,6 +36,11 @@ export interface CategoryNewsData {
         "Trending News"?: Story[];
         [k: string]: Story[] | undefined;
         "Page 1"?: Story[];
+        Entertainment?: Story[];
+        Travel?: Story[];
+        "Health & Fitness"?: Story[];
+        "Law & Justice"?: Story[];
+        Agenda?: Story[];
     };
 }
 
@@ -57,6 +62,10 @@ export interface NormalizedCategories {
     entertainment: Story[];
     travel: Story[];
     healthFitness: Story[];
+    page1: Story[];
+    lawAndJustice: Story[];
+    agenda: Story[];
+
     all: Story[]; // All stories flattened (unique by story_id)
 }
 
@@ -93,22 +102,20 @@ export function normalizeCategoryNews(data: CategoryNewsData): NormalizedCategor
     const travel = data.section?.Travel || [];
     const healthFitness = data.section?.["Health & Fitness"] || [];
     const page1 = data.section?.["Page 1"] || [];
+    const lawAndJustice = data.section?.["Law & Justice"] || [];
+    const agenda = data.section?.["Agenda"] || [];
     
-    const all = dedupeStories(opinion, analysis, trending, business, world, sports, technology, impact, entertainment, travel, healthFitness , page1);
-    return { opinion, analysis, trending, business, world, sports, technology, impact, all, entertainment, travel, healthFitness , page1  };
+    const all = dedupeStories(opinion, analysis, trending, business, world, sports, technology, impact, entertainment, travel, healthFitness , page1, lawAndJustice, agenda);
+    return { opinion, analysis, trending, business, world, sports, technology, impact, all, entertainment, travel, healthFitness , page1, lawAndJustice, agenda };
 }
 
   
 export interface FetchCategoryNewsOptions {
     limit?: number;
     offset?: number;
-    /**
-     * Set to true to bypass any fetch cache (Next.js or browser).
-     */
+  
     noCache?: boolean;
-    /**
-     * Abort signal (optional).
-     */
+
     signal?: AbortSignal;
 }
 
