@@ -34,12 +34,10 @@ export interface PaymentVerification {
   razorpay_signature: string;
   user_id: string;
   subscription_id: string;
-  amount: string; // in paise
-  name: string;
-  email: string;
-  phone: string;
+  amount: string;
   pincode: string;
   address: string;
+  mobile: string;
 }
 
 import Cookies from 'js-cookie';
@@ -135,11 +133,9 @@ export async function verifyPayment(paymentData: PaymentVerification): Promise<b
         user_id: paymentData.user_id,
         subscription_id: paymentData.subscription_id,
         amount: paymentData.amount,
-        name: paymentData.name,
-        email: paymentData.email,
-        phone: paymentData.phone,
         pincode: paymentData.pincode,
         address: paymentData.address,
+        mobile: paymentData.mobile,
       }),
     });
 

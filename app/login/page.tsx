@@ -41,7 +41,14 @@ export default function LoginPage() {
       setMessage(result.message);
       setMessageType("success");
       setTimeout(() => {
-        router.push("/");
+        // Check if there's a redirect URL stored (e.g., from subscription page)
+        const redirectUrl = sessionStorage.getItem("redirectAfterLogin");
+        if (redirectUrl) {
+          sessionStorage.removeItem("redirectAfterLogin");
+          router.push(redirectUrl);
+        } else {
+          router.push("/");
+        }
       }, 1500);
     } else {
       setMessage(result.message);

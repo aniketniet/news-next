@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/footer";
 import {
@@ -14,7 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { createRazorpayOrder, verifyPayment } from "@/lib/api/subscription";
+import { createRazorpayOrder, verifyPayment, fetchSubscriptionPlans } from "@/lib/api/subscription";
 import { useAuth } from "@/contexts/AuthContext";
 
 declare global {
@@ -23,22 +23,36 @@ declare global {
   }
 }
 
+interface APIPlan {
+  id: number;
+  name: string;
+  price: string;
+  selling_price: string;
+  points: string;
+  status: number;
+  description: string;
+  type: string;
+  plan_type: string;
+  duration_days: number;
+  created_at: string;
+  updated_at: string;
+}
+
 interface SubscriptionPlan {
-  id: string;
+  id: number;
   name: string;
   duration: string;
   description: string;
   price: number;
   originalPrice: number;
   discountPercent: number;
-  offer: string;
-  type: "magazine-single" | "magazine-both" | "newspaper";
+  features: string[];
+  type: string;
+  plan_type: string;
   colorClass: string;
 }
 
 interface UserFormData {
-  name: string;
-  email: string;
   phone: string;
   pincode: string;
   address: string;
@@ -49,101 +63,134 @@ export default function SubscriptionPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<SubscriptionPlan | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingPlans, setIsLoadingPlans] = useState(true);
+  const [apiPlans, setApiPlans] = useState<APIPlan[]>([]);
   const [formData, setFormData] = useState<UserFormData>({
-    name: "",
-    email: "",
     phone: "",
     pincode: "",
     address: "",
   });
   const [errors, setErrors] = useState<Partial<UserFormData>>({});
 
-  // Updated subscription plans based on requirements - memoized to prevent re-renders
-  const subscriptionPlans: SubscriptionPlan[] = useMemo(() => [
-    {
-      id: "plan-a",
-      name: "Plan A",
-      duration: "6 Months",
-      description: "Magazine only (any one)",
-      price: 150,
-      originalPrice: 300,
-      discountPercent: 50,
-      offer: "Pay ₹150 for 3 months + 3 months FREE",
-      type: "magazine-single",
-      colorClass: "bg-gradient-to-b from-purple-700 to-purple-500",
-    },
-    {
-      id: "plan-b",
-      name: "Plan B",
-      duration: "12 Months",
-      description: "Magazine only (any one)",
-      price: 300,
-      originalPrice: 600,
-      discountPercent: 50,
-      offer: "Pay ₹300 for 6 months + 6 months FREE",
-      type: "magazine-single",
-      colorClass: "bg-gradient-to-b from-green-700 to-green-400",
-    },
-    {
-      id: "plan-c",
-      name: "Plan C",
-      duration: "6 Months",
-      description: "Both Magazines",
-      price: 300,
-      originalPrice: 600,
-      discountPercent: 50,
-      offer: "Pay ₹300 for 3 months + 3 months FREE",
-      type: "magazine-both",
-      colorClass: "bg-gradient-to-b from-orange-700 to-orange-400",
-    },
-    {
-      id: "plan-d",
-      name: "Plan D",
-      duration: "12 Months",
-      description: "Both Magazines",
-      price: 600,
-      originalPrice: 1200,
-      discountPercent: 50,
-      offer: "Pay ₹600 for 6 months + 6 months FREE",
-      type: "magazine-both",
-      colorClass: "bg-gradient-to-b from-teal-700 to-teal-400",
-    },
-    {
-      id: "plan-e",
-      name: "Plan E",
-      duration: "12 Months",
-      description: "Newspaper only",
-      price: 1199,
-      originalPrice: 1862,
-      discountPercent: 36,
-      offer: "The Pioneer (Print) ₹1199 for 12 months (with complimentary magazine)",
-      type: "newspaper",
-      colorClass: "bg-gradient-to-b from-blue-700 to-blue-500",
-    },
+  // No Service Area Pincodes - These areas are not serviceable
+  const noServiceAreaPincodes = useMemo(() => [
+    // Greater Noida
+    "201310", // OMICRON 2, GAMMA 2, KASNA
+    "201312", // G B UNIVERSITY
+    "203201", // DANKOR
+    // Noida
+    "201301", // SECTOR 46, SECTOR 44 AMARPALI, SECTOR 143, SEC 168
+    "201305", // SECTOR 137
+    // Noida Extension
+    "201318", // MAHAGUN MART, GAUR CITY
+    "201309", // AJNARA LEE GARDEN
+    "201009", // ARIHANT ARDEN, PRATIK GRAND SEC 12 GHAZIABAD
+    "201306", // PANCHSHEEL GREEN
+    "201307", // CLEO COUNTY SEC 121
+    // Ghaziabad
+    "201013", // GOVINDPURAM
+    // Gurgaon
+    "122101", // BADSHAHPUR
+    "122052", // IMT MANESAR & SECTOR-1
+    "122103", // SOHNA
+    "122102", // BHONDSI
+    "123501", // BAWAL CHOWK GURGAON
+    "122413", // RAO HOTEL PACHGAWA MANESAR
+    // South Delhi
+    "110010", // SUBROTO PARK DEPOT
   ], []);
 
-  const magazinePlans = useMemo(() => subscriptionPlans.filter(
-    (plan) => plan.type === "magazine-single" || plan.type === "magazine-both"
-  ), [subscriptionPlans]);
+  // Check if pincode is serviceable
+  const isPincodeServiceable = useMemo(() => {
+    const pincode = formData.pincode.trim();
+    if (pincode.length !== 6) return true; // Don't show error until 6 digits entered
+    return !noServiceAreaPincodes.includes(pincode);
+  }, [formData.pincode, noServiceAreaPincodes]);
+
+  // Color classes for plans
+  const planColors = [
+    "bg-gradient-to-b from-purple-700 to-purple-500",
+    "bg-gradient-to-b from-green-700 to-green-400",
+    "bg-gradient-to-b from-orange-700 to-orange-400",
+    "bg-gradient-to-b from-teal-700 to-teal-400",
+    "bg-gradient-to-b from-blue-700 to-blue-500",
+  ];
+
+  // Fetch plans from API
+  useEffect(() => {
+    const loadPlans = async () => {
+      try {
+        setIsLoadingPlans(true);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/subscriptions/plans`);
+        const result = await response.json();
+        if (result.success && result.data) {
+          setApiPlans(result.data);
+        }
+      } catch (error) {
+        console.error("Error fetching plans:", error);
+      } finally {
+        setIsLoadingPlans(false);
+      }
+    };
+    loadPlans();
+  }, []);
+
+  // Parse API plans into display format
+  const subscriptionPlans: SubscriptionPlan[] = useMemo(() => {
+    return apiPlans.map((plan, index) => {
+      const originalPrice = parseFloat(plan.price);
+      const sellingPrice = parseFloat(plan.selling_price);
+      const discountPercent = Math.round(((originalPrice - sellingPrice) / originalPrice) * 100);
+      
+      // Parse features from points JSON
+      let features: string[] = [];
+      try {
+        const pointsObj = JSON.parse(plan.points || "{}");
+        features = Object.keys(pointsObj).filter(key => pointsObj[key] === "true" || pointsObj[key] === true);
+      } catch (e) {
+        features = [];
+      }
+
+      // Calculate duration string
+      let duration = "";
+      if (plan.duration_days >= 365) {
+        duration = `${Math.round(plan.duration_days / 365)} Year${plan.duration_days >= 730 ? "s" : ""}`;
+      } else if (plan.duration_days >= 30) {
+        duration = `${Math.round(plan.duration_days / 30)} Months`;
+      } else {
+        duration = `${plan.duration_days} Days`;
+      }
+
+      return {
+        id: plan.id,
+        name: plan.name,
+        duration,
+        description: plan.plan_type === "Print_Newspaper" ? "Newspaper" : "Magazine",
+        price: sellingPrice,
+        originalPrice,
+        discountPercent,
+        features,
+        type: plan.type,
+        plan_type: plan.plan_type,
+        colorClass: planColors[index % planColors.length],
+      };
+    });
+  }, [apiPlans]);
 
   // Split plans: A, B, C in first row | D, E in second row
-  const firstRowPlans = useMemo(() => subscriptionPlans.filter(
-    (plan) => ["plan-a", "plan-b", "plan-c"].includes(plan.id)
-  ), [subscriptionPlans]);
-
-  const secondRowPlans = useMemo(() => subscriptionPlans.filter(
-    (plan) => ["plan-d", "plan-e"].includes(plan.id)
-  ), [subscriptionPlans]);
-  
-  const newspaperPlans = useMemo(() => subscriptionPlans.filter(
-    (plan) => plan.type === "newspaper"
-  ), [subscriptionPlans]);
+  const firstRowPlans = useMemo(() => subscriptionPlans.slice(0, 3), [subscriptionPlans]);
+  const secondRowPlans = useMemo(() => subscriptionPlans.slice(3), [subscriptionPlans]);
 
   const handleChoosePlan = (plan: SubscriptionPlan) => {
+    if (!user?.id) {
+      alert("You are not logged in. Redirecting to login page...");
+      // Store redirect URL to come back after login
+      sessionStorage.setItem("redirectAfterLogin", "/subscription");
+      window.location.href = "/login";
+      return;
+    }
     setSelectedPlan(plan);
     setFormData({
-      name: user?.name || "",
-      email: user?.email || "",
       phone: "",
       pincode: "",
       address: "",
@@ -155,16 +202,6 @@ export default function SubscriptionPage() {
   const validateForm = (): boolean => {
     const newErrors: Partial<UserFormData> = {};
 
-    if (!formData.name.trim()) {
-      newErrors.name = "Name is required";
-    }
-
-    if (!formData.email.trim()) {
-      newErrors.email = "Email is required";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "Invalid email format";
-    }
-
     if (!formData.phone.trim()) {
       newErrors.phone = "Phone number is required";
     } else if (!/^\d{10}$/.test(formData.phone)) {
@@ -175,10 +212,15 @@ export default function SubscriptionPage() {
       newErrors.pincode = "Pincode is required";
     } else if (!/^\d{6}$/.test(formData.pincode)) {
       newErrors.pincode = "Pincode must be 6 digits";
+    } else if (noServiceAreaPincodes.includes(formData.pincode.trim())) {
+      newErrors.pincode = "Sorry, no subscription plans are currently available for your location. This area is not serviceable.";
     }
 
-    if (!formData.address.trim()) {
-      newErrors.address = "Address is required";
+    // Only validate address if pincode is serviceable
+    if (isPincodeServiceable && formData.pincode.length === 6) {
+      if (!formData.address.trim()) {
+        newErrors.address = "Address is required";
+      }
     }
 
     setErrors(newErrors);
@@ -214,7 +256,6 @@ export default function SubscriptionPage() {
       }
 
       // Create Razorpay order - send amount in rupees
-      // API will handle conversion to paise internally
       const amountInRupees = selectedPlan.price;
       const orderData = await createRazorpayOrder(amountInRupees);
 
@@ -227,25 +268,23 @@ export default function SubscriptionPage() {
         description: `${selectedPlan.name} - ${selectedPlan.description}`,
         order_id: orderData.id,
         prefill: {
-          name: formData.name,
-          email: formData.email,
+          name: user?.name || "",
+          email: user?.email || "",
           contact: formData.phone,
         },
         handler: async function (response: any) {
           try {
-            // Verify payment with all user data
+            // Verify payment with user data
             const verificationResult = await verifyPayment({
               razorpay_order_id: response.razorpay_order_id,
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_signature: response.razorpay_signature,
               user_id: user?.id || "",
-              subscription_id: selectedPlan.id,
+              subscription_id: selectedPlan.id.toString(),
               amount: amountInRupees.toString(),
-              name: formData.name,
-              email: formData.email,
-              phone: formData.phone,
               pincode: formData.pincode,
               address: formData.address,
+              mobile: formData.phone,
             });
 
             if (verificationResult) {
@@ -253,8 +292,6 @@ export default function SubscriptionPage() {
               setIsModalOpen(false);
               setSelectedPlan(null);
               setFormData({
-                name: "",
-                email: "",
                 phone: "",
                 pincode: "",
                 address: "",
@@ -279,6 +316,7 @@ export default function SubscriptionPage() {
 
       const razorpay = new window.Razorpay(options);
       razorpay.open();
+      setIsModalOpen(false); // Close modal when Razorpay opens
       setIsLoading(false);
     } catch (error) {
       console.error("Payment initiation error:", error);
@@ -299,35 +337,40 @@ export default function SubscriptionPage() {
       <SiteHeader />
 
       {/* Subscription Content */}
-      <div className="max-w-7xl mx-auto px-4 py-8">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 py-6 sm:py-8">
         {/* Subscription Plans Header */}
-        <div className="mb-12">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-4">
+        <div className="mb-8 sm:mb-12">
+          <h2 className="text-2xl sm:text-3xl font-bold text-center text-gray-900 mb-3 sm:mb-4">
             Subscription Plans
           </h2>
-          <p className="text-center text-gray-600">
+          <p className="text-center text-gray-600 text-sm sm:text-base px-4 sm:px-0">
             Choose from Magazine, Both Magazines, or Newspaper subscriptions
           </p>
         </div>
 
         {/* First Row: Plan A, B, C */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto pt-20 mb-24">
+        {isLoadingPlans ? (
+          <div className="flex justify-center items-center py-20">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500"></div>
+          </div>
+        ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 space-y-24 sm:space-y-0 gap-6 sm:gap-8 max-w-5xl mx-auto pt-24 sm:pt-20 mb-16  sm:mb-24 px-2 sm:px-0">
           {firstRowPlans.map((plan) => (
             <div key={plan.id} className="relative">
               {/* Colored Header */}
               <div
-                className={`absolute -top-10 left-1/2 transform -translate-x-1/2 -translate-y-14 ${plan.colorClass} text-white text-center py-4 px-4 shadow-2xl z-10 w-[85%]`}
+                className={`absolute -top-8 sm:-top-10 left-1/2 transform -translate-x-1/2 -translate-y-10 sm:-translate-y-14 ${plan.colorClass} text-white text-center py-3 sm:py-4 px-3 sm:px-4 shadow-2xl z-10 w-[90%] sm:w-[85%] rounded-lg sm:rounded-none`}
                 style={{ boxShadow: "0 15px 25px rgba(0,0,0,0.35)" }}
               >
-                <h3 className="text-sm font-extrabold mb-1 uppercase tracking-wide">
+                <h3 className="text-xs sm:text-sm font-extrabold mb-1 uppercase tracking-wide">
                   {plan.name}
                 </h3>
-                <h4 className="text-base font-bold mb-1">{plan.duration}</h4>
+                <h4 className="text-sm sm:text-base font-bold mb-1">{plan.duration}</h4>
                 <div className="mb-1">
                   <div className="text-xs line-through text-gray-300">
                     ₹{plan.originalPrice}
                   </div>
-                  <div className="text-2xl font-extrabold">₹{plan.price}</div>
+                  <div className="text-xl sm:text-2xl font-extrabold">₹{plan.price}</div>
                 </div>
                 <div className="text-xs uppercase tracking-wide font-semibold">
                   {plan.discountPercent}% OFF
@@ -335,46 +378,32 @@ export default function SubscriptionPage() {
               </div>
 
               {/* Main Card Body */}
-              <div className="bg-white shadow-xl border border-gray-200 pt-16 pb-5 px-4 mt-6 rounded-lg h-full flex flex-col">
+              <div className="bg-white shadow-xl border border-gray-200 pt-14 sm:pt-16 pb-4 sm:pb-5 px-3 sm:px-4 mt-4 sm:mt-6 rounded-lg h-full flex flex-col min-h-[180px] sm:min-h-[200px]">
                 {/* Features List */}
-                <ul className="space-y-3 mb-6 flex-grow">
-                  <li className="flex items-start">
-                    <svg
-                      className="w-4 h-4 text-teal-500 mr-2 flex-shrink-0 mt-0.5"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    <span className="text-gray-700 font-semibold text-sm">
-                      {plan.description}
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <svg
-                      className="w-4 h-4 text-teal-500 mr-2 flex-shrink-0 mt-0.5"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    <span className="text-green-600 font-semibold text-sm">
-                      {plan.offer}
-                    </span>
-                  </li>
+                <ul className="space-y-2 sm:space-y-3 mb-4 sm:mb-6 flex-grow">
+                  {plan.features.map((feature, idx) => (
+                    <li key={idx} className="flex items-start">
+                      <svg
+                        className="w-4 h-4 text-teal-500 mr-2 flex-shrink-0 mt-0.5"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      <span className="text-gray-700 font-semibold text-xs sm:text-sm">
+                        {feature}
+                      </span>
+                    </li>
+                  ))}
                 </ul>
 
                 <button
                   onClick={() => handleChoosePlan(plan)}
-                  className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-2.5 px-4 uppercase tracking-wide transition-colors rounded-md text-sm"
+                  className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 sm:py-2.5 px-3 sm:px-4 uppercase tracking-wide transition-colors rounded-md text-xs sm:text-sm"
                 >
                   CHOOSE PLAN
                 </button>
@@ -382,25 +411,26 @@ export default function SubscriptionPage() {
             </div>
           ))}
         </div>
+        )}
 
         {/* Second Row: Plan D, E */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto pt-20 mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 space-y-24 sm:space-y-0 sm:gap-8 max-w-3xl mx-auto pt-24 sm:pt-20 mb-12 sm:mb-16 px-2 sm:px-0">
           {secondRowPlans.map((plan) => (
             <div key={plan.id} className="relative">
               {/* Colored Header */}
               <div
-                className={`absolute -top-10 left-1/2 transform -translate-x-1/2 -translate-y-14 ${plan.colorClass} text-white text-center py-4 px-4 shadow-2xl z-10 w-[85%] `}
+                className={`absolute -top-8 sm:-top-10 left-1/2 transform -translate-x-1/2 -translate-y-10 sm:-translate-y-14 ${plan.colorClass} text-white text-center py-3 sm:py-4 px-3 sm:px-4 shadow-2xl z-10 w-[90%] sm:w-[85%] rounded-lg sm:rounded-none`}
                 style={{ boxShadow: "0 15px 25px rgba(0,0,0,0.35)" }}
               >
-                <h3 className="text-sm font-extrabold mb-1 uppercase tracking-wide">
+                <h3 className="text-xs sm:text-sm font-extrabold mb-1 uppercase tracking-wide">
                   {plan.name}
                 </h3>
-                <h4 className="text-base font-bold mb-1">{plan.duration}</h4>
+                <h4 className="text-sm sm:text-base font-bold mb-1">{plan.duration}</h4>
                 <div className="mb-1">
                   <div className="text-xs line-through text-gray-300">
                     ₹{plan.originalPrice}
                   </div>
-                  <div className="text-2xl font-extrabold">₹{plan.price}</div>
+                  <div className="text-xl sm:text-2xl font-extrabold">₹{plan.price}</div>
                 </div>
                 <div className="text-xs uppercase tracking-wide font-semibold">
                   {plan.discountPercent}% OFF
@@ -408,46 +438,32 @@ export default function SubscriptionPage() {
               </div>
 
               {/* Main Card Body */}
-              <div className="bg-white shadow-xl border border-gray-200 pt-16 pb-5 px-4 mt-6 rounded-lg h-full flex flex-col">
+              <div className="bg-white shadow-xl border border-gray-200 pt-14 sm:pt-16 pb-4 sm:pb-5 px-3 sm:px-4 mt-4 sm:mt-6 rounded-lg h-full flex flex-col min-h-[180px] sm:min-h-[200px]">
                 {/* Features List */}
-                <ul className="space-y-3 mb-6 flex-grow">
-                  <li className="flex items-start">
-                    <svg
-                      className="w-4 h-4 text-teal-500 mr-2 flex-shrink-0 mt-0.5"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    <span className="text-gray-700 font-semibold text-sm">
-                      {plan.description}
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <svg
-                      className="w-4 h-4 text-teal-500 mr-2 flex-shrink-0 mt-0.5"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    <span className="text-green-600 font-semibold text-sm">
-                      {plan.offer}
-                    </span>
-                  </li>
+                <ul className="space-y-2 sm:space-y-3 mb-4 sm:mb-6 flex-grow">
+                  {plan.features.map((feature, idx) => (
+                    <li key={idx} className="flex items-start">
+                      <svg
+                        className="w-4 h-4 text-teal-500 mr-2 flex-shrink-0 mt-0.5"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      <span className="text-gray-700 font-semibold text-xs sm:text-sm">
+                        {feature}
+                      </span>
+                    </li>
+                  ))}
                 </ul>
 
                 <button
                   onClick={() => handleChoosePlan(plan)}
-                  className={`w-full ${plan.type === "newspaper" ? "bg-blue-500 hover:bg-blue-600" : "bg-orange-500 hover:bg-orange-600"} text-white font-bold py-2.5 px-4 uppercase tracking-wide transition-colors rounded-md text-sm`}
+                  className={`w-full ${plan.plan_type === "Print_Newspaper" ? "bg-blue-500 hover:bg-blue-600" : "bg-orange-500 hover:bg-orange-600"} text-white font-bold py-2 sm:py-2.5 px-3 sm:px-4 uppercase tracking-wide transition-colors rounded-md text-xs sm:text-sm`}
                 >
                   CHOOSE PLAN
                 </button>
@@ -457,15 +473,15 @@ export default function SubscriptionPage() {
         </div>
 
         {/* Benefits Section */}
-        <div className="mt-16 bg-white rounded-xl shadow-lg p-8">
-          <h2 className="text-2xl font-bold text-center text-gray-900 mb-8">
+        <div className="mt-12 sm:mt-16 bg-white rounded-xl shadow-lg p-4 sm:p-6 md:p-8">
+          <h2 className="text-xl sm:text-2xl font-bold text-center text-gray-900 mb-6 sm:mb-8">
             Why Choose Premium?
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
             <div className="text-center">
-              <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
                 <svg
-                  className="w-8 h-8 text-yellow-600"
+                  className="w-6 h-6 sm:w-8 sm:h-8 text-yellow-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -478,17 +494,17 @@ export default function SubscriptionPage() {
                   />
                 </svg>
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-1 sm:mb-2">
                 Ad-Free Experience
               </h3>
-              <p className="text-gray-600">
+              <p className="text-sm sm:text-base text-gray-600">
                 Enjoy uninterrupted reading without any advertisements.
               </p>
             </div>
             <div className="text-center">
-              <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
                 <svg
-                  className="w-8 h-8 text-yellow-600"
+                  className="w-6 h-6 sm:w-8 sm:h-8 text-yellow-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -501,17 +517,17 @@ export default function SubscriptionPage() {
                   />
                 </svg>
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-1 sm:mb-2">
                 Exclusive Content
               </h3>
-              <p className="text-gray-600">
+              <p className="text-sm sm:text-base text-gray-600">
                 Access to premium articles and exclusive interviews.
               </p>
             </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="text-center sm:col-span-2 md:col-span-1">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
                 <svg
-                  className="w-8 h-8 text-yellow-600"
+                  className="w-6 h-6 sm:w-8 sm:h-8 text-yellow-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -524,10 +540,10 @@ export default function SubscriptionPage() {
                   />
                 </svg>
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-1 sm:mb-2">
                 Early Access
               </h3>
-              <p className="text-gray-600">
+              <p className="text-sm sm:text-base text-gray-600">
                 Be the first to read breaking news and important updates.
               </p>
             </div>
@@ -553,48 +569,15 @@ export default function SubscriptionPage() {
 
           <div className="grid gap-4 py-4">
             <div className="grid gap-2">
-              <Label htmlFor="name" className="text-gray-700">
-                Full Name *
-              </Label>
-              <Input
-                id="name"
-                value={formData.name}
-                onChange={(e) => handleInputChange("name", e.target.value)}
-                placeholder="Enter your full name"
-                className={errors.name ? "border-red-500" : ""}
-              />
-              {errors.name && (
-                <span className="text-red-500 text-sm">{errors.name}</span>
-              )}
-            </div>
-
-            <div className="grid gap-2">
-              <Label htmlFor="email" className="text-gray-700">
-                Email Address *
-              </Label>
-              <Input
-                id="email"
-                type="email"
-                value={formData.email}
-                onChange={(e) => handleInputChange("email", e.target.value)}
-                placeholder="Enter your email"
-                className={errors.email ? "border-red-500" : ""}
-              />
-              {errors.email && (
-                <span className="text-red-500 text-sm">{errors.email}</span>
-              )}
-            </div>
-
-            <div className="grid gap-2">
               <Label htmlFor="phone" className="text-gray-700">
-                Phone Number *
+                Mobile Number *
               </Label>
               <Input
                 id="phone"
                 type="tel"
                 value={formData.phone}
                 onChange={(e) => handleInputChange("phone", e.target.value)}
-                placeholder="Enter 10-digit phone number"
+                placeholder="Enter 10-digit mobile number"
                 maxLength={10}
                 className={errors.phone ? "border-red-500" : ""}
               />
@@ -620,24 +603,27 @@ export default function SubscriptionPage() {
               )}
             </div>
 
-            <div className="grid gap-2">
-              <Label htmlFor="address" className="text-gray-700">
-                Delivery Address *
-              </Label>
-              <textarea
-                id="address"
-                value={formData.address}
-                onChange={(e) => handleInputChange("address", e.target.value)}
-                placeholder="Enter your complete delivery address"
-                rows={3}
-                className={`flex w-full rounded-md border ${
-                  errors.address ? "border-red-500" : "border-input"
-                } bg-transparent px-3 py-2 text-sm shadow-xs placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring`}
-              />
-              {errors.address && (
-                <span className="text-red-500 text-sm">{errors.address}</span>
-              )}
-            </div>
+            {/* Only show address field if pincode is serviceable */}
+            {isPincodeServiceable && formData.pincode.length === 6 && (
+              <div className="grid gap-2">
+                <Label htmlFor="address" className="text-gray-700">
+                  Delivery Address *
+                </Label>
+                <textarea
+                  id="address"
+                  value={formData.address}
+                  onChange={(e) => handleInputChange("address", e.target.value)}
+                  placeholder="Enter your complete delivery address"
+                  rows={3}
+                  className={`flex w-full rounded-md border ${
+                    errors.address ? "border-red-500" : "border-input"
+                  } bg-transparent px-3 py-2 text-sm shadow-xs placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring`}
+                />
+                {errors.address && (
+                  <span className="text-red-500 text-sm">{errors.address}</span>
+                )}
+              </div>
+            )}
           </div>
 
           <DialogFooter>
