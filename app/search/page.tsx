@@ -7,13 +7,14 @@ import { searchNews } from "@/lib/api/search"
 export const dynamic = "force-dynamic"
 
 interface SearchPageProps {
-  searchParams: { q?: string; limit?: string; offset?: string }
+  searchParams: Promise<{ q?: string; limit?: string; offset?: string }>
 }
 
 export default async function SearchPage({ searchParams }: SearchPageProps) {
-  const q = (searchParams.q || "").trim()
-  const limit = Number(searchParams.limit ?? 10) || 10
-  const offset = Number(searchParams.offset ?? 0) || 0
+  const resolvedSearchParams = await searchParams;
+  const q = (resolvedSearchParams.q || "").trim()
+  const limit = Number(resolvedSearchParams.limit ?? 10) || 10
+  const offset = Number(resolvedSearchParams.offset ?? 0) || 0
   const results = q ? await searchNews(q, limit, offset) : []
 
   return (

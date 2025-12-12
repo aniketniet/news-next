@@ -8,13 +8,13 @@ import type { Metadata } from "next";
 export const dynamic = "force-dynamic";
 
 type Props = {
-  searchParams?: {
+  searchParams?: Promise<{
     title?: string;
     image?: string;
     description?: string;
     author?: string;
     date?: string; // expected dd-mm-yyyy but tolerate other inputs
-  };
+  }>;
 };
 
 const DAILYPIONEER_BASE = "http://103.119.171.20/";
@@ -40,9 +40,10 @@ function normalizeImageUrl(raw?: string): string | "" {
 export async function generateMetadata({
   searchParams,
 }: Props): Promise<Metadata> {
-  const title = searchParams?.title || "Preview";
-  const description = searchParams?.description || "";
-  const image = normalizeImageUrl(searchParams?.image);
+  const resolvedSearchParams = searchParams ? await searchParams : {};
+  const title = resolvedSearchParams?.title || "Preview";
+  const description = resolvedSearchParams?.description || "";
+  const image = normalizeImageUrl(resolvedSearchParams?.image);
   return {
     title: `${title} | Daily Pioneer`,
     description,
@@ -62,10 +63,11 @@ export async function generateMetadata({
 }
 
 export default async function PreviewPage({ searchParams }: Props) {
-  const title = searchParams?.title || "Preview Article";
-  const description = searchParams?.description || "";
-  const image = normalizeImageUrl(searchParams?.image);
-  const author = (searchParams?.author || "Staff Reporter").trim();
+  const resolvedSearchParams = searchParams ? await searchParams : {};
+  const title = resolvedSearchParams?.title || "Preview Article";
+  const description = resolvedSearchParams?.description || "";
+  const image = normalizeImageUrl(resolvedSearchParams?.image);
+  const author = (resolvedSearchParams?.author || "Staff Reporter").trim();
 
   function formatDate(input?: string): string {
     const raw = (input || "").trim();
@@ -103,7 +105,7 @@ export default async function PreviewPage({ searchParams }: Props) {
     // If all else fails, show raw string
     return raw;
   }
-  const publishedAt = formatDate(searchParams?.date);
+  const publishedAt = formatDate(resolvedSearchParams?.date);
 
   const article = {
     id: "preview",
