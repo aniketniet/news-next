@@ -4,13 +4,14 @@ import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/footer'
 
 interface PageProps {
-  params: {
+  params: Promise<{
     urlKey: string
-  }
+  }>
 }
 
 export default async function DynamicPage({ params }: PageProps) {
-  const page = await fetchPage(params.urlKey)
+  const { urlKey } = await params;
+  const page = await fetchPage(urlKey)
   
   if (!page) {
     notFound()

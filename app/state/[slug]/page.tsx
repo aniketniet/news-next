@@ -6,19 +6,21 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 interface Props { 
-  params: { slug: string };
-  searchParams: { limit?: string; offset?: string };
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<{ limit?: string; offset?: string }>;
 }
 
 export const dynamic = "force-dynamic";
 
 export default async function StatePage({ params, searchParams }: Props) {
   // slug is now the category ID
-  const categoryId = parseInt(params.slug, 10);
+  const { slug } = await params;
+  const resolvedSearchParams = await searchParams;
+  const categoryId = parseInt(slug, 10);
   if (isNaN(categoryId)) notFound();
 
-  const limit = Number(searchParams.limit ?? 12) || 12;
-  const offset = Number(searchParams.offset ?? 0) || 0;
+  const limit = Number(resolvedSearchParams.limit ?? 12) || 12;
+  const offset = Number(resolvedSearchParams.offset ?? 0) || 0;
 
   const items = await fetchCategoryList(categoryId, { limit, offset });
 
@@ -26,7 +28,7 @@ export default async function StatePage({ params, searchParams }: Props) {
     notFound();
   }
 
-  const stateName = items.length > 0 ? (items[0].category || params.slug) : params.slug;
+  const stateName = items.length > 0 ? (items[0].category || slug) : slug;
   const currentPage = Math.floor(offset / limit) + 1;
 
   return (
@@ -104,12 +106,13 @@ export default async function StatePage({ params, searchParams }: Props) {
   );
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const categoryId = parseInt(params.slug, 10);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const categoryId = parseInt(slug, 10);
   if (isNaN(categoryId)) return { title: "State Edition - The Pioneer" };
 
   const items = await fetchCategoryList(categoryId, { limit: 1, offset: 0 });
-  const stateName = items.length > 0 ? (items[0].category || params.slug) : params.slug;
+  const stateName = items.length > 0 ? (items[0].category || slug) : slug;
   
   return {
     title: `${stateName} Edition - The Pioneer`,

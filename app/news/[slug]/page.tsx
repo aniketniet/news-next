@@ -22,13 +22,14 @@ function mapList(list?: { story_id: number; story_title: string; published_date:
 }
 
 interface NewsDetailPageProps {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 export async function generateMetadata({
   params,
 }: NewsDetailPageProps): Promise<Metadata> {
-  const story = await fetchStory(params.slug);
+  const { slug } = await params;
+  const story = await fetchStory(slug);
   if (!story) return { title: "Article Not Found" };
   return {
     title: `${story.metaTitle || story.title} | Daily Pioneer`,
@@ -53,7 +54,8 @@ export async function generateMetadata({
 }
 
 export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
-  const story = await fetchStory(params.slug);
+  const { slug } = await params;
+  const story = await fetchStory(slug);
   console.log(story,"story");
   
   if (!story) notFound();

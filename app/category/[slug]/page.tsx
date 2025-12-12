@@ -6,15 +6,17 @@ import { fetchCategoryList } from "@/lib/api/stories"
 import { resolveCategoryId } from "@/lib/taxonomy"
 import { notFound } from "next/navigation"
 
-interface Props { params: { slug: string }, searchParams: { limit?: string; offset?: string } }
+interface Props { params: Promise<{ slug: string }>, searchParams: Promise<{ limit?: string; offset?: string }> }
 
 export const dynamic = "force-dynamic";
 
 export default async function CategoryListingPage({ params, searchParams }: Props) {
-  const categoryId = resolveCategoryId(params.slug)
+  const { slug } = await params;
+  const resolvedSearchParams = await searchParams;
+  const categoryId = resolveCategoryId(slug)
   if (!categoryId) notFound()
-  const limit = Number(searchParams.limit ?? 12) || 12
-  const offset = Number(searchParams.offset ?? 0) || 0
+  const limit = Number(resolvedSearchParams.limit ?? 12) || 12
+  const offset = Number(resolvedSearchParams.offset ?? 0) || 0
 
   const items = await fetchCategoryList(categoryId, { limit, offset })
   const currentPage = Math.floor(offset / limit) + 1;
@@ -24,7 +26,7 @@ export default async function CategoryListingPage({ params, searchParams }: Prop
       <SiteHeader />
       <main className="pt-6 pb-10">
         <div className="mx-auto max-w-7xl px-3 md:px-6">
-          <h1 className="text-2xl font-bold mb-4">{params.slug.toUpperCase()}</h1>
+          <h1 className="text-2xl font-bold mb-4">{slug.toUpperCase()}</h1>
           {items.length === 0 && (
             <p className="text-gray-600">No stories found.</p>
           )}
@@ -36,7 +38,7 @@ export default async function CategoryListingPage({ params, searchParams }: Prop
                     <Image src={ it.image_url_medium || "/news-thumbnail.png"} alt={it.title} fill className="object-cover" />
                   </div>
                   <div className="p-4">
-                    <span className="inline-flex items-center text-[10px] uppercase tracking-wide font-bold bg-[#1a59a9] text-white px-2 py-1  mb-2">{it.category || params.slug}</span>
+                    <span className="inline-flex items-center text-[10px] uppercase tracking-wide font-bold bg-[#1a59a9] text-white px-2 py-1  mb-2">{it.category || slug}</span>
                     <h3 className="font-semibold mb-1 line-clamp-2">{it.title}</h3>
                     <p className="text-xs text-gray-500">{it.author ? `By ${it.author} • ` : ''}{new Date(it.publishedDate).toLocaleDateString(undefined, { day: '2-digit', month: 'short', year: 'numeric' })}</p>
                   </div>
@@ -49,7 +51,7 @@ export default async function CategoryListingPage({ params, searchParams }: Prop
           <div className="mt-12 flex items-center justify-center gap-2">
             {offset > 0 && (
               <Link
-                href={`/category/${params.slug}?limit=${limit}&offset=${Math.max(0, offset - limit)}`}
+                href={`/category/${slug}?limit=${limit}&offset=${Math.max(0, offset - limit)}`}
                 className="px-4 py-2 rounded border border-gray-300 text-gray-700 hover:bg-gray-100 transition-colors"
               >
                 ← Previous
@@ -62,7 +64,7 @@ export default async function CategoryListingPage({ params, searchParams }: Prop
             
             {items.length === limit && (
               <Link
-                href={`/category/${params.slug}?limit=${limit}&offset=${offset + limit}`}
+                href={`/category/${slug}?limit=${limit}&offset=${offset + limit}`}
                 className="px-4 py-2 rounded border border-gray-300 text-gray-700 hover:bg-gray-100 transition-colors"
               >
                 Next →
