@@ -65,7 +65,7 @@ export function Hero() {
     if (isFileType && story.video_name) {
       return {
         type: 'file',
-        url: `http://103.119.171.20/uploads/2025/story/video/${story.video_name}`
+        url: `http://72.61.238.250/uploads/2025/story/video/${story.video_name}`
       };
     }
     

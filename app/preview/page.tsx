@@ -17,7 +17,7 @@ type Props = {
   }>;
 };
 
-const DAILYPIONEER_BASE = "http://103.119.171.20/";
+const DAILYPIONEER_BASE = "http://72.61.238.250/";
 
 function normalizeImageUrl(raw?: string): string | "" {
   if (!raw) return "";
