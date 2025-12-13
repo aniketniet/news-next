@@ -589,6 +589,7 @@ export default async function HomePage() {
         )}
 
         {/* Opinion & Analysis Sections with Advertisement */}
+        
         <section
           id="section-opinion"
           className="px-3 md:px-6 py-6 scroll-mt-24"
