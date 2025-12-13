@@ -27,20 +27,20 @@ export function HoroscopeSection({ data }: HoroscopeSectionProps) {
           Horoscope
         </h2>
           <div className="mt-2 h-1 w-full bg-gray-200 rounded">
-            <div className="h-full bg-[#1a59a9] rounded" style={{ width: '20%' }} />
+            <div className="h-full bg-black rounded" style={{ width: '20%' }} />
           </div>
       </div> */}
 
       {/* Main horoscope card */}
       {/* <article className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden border border-gray-200">
       
-        <div className="bg-gradient-to-r from-purple-50 to-pink-50 p-4">
+        <div className="bg-gradient-to-r from-neutral-50 to-white p-4">
           <div className="grid grid-cols-4 gap-3">
             {data.signs.map((sign, index) => (
               <Link
                 key={index}
                 href={`/horoscope/${sign.name.toLowerCase()}`}
-                className="group flex flex-col items-center p-2 rounded-lg bg-white hover:bg-purple-50 transition-colors duration-200 shadow-sm hover:shadow-md"
+                className="group flex flex-col items-center p-2 rounded-lg bg-white hover:bg-black/5 transition-colors duration-200 shadow-sm hover:shadow-md"
               >
                 <div className="text-xl mb-1 group-hover:scale-110 transition-transform duration-200">
                   {sign.icon}
@@ -55,7 +55,7 @@ export function HoroscopeSection({ data }: HoroscopeSectionProps) {
 
      
         <div className="p-6">
-          <span className="inline-block px-3 py-1 text-xs font-semibold text-purple-600 bg-purple-100 rounded-full mb-3">
+          <span className="inline-block px-3 py-1 text-xs font-semibold text-black bg-black/5 rounded-full mb-3">
             {data.date}
           </span>
           <h3 className="text-lg font-bold text-gray-900 mb-3 leading-tight">
@@ -66,7 +66,7 @@ export function HoroscopeSection({ data }: HoroscopeSectionProps) {
           </p>
           <Link
             href="/horoscope"
-            className="inline-flex items-center text-sm font-semibold text-purple-600 hover:text-purple-700 transition-colors"
+            className="inline-flex items-center text-sm font-semibold text-black hover:underline underline-offset-4 transition-colors"
           >
             Read Full Horoscope
             <svg

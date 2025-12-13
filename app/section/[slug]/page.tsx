@@ -2,7 +2,7 @@ import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/footer"
 import Link from "next/link"
 import Image from "next/image"
-import { fetchSectionList } from "@/lib/api/stories"
+import { fetchSectionList, fetchTrendingNewsList } from "@/lib/api/stories"
 import { resolveSectionId } from "@/lib/taxonomy"
 import { notFound } from "next/navigation"
 
@@ -13,12 +13,18 @@ export const dynamic = "force-dynamic";
 export default async function SectionListingPage({ params, searchParams }: Props) {
   const { slug } = await params;
   const resolvedSearchParams = await searchParams;
-  const sectionId = resolveSectionId(slug)
-  if (!sectionId) notFound()
   const limit = Number(resolvedSearchParams.limit ?? 12) || 12
   const offset = Number(resolvedSearchParams.offset ?? 0) || 0
 
-  const items = await fetchSectionList(sectionId, { limit, offset })
+  const normalizedSlug = slug.toLowerCase()
+  const isTrending = normalizedSlug === "trending" || normalizedSlug === "trending-news"
+
+  const sectionId = isTrending ? undefined : resolveSectionId(slug)
+  if (!isTrending && !sectionId) notFound()
+
+  const items = isTrending
+    ? await fetchTrendingNewsList({ limit, offset })
+    : await fetchSectionList(sectionId as number, { limit, offset })
   const currentPage = Math.floor(offset / limit) + 1;
 
   return (
@@ -34,11 +40,11 @@ export default async function SectionListingPage({ params, searchParams }: Props
             {items.map((it) => (
               <li key={it.id} className="border rounded-sm  overflow-hidden bg-white hover:shadow transition-shadow">
                 <Link href={`/news/${it.urlKey || it.id}`} className="block">
-                  <div className="relative aspect-[16/9] w-full bg-gray-100">
+                  <div className="relative aspect-video w-full bg-gray-100">
                     <Image src={it.image_url_medium || "/news-image.jpg"} alt={it.title} fill className="object-cover" />
                   </div>
                   <div className="p-4">
-                    <span className="inline-flex items-center text-[10px] rounded-sm uppercase tracking-wide font-bold bg-[#1a59a9] text-white px-2 py-1  mb-2">{it.category || slug}</span>
+                    <span className="inline-flex items-center text-[10px] rounded-sm uppercase tracking-wide font-bold bg-black text-white px-2 py-1  mb-2">{it.category || slug}</span>
                     <h3 className="font-semibold mb-1 line-clamp-2">{it.title}</h3>
                     <p className="text-xs text-gray-500">{it.author ? `By ${it.author} • ` : ''}{new Date(it.publishedDate).toLocaleDateString(undefined, { day: '2-digit', month: 'short', year: 'numeric' })}</p>
                   </div>

@@ -26,7 +26,7 @@ export function BreakingTicker({
   return (
     <div className="border-y bg-red-600 text-white">
       <div className="flex items-center gap-2 px-3 md:px-6 h-10">
-        <span className="bg-[#1a59a9] text-black px-2 py-0.5 text-xs font-bold rounded">Breaking</span>
+        <span className="bg-black text-white px-2 py-0.5 text-xs font-bold rounded">Breaking</span>
         <div ref={containerRef} className="flex-1 overflow-x-auto" role="region" aria-label="Breaking news">
           <ul className="flex items-center gap-6">
             {items.map((it, i) => (

@@ -9,7 +9,7 @@ export function StayConnected() {
       followers: "125K",
       description: "Daily travel inspiration and stunning photography",
       icon: "📸",
-      color: "from-purple-600 to-pink-600",
+      color: "from-black to-neutral-700",
       link: "https://instagram.com/exoticapioneer"
     },
     {
@@ -18,7 +18,7 @@ export function StayConnected() {
       followers: "89K",
       description: "Travel vlogs and destination guides",
       icon: "📹",
-      color: "from-red-600 to-red-700",
+      color: "from-black to-neutral-700",
       link: "https://youtube.com/exoticapioneer"
     },
     {
@@ -27,7 +27,7 @@ export function StayConnected() {
       followers: "67K",
       description: "Breaking travel news and quick tips",
       icon: "🐦",
-      color: "from-blue-400 to-blue-600",
+      color: "from-black to-neutral-700",
       link: "https://twitter.com/exoticatravel"
     },
     {
@@ -36,7 +36,7 @@ export function StayConnected() {
       followers: "156K",
       description: "Community discussions and travel groups",
       icon: "👥",
-      color: "from-blue-600 to-blue-800",
+      color: "from-black to-neutral-700",
       link: "https://facebook.com/exoticapioneer"
     }
   ];
@@ -69,7 +69,7 @@ export function StayConnected() {
   ];
 
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">Stay Connected</h2>
@@ -84,7 +84,7 @@ export function StayConnected() {
             <div className="grid md:grid-cols-2 gap-6">
               {socialPlatforms.map((platform, index) => (
                 <Link key={index} href={platform.link} target="_blank" rel="noopener noreferrer" className="block group">
-                  <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden border border-gray-100 group-hover:border-orange-200">
+                  <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden border border-black/10 group-hover:border-black/20">
                     <div className={`h-20 bg-gradient-to-r ${platform.color} relative`}>
                       <div className="absolute inset-0 bg-black/10"></div>
                       <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
@@ -96,14 +96,14 @@ export function StayConnected() {
                       </div>
                     </div>
                     <div className="p-6">
-                      <h3 className="text-xl font-bold text-gray-900 mb-1 group-hover:text-orange-600 transition-colors">
+                      <h3 className="text-xl font-bold text-gray-900 mb-1 group-hover:underline underline-offset-4 transition-colors">
                         {platform.name}
                       </h3>
                       <p className="text-sm text-gray-600 mb-3">{platform.handle}</p>
                       <p className="text-gray-600 text-sm leading-relaxed">
                         {platform.description}
                       </p>
-                      <div className="mt-4 flex items-center text-orange-600 group-hover:text-orange-700 transition-colors">
+                      <div className="mt-4 flex items-center text-black group-hover:text-black/80 transition-colors">
                         <span className="text-sm font-medium">Follow us</span>
                         <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
@@ -136,7 +136,7 @@ export function StayConnected() {
                       )}
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-2">
-                          <span className="text-xs font-semibold text-orange-600 bg-orange-100 px-2 py-1 rounded">
+                          <span className="text-xs font-semibold text-black bg-black/5 px-2 py-1 rounded">
                             {post.platform}
                           </span>
                           <span className="text-xs text-gray-500">{post.timeAgo}</span>
@@ -169,7 +169,7 @@ export function StayConnected() {
                   placeholder="Enter your email address"
                   className="w-full px-4 py-3 rounded-lg text-gray-900 placeholder-gray-500 text-sm"
                 />
-                <button className="w-full bg-orange-600 hover:bg-orange-700 text-white font-medium py-3 rounded-lg transition-colors text-sm">
+                <button className="w-full bg-white text-black hover:bg-white/90 font-medium py-3 rounded-lg transition-colors text-sm">
                   Subscribe to Newsletter
                 </button>
               </div>

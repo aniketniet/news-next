@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/footer";
 import {
@@ -14,7 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { createRazorpayOrder, verifyPayment, fetchSubscriptionPlans } from "@/lib/api/subscription";
+import { createRazorpayOrder, verifyPayment } from "@/lib/api/subscription";
 import { useAuth } from "@/contexts/AuthContext";
 
 declare global {
@@ -50,6 +50,7 @@ interface SubscriptionPlan {
   type: string;
   plan_type: string;
   colorClass: string;
+  code: "A" | "B" | "C" | "D" | "E";
 }
 
 interface UserFormData {
@@ -58,6 +59,8 @@ interface UserFormData {
   address: string;
 }
 
+type MagazineOption = "Exotica" | "Essentia" | "Both";
+
 export default function SubscriptionPage() {
   const { user } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -65,12 +68,14 @@ export default function SubscriptionPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingPlans, setIsLoadingPlans] = useState(true);
   const [apiPlans, setApiPlans] = useState<APIPlan[]>([]);
+  const [magazineOption, setMagazineOption] = useState<MagazineOption | null>(null);
   const [formData, setFormData] = useState<UserFormData>({
     phone: "",
     pincode: "",
     address: "",
   });
   const [errors, setErrors] = useState<Partial<UserFormData>>({});
+  const [planErrors, setPlanErrors] = useState<{ magazineOption?: string }>({});
 
   // No Service Area Pincodes - These areas are not serviceable
   const noServiceAreaPincodes = useMemo(() => [
@@ -109,11 +114,11 @@ export default function SubscriptionPage() {
 
   // Color classes for plans
   const planColors = [
-    "bg-gradient-to-b from-purple-700 to-purple-500",
-    "bg-gradient-to-b from-green-700 to-green-400",
-    "bg-gradient-to-b from-orange-700 to-orange-400",
-    "bg-gradient-to-b from-teal-700 to-teal-400",
-    "bg-gradient-to-b from-blue-700 to-blue-500",
+    "bg-gradient-to-b from-black to-neutral-800",
+    "bg-gradient-to-b from-neutral-900 to-neutral-700",
+    "bg-gradient-to-b from-black to-neutral-700",
+    "bg-gradient-to-b from-neutral-900 to-neutral-800",
+    "bg-gradient-to-b from-black to-neutral-800",
   ];
 
   // Fetch plans from API
@@ -173,6 +178,7 @@ export default function SubscriptionPage() {
         type: plan.type,
         plan_type: plan.plan_type,
         colorClass: planColors[index % planColors.length],
+        code: (["A", "B", "C", "D", "E"][index] as SubscriptionPlan["code"]) || "E",
       };
     });
   }, [apiPlans]);
@@ -190,17 +196,24 @@ export default function SubscriptionPage() {
       return;
     }
     setSelectedPlan(plan);
+    // Plan A/B: user must choose Exotica or Essentia
+    // Plan C/D: includes both
+    if (plan.code === "A" || plan.code === "B") setMagazineOption(null);
+    else if (plan.code === "C" || plan.code === "D") setMagazineOption("Both");
+    else setMagazineOption(null);
     setFormData({
       phone: "",
       pincode: "",
       address: "",
     });
     setErrors({});
+    setPlanErrors({});
     setIsModalOpen(true);
   };
 
   const validateForm = (): boolean => {
     const newErrors: Partial<UserFormData> = {};
+    const newPlanErrors: { magazineOption?: string } = {};
 
     if (!formData.phone.trim()) {
       newErrors.phone = "Phone number is required";
@@ -214,6 +227,8 @@ export default function SubscriptionPage() {
       newErrors.pincode = "Pincode must be 6 digits";
     } else if (noServiceAreaPincodes.includes(formData.pincode.trim())) {
       newErrors.pincode = "Sorry, no subscription plans are currently available for your location. This area is not serviceable.";
+    } else if (selectedPlan?.code === "E" && formData.pincode.trim() !== "122001") {
+      newErrors.pincode = "Plan E (News-only) is available only for area pincode 122001.";
     }
 
     // Only validate address if pincode is serviceable
@@ -224,99 +239,124 @@ export default function SubscriptionPage() {
     }
 
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+
+    if ((selectedPlan?.code === "A" || selectedPlan?.code === "B") && !magazineOption) {
+      newPlanErrors.magazineOption = "Please choose Exotica or Essentia.";
+    }
+    setPlanErrors(newPlanErrors);
+
+    return Object.keys(newErrors).length === 0 && Object.keys(newPlanErrors).length === 0;
   };
 
-  const loadRazorpayScript = (): Promise<boolean> => {
-    return new Promise((resolve) => {
-      if (window.Razorpay) {
-        resolve(true);
-        return;
-      }
-      const script = document.createElement("script");
-      script.src = "https://checkout.razorpay.com/v1/checkout.js";
-      script.onload = () => resolve(true);
-      script.onerror = () => resolve(false);
-      document.body.appendChild(script);
-    });
-  };
+  // const loadRazorpayScript = (): Promise<boolean> => {
+  //   return new Promise((resolve) => {
+  //     if (window.Razorpay) {
+  //       resolve(true);
+  //       return;
+  //     }
+  //     const script = document.createElement("script");
+  //     script.src = "https://checkout.razorpay.com/v1/checkout.js";
+  //     script.onload = () => resolve(true);
+  //     script.onerror = () => resolve(false);
+  //     document.body.appendChild(script);
+  //   });
+  // };
 
   const handleSubmit = async () => {
     if (!validateForm() || !selectedPlan) return;
+    if ((selectedPlan.code === "A" || selectedPlan.code === "B") && !magazineOption) return;
 
     setIsLoading(true);
 
     try {
-      // Load Razorpay script
-      const isLoaded = await loadRazorpayScript();
-      if (!isLoaded) {
-        alert("Failed to load payment gateway. Please try again.");
-        setIsLoading(false);
-        return;
-      }
-
       // Create Razorpay order - send amount in rupees
       const amountInRupees = selectedPlan.price;
       const orderData = await createRazorpayOrder(amountInRupees);
 
-      // Open Razorpay checkout
-      const options = {
-        key: orderData.key,
-        amount: orderData.amount,
-        currency: orderData.currency,
-        name: "The Pioneer",
-        description: `${selectedPlan.name} - ${selectedPlan.description}`,
-        order_id: orderData.id,
-        prefill: {
-          name: user?.name || "",
-          email: user?.email || "",
-          contact: formData.phone,
-        },
-        handler: async function (response: any) {
-          try {
-            // Verify payment with user data
-            const verificationResult = await verifyPayment({
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_signature: response.razorpay_signature,
-              user_id: user?.id || "",
-              subscription_id: selectedPlan.id.toString(),
-              amount: amountInRupees.toString(),
-              pincode: formData.pincode,
-              address: formData.address,
-              mobile: formData.phone,
-            });
+      // Razorpay checkout is disabled. Run verify API directly using static Razorpay values.
+      const STATIC_RAZORPAY_KEY =
+        process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || orderData.key || "rzp_key_static";
+      const STATIC_RAZORPAY_PAYMENT_ID = "pay_static";
+      const STATIC_RAZORPAY_SIGNATURE = "sig_static";
 
-            if (verificationResult) {
-              alert("Payment successful! Your subscription is now active.");
-              setIsModalOpen(false);
-              setSelectedPlan(null);
-              setFormData({
-                phone: "",
-                pincode: "",
-                address: "",
-              });
-            } else {
-              alert("Payment verification failed. Please contact support.");
-            }
-          } catch (error) {
-            console.error("Payment verification error:", error);
-            alert("Payment verification failed. Please contact support.");
-          }
-        },
-        modal: {
-          ondismiss: function () {
-            setIsLoading(false);
-          },
-        },
-        theme: {
-          color: "#F97316",
-        },
-      };
+      // ---------------------------------------------
+      // Razorpay Checkout (commented / reference only)
+      // ---------------------------------------------
+      // const options = {
+      //   key: orderData.key,
+      //   amount: orderData.amount,
+      //   currency: orderData.currency,
+      //   name: "The Pioneer",
+      //   description: `${selectedPlan.name} - ${selectedPlan.description}`,
+      //   order_id: orderData.id,
+      //   prefill: {
+      //     name: user?.name || "",
+      //     email: user?.email || "",
+      //     contact: formData.phone,
+      //   },
+      //   handler: async function (response: any) {
+      //     // const verificationResult = await verifyPayment({
+      //     //   razorpay_order_id: response.razorpay_order_id,
+      //     //   razorpay_payment_id: response.razorpay_payment_id,
+      //     //   razorpay_signature: response.razorpay_signature,
+      //     //   user_id: user?.id || "",
+      //     //   subscription_id: selectedPlan.id.toString(),
+      //     //   amount: amountInRupees.toString(),
+      //     //   pincode: formData.pincode,
+      //     //   address: formData.address,
+      //     //   mobile: formData.phone,
+      //     // });
+      //   },
+      //   theme: { color: "#000000" },
+      // };
+      // const razorpay = new window.Razorpay(options);
+      // razorpay.open();
 
-      const razorpay = new window.Razorpay(options);
-      razorpay.open();
-      setIsModalOpen(false); // Close modal when Razorpay opens
+      const serviceNamesForPlanA = (() => {
+        if (selectedPlan.code !== "A") return null;
+        const chosen = magazineOption ?? "Exotica";
+        // Requirement: Plan A must send 6 service names in payload.
+        return [
+          "News",
+          "E-Paper",
+          "Premium Articles",
+          "Ad-Free Experience",
+          "Early Access",
+          chosen,
+        ].join(",");
+      })();
+
+      const verificationResult = await verifyPayment({
+        razorpay_order_id: orderData.id,
+        razorpay_payment_id: STATIC_RAZORPAY_PAYMENT_ID,
+        razorpay_signature: STATIC_RAZORPAY_SIGNATURE,
+        user_id: user?.id || "",
+        subscription_id: selectedPlan.id.toString(),
+        amount: amountInRupees.toString(),
+        pincode: formData.pincode,
+        address: formData.address,
+        mobile: formData.phone,
+        razorpay_key: STATIC_RAZORPAY_KEY,
+        service_names: serviceNamesForPlanA ?? undefined,
+        magazine_option:
+          selectedPlan.code === "C" || selectedPlan.code === "D"
+            ? "Both"
+            : (magazineOption ?? undefined),
+      });
+
+      if (verificationResult) {
+        alert("Payment successful! Your subscription is now active.");
+        setIsModalOpen(false);
+        setSelectedPlan(null);
+        setFormData({
+          phone: "",
+          pincode: "",
+          address: "",
+        });
+      } else {
+        alert("Payment verification failed. Please contact support.");
+      }
+
       setIsLoading(false);
     } catch (error) {
       console.error("Payment initiation error:", error);
@@ -332,8 +372,9 @@ export default function SubscriptionPage() {
     }
   };
 
+
   return (
-    <div className="min-h-screen bg-gray-200">
+    <div className="min-h-screen bg-white">
       <SiteHeader />
 
       {/* Subscription Content */}
@@ -351,7 +392,7 @@ export default function SubscriptionPage() {
         {/* First Row: Plan A, B, C */}
         {isLoadingPlans ? (
           <div className="flex justify-center items-center py-20">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black"></div>
           </div>
         ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 space-y-24 sm:space-y-0 gap-6 sm:gap-8 max-w-5xl mx-auto pt-24 sm:pt-20 mb-16  sm:mb-24 px-2 sm:px-0">
@@ -380,11 +421,11 @@ export default function SubscriptionPage() {
               {/* Main Card Body */}
               <div className="bg-white shadow-xl border border-gray-200 pt-14 sm:pt-16 pb-4 sm:pb-5 px-3 sm:px-4 mt-4 sm:mt-6 rounded-lg h-full flex flex-col min-h-[180px] sm:min-h-[200px]">
                 {/* Features List */}
-                <ul className="space-y-2 sm:space-y-3 mb-4 sm:mb-6 flex-grow">
+                <ul className="space-y-2 sm:space-y-3 mb-4 sm:mb-6 grow">
                   {plan.features.map((feature, idx) => (
                     <li key={idx} className="flex items-start">
                       <svg
-                        className="w-4 h-4 text-teal-500 mr-2 flex-shrink-0 mt-0.5"
+                        className="w-4 h-4 text-black mr-2 shrink-0 mt-0.5"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >
@@ -403,7 +444,7 @@ export default function SubscriptionPage() {
 
                 <button
                   onClick={() => handleChoosePlan(plan)}
-                  className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 sm:py-2.5 px-3 sm:px-4 uppercase tracking-wide transition-colors rounded-md text-xs sm:text-sm"
+                  className="w-full bg-black hover:bg-black/90 text-white font-bold py-2 sm:py-2.5 px-3 sm:px-4 uppercase tracking-wide transition-colors rounded-md text-xs sm:text-sm"
                 >
                   CHOOSE PLAN
                 </button>
@@ -440,11 +481,11 @@ export default function SubscriptionPage() {
               {/* Main Card Body */}
               <div className="bg-white shadow-xl border border-gray-200 pt-14 sm:pt-16 pb-4 sm:pb-5 px-3 sm:px-4 mt-4 sm:mt-6 rounded-lg h-full flex flex-col min-h-[180px] sm:min-h-[200px]">
                 {/* Features List */}
-                <ul className="space-y-2 sm:space-y-3 mb-4 sm:mb-6 flex-grow">
+                <ul className="space-y-2 sm:space-y-3 mb-4 sm:mb-6 grow">
                   {plan.features.map((feature, idx) => (
                     <li key={idx} className="flex items-start">
                       <svg
-                        className="w-4 h-4 text-teal-500 mr-2 flex-shrink-0 mt-0.5"
+                        className="w-4 h-4 text-black mr-2 shrink-0 mt-0.5"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >
@@ -463,7 +504,7 @@ export default function SubscriptionPage() {
 
                 <button
                   onClick={() => handleChoosePlan(plan)}
-                  className={`w-full ${plan.plan_type === "Print_Newspaper" ? "bg-blue-500 hover:bg-blue-600" : "bg-orange-500 hover:bg-orange-600"} text-white font-bold py-2 sm:py-2.5 px-3 sm:px-4 uppercase tracking-wide transition-colors rounded-md text-xs sm:text-sm`}
+                  className="w-full bg-black hover:bg-black/90 text-white font-bold py-2 sm:py-2.5 px-3 sm:px-4 uppercase tracking-wide transition-colors rounded-md text-xs sm:text-sm"
                 >
                   CHOOSE PLAN
                 </button>
@@ -479,9 +520,9 @@ export default function SubscriptionPage() {
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
             <div className="text-center">
-              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-black/5 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
                 <svg
-                  className="w-6 h-6 sm:w-8 sm:h-8 text-yellow-600"
+                  className="w-6 h-6 sm:w-8 sm:h-8 text-black"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -502,9 +543,9 @@ export default function SubscriptionPage() {
               </p>
             </div>
             <div className="text-center">
-              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-black/5 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
                 <svg
-                  className="w-6 h-6 sm:w-8 sm:h-8 text-yellow-600"
+                  className="w-6 h-6 sm:w-8 sm:h-8 text-black"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -525,9 +566,9 @@ export default function SubscriptionPage() {
               </p>
             </div>
             <div className="text-center sm:col-span-2 md:col-span-1">
-              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-black/5 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
                 <svg
-                  className="w-6 h-6 sm:w-8 sm:h-8 text-yellow-600"
+                  className="w-6 h-6 sm:w-8 sm:h-8 text-black"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -568,6 +609,59 @@ export default function SubscriptionPage() {
           </DialogHeader>
 
           <div className="grid gap-4 py-4">
+            {(selectedPlan?.code === "C" || selectedPlan?.code === "D") && (
+              <div className="rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-sm text-gray-700">
+                This plan includes <span className="font-semibold">both</span> magazines:{" "}
+                <span className="font-semibold">Exotica</span> +{" "}
+                <span className="font-semibold">Essentia</span>.
+              </div>
+            )}
+
+            {selectedPlan?.code === "E" && (
+              <div className="rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-sm text-gray-700">
+                Services for this plan are available only in{" "}
+                <span className="font-semibold">Delhi NCR</span>.
+              </div>
+            )}
+
+            {(selectedPlan?.code === "A" || selectedPlan?.code === "B") && (
+              <div className="grid gap-2">
+                <Label className="text-gray-700">Choose Magazine *</Label>
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setMagazineOption("Exotica");
+                      if (planErrors.magazineOption) setPlanErrors({});
+                    }}
+                    className={`flex-1 border rounded-md px-3 py-2 text-sm font-semibold ${
+                      magazineOption === "Exotica"
+                        ? "bg-black text-white border-black"
+                        : "bg-white text-gray-800 border-gray-300"
+                    }`}
+                  >
+                    Exotica
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setMagazineOption("Essentia");
+                      if (planErrors.magazineOption) setPlanErrors({});
+                    }}
+                    className={`flex-1 border rounded-md px-3 py-2 text-sm font-semibold ${
+                      magazineOption === "Essentia"
+                        ? "bg-black text-white border-black"
+                        : "bg-white text-gray-800 border-gray-300"
+                    }`}
+                  >
+                    Essentia
+                  </button>
+                </div>
+                {planErrors.magazineOption && (
+                  <span className="text-red-500 text-sm">{planErrors.magazineOption}</span>
+                )}
+              </div>
+            )}
             <div className="grid gap-2">
               <Label htmlFor="phone" className="text-gray-700">
                 Mobile Number *
@@ -637,7 +731,7 @@ export default function SubscriptionPage() {
             <Button
               onClick={handleSubmit}
               disabled={isLoading}
-              className="bg-orange-500 hover:bg-orange-600 text-white"
+              className="bg-black hover:bg-black/90 text-white"
             >
               {isLoading ? "Processing..." : `Pay ₹${selectedPlan?.price || 0}`}
             </Button>

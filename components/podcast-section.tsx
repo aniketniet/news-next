@@ -24,7 +24,7 @@ export function PodcastSection({ stories }: PodcastSectionProps) {
           Podcast
         </h2>
           <div className="mt-2 h-1 w-full bg-gray-200 rounded">
-            <div className="h-full bg-[#1a59a9] rounded" style={{ width: '20%' }} />
+            <div className="h-full bg-black rounded" style={{ width: '20%' }} />
           </div>
       </div>
 
@@ -51,7 +51,7 @@ export function PodcastSection({ stories }: PodcastSectionProps) {
                   </div>
                 </div>
                 <div className="p-4">
-                  <h3 className="font-bold text-lg text-gray-900 group-hover:text-yellow-600 transition-colors duration-200 mb-2">
+                  <h3 className="font-bold text-lg text-gray-900 group-hover:text-black transition-colors duration-200 mb-2">
                     {story.title}
                   </h3>
                   <p className="text-sm text-gray-600 line-clamp-3">

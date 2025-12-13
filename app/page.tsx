@@ -31,8 +31,10 @@ import { fetchGalleryAssets, mapVideosToSectionItems } from "@/lib/api/images";
 import { EPaperDownload } from "@/components/epaper-download";
 import { ScrollToTop } from "@/components/scroll-to-top";
 import SubscriptionSlider from "@/components/SubscriptionSlider";
+import { Story } from "@/lib/api/categories";
 
 // Travel & Health & Fitness stories are derived inside HomePage from API
+
 
 // Static sports placeholders removed – dynamic mapping from API
 
@@ -145,15 +147,18 @@ export default async function HomePage() {
   console.log("Fetched Popular Stories:", popular);
 
   // Map trending news from categories API to match StorySummary format
-  const trendingNews = (categories.trending.length > 0 ? categories.trending : latest).map((s: any) => ({
-    id: s.story_id || s.id,
-    title: s.story_title || s.title,
-    category: s.section_name || s.category_name || s.category || "NEWS",
-    author: s.author_name || s.author || "",
-    publishedDate: s.published_date || s.publishedDate,
-    image: s.image_url_big || s.image || "/news-image.jpg",
-    image_url_medium: s.image_url_medium,
-    urlKey: s.url_key || s.urlKey,
+  const trendingNews = (categories.trending_news.length > 0 ? categories.trending_news || [] as Story[] : latest).map((s: any) => ({
+    id: String(s.story_id),
+    title: s.story_title,
+    category: s.section_name || s.category_name || "NEWS",
+    image: s.image_url_medium || s.image_url_big || "/news-image.jpg",
+    byline: s.author_name || "",
+    time: new Date(s.published_date).toLocaleDateString(undefined, {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    }),
+    urlKey: s.url_key || '',
   }));
 
   // Map Business category stories -> BusinessSlider shape
@@ -410,7 +415,7 @@ export default async function HomePage() {
     <div className="min-h-screen bg-white">
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-[#1a59a9] text-black px-2 py-1 rounded"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-black text-white px-2 py-1 rounded"
       >
         Skip to content
       </a>
@@ -434,33 +439,26 @@ export default async function HomePage() {
                     <Link
                       href={`/news/${story.urlKey}`}
                       onClick={ScrollToTop}
-                      className="relative block aspect-[4/3] rounded-sm w-full overflow-hidden"
+                      className="relative block aspect-4/3 rounded-sm w-full overflow-hidden"
                     >
                       <Image
-                        src={
-                          story.image_url_medium ||
-                          (story as any).image ||
-                          "/news-image.jpg"
-                        }
+                        src={(story as any).image || "/news-image.jpg"}
                         alt={story.title}
                         fill
                         className="object-cover transition-transform duration-300 group-hover:scale-105"
                         sizes="(max-width: 768px) 100vw, 50vw"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                      <div className="absolute inset-0 bg-linear-to-t from-black/70 via-transparent to-transparent" />
                       <div className="absolute bottom-4 left-4 right-4 text-white">
-                        <span className="inline-flex items-center text-[10px] uppercase tracking-wide font-bold bg-[#1a59a9] text-white px-2 py-1 rounded mb-2">
+                        <span className="inline-flex items-center text-[10px] uppercase tracking-wide font-bold bg-black text-white px-2 py-1 rounded mb-2">
                           {story.category || "NEWS"}
                         </span>
                         <h3 className="text-lg font-bold leading-tight mb-2">
                           {story.title}
                         </h3>
                         <p className="text-xs opacity-90">
-                          {story.author ? `By ${story.author} • ` : ""}
-                          {new Date(story.publishedDate).toLocaleDateString(
-                            undefined,
-                            { day: "2-digit", month: "short", year: "numeric" }
-                          )}
+                          {(story as any).byline ? `By ${(story as any).byline} • ` : ""}
+                          {(story as any).time || ""}
                         </p>
                       </div>
                     </Link>
@@ -475,20 +473,17 @@ export default async function HomePage() {
                     urlKey={story.urlKey}
                     title={story.title}
                     category={story.category || "NEWS"}
-                    image={story.image_url_medium || (story as any).image || ""}
-                    byline={story.author || ""}
-                    time={new Date(story.publishedDate).toLocaleDateString(
-                      undefined,
-                      { day: "2-digit", month: "short", year: "numeric" }
-                    )}
+                    image={(story as any).image || ""}
+                    byline={(story as any).byline || ""}
+                    time={(story as any).time || ""}
                   />
                 ))}
               </div>
               {/* Show More Link */}
              <div className="pt-2 flex justify-end">
             <Link
-              href={ "/section/trending"}
-              className="text-sm font-semibold text-[#1a59a9] hover:underline"
+              href={"/trending"}
+              className="text-sm font-semibold text-black hover:underline"
               onClick={ScrollToTop}
             >
               See more
@@ -585,6 +580,7 @@ export default async function HomePage() {
                   category: s.category,
                   image: s.image,
                   date: s.time,
+                  urlKey: s.urlKey,
                 }))}
                 title="Other Sports"
               />
@@ -601,7 +597,7 @@ export default async function HomePage() {
             <OpinionAnalysisSections
               opinion={dynamicOpinion}
               analysis={dynamicAnalysis}
-              entertainment={entertainmentStories}
+            
             />
           </div>
         </section>

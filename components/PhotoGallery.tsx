@@ -122,7 +122,7 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({
       onClick={() => handlePageChange(page)}
       className={`px-3 py-2 mx-1 rounded ${
         isActive 
-          ? 'bg-[#1a59a9] text-black font-semibold' 
+          ? 'bg-black text-white font-semibold' 
           : 'bg-white text-gray-600 hover:bg-gray-100'
       } transition-colors duration-200`}
     >
@@ -136,7 +136,7 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({
       <div className="mb-8">
         <h2 className="text-2xl font-bold text-gray-800 mb-2">Photo Gallery</h2>
           <div className="mt-2 h-1 w-full bg-gray-200 rounded">
-            <div className="h-full bg-[#1a59a9] rounded" style={{ width: '20%' }} />
+            <div className="h-full bg-black rounded" style={{ width: '20%' }} />
           </div>
       </div>
 
@@ -189,7 +189,7 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({
               
               {/* Category Tag */}
               {/* <div className="absolute top-4 left-4">
-                <span className="bg-[#1a59a9] text-black text-xs font-semibold px-3 py-1 rounded uppercase tracking-wide">
+                <span className="bg-black text-white text-xs font-semibold px-3 py-1 rounded uppercase tracking-wide">
                   {photo.category}
                 </span>
               </div> */}
@@ -263,7 +263,7 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({
                   aria-current={p === currentPage ? 'page' : undefined}
                   className={`px-3 py-2 mx-1 rounded ${
                     p === currentPage
-                      ? 'bg-[#1a59a9] text-white font-semibold'
+                      ? 'bg-black text-white font-semibold'
                       : 'bg-white text-gray-600 hover:bg-gray-100'
                   } transition-colors duration-200`}
                 >

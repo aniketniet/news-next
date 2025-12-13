@@ -19,7 +19,7 @@ export function StateEditions({ stateEditions }: StateEditionsProps) {
       <div>
         <h3 className="text-lg md:text-xl font-semibold">State Editions</h3>
         <div className="mt-2 h-1 w-full bg-gray-200 rounded">
-          <div className="h-full bg-[#1a59a9] rounded" style={{ width: '20%' }} />
+          <div className="h-full bg-black rounded" style={{ width: '20%' }} />
         </div>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 flex-1">
@@ -33,7 +33,7 @@ export function StateEditions({ stateEditions }: StateEditionsProps) {
               key={state}
               onClick={() => setActive(state)}
               className={`w-full text-left px-3 py-2 text-sm font-medium rounded transition-colors ${
-                active === state ? 'bg-[#1a59a9] text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                active === state ? 'bg-black text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
               {state}

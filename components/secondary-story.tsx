@@ -33,7 +33,7 @@ export function SecondaryStory({
         />
       </Link>
       <div className="flex-1 min-w-0">
-        <span className="inline-flex items-center text-[9px] uppercase tracking-wide font-bold bg-[#1a59a9] text-white px-1.5 py-0.5 rounded mb-1">
+        <span className="inline-flex items-center text-[9px] uppercase tracking-wide font-bold bg-black text-white px-1.5 py-0.5 rounded mb-1">
           {category}
         </span>
         <h4 className="text-sm font-semibold leading-tight mb-1 line-clamp-2">

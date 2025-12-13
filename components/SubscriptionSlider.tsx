@@ -6,20 +6,30 @@ import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import Link from 'next/link';
+import { ScrollToTop } from './scroll-to-top';
 
 export default function SubscriptionSlider() {
   const subscriptionPlans = [
     {
       id: 1,
-      image: '/sub1.png',
+      image: '/sub.png',
     },
     {
       id: 2,
-      image: '/sub2.png',
+      image: '/sub1.png',
     },
     {
       id: 3,
+      image: '/sub2.png',
+    },
+    {
+      id: 4,
       image: '/sub3.png',
+    },
+    {
+      id: 5,
+      image: '/sub4.png',
     },
 
   ];
@@ -30,7 +40,7 @@ export default function SubscriptionSlider() {
       <div className="px-3 py-2 flex-shrink-0">
         <h3 className="font-semibold text-lg">Subscription</h3>
         <div className="mt-2 h-1 w-full bg-gray-200 rounded">
-          <div className="h-full bg-[#1a59a9] rounded" style={{ width: "20%" }} />
+          <div className="h-full bg-black rounded" style={{ width: "20%" }} />
         </div>
       </div>
 
@@ -62,13 +72,15 @@ export default function SubscriptionSlider() {
         {subscriptionPlans.map((plan) => (
           <SwiperSlide key={plan.id}>
             <div className=" overflow-hidden transform transition-all duration-300  h-[300px]">
+              <Link href="/subscription"  onClick={ScrollToTop} title="Subscribe to our newsletter">
               <div className="relative h-full overflow-hidden">
                 <img
                   src={plan.image}
-                  alt={plan.title}
+                  alt="Subscribe to our newsletter"
                   className="w-full h-full object-contain"
                 />
               </div>
+              </Link>
             </div>
           </SwiperSlide>
         ))}

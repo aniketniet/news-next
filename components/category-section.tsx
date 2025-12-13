@@ -23,7 +23,7 @@ type CategorySectionProps = {
 export function CategorySection({ 
   title, 
   stories, 
-  accentColor = "bg-[#1a59a9]" 
+  accentColor = "bg-black" 
 }: CategorySectionProps) {
   if (!stories || stories.length === 0) return null
   const featuredStory = stories.find(story => story.featured) || stories[0]
@@ -36,7 +36,7 @@ export function CategorySection({
           {title}
         </h2>
            <div className="mt-2 h-1 w-full bg-gray-200 rounded">
-            <div className="h-full bg-[#1a59a9] rounded" style={{ width: '20%' }} />
+            <div className="h-full bg-black rounded" style={{ width: '20%' }} />
           </div>
       </div>
 

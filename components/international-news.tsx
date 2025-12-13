@@ -20,14 +20,14 @@ type InternationalNewsProps = {
 }
 
 const countries = [
-  { id: "1095", label: "Europe", color: "bg-[#1a59a9]" },
-  { id: "1094", label: "Australia", color: "bg-[#1a59a9]" },
-  { id: "1093", label: "Africa", color: "bg-[#1a59a9]" },
-  { id: "1092", label: "South America", color: "bg-[#1a59a9]" },
-  { id: "1091", label: "North America", color: "bg-[#1a59a9]" },
-  { id: "1090", label: "Middle East", color: "bg-[#1a59a9]" },
-  { id: "1089", label: "Asia", color: "bg-[#1a59a9]" },
-  { id: "other", label: "Other", color: "bg-[#1a59a9]" },
+  { id: "1095", label: "Europe", color: "bg-black" },
+  { id: "1094", label: "Australia", color: "bg-black" },
+  { id: "1093", label: "Africa", color: "bg-black" },
+  { id: "1092", label: "South America", color: "bg-black" },
+  { id: "1091", label: "North America", color: "bg-black" },
+  { id: "1090", label: "Middle East", color: "bg-black" },
+  { id: "1089", label: "Asia", color: "bg-black" },
+  { id: "other", label: "Other", color: "bg-black" },
 ]
 
 export function InternationalNews({ stories }: InternationalNewsProps) {
@@ -74,7 +74,7 @@ export function InternationalNews({ stories }: InternationalNewsProps) {
         </div>
 
         {/* Content area */}
-        <div className="p-4 bg-blue-50">
+        <div className="p-4 bg-gray-50">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredStories.slice(0, 6).map((story) => (
               <InternationalNewsCard

@@ -26,7 +26,7 @@ export function NewsDetailSidebar({ latestNews, popularNews }: NewsDetailSidebar
           <h2 className="text-lg font-bold text-gray-900">Latest News</h2>
           {/* Underline bar with 20% filled segment */}
           <div className="mt-2 h-1 w-full bg-gray-200 rounded">
-            <div className="h-full bg-[#1a59a9] rounded" style={{ width: '20%' }} />
+            <div className="h-full bg-black rounded" style={{ width: '20%' }} />
           </div>
         </div>
         
@@ -46,11 +46,11 @@ export function NewsDetailSidebar({ latestNews, popularNews }: NewsDetailSidebar
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="mb-1">
-                      <span className="inline-block px-2 py-0.5 text-xs font-semibold text-white bg-[#1a59a9]">
+                      <span className="inline-block px-2 py-0.5 text-xs font-semibold text-white bg-black">
                         {news.category}
                       </span>
                     </div>
-                    <h3 className="font-semibold text-sm text-gray-900 group-hover:text-[#1a59a9] transition-colors line-clamp-2 mb-1">
+                    <h3 className="font-semibold text-sm text-gray-900 group-hover:underline underline-offset-4 transition-colors line-clamp-2 mb-1">
                       {news.title}
                     </h3>
                     <p className="text-xs text-gray-500">{news.publishedAt}</p>
@@ -63,14 +63,14 @@ export function NewsDetailSidebar({ latestNews, popularNews }: NewsDetailSidebar
       </div>
 
       {/* Advertisement Section */}
-      <div className="bg-gradient-to-br from-blue-500 to-purple-600  p-6 text-white text-center">
+      <div className="bg-gradient-to-br from-black to-neutral-800 p-6 text-white text-center">
         <h3 className="text-lg font-bold mb-2">Advertisement</h3>
         <p className="text-sm opacity-90 mb-4">
           Your ad could be here. Contact us for advertising opportunities.
         </p>
         <Link 
           href="/advertise" 
-          className="inline-block px-4 py-2 bg-white text-blue-600 font-semibold  hover:bg-gray-100 transition-colors"
+          className="inline-block px-4 py-2 bg-white text-black font-semibold hover:bg-white/90 transition-colors"
         >
           Learn More
         </Link>
@@ -81,7 +81,7 @@ export function NewsDetailSidebar({ latestNews, popularNews }: NewsDetailSidebar
         <div className="bg-gray-50 px-4 py-3 border-b border-gray-200">
           <h2 className="text-lg font-bold text-gray-900">Popular News</h2>
            <div className="mt-2 h-1 w-full bg-gray-200 rounded">
-            <div className="h-full bg-[#1a59a9] rounded" style={{ width: '20%' }} />
+            <div className="h-full bg-black rounded" style={{ width: '20%' }} />
           </div>
         </div>
         
@@ -101,11 +101,11 @@ export function NewsDetailSidebar({ latestNews, popularNews }: NewsDetailSidebar
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="mb-1">
-                      <span className="inline-block px-2 py-0.5 text-xs font-semibold text-white bg-[#1a59a9] ">
+                      <span className="inline-block px-2 py-0.5 text-xs font-semibold text-white bg-black">
                         {news.category}
                       </span>
                     </div>
-                    <h3 className="font-semibold text-sm text-gray-900 group-hover:text-[#1a59a9] transition-colors line-clamp-2 mb-1">
+                    <h3 className="font-semibold text-sm text-gray-900 group-hover:underline underline-offset-4 transition-colors line-clamp-2 mb-1">
                       {news.title}
                     </h3>
                     <p className="text-xs text-gray-500">{news.publishedAt}</p>
@@ -118,7 +118,7 @@ export function NewsDetailSidebar({ latestNews, popularNews }: NewsDetailSidebar
       </div>
 
       {/* Newsletter Signup */}
-      <div className="bg-yellow-50  border border-yellow-200 p-6">
+      <div className="bg-white border border-black/10 p-6">
         <h3 className="text-lg font-bold text-gray-900 mb-2">Stay Updated</h3>
         <p className="text-sm text-gray-600 mb-4">
           Get the latest news delivered directly to your inbox.
@@ -127,11 +127,11 @@ export function NewsDetailSidebar({ latestNews, popularNews }: NewsDetailSidebar
           <input
             type="email"
             placeholder="Your email address"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1a59a9] focus:border-transparent"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
           />
           <button
             type="submit"
-            className="w-full px-4 py-2 bg-[#1a59a9] text-white font-semibold rounded-md hover:bg-yellow-600 transition-colors"
+            className="w-full px-4 py-2 bg-black text-white font-semibold rounded-md hover:bg-black/90 transition-colors"
           >
             Subscribe
           </button>

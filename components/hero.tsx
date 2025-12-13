@@ -87,7 +87,7 @@ export function Hero() {
           <h2 className="text-2xl font-bold text-gray-900">Top Stories</h2>
           <div className="mt-2 h-1 w-full bg-gray-200 rounded">
             <div
-              className="h-full bg-[#1a59a9] rounded"
+              className="h-full bg-black rounded"
               style={{ width: "20%" }}
             />
           </div>
@@ -154,7 +154,7 @@ export function Hero() {
                         )}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
                         <div className="absolute top-4 left-4 pointer-events-none">
-                          <span className="bg-[#1a59a9] text-white px-3 rounded py-1 text-xs font-semibold uppercase tracking-wide">
+                          <span className="bg-black text-white px-3 rounded py-1 text-xs font-semibold uppercase tracking-wide">
                             {story.category || "NEWS"}
                           </span>
                         </div>
@@ -212,7 +212,7 @@ export function Hero() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
                     <div className="absolute top-3 left-3">
-                      <span className="bg-[#1a59a9] text-white px-2 py-1 text-xs font-semibold rounded uppercase tracking-wide">
+                      <span className="bg-black text-white px-2 py-1 text-xs font-semibold rounded uppercase tracking-wide">
                         {story.category || "NEWS"}
                       </span>
                     </div>
@@ -265,7 +265,7 @@ export function Hero() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
                 </div>
                 <div className="flex flex-1 flex-col p-4">
-                  <span className="mb-2 inline-block w-fit rounded bg-[#1a59a9] text-white px-2 py-1 text-[10px] font-semibold tracking-wide">
+                  <span className="mb-2 inline-block w-fit rounded bg-black text-white px-2 py-1 text-[10px] font-semibold tracking-wide">
                     {story.category || "NEWS"}
                   </span>
                   <h4 className="mb-2 line-clamp-2 text-base font-semibold leading-snug text-gray-900">
@@ -273,7 +273,7 @@ export function Hero() {
                       href={`/news/${story.urlKey}`}
                        onClick={ScrollToTop}
                      
-                      className="transition-colors hover:text-[#1a59a9]"
+                      className="transition-colors hover:text-black"
                     >
                       {story.title}
                     </Link>

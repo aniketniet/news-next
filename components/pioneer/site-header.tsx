@@ -61,7 +61,7 @@ export default function SiteHeader() {
       </div>
 
       {/* Category nav */}
-      <div className="bg-[#1a59a9]">
+      <div className="bg-black">
         <nav aria-label="Primary" className="mx-auto max-w-6xl px-4 md:px-6">
           <ul className="flex flex-wrap items-center gap-x-4 gap-y-2 py-2 text-sm font-medium text-black">
             {nav.map((item) => (

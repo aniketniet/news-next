@@ -51,7 +51,7 @@ export default async function StatePage({ params, searchParams }: Props) {
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
             {stateName} Edition
           </h1>
-          <div className="h-1 w-20 bg-[#1a59a9] rounded"></div>
+          <div className="h-1 w-20 bg-black rounded"></div>
         </div>
 
         {/* Stories Grid */}

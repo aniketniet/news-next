@@ -36,7 +36,7 @@ export function ScrollToTop() {
       onClick={scrollToTop}
       className={
         "fixed right-4 bottom-4 z-50 rounded-full bg-black/70 text-white shadow-lg backdrop-blur " +
-        "hover:bg-black transition focus:outline-none focus:ring-2 focus:ring-[#1a59a9] " +
+        "hover:bg-black transition focus:outline-none focus:ring-2 focus:ring-black " +
         (visible ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none")
       }
     >

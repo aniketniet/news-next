@@ -8,14 +8,14 @@ import { fetchBreakingNews, mapBreakingTitles } from "@/lib/api/breakingNews";
 import { ProfileDropdown } from "./ProfileDropdown";
 import { useRouter, usePathname } from "next/navigation";
 import { fetchEpaper, type EpaperLanguage } from "@/lib/api/epaper";
-import { fetchStories, fetchStates, type State } from "@/lib/api/stories";
+import { fetchStates, type State } from "@/lib/api/stories";
 import Skeleton from "react-loading-skeleton";
 
 export function SiteHeader() {
   const [query, setQuery] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const { user, logout, ready } = useAuth();
+  const { user, ready } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
   const [epaperOpen, setEpaperOpen] = useState(false);
@@ -87,7 +87,7 @@ export function SiteHeader() {
     { label: "SPORTS", href: "/section/sport" },
     { label: "ENTERTAINMENT", href: "/section/entertainment" },
     { label: "OPINION", href: "/category/opinion" },
-    { label: "ANALYTICS", href: "/category/analysis" },
+    { label: "ANALYSIS", href: "/category/analysis" },
     // { label: "POLITICS", href: "/politics" },
     // { label: "EDUCATION", href: "/education" },
     { label: "STATE EDITIONS", href: "#" },
@@ -127,12 +127,12 @@ export function SiteHeader() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white shadow-sm">
+    <header className="sticky top-0 z-50 w-full bg-white">
       {/* Breaking News Ticker */}
-      <div className="bg-black border-b border-gray-800 text-xs">
+      <div className="bg-white border-b border-black/10 text-xs text-black">
         <div className="mx-auto max-w-7xl px-3 sm:px-4">
           <div className="flex items-center gap-2 sm:gap-3 py-2 overflow-hidden">
-            <span className="bg-red-600 text-white px-2 py-1 text-[10px] sm:text-xs font-bold tracking-wide whitespace-nowrap rounded">
+            <span className="bg-black text-white px-2 py-1 text-[10px] sm:text-xs font-bold tracking-wide whitespace-nowrap">
               BREAKING NEWS
             </span>
             <div className="flex-1 relative overflow-hidden">
@@ -142,18 +142,18 @@ export function SiteHeader() {
                   <Skeleton height={10} width={200} />
                 </div>
               ) : breakingItems.length ? (
-                <ul className="flex animate-[ticker_30s_linear_infinite] gap-6 whitespace-nowrap text-white">
+                <ul className="flex animate-[ticker_30s_linear_infinite] gap-6 whitespace-nowrap text-black">
                   {breakingItems.concat(breakingItems).map((item, i) => (
                     <li key={`${item.id}-${i}`} className="flex items-center">
                       <Link
                         href={`/news/${item.urlKey || item.id}`}
-                        className="hover:underline text-[11px] sm:text-sm"
+                        className="hover:underline underline-offset-4 text-[11px] sm:text-sm"
                       >
                         {item.title}
                       </Link>
                       {i % breakingItems.length !==
                         breakingItems.length - 1 && (
-                        <span className="mx-2 text-gray-400">•</span>
+                        <span className="mx-2 text-gray-500">•</span>
                       )}
                     </li>
                   ))}
@@ -167,13 +167,13 @@ export function SiteHeader() {
       </div>
 
       {/* Main Header */}
-      <div className="border-b border-gray-200">
+      <div className="border-b border-black/10">
         <div className="mx-auto max-w-7xl px-3 sm:px-4">
           <div className="flex items-center justify-between py-3 sm:py-4">
             {/* Left: Mobile Menu */}
             <div className="flex items-center gap-2 sm:gap-3 lg:flex-1">
               <button
-                className="lg:hidden text-gray-700 hover:text-black"
+                className="lg:hidden text-black/70 hover:text-black"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 aria-label="Toggle menu"
               >
@@ -203,7 +203,7 @@ export function SiteHeader() {
 
               <div className="flex flex-col gap-2">
                 {/* Date (Desktop only) */}
-                <span className="hidden lg:block text-xs text-gray-600">
+                <span className="hidden lg:block text-xs text-black/70">
                   {new Date().toLocaleDateString("en-IN", {
                     weekday: "long",
                     month: "long",
@@ -217,12 +217,12 @@ export function SiteHeader() {
                     target="_blank"
                     rel="noopener noreferrer"
                     download
-                    className="hidden lg:block text-xs font-semibold text-gray-600 hover:underline hover:text-black"
+                    className="hidden lg:block text-xs font-semibold text-black/70 hover:underline underline-offset-4 hover:text-black"
                   >
                     Today's Paper
                   </a>
                 ) : (
-                  <span className="hidden lg:block text-xs text-gray-600">
+                  <span className="hidden lg:block text-xs text-black/70">
                     Today's ePaper
                   </span>
                 )}
@@ -230,7 +230,7 @@ export function SiteHeader() {
             </div>
 
             {/* Center: Logo */}
-            <Link href="/" className="flex-shrink-0">
+            <Link href="/" className="shrink-0">
               <Image
                 src="/logo.png"
                 alt="The Pioneer"
@@ -250,7 +250,7 @@ export function SiteHeader() {
                 ) : (
                   <Link
                     href="/login"
-                    className="hidden lg:block text-xs sm:text-sm text-gray-700 hover:text-black font-medium"
+                    className="hidden lg:block text-xs sm:text-sm text-black/80 hover:text-black font-medium"
                   >
                     LOG IN
                   </Link>
@@ -258,7 +258,7 @@ export function SiteHeader() {
 
               {/* Search Icon */}
               <button
-                className="text-gray-700 hover:text-black"
+                className="text-black/70 hover:text-black"
                 onClick={() => setIsSearchOpen(!isSearchOpen)}
                 aria-label="Search"
               >
@@ -281,7 +281,7 @@ export function SiteHeader() {
             <div className="pb-3 animate-in fade-in slide-in-from-top duration-200">
               <form
                 onSubmit={onSearchSubmit}
-                className="flex items-center rounded border border-gray-300 bg-white w-full sm:max-w-2xl mx-auto"
+                className="flex items-center rounded border border-black/20 bg-white w-full sm:max-w-2xl mx-auto"
               >
                 <input
                   value={query}
@@ -292,7 +292,7 @@ export function SiteHeader() {
                 />
                 <button
                   type="submit"
-                  className="px-3 text-gray-600 hover:text-black"
+                  className="px-3 text-black/60 hover:text-black"
                 >
                   <svg
                     className="h-5 w-5"
@@ -312,17 +312,17 @@ export function SiteHeader() {
       </div>
 
       {/* Desktop Navigation */}
-      <nav className="hidden lg:block bg-[#1a59a9]">
+      <nav className="hidden lg:block bg-white border-b border-black/10">
         <div className="mx-auto max-w-7xl">
-          <ul className="flex flex-wrap items-center justify-center text-[13px] xl:text-sm text-white font-semibold">
+          <ul className="flex flex-wrap items-center justify-center text-[12px] xl:text-[13px] text-black font-medium tracking-wider">
             {categories.map((category) => {
               if (category.label === 'STATE EDITIONS') {
                 const isStateActive = pathname.startsWith('/state/');
                 return (
                   <li key={category.label} className="relative group">
                     <button
-                      className={`block px-3 py-3 hover:bg-blue-900 transition-colors ${
-                        isStateActive ? 'bg-blue-900 border-b-2 border-white' : ''
+                      className={`block px-3 py-3 hover:underline underline-offset-4 transition-colors ${
+                        isStateActive ? 'font-semibold border-b-2 border-black' : ''
                       }`}
                       onMouseEnter={() => setStateEditionsOpen(true)}
                       onMouseLeave={() => setStateEditionsOpen(false)}
@@ -340,7 +340,7 @@ export function SiteHeader() {
                             <Link
                               key={state.url_key}
                               href={`/state/${state.category_id}`}
-                              className="px-2 py-1.5 text-xs text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded transition-colors"
+                              className="px-2 py-1.5 text-xs text-gray-800 hover:bg-black/5 hover:text-black rounded transition-colors"
                               onClick={() => setStateEditionsOpen(false)}
                             >
                               {state.category_name}
@@ -357,8 +357,8 @@ export function SiteHeader() {
                 return (
                   <li key={category.label} className="relative group">
                     <button
-                      className={`block px-3 py-3 hover:bg-blue-900 transition-colors ${
-                        isEpaperActive ? 'bg-blue-900 border-b-2 border-white' : ''
+                      className={`block px-3 py-3 hover:underline underline-offset-4 transition-colors ${
+                        isEpaperActive ? 'font-semibold border-b-2 border-black' : ''
                       }`}
                       onMouseEnter={() => setEpaperOpen(true)}
                       onMouseLeave={() => setEpaperOpen(false)}
@@ -389,7 +389,7 @@ export function SiteHeader() {
                                       href={loc.pdf_url}
                                       target="_blank"
                                       rel="noopener noreferrer"
-                                      className="px-2 py-1.5 text-xs text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded transition-colors"
+                                      className="px-2 py-1.5 text-xs text-gray-800 hover:bg-black/5 hover:text-black rounded transition-colors"
                                     >
                                       {loc.location}
                                     </a>
@@ -410,8 +410,8 @@ export function SiteHeader() {
                 <li key={category.label}>
                   <Link
                     href={category.href}
-                    className={`block px-3 py-3 hover:bg-blue-900 transition-colors ${
-                      isActive(category.href) ? 'bg-blue-900 border-b-2 border-white' : ''
+                    className={`block px-3 py-3 hover:underline underline-offset-4 transition-colors ${
+                      isActive(category.href) ? 'font-semibold border-b-2 border-black' : ''
                     }`}
                   >
                     {category.label}
@@ -425,17 +425,17 @@ export function SiteHeader() {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="lg:hidden bg-white border-t border-gray-200 animate-in slide-in-from-top">
-          <div className="border-b border-gray-200 px-4 py-3">
+        <div className="lg:hidden bg-white border-t border-black/10 animate-in slide-in-from-top">
+          <div className="border-b border-black/10 px-4 py-3">
             {ready &&
               (user ? (
-                <div className="text-sm text-gray-700">
+                <div className="text-sm text-black/80">
                   Welcome, {user.name}
                 </div>
               ) : (
                 <Link
                   href="/login"
-                  className="text-sm text-gray-700 hover:text-black font-medium"
+                  className="text-sm text-black/80 hover:text-black font-medium"
                 >
                   LOG IN
                 </Link>
@@ -448,7 +448,7 @@ export function SiteHeader() {
                   <div key={category.label}>
                     <button
                       onClick={() => setMobileStateEditionsOpen(!mobileStateEditionsOpen)}
-                      className="w-full flex items-center justify-between py-2 text-gray-800 font-medium border-b border-gray-100"
+                      className="w-full flex items-center justify-between py-2 text-black font-medium border-b border-black/10"
                     >
                       <span>{category.label}</span>
                       <svg
@@ -467,7 +467,7 @@ export function SiteHeader() {
                             <Link
                               key={state.url_key}
                               href={`/state/${state.category_id}`}
-                              className="text-xs text-blue-600 hover:underline py-1"
+                              className="text-xs text-black/80 hover:underline underline-offset-4 py-1"
                               onClick={() => {
                                 setIsMenuOpen(false);
                                 setMobileStateEditionsOpen(false);
@@ -487,7 +487,7 @@ export function SiteHeader() {
                   <div key={category.label}>
                     <button
                       onClick={() => setMobileEpaperOpen(!mobileEpaperOpen)}
-                      className="w-full flex items-center justify-between py-2 text-gray-800 font-medium border-b border-gray-100"
+                      className="w-full flex items-center justify-between py-2 text-black font-medium border-b border-black/10"
                     >
                       <span>{category.label}</span>
                       <svg
@@ -518,7 +518,7 @@ export function SiteHeader() {
                                     href={loc.pdf_url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-xs text-blue-600 hover:underline py-1"
+                                    className="text-xs text-black/80 hover:underline underline-offset-4 py-1"
                                     onClick={() => setIsMenuOpen(false)}
                                   >
                                     {loc.location}
@@ -539,7 +539,7 @@ export function SiteHeader() {
                 <Link
                   key={category.label}
                   href={category.href}
-                  className="block py-2 text-gray-800 font-medium border-b border-gray-100"
+                  className="block py-2 text-black font-medium border-b border-black/10"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {category.label}

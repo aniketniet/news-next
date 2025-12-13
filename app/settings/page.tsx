@@ -52,7 +52,7 @@ export default function SettingsPage() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1a59a9] mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black mx-auto mb-4"></div>
           <p className="text-gray-600">Loading...</p>
         </div>
       </div>
@@ -67,9 +67,9 @@ export default function SettingsPage() {
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="bg-white rounded-lg shadow-lg overflow-hidden">
           {/* Settings Header */}
-          <div className="bg-gradient-to-r from-[#1a59a9] to-yellow-500 px-6 py-8">
+          <div className="bg-gradient-to-r from-black to-neutral-700 px-6 py-8">
             <div className="flex items-center space-x-6">
-              <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center text-yellow-600 font-bold text-2xl shadow-lg">
+              <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center text-black font-bold text-2xl shadow-lg">
                 <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -119,7 +119,7 @@ export default function SettingsPage() {
                     <button
                       onClick={() => setEmailNotifications(!emailNotifications)}
                       className={`relative inline-flex h-6 w-11 items-center rounded-full ${
-                        emailNotifications ? 'bg-[#1a59a9]' : 'bg-gray-200'
+                        emailNotifications ? 'bg-black' : 'bg-gray-200'
                       }`}
                     >
                       <span
@@ -138,7 +138,7 @@ export default function SettingsPage() {
                     <button
                       onClick={() => setPushNotifications(!pushNotifications)}
                       className={`relative inline-flex h-6 w-11 items-center rounded-full ${
-                        pushNotifications ? 'bg-[#1a59a9]' : 'bg-gray-200'
+                        pushNotifications ? 'bg-black' : 'bg-gray-200'
                       }`}
                     >
                       <span
@@ -157,7 +157,7 @@ export default function SettingsPage() {
                     <button
                       onClick={() => setNewsletterSubscription(!newsletterSubscription)}
                       className={`relative inline-flex h-6 w-11 items-center rounded-full ${
-                        newsletterSubscription ? 'bg-[#1a59a9]' : 'bg-gray-200'
+                        newsletterSubscription ? 'bg-black' : 'bg-gray-200'
                       }`}
                     >
                       <span
@@ -182,7 +182,7 @@ export default function SettingsPage() {
                     <button
                       onClick={() => setDarkMode(!darkMode)}
                       className={`relative inline-flex h-6 w-11 items-center rounded-full ${
-                        darkMode ? 'bg-[#1a59a9]' : 'bg-gray-200'
+                        darkMode ? 'bg-black' : 'bg-gray-200'
                       }`}
                     >
                       <span
@@ -198,7 +198,7 @@ export default function SettingsPage() {
                     <select
                       value={language}
                       onChange={(e) => setLanguage(e.target.value)}
-                      className="w-full max-w-xs px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1a59a9] focus:border-transparent"
+                      className="w-full max-w-xs px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
                     >
                       <option value="english">English</option>
                       <option value="hindi">Hindi</option>
@@ -263,7 +263,7 @@ export default function SettingsPage() {
             <div className="flex items-center justify-between pt-8 border-t border-gray-200 mt-8">
               <button
                 onClick={handleSaveSettings}
-                className="bg-[#1a59a9] hover:bg-yellow-500 text-black px-6 py-3 rounded-lg font-medium transition-colors flex items-center gap-2"
+                className="bg-black hover:bg-black/90 text-black px-6 py-3 rounded-lg font-medium transition-colors flex items-center gap-2"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />

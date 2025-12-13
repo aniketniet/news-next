@@ -13,13 +13,13 @@ type OpinionStory = {
 type OpinionAnalysisSectionsProps = {
   opinion: OpinionStory[]
   analysis: OpinionStory[]
-  entertainment: OpinionStory[]
+
 }
 
 export function OpinionAnalysisSections({ 
   opinion, 
   analysis,
-  entertainment
+
 }: OpinionAnalysisSectionsProps) {
   return (
     <section className="w-full">
@@ -33,12 +33,10 @@ export function OpinionAnalysisSections({
         <div className="lg:col-span-4">
           <OpinionSection title="Analysis" stories={analysis} />
         </div>
-        <div className="lg:col-span-4">
-          <OpinionSection title="Entertainment" stories={entertainment} />
-        </div>
+      
 
         {/* Advertisement Banner */}
-        {/* <div className="lg:col-span-4">
+        <div className="lg:col-span-4">
           <div className="sticky top-4">
             <div className="relative aspect-[3/4] w-full overflow-hidden rounded-lg bg-gradient-to-br from-green-400 to-blue-500">
               <Image
@@ -65,7 +63,7 @@ export function OpinionAnalysisSections({
               </div>
             </div>
           </div>
-        </div> */}
+        </div>
       </div>
     </section>
   )

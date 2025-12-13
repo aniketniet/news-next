@@ -215,6 +215,35 @@ export async function fetchSectionList(sectionId: number, { limit = 10, offset =
     }
 }
 
+export async function fetchTrendingNewsList(
+    { limit = 10, offset = 0 }: { limit?: number; offset?: number } = {}
+): Promise<StorySummary[]> {
+    try {
+        const { data } = await axios.get<ListEnvelope>(
+            `${BASE}/news/web/trending-news?limit=${limit}&offset=${offset}`,
+            { timeout: 15000 }
+        )
+        const arr = Array.isArray(data?.data) ? data.data : []
+        return arr.map((item: any) => ({
+            id: item.story_id,
+            title: item.story_title,
+            category: item.section_name || item.category_name || undefined,
+            author: item.author_name || undefined,
+            publishedDate: item.published_date || item.story_date,
+            image: item.image_url_big ?? item.image_name ?? null,
+            image_url_medium: item.image_url_medium || null,
+            urlKey: item.url_key,
+            video_name: item.video_name ?? null,
+            video_embed: item.video_embed ?? null,
+            external_url: item.external_url ?? null,
+            video_type: item.video_type ?? null,
+        }))
+    } catch (e) {
+        console.error('fetchTrendingNewsList error', e)
+        return []
+    }
+}
+
 export async function fetchCategoryList(categoryId: number, { limit = 10, offset = 0 }: { limit?: number; offset?: number } = {}): Promise<StorySummary[]> {
     try {
         const { data } = await axios.get<ListEnvelope>(

@@ -44,7 +44,7 @@ export function VideoCard({
         {/* Duration badge */}
         <div className="absolute bottom-2 left-2">
           <span className="bg-black/70 text-white text-xs px-2 py-1 rounded flex items-center gap-1">
-            <div className="w-2 h-2 bg-[#1a59a9] rounded-full"></div>
+            <div className="w-2 h-2 bg-black rounded-full"></div>
             {duration}
           </span>
         </div>

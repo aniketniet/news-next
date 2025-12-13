@@ -30,7 +30,7 @@ export function CategorySections({
           <CategorySection
             title="Page 1"
             stories={page1}
-            accentColor="bg-[#1a59a9]"
+            accentColor="bg-black"
           />
         )}
 
@@ -39,7 +39,7 @@ export function CategorySections({
           <CategorySection
             title="Law & Justice"
             stories={lawAndJustice}
-            accentColor="bg-[#1a59a9]"
+            accentColor="bg-black"
           />
         )}
 
@@ -48,7 +48,7 @@ export function CategorySections({
           <CategorySection
             title="Agenda"
             stories={agenda}
-            accentColor="bg-[#1a59a9]"
+            accentColor="bg-black"
           />
         )}
       </div>

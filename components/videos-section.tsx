@@ -39,7 +39,7 @@ export function VideosSection({ videos }: VideosSectionProps) {
       <div className="mb-6">
         <h2 className="text-2xl font-bold text-gray-900 pb-2 inline-block">Videos</h2>
         <div className="mt-2 h-1 w-full bg-gray-200 rounded">
-          <div className="h-full bg-[#1a59a9] rounded" style={{ width: '20%' }} />
+          <div className="h-full bg-black rounded" style={{ width: '20%' }} />
         </div>
       </div>
 

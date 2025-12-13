@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ScrollToTop } from "./scroll-to-top";
 
 interface ZodiacSign {
   name: string;
@@ -25,19 +26,20 @@ export function TarotSection({ data }: TarotSectionProps) {
           Tarot
         </h2>
           <div className="mt-2 h-1 w-full bg-gray-200 rounded">
-            <div className="h-full bg-[#1a59a9] rounded" style={{ width: '20%' }} />
+            <div className="h-full bg-black rounded" style={{ width: '20%' }} />
           </div>
       </div>
 
       <div className="space-y-4">
         {/* Zodiac signs grid */}
-        <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg p-4">
+        <div className="bg-gradient-to-br from-neutral-50 to-white rounded-lg p-4 border border-black/10">
           <div className="grid grid-cols-4 gap-3 mb-4">
             {data.signs.map((sign, index) => (
               <Link
                 key={index}
-                href={`/tarot/${sign.name.toLowerCase()}`}
-                className="group flex flex-col items-center p-2 rounded-lg bg-white hover:bg-purple-50 transition-colors duration-200 shadow-sm hover:shadow-md"
+                href={`/`}
+                onClick={ScrollToTop}
+                className="group flex flex-col items-center p-2 rounded-lg bg-white hover:bg-black/5 transition-colors duration-200 shadow-sm hover:shadow-md"
               >
                 <div className="text-xl mb-1 group-hover:scale-110 transition-transform duration-200">
                   {sign.icon}

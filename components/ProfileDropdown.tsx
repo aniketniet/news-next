@@ -29,7 +29,7 @@ export function ProfileDropdown() {
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-700 transition-colors"
       >
-        <div className="w-6 h-6 bg-[#1a59a9] rounded-full flex items-center justify-center text-white font-bold text-xs">
+        <div className="w-6 h-6 bg-black rounded-full flex items-center justify-center text-white font-bold text-xs">
           {user.name.charAt(0).toUpperCase()}
         </div>
         <span>Welcome, {user.name}</span>

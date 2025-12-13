@@ -101,7 +101,7 @@ export default function PioneerHome() {
                   />
                 </div>
                 <div className="mt-3">
-                  <span className="inline-block rounded bg-[#1a59a9] px-2 py-0.5 text-xs font-medium text-black">
+                  <span className="inline-block rounded bg-black px-2 py-0.5 text-xs font-medium text-black">
                     {item.tag}
                   </span>
                   <h3 className="mt-2 text-balance text-base font-semibold leading-snug hover:underline">

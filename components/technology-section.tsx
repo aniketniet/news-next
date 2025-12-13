@@ -31,15 +31,15 @@ export function TechnologySection({ stories, limit, seeMoreHref }: TechnologySec
           Technology
         </h2>
            <div className="mt-2 h-1 w-full bg-gray-200 rounded">
-            <div className="h-full bg-[#1a59a9] rounded" style={{ width: '20%' }} />
+            <div className="h-full bg-black rounded" style={{ width: '20%' }} />
           </div>
         {/* <div className="flex items-center gap-4">
           <input
             type="email"
             placeholder="Your email address"
-            className="px-3 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-[#1a59a9] focus:border-[#1a59a9]"
+            className="px-3 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-black focus:border-black"
           />
-          <button className="px-4 py-1 bg-[#1a59a9] text-black text-sm font-semibold rounded hover:bg-yellow-500 transition-colors">
+          <button className="px-4 py-1 bg-black text-white text-sm font-semibold rounded hover:bg-black/90 transition-colors">
             SIGN UP
           </button>
         </div> */}
@@ -61,12 +61,12 @@ export function TechnologySection({ stories, limit, seeMoreHref }: TechnologySec
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="inline-block px-2 py-1 text-xs font-semibold text-white bg-[#1a59a9] rounded">
+                    <span className="inline-block px-2 py-1 text-xs font-semibold text-white bg-black rounded">
                       {story.category}
                     </span>
                     <span className="text-xs text-gray-500">{story.date}</span>
                   </div>
-                  <h3 className="font-bold text-gray-900 group-hover:text-[#1a59a9] transition-colors duration-200 line-clamp-2 mb-2">
+                  <h3 className="font-bold text-gray-900 group-hover:text-black transition-colors duration-200 line-clamp-2 mb-2">
                     {story.title}
                   </h3>
                   <p className="text-sm text-gray-600 line-clamp-2">
@@ -81,7 +81,7 @@ export function TechnologySection({ stories, limit, seeMoreHref }: TechnologySec
           <div className="pt-2 flex justify-end">
             <Link
               href={seeMoreHref || "/section/tech"}
-              className="text-sm font-semibold text-[#1a59a9] hover:underline"
+              className="text-sm font-semibold text-black hover:underline"
               onClick={ScrollToTop}
             >
               See more

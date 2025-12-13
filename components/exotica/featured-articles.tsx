@@ -37,10 +37,10 @@ export function FeaturedArticles() {
 
   const getCategoryColor = (category: string) => {
     const colors: { [key: string]: string } = {
-      Travel: "bg-blue-600",
-      Lifestyle: "bg-purple-600",
-      Culture: "bg-green-600",
-      Food: "bg-yellow-600",
+      Travel: "bg-black",
+      Lifestyle: "bg-neutral-800",
+      Culture: "bg-neutral-700",
+      Food: "bg-neutral-600",
     };
     return colors[category] || "bg-gray-600";
   };
@@ -75,7 +75,7 @@ export function FeaturedArticles() {
                   </div>
                 </div>
                 <div className="p-6">
-                  <h3 className="font-bold text-xl mb-3 group-hover:text-orange-600 transition-colors leading-tight">
+                  <h3 className="font-bold text-xl mb-3 group-hover:underline underline-offset-4 transition-colors leading-tight">
                     {article.title}
                   </h3>
                   <p className="text-gray-600 mb-4 leading-relaxed">

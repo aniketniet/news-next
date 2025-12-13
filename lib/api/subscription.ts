@@ -38,6 +38,13 @@ export interface PaymentVerification {
   pincode: string;
   address: string;
   mobile: string;
+  razorpay_key?: string;
+  /**
+   * Optional: additional services info for subscriptions that need it.
+   * Kept as string for x-www-form-urlencoded compatibility.
+   */
+  service_names?: string; // comma-separated list
+  magazine_option?: 'Exotica' | 'Essentia' | 'Both';
 }
 
 import Cookies from 'js-cookie';
@@ -120,23 +127,30 @@ export async function createRazorpayOrder(amount: number): Promise<RazorpayOrder
 export async function verifyPayment(paymentData: PaymentVerification): Promise<boolean> {
   try {
     const token = getAuthToken();
+
+    const body = new URLSearchParams({
+      razorpay_order_id: paymentData.razorpay_order_id,
+      razorpay_payment_id: paymentData.razorpay_payment_id,
+      razorpay_signature: paymentData.razorpay_signature,
+      user_id: paymentData.user_id,
+      subscription_id: paymentData.subscription_id,
+      amount: paymentData.amount,
+      pincode: paymentData.pincode,
+      address: paymentData.address,
+      mobile: paymentData.mobile,
+    });
+
+    if (paymentData.razorpay_key) body.set('razorpay_key', paymentData.razorpay_key);
+    if (paymentData.service_names) body.set('service_names', paymentData.service_names);
+    if (paymentData.magazine_option) body.set('magazine_option', paymentData.magazine_option);
+
     const response = await fetch(`${API_BASE}/subscriptions/razorpay/verify`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: new URLSearchParams({
-        razorpay_order_id: paymentData.razorpay_order_id,
-        razorpay_payment_id: paymentData.razorpay_payment_id,
-        razorpay_signature: paymentData.razorpay_signature,
-        user_id: paymentData.user_id,
-        subscription_id: paymentData.subscription_id,
-        amount: paymentData.amount,
-        pincode: paymentData.pincode,
-        address: paymentData.address,
-        mobile: paymentData.mobile,
-      }),
+      body,
     });
 
     if (!response.ok) {

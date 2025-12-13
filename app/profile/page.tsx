@@ -62,7 +62,7 @@ export default function ProfilePage() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1a59a9] mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black mx-auto mb-4"></div>
           <p className="text-gray-600">Loading...</p>
         </div>
       </div>
@@ -78,9 +78,9 @@ export default function ProfilePage() {
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="bg-white rounded-lg shadow-lg overflow-hidden">
           {/* Profile Header */}
-          <div className="bg-gradient-to-r from-[#1a59a9] to-yellow-500 px-6 py-8">
+          <div className="bg-gradient-to-r from-black to-neutral-700 px-6 py-8">
             <div className="flex items-center space-x-6">
-              <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center text-yellow-600 font-bold text-3xl shadow-lg">
+              <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center text-black font-bold text-3xl shadow-lg">
                 {user.name.charAt(0).toUpperCase()}
               </div>
               <div className="text-white">
@@ -99,7 +99,7 @@ export default function ProfilePage() {
               {!isEditing && (
                 <button
                   onClick={() => setIsEditing(true)}
-                  className="bg-[#1a59a9] hover:bg-yellow-500 text-black px-4 py-2 rounded-lg font-medium transition-colors flex items-center gap-2"
+                  className="bg-black hover:bg-black/90 text-black px-4 py-2 rounded-lg font-medium transition-colors flex items-center gap-2"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -144,7 +144,7 @@ export default function ProfilePage() {
                       required
                       value={formData.name}
                       onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1a59a9] focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
                       placeholder="Enter your full name"
                     />
                   </div>
@@ -157,7 +157,7 @@ export default function ProfilePage() {
                       required
                       value={formData.email}
                       onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1a59a9] focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
                       placeholder="Enter your email address"
                     />
                   </div>
@@ -167,7 +167,7 @@ export default function ProfilePage() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="bg-[#1a59a9] hover:bg-yellow-500 disabled:opacity-50 text-black px-6 py-2 rounded-lg font-medium transition-colors flex items-center gap-2"
+                    className="bg-black hover:bg-black/90 disabled:opacity-50 text-black px-6 py-2 rounded-lg font-medium transition-colors flex items-center gap-2"
                   >
                     {loading ? (
                       <>
@@ -217,33 +217,33 @@ export default function ProfilePage() {
         {/* Additional Stats/Info */}
         <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-white p-6 rounded-lg shadow-lg text-center">
-            <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-3">
-              <svg className="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="w-12 h-12 bg-black/5 rounded-full flex items-center justify-center mx-auto mb-3">
+              <svg className="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
               </svg>
             </div>
             <h3 className="text-lg font-semibold text-gray-900">Articles Read</h3>
-            <p className="text-2xl font-bold text-yellow-600 mt-1">156</p>
+            <p className="text-2xl font-bold text-black mt-1">156</p>
           </div>
 
           <div className="bg-white p-6 rounded-lg shadow-lg text-center">
-            <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-3">
-              <svg className="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="w-12 h-12 bg-black/5 rounded-full flex items-center justify-center mx-auto mb-3">
+              <svg className="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
               </svg>
             </div>
             <h3 className="text-lg font-semibold text-gray-900">Bookmarks</h3>
-            <p className="text-2xl font-bold text-yellow-600 mt-1">23</p>
+            <p className="text-2xl font-bold text-black mt-1">23</p>
           </div>
 
           <div className="bg-white p-6 rounded-lg shadow-lg text-center">
-            <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-3">
-              <svg className="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="w-12 h-12 bg-black/5 rounded-full flex items-center justify-center mx-auto mb-3">
+              <svg className="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
               </svg>
             </div>
             <h3 className="text-lg font-semibold text-gray-900">Comments</h3>
-            <p className="text-2xl font-bold text-yellow-600 mt-1">45</p>
+            <p className="text-2xl font-bold text-black mt-1">45</p>
           </div>
         </div>
       </div>
