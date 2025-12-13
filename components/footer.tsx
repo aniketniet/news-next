@@ -55,6 +55,7 @@ export function SiteFooter() {
         { label: "TRENDING", href: "/trending" },
         { label: "EXOTICA", href: "/exotica" },
         { label: "PRIVACY POLICY", href: "/privacy-policy" },
+        { label: "TERMS & CONDITIONS", href: "/terms-and-conditions" },
         // { label: "SEARCH", href: "/search" },
       ],
     },

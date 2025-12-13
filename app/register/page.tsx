@@ -203,11 +203,11 @@ export default function RegisterPage() {
                   className="ml-2 block text-sm text-gray-900"
                 >
                   I agree to the{" "}
-                  <Link href="/terms" className="text-black">
+                  <Link href="/terms-and-conditions" className="text-black underline underline-offset-4">
                     Terms and Conditions
                   </Link>{" "}
                   and{" "}
-                  <Link href="/privacy" className="text-black">
+                  <Link href="/privacy-policy" className="text-black underline underline-offset-4">
                     Privacy Policy
                   </Link>
                 </label>
