@@ -41,7 +41,7 @@ export default function LoginPage() {
       setMessage(result.message);
       setMessageType("success");
       setTimeout(() => {
-        // Check if there's a redirect URL stored (e.g., from subscription page)
+       
         const redirectUrl = sessionStorage.getItem("redirectAfterLogin");
         if (redirectUrl) {
           sessionStorage.removeItem("redirectAfterLogin");
