@@ -93,7 +93,7 @@ export function SiteHeader() {
     { label: "STATE EDITIONS", href: "#" },
     { label: "E-PAPER", href: "/e-paper" },
     { label: "TECH", href: "/section/tech" },
-    { label: "EXOTICA", href: "/exotica" },
+    { label: "EXOTICA", href: "/Exotica%20Combined%20PDF%20(Nov-2025).pdf", target: "_blank" },
   ] as const;
 
   const isActive = (href: string) => {
@@ -410,6 +410,7 @@ export function SiteHeader() {
                 <li key={category.label}>
                   <Link
                     href={category.href}
+                    target={(category as any).target}
                     className={`block px-3 py-3 hover:underline underline-offset-4 transition-colors ${
                       isActive(category.href) ? 'font-semibold border-b-2 border-black' : ''
                     }`}
@@ -539,6 +540,7 @@ export function SiteHeader() {
                 <Link
                   key={category.label}
                   href={category.href}
+                  target={(category as any).target}
                   className="block py-2 text-black font-medium border-b border-black/10"
                   onClick={() => setIsMenuOpen(false)}
                 >
