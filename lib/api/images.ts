@@ -105,13 +105,13 @@ export function mapVideosToSectionItems(videos: VideoApiItem[]) {
   };
   
   return videos.map(v => {
-    const poster = v.image_name ? `https://dailypioneer.com/uploads/vgallery/${v.image_name}` : '/video-news.png';
+    const poster = v.image_name ? `https://dailypioneer.com.com/uploads/vgallery/${v.image_name}` : '/video-news.png';
     
     // Determine source type based on video_type field from API
     const isFileType = v.video_type?.toUpperCase() === 'FILE';
     const isEmbedType = v.video_type?.toUpperCase() === 'EMBED';
     
-    const fileSrc = isFileType && v.video_name ? `https://dailypioneer.com/uploads/vgallery/${v.video_name}` : undefined;
+    const fileSrc = isFileType && v.video_name ? `https://dailypioneer.com.com/uploads/vgallery/${v.video_name}` : undefined;
     const embedUrl = isEmbedType ? convertYouTubeUrl(v.video_embed || v.external_url || undefined) : undefined;
     
     const sourceType: 'file' | 'embed' = isFileType ? 'file' : 'embed';

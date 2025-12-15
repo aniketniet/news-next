@@ -65,7 +65,7 @@ export function Hero() {
     if (isFileType && story.video_name) {
       return {
         type: 'file',
-        url: `https://dailypioneer.com/uploads/2025/story/video/${story.video_name}`
+        url: `https://dailypioneer.com.com/uploads/2025/story/video/${story.video_name}`
       };
     }
     
