@@ -1,11 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
 import Image from "next/image";
-import { signIn } from "next-auth/react";
+import Cookies from "js-cookie";
+
+declare global {
+  interface Window {
+    google?: any;
+  }
+}
 
 export default function LoginPage() {
   const [formData, setFormData] = useState({
@@ -55,6 +61,129 @@ export default function LoginPage() {
       setMessageType("error");
     }
   };
+
+  // Google Login
+  useEffect(() => {
+    const clientId =
+      "533417526050-5501uovhe4u42783b1t7q0ac664jtaq9.apps.googleusercontent.com";
+
+    const handleGoogleCallback = async (response: any) => {
+      try {
+        const idToken = response.credential;
+        if (!idToken) return;
+
+        // Call Next.js API route which proxies to the backend
+        const res = await fetch("/api/auth/google", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ id_token: idToken }),
+        });
+
+        if (!res.ok) {
+          setMessage("Google sign-in failed. Please try again.");
+          setMessageType("error");
+          return;
+        }
+
+        const data = await res.json();
+
+        // Persist session similar to AuthContext.persistSession
+        const container =
+          data?.data && (data.data.token || data.data.user || data.data.access_token)
+            ? data.data
+            : data;
+
+        const token: string | undefined =
+          container.token || container.access_token;
+        const tokenType: string | undefined =
+          container.token_type || data.token_type || "Bearer";
+        const expiresIn: number | undefined =
+          container.expires_in || data.expires_in;
+        const userObj = container.user || data.user || {};
+
+        const userData = {
+          id: String(userObj.id || "1"),
+          name: userObj.name || "User",
+          email: userObj.email || "",
+        };
+
+        if (token) {
+          const opts: any = {
+            sameSite: "lax",
+            secure:
+              typeof window !== "undefined" &&
+              window.location.protocol === "https:",
+          };
+          if (expiresIn && !isNaN(expiresIn)) {
+            opts.expires = new Date(Date.now() + expiresIn * 1000);
+          }
+          Cookies.set("auth_token", token, opts);
+          Cookies.set("auth_token_type", tokenType || "Bearer", opts);
+        }
+        if (typeof window !== "undefined") {
+          window.localStorage.setItem("user_data", JSON.stringify(userData));
+        }
+
+        setMessage("Successfully signed in with Google");
+        setMessageType("success");
+
+        setTimeout(() => {
+          const redirectUrl = sessionStorage.getItem("redirectAfterLogin");
+          if (redirectUrl) {
+            sessionStorage.removeItem("redirectAfterLogin");
+            router.push(redirectUrl);
+          } else {
+            router.push("/");
+          }
+        }, 1000);
+      } catch (error) {
+        console.error("Google login error:", error);
+        setMessage("An unexpected error occurred. Please try again.");
+        setMessageType("error");
+      }
+    };
+
+    const initializeGoogleSignIn = () => {
+      if (!window.google || !window.google.accounts || !window.google.accounts.id)
+        return;
+
+      window.google.accounts.id.initialize({
+        client_id: clientId,
+        callback: handleGoogleCallback,
+      });
+
+      const buttonContainer = document.getElementById("googleSignInButton");
+      if (buttonContainer) {
+        window.google.accounts.id.renderButton(buttonContainer, {
+          type: "standard",
+          theme: "outline",
+          size: "large",
+          width: "350",
+        });
+      }
+    };
+
+    // Load Google Identity Services script
+    const scriptId = "google-identity-services";
+    if (document.getElementById(scriptId)) {
+      initializeGoogleSignIn();
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.src = "https://accounts.google.com/gsi/client";
+    script.async = true;
+    script.defer = true;
+    script.id = scriptId;
+    script.onload = initializeGoogleSignIn;
+    document.body.appendChild(script);
+
+    return () => {
+      // Cleanup is minimal; Google script can stay for the session
+    };
+  }, [router]);
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -245,19 +374,7 @@ export default function LoginPage() {
             </div>
 
             <div className="mt-6">
-              <button
-                type="button"
-                onClick={() => signIn('google', { callbackUrl: '/' })}
-                className="w-full inline-flex items-center justify-center gap-2 py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="20" height="20">
-                  <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12 s5.373-12,12-12c3.059,0,5.842,1.154,7.949,3.051l5.657-5.657C33.531,6.053,28.973,4,24,4C12.955,4,4,12.955,4,24 s8.955,20,20,20s20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/>
-                  <path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,16.131,18.961,13,24,13c3.059,0,5.842,1.154,7.949,3.051l5.657-5.657 C33.531,6.053,28.973,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/>
-                  <path fill="#4CAF50" d="M24,44c4.917,0,9.39-1.875,12.769-4.936l-5.897-5.001C29.845,35.723,27.082,37,24,37 c-5.202,0-9.619-3.317-11.283-7.946l-6.51,5.02C9.505,39.556,16.227,44,24,44z"/>
-                  <path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.131,5.563 c0.001-0.001,0.002-0.001,0.003-0.002l5.897,5.001C35.852,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/>
-                </svg>
-                <span>Continue with Google</span>
-              </button>
+              <div className="w-full flex justify-center" id="googleSignInButton" />
             </div>
           </div>
         </div>
