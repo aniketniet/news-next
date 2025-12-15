@@ -42,6 +42,7 @@ interface AuthContextType {
   updateProfile: (profileData: UpdateProfileData) => Promise<ApiResult>;
   refreshProfile: () => Promise<void>;
   logout: () => void;
+  setSession: (user: User) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -356,6 +357,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const setSession = (userData: User) => {
+    setUser(userData);
+    localStorage.setItem("user_data", JSON.stringify(userData));
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -369,6 +375,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         updateProfile: updateUserProfile,
         refreshProfile,
         logout,
+        setSession,
       }}
     >
       {children}

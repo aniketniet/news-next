@@ -20,6 +20,7 @@ type InternationalNewsProps = {
 }
 
 const countries = [
+  { id: "other", label: "Other", color: "bg-black" },
   { id: "1095", label: "Europe", color: "bg-black" },
   { id: "1094", label: "Australia", color: "bg-black" },
   { id: "1093", label: "Africa", color: "bg-black" },
@@ -27,18 +28,17 @@ const countries = [
   { id: "1091", label: "North America", color: "bg-black" },
   { id: "1090", label: "Middle East", color: "bg-black" },
   { id: "1089", label: "Asia", color: "bg-black" },
-  { id: "other", label: "Other", color: "bg-black" },
 ]
 
 export function InternationalNews({ stories }: InternationalNewsProps) {
   // Default to 'Other' tab per user request
-  const [activeCountry, setActiveCountry] = useState("other")
+  const [activeCountry, setActiveCountry] = useState("1089")
 
   // console.log("International News Stories:", stories)
 // 
-  const knownIds = useMemo(() => countries.map(c => c.id).filter(id => id !== "other"), [])
+  const knownIds = useMemo(() => countries.map(c => c.id).filter(id => id !== "1089"), [])
   const filteredStories = useMemo(() => {
-    if (activeCountry === "other") {
+    if (activeCountry === "1089") {
       return stories.filter(story => !knownIds.includes(String(story.country)))
     }
     return stories.filter(story => String(story.country) === String(activeCountry))

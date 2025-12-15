@@ -21,7 +21,7 @@ export default function LoginPage() {
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState<"success" | "error" | "">("");
 
-  const { login, loading } = useAuth();
+  const { login, loading, setSession } = useAuth();
   const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -125,6 +125,9 @@ export default function LoginPage() {
         if (typeof window !== "undefined") {
           window.localStorage.setItem("user_data", JSON.stringify(userData));
         }
+
+        // Update AuthContext state
+        setSession(userData);
 
         setMessage("Successfully signed in with Google");
         setMessageType("success");
