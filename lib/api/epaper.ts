@@ -14,7 +14,7 @@ export type EpaperResponse = {
   data: EpaperLanguage[];
 };
 
-const DEFAULT_BASE = "http://72.61.238.250/api";
+const DEFAULT_BASE = "https://dailypioneer.com/api";
 
 export async function fetchEpaper(): Promise<EpaperLanguage[]> {
   const base = process.env.NEXT_PUBLIC_API_URL || DEFAULT_BASE;

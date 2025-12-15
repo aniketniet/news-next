@@ -17,7 +17,7 @@ type Props = {
   }>;
 };
 
-const DAILYPIONEER_BASE = "http://72.61.238.250/";
+const DAILYPIONEER_BASE = "https://dailypioneer.com/";
 
 function normalizeImageUrl(raw?: string): string | "" {
   if (!raw) return "";

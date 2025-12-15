@@ -8,7 +8,7 @@ const nextConfig = {
   },
   images: {
     unoptimized: true,
-    domains: ["http://72.61.238.250", "http://72.61.238.250"],
+    domains: ["https://dailypioneer.com", "https://dailypioneer.com"],
   },
 };
 
