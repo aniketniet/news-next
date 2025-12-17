@@ -346,7 +346,7 @@ export default function SubscriptionPage() {
       });
 
       if (verificationResult) {
-        alert("Payment successful! Your subscription is now active.");
+        alert("Your Request has been received ! Contact Soon.");
         setIsModalOpen(false);
         setSelectedPlan(null);
         setFormData({
@@ -355,7 +355,7 @@ export default function SubscriptionPage() {
           address: "",
         });
       } else {
-        alert("Payment verification failed. Please contact support.");
+        alert("Request failed. Please contact support.");
       }
 
       setIsLoading(false);
@@ -734,7 +734,7 @@ export default function SubscriptionPage() {
               disabled={isLoading}
               className="bg-black hover:bg-black/90 text-white"
             >
-              {isLoading ? "Processing..." : `Pay ₹${selectedPlan?.price || 0}`}
+              {isLoading ? "Processing..." : `Submit`}
             </Button>
           </DialogFooter>
         </DialogContent>
