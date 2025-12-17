@@ -271,24 +271,25 @@ export default function SubscriptionPage() {
     try {
       // Create Razorpay order - send amount in rupees
       const amountInRupees = selectedPlan.price;
-      const orderData = await createRazorpayOrder(amountInRupees);
+      // const orderData = await createRazorpayOrder(amountInRupees);
 
       // Razorpay checkout is disabled. Run verify API directly using static Razorpay values.
       const STATIC_RAZORPAY_KEY =
-        process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || orderData.key || "rzp_key_static";
+        process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "rzp_key_static";
       const STATIC_RAZORPAY_PAYMENT_ID = "pay_static";
       const STATIC_RAZORPAY_SIGNATURE = "sig_static";
+      const STATIC_RAZORPAY_ORDER_ID = "order_static";
 
       // ---------------------------------------------
       // Razorpay Checkout (commented / reference only)
       // ---------------------------------------------
       // const options = {
-      //   key: orderData.key,
-      //   amount: orderData.amount,
-      //   currency: orderData.currency,
+      //   key: STATIC_RAZORPAY_KEY,
+      //   amount: amountInRupees,
+      //   currency: "INR",
       //   name: "The Pioneer",
       //   description: `${selectedPlan.name} - ${selectedPlan.description}`,
-      //   order_id: orderData.id,
+      //   order_id: STATIC_RAZORPAY_ORDER_ID,
       //   prefill: {
       //     name: user?.name || "",
       //     email: user?.email || "",
@@ -327,7 +328,7 @@ export default function SubscriptionPage() {
       })();
 
       const verificationResult = await verifyPayment({
-        razorpay_order_id: orderData.id,
+        razorpay_order_id: STATIC_RAZORPAY_ORDER_ID,
         razorpay_payment_id: STATIC_RAZORPAY_PAYMENT_ID,
         razorpay_signature: STATIC_RAZORPAY_SIGNATURE,
         user_id: user?.id || "",
