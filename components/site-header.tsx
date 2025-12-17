@@ -10,6 +10,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { fetchEpaper, type EpaperLanguage } from "@/lib/api/epaper";
 import { fetchStates, type State } from "@/lib/api/stories";
 import Skeleton from "react-loading-skeleton";
+import { GoogleOneTap } from "./GoogleOneTap";
 
 export function SiteHeader() {
   const [query, setQuery] = useState("");
@@ -127,7 +128,10 @@ export function SiteHeader() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white">
+    <>
+      {/* Global Google One Tap overlay for unauthenticated users */}
+      <GoogleOneTap />
+      <header className="sticky top-0 z-50 w-full bg-white">
       {/* Breaking News Ticker */}
       <div className="bg-white border-b border-black/10 text-xs text-black">
         <div className="mx-auto max-w-7xl px-3 sm:px-4">
@@ -563,7 +567,8 @@ export function SiteHeader() {
         }
       `}</style>
       {/* Helper for Delhi edition selection */}
-    </header>
+      </header>
+    </>
   );
 }
 
