@@ -22,18 +22,18 @@ interface TarotSectionProps {
 export function TarotSection({ data }: TarotSectionProps) {
   return (
     <div className="space-y-6">
-      <div>
+      {/* <div>
         <h2 className="text-2xl font-bold text-gray-900 pb-1">
           Tarot
         </h2>
           <div className="mt-2 h-1 w-full bg-gray-200 rounded">
             <div className="h-full bg-black rounded" style={{ width: '20%' }} />
           </div>
-      </div>
+      </div> */}
 
       <div className="space-y-4">
         {/* Zodiac signs grid */}
-        <div className="bg-linear-to-br from-neutral-50 to-white rounded-lg p-4 border border-black/10">
+        {/* <div className="bg-linear-to-br from-neutral-50 to-white rounded-lg p-4 border border-black/10">
           <div className="grid grid-cols-4 gap-3">
             {data.signs.map((sign, index) => (
               <Link
@@ -51,7 +51,7 @@ export function TarotSection({ data }: TarotSectionProps) {
               </Link>
             ))}
           </div>
-        </div>
+        </div> */}
 
         {/* Tarot promotional card */}
         {/* <div className="relative overflow-hidden rounded-lg border border-black/10 shadow-sm hover:shadow-md transition-shadow">
