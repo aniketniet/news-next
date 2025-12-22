@@ -3,6 +3,7 @@ import { SiteFooter } from "@/components/footer"
 import Link from "next/link"
 import Image from "next/image"
 import { fetchSectionList, fetchTrendingNewsList } from "@/lib/api/stories"
+import { getCategoriesNormalized } from "@/lib/api/categories"
 import { resolveSectionId } from "@/lib/taxonomy"
 import { notFound } from "next/navigation"
 
@@ -19,7 +20,31 @@ export default async function SectionListingPage({ params, searchParams }: Props
   const normalizedSlug = slug.toLowerCase()
   const isTrending = normalizedSlug === "trending" || normalizedSlug === "trending-news"
 
-  const sectionId = isTrending ? undefined : resolveSectionId(slug)
+  let sectionId = isTrending ? undefined : resolveSectionId(slug)
+
+  // Fallback for sections that exist on the homepage but aren't in taxonomy.ts yet.
+  // We infer their numeric section_id from the category-news payload.
+  if (!isTrending && !sectionId) {
+    const categories = await getCategoriesNormalized({ limit: 12, offset: 0, noCache: true })
+    const fallbackMap: Record<string, { title: string; sectionId?: number }> = {
+      page1: {
+        title: "Page 1",
+        sectionId: categories.page1?.[0]?.section_id,
+      },
+      "law-and-justice": {
+        title: "Law & Justice",
+        sectionId: categories.lawAndJustice?.[0]?.section_id,
+      },
+      agenda: {
+        title: "Agenda",
+        sectionId: categories.agenda?.[0]?.section_id,
+      },
+    }
+
+    const fallback = fallbackMap[normalizedSlug]
+    sectionId = fallback?.sectionId
+  }
+
   if (!isTrending && !sectionId) notFound()
 
   const items = isTrending

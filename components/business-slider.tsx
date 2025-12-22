@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import Link from "next/link"
 import { BusinessCard } from "./business-card"
 import {
   Carousel,
@@ -8,6 +9,7 @@ import {
   CarouselItem,
   type CarouselApi,
 } from "@/components/ui/carousel"
+import { ScrollToTop } from "./scroll-to-top"
 
 type BusinessStory = {
   id: string
@@ -21,9 +23,10 @@ type BusinessStory = {
 type BusinessSliderProps = {
   stories: BusinessStory[]
   title?: string
+  seeMoreHref?: string
 }
 
-export function BusinessSlider({ stories, title }: BusinessSliderProps) {
+export function BusinessSlider({ stories, title, seeMoreHref }: BusinessSliderProps) {
   const [api, setApi] = React.useState<CarouselApi | null>(null)
   const [current, setCurrent] = React.useState(0)
   const [count, setCount] = React.useState(0)
@@ -53,29 +56,40 @@ export function BusinessSlider({ stories, title }: BusinessSliderProps) {
     <section className="w-full">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold text-gray-900 pb-2">{title}</h2>
-        <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={() => api?.scrollPrev()}
-            disabled={!canPrev}
-            className="p-1 rounded transition disabled:opacity-30 disabled:cursor-not-allowed hover:bg-gray-100"
-            aria-label="Previous"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-          <button
-            type="button"
-            onClick={() => api?.scrollNext()}
-            disabled={!canNext}
-            className="p-1 rounded transition disabled:opacity-30 disabled:cursor-not-allowed hover:bg-gray-100"
-            aria-label="Next"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
+        <div className="flex items-center gap-3">
+          {seeMoreHref && (
+            <Link
+              href={seeMoreHref}
+              className="text-sm font-semibold text-black hover:underline"
+              onClick={ScrollToTop}
+            >
+              See more
+            </Link>
+          )}
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => api?.scrollPrev()}
+              disabled={!canPrev}
+              className="p-1 rounded transition disabled:opacity-30 disabled:cursor-not-allowed hover:bg-gray-100"
+              aria-label="Previous"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button
+              type="button"
+              onClick={() => api?.scrollNext()}
+              disabled={!canNext}
+              className="p-1 rounded transition disabled:opacity-30 disabled:cursor-not-allowed hover:bg-gray-100"
+              aria-label="Next"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
 

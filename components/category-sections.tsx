@@ -31,6 +31,7 @@ export function CategorySections({
             title="Page 1"
             stories={page1}
             accentColor="bg-black"
+            seeMoreHref="/section/page1"
           />
         )}
 
@@ -40,6 +41,7 @@ export function CategorySections({
             title="Law & Justice"
             stories={lawAndJustice}
             accentColor="bg-black"
+            seeMoreHref="/section/law-and-justice"
           />
         )}
 
@@ -49,6 +51,7 @@ export function CategorySections({
             title="Agenda"
             stories={agenda}
             accentColor="bg-black"
+            seeMoreHref="/section/agenda"
           />
         )}
       </div>

@@ -84,6 +84,7 @@ export function SiteHeader() {
     { label: "INDIA", href: "/section/india" },
     { label: "DELHI", href: "/category/delhi" },
     { label: "BUSINESS", href: "/section/business" },
+    { label: "IMPACT", href: "/section/impact" },
     { label: "WORLD", href: "/section/world" },
     { label: "SPORTS", href: "/section/sport" },
     { label: "ENTERTAINMENT", href: "/section/entertainment" },

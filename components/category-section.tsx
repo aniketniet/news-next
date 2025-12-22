@@ -18,12 +18,16 @@ type CategorySectionProps = {
   title: string
   stories: CategoryStory[]
   accentColor?: string
+  seeMoreHref?: string
+  seeMorePlacement?: "left" | "right"
 }
 
 export function CategorySection({ 
   title, 
   stories, 
-  accentColor = "bg-black" 
+  accentColor = "bg-black",
+  seeMoreHref,
+  seeMorePlacement = "right",
 }: CategorySectionProps) {
   if (!stories || stories.length === 0) return null
   const featuredStory = stories.find(story => story.featured) || stories[0]
@@ -32,9 +36,35 @@ export function CategorySection({
   return (
     <section className="w-full">
       <div className="mb-4">
-        <h2 className="text-xl font-bold text-gray-900 inline-block">
-          {title}
-        </h2>
+        {seeMorePlacement === "left" ? (
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <h2 className="text-xl font-bold text-gray-900 inline-block">{title}</h2>
+              {seeMoreHref && (
+                <Link
+                  href={seeMoreHref}
+                  className="text-sm font-semibold text-black hover:underline"
+                  onClick={ScrollToTop}
+                >
+                  See more
+                </Link>
+              )}
+            </div>
+          </div>
+        ) : (
+          <div className="flex items-center justify-between">
+            <h2 className="text-xl font-bold text-gray-900 inline-block">{title}</h2>
+            {seeMoreHref && (
+              <Link
+                href={seeMoreHref}
+                className="text-sm font-semibold text-black hover:underline"
+                onClick={ScrollToTop}
+              >
+                See more
+              </Link>
+            )}
+          </div>
+        )}
            <div className="mt-2 h-1 w-full bg-gray-200 rounded">
             <div className="h-full bg-black rounded" style={{ width: '20%' }} />
           </div>

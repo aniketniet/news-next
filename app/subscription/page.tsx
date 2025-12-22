@@ -61,6 +61,47 @@ interface UserFormData {
 
 type MagazineOption = "Exotica" | "Essentia" | "Both";
 
+const BLOCKED_PINS = new Set([
+  // Greater Noida
+  "201310", // OMICRON 2, GAMMA 2, KASNA
+  "201312", // G B UNIVERSITY
+  "203201", // DANKOR
+  // Noida
+  "201301", // SECTOR 46, SECTOR 44 AMARPALI, SECTOR 143, SEC 168
+  "201305", // SECTOR 137
+  // Noida Extension
+  "201318", // MAHAGUN MART, GAUR CITY
+  "201309", // AJNARA LEE GARDEN
+  "201009", // ARIHANT ARDEN, PRATIK GRAND SEC 12 GHAZIABAD
+  "201306", // PANCHSHEEL GREEN
+  "201307", // CLEO COUNTY SEC 121
+  // Ghaziabad
+  "201013", // GOVINDPURAM
+  // Gurgaon
+  "122101", // BADSHAHPUR
+  "122052", // IMT MANESAR & SECTOR-1
+  "122103", // SOHNA
+  "122102", // BHONDSI
+  "123501", // BAWAL CHOWK GURGAON
+  "122413", // RAO HOTEL PACHGAWA MANESAR
+  // South Delhi
+  "110010", // SUBROTO PARK DEPOT
+]);
+
+function isDelhiNCRPincodeAllowed(pincode: string) {
+  if (!/^\d{6}$/.test(pincode)) return false;
+  if (BLOCKED_PINS.has(pincode)) return false;
+
+  const pin = Number(pincode);
+  const isDelhi = pin >= 110001 && pin <= 110099;
+  const isGurgaon = pin >= 122001 && pin <= 122499;
+  const isNoida = pin >= 201301 && pin <= 201318;
+  const isGhaziabad = pin >= 201001 && pin <= 201014;
+  const isFaridabad = pin >= 121001 && pin <= 121013;
+
+  return isDelhi || isGurgaon || isNoida || isGhaziabad || isFaridabad;
+}
+
 export default function SubscriptionPage() {
   const { user } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -77,40 +118,31 @@ export default function SubscriptionPage() {
   const [errors, setErrors] = useState<Partial<UserFormData>>({});
   const [planErrors, setPlanErrors] = useState<{ magazineOption?: string }>({});
 
-  // No Service Area Pincodes - These areas are not serviceable
-  const noServiceAreaPincodes = useMemo(() => [
-    // Greater Noida
-    "201310", // OMICRON 2, GAMMA 2, KASNA
-    "201312", // G B UNIVERSITY
-    "203201", // DANKOR
-    // Noida
-    "201301", // SECTOR 46, SECTOR 44 AMARPALI, SECTOR 143, SEC 168
-    "201305", // SECTOR 137
-    // Noida Extension
-    "201318", // MAHAGUN MART, GAUR CITY
-    "201309", // AJNARA LEE GARDEN
-    "201009", // ARIHANT ARDEN, PRATIK GRAND SEC 12 GHAZIABAD
-    "201306", // PANCHSHEEL GREEN
-    "201307", // CLEO COUNTY SEC 121
-    // Ghaziabad
-    "201013", // GOVINDPURAM
-    // Gurgaon
-    "122101", // BADSHAHPUR
-    "122052", // IMT MANESAR & SECTOR-1
-    "122103", // SOHNA
-    "122102", // BHONDSI
-    "123501", // BAWAL CHOWK GURGAON
-    "122413", // RAO HOTEL PACHGAWA MANESAR
-    // South Delhi
-    "110010", // SUBROTO PARK DEPOT
-  ], []);
+  const pincodeTrimmed = formData.pincode.trim();
+  const isPincodeComplete = /^\d{6}$/.test(pincodeTrimmed);
+  const isPincodeBlocked = isPincodeComplete && BLOCKED_PINS.has(pincodeTrimmed);
+  const isDelhiNCRAllowed = isPincodeComplete && isDelhiNCRPincodeAllowed(pincodeTrimmed);
 
-  // Check if pincode is serviceable
+  // Serviceability depends on plan:
+  // - All plans: blocked pincodes are not serviceable
+  // - Plan E: only Delhi NCR pincodes are allowed
   const isPincodeServiceable = useMemo(() => {
-    const pincode = formData.pincode.trim();
-    if (pincode.length !== 6) return true; // Don't show error until 6 digits entered
-    return !noServiceAreaPincodes.includes(pincode);
-  }, [formData.pincode, noServiceAreaPincodes]);
+    if (!isPincodeComplete) return true; // don't show feedback until 6 digits entered
+    if (isPincodeBlocked) return false;
+    if (selectedPlan?.code === "E") return isDelhiNCRAllowed;
+    return true;
+  }, [isPincodeComplete, isPincodeBlocked, isDelhiNCRAllowed, selectedPlan?.code]);
+
+  const pincodeHelperMessage = useMemo(() => {
+    if (!isPincodeComplete) return "";
+    if (isPincodeBlocked) {
+      return "Sorry, no subscription plans are currently available for your location. This area is not serviceable.";
+    }
+    if (selectedPlan?.code === "E" && !isDelhiNCRAllowed) {
+      return "Not serviceable area: Plan E (News-only) is available only for Delhi NCR pincodes.";
+    }
+    return "";
+  }, [isPincodeComplete, isPincodeBlocked, isDelhiNCRAllowed, selectedPlan?.code]);
 
   // Color classes for plans
   const planColors = [
@@ -221,18 +253,20 @@ export default function SubscriptionPage() {
       newErrors.phone = "Phone must be 10 digits";
     }
 
-    if (!formData.pincode.trim()) {
+    const pincode = formData.pincode.trim();
+
+    if (!pincode) {
       newErrors.pincode = "Pincode is required";
-    } else if (!/^\d{6}$/.test(formData.pincode)) {
+    } else if (!/^\d{6}$/.test(pincode)) {
       newErrors.pincode = "Pincode must be 6 digits";
-    } else if (noServiceAreaPincodes.includes(formData.pincode.trim())) {
+    } else if (BLOCKED_PINS.has(pincode)) {
       newErrors.pincode = "Sorry, no subscription plans are currently available for your location. This area is not serviceable.";
-    } else if (selectedPlan?.code === "E" && formData.pincode.trim() !== "122001") {
-      newErrors.pincode = "Plan E (News-only) is available only for area pincode 122001.";
+    } else if (selectedPlan?.code === "E" && !isDelhiNCRPincodeAllowed(pincode)) {
+      newErrors.pincode = "Not serviceable area: Plan E (News-only) is available only for Delhi NCR pincodes.";
     }
 
     // Only validate address if pincode is serviceable
-    if (isPincodeServiceable && formData.pincode.length === 6) {
+    if (isPincodeServiceable && pincode.length === 6) {
       if (!formData.address.trim()) {
         newErrors.address = "Address is required";
       }
@@ -696,10 +730,13 @@ export default function SubscriptionPage() {
               {errors.pincode && (
                 <span className="text-red-500 text-sm">{errors.pincode}</span>
               )}
+              {!errors.pincode && pincodeHelperMessage && (
+                <span className="text-red-500 text-sm">{pincodeHelperMessage}</span>
+              )}
             </div>
 
             {/* Only show address field if pincode is serviceable */}
-            {isPincodeServiceable && formData.pincode.length === 6 && (
+            {isPincodeServiceable && isPincodeComplete && (
               <div className="grid gap-2">
                 <Label htmlFor="address" className="text-gray-700">
                   Delivery Address *

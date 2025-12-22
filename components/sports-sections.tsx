@@ -14,13 +14,15 @@ type SportsSectionsProps = {
   football: SportsStory[]
   hockey: SportsStory[]
   otherSports: SportsStory[]
+  seeMoreHref?: string
 }
 
 export function SportsSections({ 
   cricket, 
   football, 
   hockey,
-  otherSports 
+  otherSports,
+  seeMoreHref,
 }: SportsSectionsProps) {
   const hasCricket = Array.isArray(cricket) && cricket.length > 0
   const hasFootball = Array.isArray(football) && football.length > 0
@@ -36,9 +38,9 @@ export function SportsSections({
     <section className="w-full space-y-8">
       {(hasCricket || hasFootball || hasHockey) && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {hasCricket && <SportsSection title="Cricket" stories={cricket} />}
-          {hasFootball && <SportsSection title="Football" stories={football} />}
-          {hasHockey && <SportsSection title="Hockey" stories={hockey} />}
+          {hasCricket && <SportsSection title="Cricket" stories={cricket} seeMoreHref={seeMoreHref} />}
+          {hasFootball && <SportsSection title="Football" stories={football} seeMoreHref={seeMoreHref} />}
+          {hasHockey && <SportsSection title="Hockey" stories={hockey} seeMoreHref={seeMoreHref} />}
         </div>
       )}
     </section>

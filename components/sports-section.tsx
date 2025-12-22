@@ -1,7 +1,9 @@
 'use client'
 import { useRef } from "react"
+import Link from "next/link"
 import { SecondaryStory } from "./secondary-story"
 import { ChevronUp, ChevronDown } from "lucide-react"
+import { ScrollToTop } from "./scroll-to-top"
 
 type SportsStory = {
   id: string
@@ -16,9 +18,10 @@ type SportsStory = {
 type SportsSectionProps = {
   title: string
   stories: SportsStory[]
+  seeMoreHref?: string
 }
 
-export function SportsSection({ title, stories }: SportsSectionProps) {
+export function SportsSection({ title, stories, seeMoreHref }: SportsSectionProps) {
   const listRef = useRef<HTMLDivElement | null>(null)
 
   const scrollByAmount = (amount: number) => {
@@ -34,21 +37,32 @@ export function SportsSection({ title, stories }: SportsSectionProps) {
       {/* Header with title and navigation (match Opinion) */}
       <div className="flex items-center justify-between p-4 border-b border-gray-200">
         <h3 className="text-lg font-bold text-gray-900 border-b-2 border-black pb-1">{title}</h3>
-        <div className="flex items-center gap-1">
-          <button
-            className="p-1 hover:bg-gray-100 rounded transition-colors"
-            aria-label="Scroll up"
-            onClick={() => scrollByAmount(-300)}
-          >
-            <ChevronUp className="w-4 h-4 text-gray-600" />
-          </button>
-          <button
-            className="p-1 hover:bg-gray-100 rounded transition-colors"
-            aria-label="Scroll down"
-            onClick={() => scrollByAmount(300)}
-          >
-            <ChevronDown className="w-4 h-4 text-gray-600" />
-          </button>
+        <div className="flex items-center gap-2">
+          {seeMoreHref && (
+            <Link
+              href={seeMoreHref}
+              className="text-sm font-semibold text-black hover:underline"
+              onClick={ScrollToTop}
+            >
+              See more
+            </Link>
+          )}
+          <div className="flex items-center gap-1">
+            <button
+              className="p-1 hover:bg-gray-100 rounded transition-colors"
+              aria-label="Scroll up"
+              onClick={() => scrollByAmount(-300)}
+            >
+              <ChevronUp className="w-4 h-4 text-gray-600" />
+            </button>
+            <button
+              className="p-1 hover:bg-gray-100 rounded transition-colors"
+              aria-label="Scroll down"
+              onClick={() => scrollByAmount(300)}
+            >
+              <ChevronDown className="w-4 h-4 text-gray-600" />
+            </button>
+          </div>
         </div>
       </div>
 

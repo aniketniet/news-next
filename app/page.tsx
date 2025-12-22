@@ -516,6 +516,7 @@ export default async function HomePage() {
             <BusinessSlider
               stories={businessStoriesMapped}
               title="Business & Money"
+              seeMoreHref="/section/business"
             />
           </div>
         </section>
@@ -523,15 +524,15 @@ export default async function HomePage() {
         {/* International News */}
         <section id="section-world" className="px-3 md:px-6 py-6 scroll-mt-24">
           <div className="mx-auto w-full max-w-6xl">
-            <InternationalNews stories={internationalWorldStories} />
+            <InternationalNews stories={internationalWorldStories} seeMoreHref="/section/world" />
           </div>
         </section>
 
         {/* Impact Slider (repurposed carousel) */}
         {impactStoriesMapped.length > 0 && (
-          <section className="px-3 md:px-6 py-6">
+          <section id="section-impact" className="px-3 md:px-6 py-6 scroll-mt-24">
             <div className="mx-auto w-full max-w-6xl">
-              <BusinessSlider stories={impactStoriesMapped} title="Impact" />
+              <BusinessSlider stories={impactStoriesMapped} title="Impact" seeMoreHref="/section/impact" />
             </div>
           </section>
         )}
@@ -540,7 +541,7 @@ export default async function HomePage() {
         {entertainmentStories.length > 0 && (
           <section id="section-entertainment" className="px-3 md:px-6 py-6 scroll-mt-24">
             <div className="mx-auto w-full max-w-6xl">
-              <BusinessSlider stories={entertainmentStories} title="Entertainment" />
+              <BusinessSlider stories={entertainmentStories} title="Entertainment" seeMoreHref="/section/entertainment" />
             </div>
           </section>
         )}
@@ -565,6 +566,7 @@ export default async function HomePage() {
               football={footballStories}
               hockey={hockeyStories}
               otherSports={otherSportsStories}
+              seeMoreHref="/section/sport"
             />
           </div>
         </section>
@@ -583,6 +585,7 @@ export default async function HomePage() {
                   urlKey: s.urlKey,
                 }))}
                 title="Other Sports"
+                seeMoreHref="/section/sport"
               />
             </div>
           </section>
@@ -598,6 +601,8 @@ export default async function HomePage() {
             <OpinionAnalysisSections
               opinion={dynamicOpinion}
               analysis={dynamicAnalysis}
+              opinionSeeMoreHref="/category/opinion"
+              analysisSeeMoreHref="/category/analysis"
             
             />
           </div>

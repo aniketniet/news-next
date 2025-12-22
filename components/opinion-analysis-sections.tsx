@@ -13,12 +13,16 @@ type OpinionStory = {
 type OpinionAnalysisSectionsProps = {
   opinion: OpinionStory[]
   analysis: OpinionStory[]
+  opinionSeeMoreHref?: string
+  analysisSeeMoreHref?: string
 
 }
 
 export function OpinionAnalysisSections({ 
   opinion, 
   analysis,
+  opinionSeeMoreHref,
+  analysisSeeMoreHref,
 
 }: OpinionAnalysisSectionsProps) {
   return (
@@ -26,12 +30,12 @@ export function OpinionAnalysisSections({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Opinion Section */}
         <div className="lg:col-span-4">
-          <OpinionSection title="Opinion" stories={opinion} />
+          <OpinionSection title="Opinion" stories={opinion} seeMoreHref={opinionSeeMoreHref} />
         </div>
 
         {/* Analysis Section */}
         <div className="lg:col-span-4">
-          <OpinionSection title="Analysis" stories={analysis} />
+          <OpinionSection title="Analysis" stories={analysis} seeMoreHref={analysisSeeMoreHref} />
         </div>
       
 
@@ -40,14 +44,14 @@ export function OpinionAnalysisSections({
           <div className="sticky top-4">
             <div className="relative aspect-[3/4] w-full overflow-hidden rounded-lg bg-gradient-to-br from-green-400 to-blue-500">
               <Image
-                src="/generic-advertisement.png"
+                src="/exceed.jpg"
                 alt="Advertisement"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 33vw"
               />
              
-              <div className="absolute inset-0 bg-gradient-to-br from-green-400/90 to-blue-500/90 flex flex-col justify-center items-center text-white p-6">
+              {/* <div className="absolute inset-0 bg-gradient-to-br from-green-400/90 to-blue-500/90 flex flex-col justify-center items-center text-white p-6">
                 <div className="text-center space-y-4">
                   <h3 className="text-2xl font-bold">SMILE</h3>
                   <p className="text-lg">WITH STRENGTH</p>
@@ -60,7 +64,7 @@ export function OpinionAnalysisSections({
                     <span className="bg-red-500 text-white text-xs px-2 py-1 rounded">NEW</span>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

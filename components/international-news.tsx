@@ -1,8 +1,10 @@
 "use client"
 
 import { useMemo, useState } from "react"
+import Link from "next/link"
 import { InternationalNewsCard } from "./international-news-card"
 import { cn } from "@/lib/utils"
+import { ScrollToTop } from "./scroll-to-top"
 
 type InternationalNewsStory = {
   id: string
@@ -17,6 +19,7 @@ type InternationalNewsStory = {
 
 type InternationalNewsProps = {
   stories: InternationalNewsStory[]
+  seeMoreHref?: string
 }
 
 const countries = [
@@ -30,7 +33,7 @@ const countries = [
   { id: "1089", label: "Asia", color: "bg-black" },
 ]
 
-export function InternationalNews({ stories }: InternationalNewsProps) {
+export function InternationalNews({ stories, seeMoreHref }: InternationalNewsProps) {
   // Default to 'Other' tab per user request
   const [activeCountry, setActiveCountry] = useState("1089")
 
@@ -54,21 +57,32 @@ export function InternationalNews({ stories }: InternationalNewsProps) {
             <h2 className="text-xl font-bold text-gray-900">
               International News
             </h2>
-            <div className="flex items-center gap-1">
-              {countries.map((country) => (
-                <button
-                  key={country.id}
-                  onClick={() => setActiveCountry(country.id)}
-                  className={cn(
-                    "px-3 py-1.5 text-sm font-medium rounded transition-colors duration-200",
-                    activeCountry === country.id
-                      ? country.color + " text-white"
-                      : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                  )}
+            <div className="flex items-center gap-3">
+              {seeMoreHref && (
+                <Link
+                  href={seeMoreHref}
+                  className="text-sm font-semibold text-black hover:underline"
+                  onClick={ScrollToTop}
                 >
-                  {country.label}
-                </button>
-              ))}
+                  See more
+                </Link>
+              )}
+              <div className="flex items-center gap-1">
+                {countries.map((country) => (
+                  <button
+                    key={country.id}
+                    onClick={() => setActiveCountry(country.id)}
+                    className={cn(
+                      "px-3 py-1.5 text-sm font-medium rounded transition-colors duration-200",
+                      activeCountry === country.id
+                        ? country.color + " text-white"
+                        : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                    )}
+                  >
+                    {country.label}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </div>
