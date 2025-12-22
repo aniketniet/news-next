@@ -1,7 +1,6 @@
 "use client"
 
 import * as React from "react"
-import Link from "next/link"
 import { BusinessCard } from "./business-card"
 import {
   Carousel,
@@ -9,7 +8,7 @@ import {
   CarouselItem,
   type CarouselApi,
 } from "@/components/ui/carousel"
-import { ScrollToTop } from "./scroll-to-top"
+import { ScrollToTopLink } from "./scroll-to-top-link"
 
 type BusinessStory = {
   id: string
@@ -58,13 +57,12 @@ export function BusinessSlider({ stories, title, seeMoreHref }: BusinessSliderPr
         <h2 className="text-2xl font-bold text-gray-900 pb-2">{title}</h2>
         <div className="flex items-center gap-3">
           {seeMoreHref && (
-            <Link
+            <ScrollToTopLink
               href={seeMoreHref}
               className="text-sm font-semibold text-black hover:underline"
-              onClick={ScrollToTop}
             >
               See more
-            </Link>
+            </ScrollToTopLink>
           )}
           <div className="flex items-center gap-2">
             <button

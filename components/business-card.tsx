@@ -1,7 +1,6 @@
 import Image from "next/image"
-import Link from "next/link"
 import { cn } from "@/lib/utils"
-import { ScrollToTop } from "./scroll-to-top"
+import { ScrollToTopLink } from "./scroll-to-top-link"
 
 type BusinessCardProps = {
   id: string
@@ -24,7 +23,7 @@ export function BusinessCard({
 }: BusinessCardProps) {
   return (
     <article className={cn("group", className)}>
-      <Link href={`/news/${urlKey}`} onClick={ScrollToTop} className="block">
+      <ScrollToTopLink href={`/news/${urlKey}`} className="block">
         <div className="relative aspect-[4/3] w-full overflow-hidden rounded-sm mb-3">
           <Image
             src={image}
@@ -46,7 +45,7 @@ export function BusinessCard({
             {title}
           </h3>
         </div>
-      </Link>
+      </ScrollToTopLink>
     </article>
   )
 }

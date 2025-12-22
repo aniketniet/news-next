@@ -6,8 +6,7 @@ import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import Link from 'next/link';
-import { ScrollToTop } from './scroll-to-top';
+import { ScrollToTopLink } from './scroll-to-top-link';
 
 export default function SubscriptionSlider() {
   const subscriptionPlans = [
@@ -72,7 +71,7 @@ export default function SubscriptionSlider() {
         {subscriptionPlans.map((plan) => (
           <SwiperSlide key={plan.id}>
             <div className=" overflow-hidden transform transition-all duration-300  h-[300px]">
-              <Link href="/subscription"  onClick={ScrollToTop} title="Subscribe to our newsletter">
+              <ScrollToTopLink href="/subscription" title="Subscribe to our newsletter">
               <div className="relative h-full overflow-hidden">
                 <img
                   src={plan.image}
@@ -80,7 +79,7 @@ export default function SubscriptionSlider() {
                   className="w-full h-full object-contain"
                 />
               </div>
-              </Link>
+              </ScrollToTopLink>
             </div>
           </SwiperSlide>
         ))}

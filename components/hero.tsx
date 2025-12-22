@@ -10,7 +10,7 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { ScrollToTop } from "./scroll-to-top";
+import { ScrollToTopLink } from "./scroll-to-top-link";
 
 // Hero now client-fetches top stories and shows skeletons while loading
 
@@ -160,13 +160,12 @@ export function Hero() {
                         </div>
                         <div className="absolute bottom-0 left-0 right-0 p-6 text-white pointer-events-none">
                           <h3 className="text-2xl lg:text-3xl font-bold leading-tight mb-2 pointer-events-auto">
-                            <Link
+                            <ScrollToTopLink
                               href={`/news/${story.urlKey }`}
-                               onClick={ScrollToTop}
                               className="hover:underline hover:text-white transition-colors pointer-events-auto"
                             >
                               {story.title}
-                            </Link>
+                            </ScrollToTopLink>
                           </h3>
                           <div className="flex items-center text-sm text-white/80 pointer-events-none">
                             {story.author && (
@@ -218,13 +217,12 @@ export function Hero() {
                     </div>
                     <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
                       <h4 className="text-lg font-semibold leading-tight mb-2 line-clamp-2">
-                        <Link
+                        <ScrollToTopLink
                           href={`/news/${story.urlKey }`}
-                           onClick={ScrollToTop}
                           className="hover:underline hover:text-white transition-colors"
                         >
                           {story.title}
-                        </Link>
+                        </ScrollToTopLink>
                       </h4>
                       <div className="flex items-center text-xs text-white/80">
                         {story.author && <span>{story.author}</span>}
@@ -269,14 +267,12 @@ export function Hero() {
                     {story.category || "NEWS"}
                   </span>
                   <h4 className="mb-2 line-clamp-2 text-base font-semibold leading-snug text-gray-900">
-                    <Link
+                    <ScrollToTopLink
                       href={`/news/${story.urlKey}`}
-                       onClick={ScrollToTop}
-                     
                       className="transition-colors hover:text-black"
                     >
                       {story.title}
-                    </Link>
+                    </ScrollToTopLink>
                   </h4>
                   <div className="mt-auto flex items-center text-xs text-gray-500">
                     {story.author && <span>{story.author}</span>}

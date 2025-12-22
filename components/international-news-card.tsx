@@ -1,7 +1,6 @@
 import Image from "next/image"
-import Link from "next/link"
 import { cn } from "@/lib/utils"
-import { ScrollToTop } from "./scroll-to-top"
+import { ScrollToTopLink } from "./scroll-to-top-link"
 
 type InternationalNewsCardProps = {
   id: string
@@ -27,7 +26,7 @@ export function InternationalNewsCard({
 
   return (
     <article className={cn("group", className)}>
-      <Link href={`/news/${urlKey }`} onClick={ScrollToTop} className="block">
+      <ScrollToTopLink href={`/news/${urlKey }`} className="block">
         <div className="relative aspect-[16/10] w-full rounded-sm overflow-hidden  mb-3">
           <Image
             src={image}
@@ -53,7 +52,7 @@ export function InternationalNewsCard({
             <span className="uppercase font-medium">{source}</span>
           </div>
         </div>
-      </Link>
+      </ScrollToTopLink>
     </article>
   )
 }

@@ -1,6 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
-import { ScrollToTop } from "./scroll-to-top";
+import { ScrollToTopLink } from "./scroll-to-top-link";
 
 interface TechnologyStory {
   id: string;
@@ -48,7 +47,7 @@ export function TechnologySection({ stories, limit, seeMoreHref }: TechnologySec
       <div className="space-y-4">
         {visibleStories.map((story) => (
           <article key={story.id} className="group cursor-pointer">
-            <Link href={`/news/${story.urlKey || story.id}`} onClick={ScrollToTop} className="block">
+            <ScrollToTopLink href={`/news/${story.urlKey || story.id}`} className="block">
               <div className="flex gap-4 p-4  hover:bg-gray-50 transition-colors duration-200">
                 <div className="relative w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden">
                   <Image
@@ -74,18 +73,17 @@ export function TechnologySection({ stories, limit, seeMoreHref }: TechnologySec
                   </p>
                 </div>
               </div>
-            </Link>
+            </ScrollToTopLink>
           </article>
         ))}
         {hasMore && (
           <div className="pt-2 flex justify-end">
-            <Link
+            <ScrollToTopLink
               href={seeMoreHref || "/section/tech"}
               className="text-sm font-semibold text-black hover:underline"
-              onClick={ScrollToTop}
             >
               See more
-            </Link>
+            </ScrollToTopLink>
           </div>
         )}
       </div>

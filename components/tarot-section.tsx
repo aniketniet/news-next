@@ -1,7 +1,4 @@
-import Image from "next/image";
-import Link from "next/link";
 import { AdvertiseSection } from "./advertise-section";
-import { ScrollToTop } from "./scroll-to-top";
 
 interface ZodiacSign {
   name: string;

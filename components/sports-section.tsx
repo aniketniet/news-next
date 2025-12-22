@@ -1,9 +1,8 @@
 'use client'
 import { useRef } from "react"
-import Link from "next/link"
 import { SecondaryStory } from "./secondary-story"
 import { ChevronUp, ChevronDown } from "lucide-react"
-import { ScrollToTop } from "./scroll-to-top"
+import { ScrollToTopLink } from "./scroll-to-top-link"
 
 type SportsStory = {
   id: string
@@ -39,13 +38,12 @@ export function SportsSection({ title, stories, seeMoreHref }: SportsSectionProp
         <h3 className="text-lg font-bold text-gray-900 border-b-2 border-black pb-1">{title}</h3>
         <div className="flex items-center gap-2">
           {seeMoreHref && (
-            <Link
+            <ScrollToTopLink
               href={seeMoreHref}
               className="text-sm font-semibold text-black hover:underline"
-              onClick={ScrollToTop}
             >
               See more
-            </Link>
+            </ScrollToTopLink>
           )}
           <div className="flex items-center gap-1">
             <button

@@ -1,10 +1,9 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import Link from "next/link"
 import { InternationalNewsCard } from "./international-news-card"
 import { cn } from "@/lib/utils"
-import { ScrollToTop } from "./scroll-to-top"
+import { ScrollToTopLink } from "./scroll-to-top-link"
 
 type InternationalNewsStory = {
   id: string
@@ -59,13 +58,12 @@ export function InternationalNews({ stories, seeMoreHref }: InternationalNewsPro
             </h2>
             <div className="flex items-center gap-3">
               {seeMoreHref && (
-                <Link
+                <ScrollToTopLink
                   href={seeMoreHref}
                   className="text-sm font-semibold text-black hover:underline"
-                  onClick={ScrollToTop}
                 >
                   See more
-                </Link>
+                </ScrollToTopLink>
               )}
               <div className="flex items-center gap-1">
                 {countries.map((country) => (

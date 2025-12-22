@@ -1,7 +1,6 @@
 import Image from "next/image"
-import Link from "next/link"
 import { SecondaryStory } from "./secondary-story"
-import { ScrollToTop } from "./scroll-to-top"
+import { ScrollToTopLink } from "./scroll-to-top-link"
 
 type CategoryStory = {
   id: string
@@ -41,13 +40,12 @@ export function CategorySection({
             <div className="flex items-center gap-3">
               <h2 className="text-xl font-bold text-gray-900 inline-block">{title}</h2>
               {seeMoreHref && (
-                <Link
+                <ScrollToTopLink
                   href={seeMoreHref}
                   className="text-sm font-semibold text-black hover:underline"
-                  onClick={ScrollToTop}
                 >
                   See more
-                </Link>
+                </ScrollToTopLink>
               )}
             </div>
           </div>
@@ -55,13 +53,12 @@ export function CategorySection({
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-bold text-gray-900 inline-block">{title}</h2>
             {seeMoreHref && (
-              <Link
+              <ScrollToTopLink
                 href={seeMoreHref}
                 className="text-sm font-semibold text-black hover:underline"
-                onClick={ScrollToTop}
               >
                 See more
-              </Link>
+              </ScrollToTopLink>
             )}
           </div>
         )}
@@ -73,7 +70,7 @@ export function CategorySection({
       {/* Featured Story */}
       <div className="mb-6">
         <article className="relative group">
-          <Link href={`/news/${featuredStory.urlKey || featuredStory.id}`} onClick={ScrollToTop} className="block">
+          <ScrollToTopLink href={`/news/${featuredStory.urlKey || featuredStory.id}`} className="block">
             <div className="relative aspect-[16/9] w-full overflow-hidden rounded-sm  mb-3">
               <Image
                 src={featuredStory.image}
@@ -96,7 +93,7 @@ export function CategorySection({
                 </p>
               </div>
             </div>
-          </Link>
+          </ScrollToTopLink>
         </article>
       </div>
 

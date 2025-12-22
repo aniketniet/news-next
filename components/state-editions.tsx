@@ -1,8 +1,7 @@
 "use client"
-import Link from "next/link"
 import { StorySummary } from "@/lib/api/stories"
 import { useState } from "react"
-import { ScrollToTop } from "./scroll-to-top"
+import { ScrollToTopLink } from "./scroll-to-top-link"
 
 interface StateEditionsProps {
   stateEditions?: Record<string, StorySummary[] | undefined>
@@ -46,9 +45,9 @@ export function StateEditions({ stateEditions }: StateEditionsProps) {
               <article className="space-y-2">
                 <h4 className="text-base font-semibold leading-tight">
                   {activeStories[0] && (
-                    <Link href={`/news/${activeStories[0].urlKey || activeStories[0].id}`} onClick={ScrollToTop} className="hover:text-blue-600">
+                    <ScrollToTopLink href={`/news/${activeStories[0].urlKey || activeStories[0].id}`} className="hover:text-blue-600">
                       {activeStories[0].title}
-                    </Link>
+                    </ScrollToTopLink>
                   )}
                 </h4>
                 <p className="text-xs text-gray-600">
@@ -58,9 +57,9 @@ export function StateEditions({ stateEditions }: StateEditionsProps) {
               <div className="space-y-3">
                 {activeStories.slice(1).map(s => (
                   <h5 key={s.id} className="text-sm font-medium leading-tight">
-                    <Link href={`/news/${s.urlKey || s.id}`} onClick={ScrollToTop} className="hover:text-blue-600">
+                    <ScrollToTopLink href={`/news/${s.urlKey || s.id}`} className="hover:text-blue-600">
                       {s.title}
-                    </Link>
+                    </ScrollToTopLink>
                   </h5>
                 ))}
               </div>

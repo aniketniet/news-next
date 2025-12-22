@@ -29,7 +29,7 @@ import { fetchStories } from "@/lib/api/stories";
 import { getCategoriesNormalized } from "@/lib/api/categories";
 import { fetchGalleryAssets, mapVideosToSectionItems } from "@/lib/api/images";
 import { EPaperDownload } from "@/components/epaper-download";
-import { ScrollToTop } from "@/components/scroll-to-top";
+import { ScrollToTopLink } from "@/components/scroll-to-top-link";
 import SubscriptionSlider from "@/components/SubscriptionSlider";
 import { Story } from "@/lib/api/categories";
 
@@ -436,9 +436,8 @@ export default async function HomePage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {trendingNews.slice(0, 2).map((story, i) => (
                   <article key={i} className="relative group">
-                    <Link
+                    <ScrollToTopLink
                       href={`/news/${story.urlKey}`}
-                      onClick={ScrollToTop}
                       className="relative block aspect-4/3 rounded-sm w-full overflow-hidden"
                     >
                       <Image
@@ -461,7 +460,7 @@ export default async function HomePage() {
                           {(story as any).time || ""}
                         </p>
                       </div>
-                    </Link>
+                    </ScrollToTopLink>
                   </article>
                 ))}
               </div>
@@ -481,13 +480,12 @@ export default async function HomePage() {
               </div>
               {/* Show More Link */}
              <div className="pt-2 flex justify-end">
-            <Link
-              href={"/trending"}
-              className="text-sm font-semibold text-black hover:underline"
-              onClick={ScrollToTop}
-            >
-              See more
-            </Link>
+              <ScrollToTopLink
+                href={"/trending"}
+                className="text-sm font-semibold text-black hover:underline"
+              >
+                See more
+              </ScrollToTopLink>
           </div>
             </div>
             {/* Right: Sidebar */}
