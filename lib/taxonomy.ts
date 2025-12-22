@@ -4,7 +4,7 @@ export const SECTION_SLUG_TO_ID: Record<string, number> = {
   world: 1024,
   sport: 1027,
   tech: 1052,
-  entertainment: 1028,
+  entertainment: 1051,
   trending:1046,
   impact:1045,
   page1:1031,
