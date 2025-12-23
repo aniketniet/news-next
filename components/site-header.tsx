@@ -438,12 +438,14 @@ export function SiteHeader() {
                           >
                             EXOTICA
                           </a>
-                          <button
-                            onClick={(e) => e.preventDefault()}
-                            className="block w-full text-left px-4 py-2 text-xs text-gray-800 hover:bg-black/5 hover:text-black transition-colors cursor-default"
+                          <a
+                            href="/FRESH_Dec_25.pdf"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="block px-4 py-2 text-xs text-gray-800 hover:bg-black/5 hover:text-black transition-colors"
                           >
                             FRESH
-                          </button>
+                          </a>
                           <a
                             href="/Essentia_DECEMBER.pdf"
                             target="_blank"
@@ -619,14 +621,18 @@ export function SiteHeader() {
                         >
                           EXOTICA
                         </a>
-                        <button
-                          onClick={(e) => {
-                            e.preventDefault();
+                        <a
+                          href="/FRESH_Dec_25.pdf"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="block text-xs text-black/80 hover:underline underline-offset-4 py-1"
+                          onClick={() => {
+                            setIsMenuOpen(false);
+                            setMobileMagazineOpen(false);
                           }}
-                          className="block w-full text-left text-xs text-black/80 py-1"
                         >
                           FRESH
-                        </button>
+                        </a>
                         <a
                           href="/Essentia_DECEMBER.pdf"
                           target="_blank"
