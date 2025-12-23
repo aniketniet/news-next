@@ -23,6 +23,8 @@ export function SiteHeader() {
   const [mobileEpaperOpen, setMobileEpaperOpen] = useState(false);
   const [stateEditionsOpen, setStateEditionsOpen] = useState(false);
   const [mobileStateEditionsOpen, setMobileStateEditionsOpen] = useState(false);
+  const [magazineOpen, setMagazineOpen] = useState(false);
+  const [mobileMagazineOpen, setMobileMagazineOpen] = useState(false);
   const [epaperLoading, setEpaperLoading] = useState(false);
   const [epaperError, setEpaperError] = useState<string | null>(null);
   const [epaperData, setEpaperData] = useState<EpaperLanguage[] | null>(null);
@@ -95,7 +97,7 @@ export function SiteHeader() {
     { label: "STATE EDITIONS", href: "#" },
     { label: "E-PAPER", href: "/e-paper" },
     { label: "TECH", href: "/section/tech" },
-    { label: "EXOTICA", href: "/Exotica%20Combined%20PDF%20(Nov-2025).pdf", target: "_blank" },
+    { label: "MAGAZINE", href: "#" },
   ] as const;
 
   const isActive = (href: string) => {
@@ -411,6 +413,51 @@ export function SiteHeader() {
                   </li>
                 );
               }
+              if (category.label === 'MAGAZINE') {
+                return (
+                  <li key={category.label} className="relative group">
+                    <button
+                      className="block px-3 py-3 hover:underline underline-offset-4 transition-colors"
+                      onMouseEnter={() => setMagazineOpen(true)}
+                      onMouseLeave={() => setMagazineOpen(false)}
+                    >
+                      {category.label}
+                    </button>
+                    {magazineOpen && (
+                      <div
+                        className="absolute left-0 top-full bg-white shadow-lg rounded-b-lg min-w-[150px] z-50"
+                        onMouseEnter={() => setMagazineOpen(true)}
+                        onMouseLeave={() => setMagazineOpen(false)}
+                      >
+                        <div className="py-2">
+                          <a
+                            href="/Exotica_December_25.pdf"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="block px-4 py-2 text-xs text-gray-800 hover:bg-black/5 hover:text-black transition-colors"
+                          >
+                            EXOTICA
+                          </a>
+                          <button
+                            onClick={(e) => e.preventDefault()}
+                            className="block w-full text-left px-4 py-2 text-xs text-gray-800 hover:bg-black/5 hover:text-black transition-colors cursor-default"
+                          >
+                            FRESH
+                          </button>
+                          <a
+                            href="/Essentia_DECEMBER.pdf"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="block px-4 py-2 text-xs text-gray-800 hover:bg-black/5 hover:text-black transition-colors"
+                          >
+                            ESSENTIA
+                          </a>
+                        </div>
+                      </div>
+                    )}
+                  </li>
+                );
+              }
               return (
                 <li key={category.label}>
                   <Link
@@ -536,6 +583,62 @@ export function SiteHeader() {
                         ) : (
                           <div className="text-sm text-gray-600">No e-paper available</div>
                         )}
+                      </div>
+                    )}
+                  </div>
+                );
+              }
+              if (category.label === 'MAGAZINE') {
+                return (
+                  <div key={category.label}>
+                    <button
+                      onClick={() => setMobileMagazineOpen(!mobileMagazineOpen)}
+                      className="w-full flex items-center justify-between py-2 text-black font-medium border-b border-black/10"
+                    >
+                      <span>{category.label}</span>
+                      <svg
+                        className={`w-4 h-4 transition-transform ${mobileMagazineOpen ? 'rotate-180' : ''}`}
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                    {mobileMagazineOpen && (
+                      <div className="pl-4 py-2 space-y-1">
+                        <a
+                          href="/Exotica_December_25.pdf"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="block text-xs text-black/80 hover:underline underline-offset-4 py-1"
+                          onClick={() => {
+                            setIsMenuOpen(false);
+                            setMobileMagazineOpen(false);
+                          }}
+                        >
+                          EXOTICA
+                        </a>
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
+                          className="block w-full text-left text-xs text-black/80 py-1"
+                        >
+                          FRESH
+                        </button>
+                        <a
+                          href="/Essentia_DECEMBER.pdf"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="block text-xs text-black/80 hover:underline underline-offset-4 py-1"
+                          onClick={() => {
+                            setIsMenuOpen(false);
+                            setMobileMagazineOpen(false);
+                          }}
+                        >
+                          ESSENTIA
+                        </a>
                       </div>
                     )}
                   </div>
