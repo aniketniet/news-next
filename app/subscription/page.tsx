@@ -177,7 +177,11 @@ export default function SubscriptionPage() {
     return apiPlans.map((plan, index) => {
       const originalPrice = parseFloat(plan.price);
       const sellingPrice = parseFloat(plan.selling_price);
-      const discountPercent = Math.round(((originalPrice - sellingPrice) / originalPrice) * 100);
+      const rawDiscountPercent =
+        Number.isFinite(originalPrice) && originalPrice > 0 && Number.isFinite(sellingPrice)
+          ? ((originalPrice - sellingPrice) / originalPrice) * 100
+          : 0;
+      const discountPercent = Math.max(0, Math.trunc(rawDiscountPercent * 100) / 100);
       
       // Parse features from points JSON
       let features: string[] = [];
@@ -449,7 +453,7 @@ export default function SubscriptionPage() {
                   <div className="text-xl sm:text-2xl font-extrabold">₹{plan.price}</div>
                 </div>
                 <div className="text-xs uppercase tracking-wide font-semibold">
-                  {plan.discountPercent}% OFF
+                  {plan.discountPercent.toFixed(2)}% OFF
                 </div>
               </div>
 
@@ -509,7 +513,7 @@ export default function SubscriptionPage() {
                   <div className="text-xl sm:text-2xl font-extrabold">₹{plan.price}</div>
                 </div>
                 <div className="text-xs uppercase tracking-wide font-semibold">
-                  {plan.discountPercent}% OFF
+                  {plan.discountPercent.toFixed(2)}% OFF
                 </div>
               </div>
 
