@@ -574,7 +574,7 @@ export default async function HomePage() {
                 seeMoreHref="/section/agenda"
               />
 
-              <AdvertiseSection />
+              <AdvertiseSection src="/exceed.jpg" />
             </div>
           </div>
         </section>
@@ -691,7 +691,7 @@ export default async function HomePage() {
               <StateEditions stateEditions={stateEditions || {}} />
               {/* <EPaperDownload /> */}
 
-                <AdvertiseSection />
+                <AdvertiseSection src="/exceed.jpg" />
              
             </div>
           </div>

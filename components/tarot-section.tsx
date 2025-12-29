@@ -79,7 +79,7 @@ export function TarotSection({ data }: TarotSectionProps) {
         </div> */}
 
         {/* Advertisement card under Tarot section */}
-        <AdvertiseSection />
+        <AdvertiseSection src="/exceed.jpg" />
       </div>
     </div>
   );

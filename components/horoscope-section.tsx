@@ -85,7 +85,7 @@ export function HoroscopeSection({ data }: HoroscopeSectionProps) {
           </Link>
         </div>
       </article> */}
-      <AdvertiseSection />
+      <AdvertiseSection src="/exceed.jpg" />
       <NewsletterSection />
     </div>
   );
