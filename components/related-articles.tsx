@@ -35,9 +35,9 @@ export function RelatedArticles({ articles, topNews }: RelatedArticlesProps) {
                           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         />
                         <div className="absolute top-3 left-3">
-                          <span className="inline-block px-2 py-1 text-xs font-semibold text-white bg-black rounded">
+                          {/* <span className="inline-block px-2 py-1 text-xs font-semibold text-white bg-black rounded">
                             {article.category}
-                          </span>
+                          </span> */}
                         </div>
                       </div>
 

@@ -60,9 +60,9 @@ export function TechnologySection({ stories, limit, seeMoreHref }: TechnologySec
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="inline-block px-2 py-1 text-xs font-semibold text-white bg-black rounded">
+                    {/* <span className="inline-block px-2 py-1 text-xs font-semibold text-white bg-black rounded">
                       {story.category}
-                    </span>
+                    </span> */}
                     <span className="text-xs text-gray-500">{story.date}</span>
                   </div>
                   <h3 className="font-bold text-gray-900 group-hover:text-black transition-colors duration-200 line-clamp-2 mb-2">

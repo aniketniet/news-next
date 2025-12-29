@@ -69,7 +69,7 @@ export default async function SectionListingPage({ params, searchParams }: Props
                     <Image src={it.image_url_medium || "/news-image.jpg"} alt={it.title} fill className="object-cover" />
                   </div>
                   <div className="p-4">
-                    <span className="inline-flex items-center text-[10px] rounded-sm uppercase tracking-wide font-bold bg-black text-white px-2 py-1  mb-2">{it.category || slug}</span>
+                    {/* <span className="inline-flex items-center text-[10px] rounded-sm uppercase tracking-wide font-bold bg-black text-white px-2 py-1  mb-2">{it.category || slug}</span> */}
                     <h3 className="font-semibold mb-1 line-clamp-2">{it.title}</h3>
                     <p className="text-xs text-gray-500">{it.author ? `By ${it.author} • ` : ''}{new Date(it.publishedDate).toLocaleDateString(undefined, { day: '2-digit', month: 'short', year: 'numeric' })}</p>
                   </div>

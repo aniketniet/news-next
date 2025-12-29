@@ -1,15 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { fetchStories, type StorySummary } from "@/lib/api/stories";
 import { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
 import { ScrollToTopLink } from "./scroll-to-top-link";
 
 // Hero now client-fetches top stories and shows skeletons while loading
@@ -39,44 +33,30 @@ export function Hero() {
   }, []);
 
   const [mainStory, ...rest] = top;
-  const topStories = rest.slice(0, 2);
-  const bottomStories = rest.slice(2, 6);
-  const featuredSlides = [mainStory, ...topStories].filter(Boolean);
+  const sideStories = rest.slice(0, 3);
+  const bottomStories = rest.slice(3, 7);
 
-  const convertYouTubeUrl = (url?: string | null): string | undefined => {
-    if (!url) return undefined;
-    // Convert YouTube watch URL to embed URL
-    const watchMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/);
-    if (watchMatch) {
-      const videoId = watchMatch[1];
-      return `https://www.youtube.com/embed/${videoId}?rel=0`;
-    }
-    // If already an embed URL, return as is
-    if (url.includes('youtube.com/embed/')) {
-      return url;
-    }
-    return url;
+  const stripHtml = (input?: string | null) => {
+    if (!input) return "";
+    return input
+      .replace(/<[^>]*>/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
   };
 
-  const getVideoData = (story: StorySummary): { type: 'file' | 'embed' | 'none', url?: string } => {
-    const isFileType = story.video_type?.toUpperCase() === 'FILE';
-    const isEmbedType = story.video_type?.toUpperCase() === 'EMBED';
+  const formatDate = (value: string) =>
+    new Date(value).toLocaleDateString(undefined, {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    });
+
+  const getExcerpt = (story: StorySummary) => {
+
+    // console.log(story,"story.description");
     
-    if (isFileType && story.video_name) {
-      return {
-        type: 'file',
-        url: `https://dailypioneer.com.com/uploads/2025/story/video/${story.video_name}`
-      };
-    }
-    
-    if (isEmbedType && (story.video_embed || story.external_url)) {
-      return {
-        type: 'embed',
-        url: convertYouTubeUrl(story.video_embed || story.external_url)
-      };
-    }
-    
-    return { type: 'none' };
+    const text = stripHtml(story.description);
+    return text;
   };
 
   return (
@@ -96,146 +76,80 @@ export function Hero() {
         {/* Loading skeleton */}
         {loading && (
           <div className="grid grid-cols-1 lg:grid-cols-3 mb-8 gap-6">
-            {/* Large Featured */}
             <div className="lg:col-span-2">
-              <Skeleton height={0} style={{ paddingBottom: "62.5%" }} />
+              <Skeleton height={0} style={{ paddingBottom: "56.25%" }} />
+              <div className="mt-4">
+                <Skeleton height={28} width="80%" />
+                <div className="mt-2">
+                  <Skeleton height={14} width="30%" />
+                </div>
+              </div>
             </div>
-            {/* Side Stories */}
-            <div className="grid grid-rows-2 gap-6">
-              <Skeleton height={0} style={{ paddingBottom: "62.5%" }} />
-              <Skeleton height={0} style={{ paddingBottom: "62.5%" }} />
+            <div className="lg:border-l lg:pl-6 border-gray-200">
+              <div className="space-y-6">
+                {[0, 1, 2].map((i) => (
+                  <div key={i}>
+                    <Skeleton height={18} width="90%" />
+                    <div className="mt-2">
+                      <Skeleton height={12} width="40%" />
+                    </div>
+                    <div className="mt-3">
+                      <Skeleton count={3} height={12} />
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         )}
 
         {/* Main Content Grid */}
         {!loading && mainStory && (
-          <div className="grid grid-cols-1 lg:grid-cols-3 mb-8">
-            {/* Large Featured Article */}
-            <article className="lg:col-span-2 relative ">
-              <Swiper
-                modules={[Navigation, Pagination]}
-                navigation
-                pagination={{ clickable: true }}
-                autoplay={{ delay: 5000, disableOnInteraction: false }}
-                className="relative w-full"
-              >
-                {featuredSlides.map((story) => {
-                  const videoData = getVideoData(story);
-                  const poster = story.image || "/lead-story.png";
-                  return (
-                    <SwiperSlide key={`feature-${story.id}`}>
-                      <div className="relative aspect-[16/10] overflow-hidden rounded-l-sm z-10">
-                        {videoData.type === 'embed' && videoData.url ? (
-                          <iframe
-                            className="h-full w-full"
-                            src={videoData.url}
-                            title={story.title}
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowFullScreen
-                            frameBorder="0"
-                          />
-                        ) : videoData.type === 'file' && videoData.url ? (
-                          <video
-                            className="h-full w-full object-cover"
-                            src={videoData.url}
-                            poster={poster || undefined}
-                            controls
-                            playsInline
-                          />
-                        ) : (
-                          <Image
-                            src={poster}
-                            alt={story.title}
-                            fill
-                            className="object-cover"
-                            sizes="(max-width: 1024px) 100vw, 66vw"
-                          />
-                        )}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-                        <div className="absolute top-4 left-4 pointer-events-none">
-                          <span className="bg-black text-white px-3 rounded py-1 text-xs font-semibold uppercase tracking-wide">
-                            {story.category || "NEWS"}
-                          </span>
-                        </div>
-                        <div className="absolute bottom-0 left-0 right-0 p-6 text-white pointer-events-none">
-                          <h3 className="text-2xl lg:text-3xl font-bold leading-tight mb-2 pointer-events-auto">
-                            <ScrollToTopLink
-                              href={`/news/${story.urlKey }`}
-                              className="hover:underline hover:text-white transition-colors pointer-events-auto"
-                            >
-                              {story.title}
-                            </ScrollToTopLink>
-                          </h3>
-                          <div className="flex items-center text-sm text-white/80 pointer-events-none">
-                            {story.author && (
-                              <span className="pointer-events-auto">
-                                {story.author}
-                              </span>
-                            )}
-                            {story.author && (
-                              <span className="mx-2 pointer-events-none">
-                                •
-                              </span>
-                            )}
-                            <time className="pointer-events-none">
-                              {new Date(story.publishedDate).toLocaleDateString(
-                                undefined,
-                                {
-                                  day: "2-digit",
-                                  month: "short",
-                                  year: "numeric",
-                                }
-                              )}
-                            </time>
-                          </div>
-                        </div>
-                      </div>
-                    </SwiperSlide>
-                  );
-                })}
-              </Swiper>
+          <div className="grid grid-cols-1 lg:grid-cols-3 mb-8 gap-6">
+            {/* Left Featured */}
+            <article className="lg:col-span-2">
+              <div className="relative aspect-[16/9] overflow-hidden rounded-sm">
+                <Image
+                  src={mainStory.image || "/lead-story.png"}
+                  alt={mainStory.title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 66vw"
+                />
+              </div>
+              <div className="pt-4">
+                <h3 className="text-2xl lg:text-3xl font-bold leading-tight text-gray-900">
+                  <ScrollToTopLink
+                    href={`/news/${mainStory.urlKey}`}
+                    className="hover:underline hover:text-gray-900 transition-colors"
+                  >
+                    {mainStory.title}
+                  </ScrollToTopLink>
+                </h3>
+                <time className="mt-2 block text-sm text-gray-500">
+                  {formatDate(mainStory.publishedDate)}
+                </time>
+              </div>
             </article>
 
-            {/* Side Stories */}
-            <aside className="grid grid-rows-2">
-              {topStories.map((story) => (
-                <article key={story.id} className="relative group">
-                  <div className="relative aspect-[16/10] overflow-hidden rounded-r-sm">
-                    <Image
-                      src={story.image || "/news-image.png"}
-                      alt={story.title}
-                      fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-105"
-                      sizes="(max-width: 1024px) 100vw, 33vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-                    <div className="absolute top-3 left-3">
-                      <span className="bg-black text-white px-2 py-1 text-xs font-semibold rounded uppercase tracking-wide">
-                        {story.category || "NEWS"}
-                      </span>
-                    </div>
-                    <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
-                      <h4 className="text-lg font-semibold leading-tight mb-2 line-clamp-2">
-                        <ScrollToTopLink
-                          href={`/news/${story.urlKey }`}
-                          className="hover:underline hover:text-white transition-colors"
-                        >
-                          {story.title}
-                        </ScrollToTopLink>
-                      </h4>
-                      <div className="flex items-center text-xs text-white/80">
-                        {story.author && <span>{story.author}</span>}
-                        {story.author && <span className="mx-1">•</span>}
-                        <time>
-                          {new Date(story.publishedDate).toLocaleDateString(
-                            undefined,
-                            { day: "2-digit", month: "short", year: "numeric" }
-                          )}
-                        </time>
-                      </div>
-                    </div>
-                  </div>
+            {/* Right list of 3 */}
+            <aside className="lg:border-l lg:pl-6 border-gray-200 flex flex-col gap-6">
+              {sideStories.map((story) => (
+                <article key={story.id} className="pb-6 border-b border-gray-200 last:border-b-0 last:pb-0">
+                  <h4 className="text-base font-semibold leading-snug text-gray-900">
+                    <ScrollToTopLink
+                      href={`/news/${story.urlKey}`}
+                      className="hover:underline hover:text-gray-900 transition-colors"
+                    >
+                      {story.title}
+                    </ScrollToTopLink>
+                  </h4>
+                  <time className="mt-1 block text-xs text-gray-500">
+                    {formatDate(story.publishedDate)}
+                  </time>
+                  <p className="mt-2 text-sm text-gray-700 line-clamp-3">
+                    {getExcerpt(story)}
+                  </p>
                 </article>
               ))}
             </aside>
@@ -263,9 +177,9 @@ export function Hero() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
                 </div>
                 <div className="flex flex-1 flex-col p-4">
-                  <span className="mb-2 inline-block w-fit rounded bg-black text-white px-2 py-1 text-[10px] font-semibold tracking-wide">
+                  {/* <span className="mb-2 inline-block w-fit rounded bg-black text-white px-2 py-1 text-[10px] font-semibold tracking-wide">
                     {story.category || "NEWS"}
-                  </span>
+                  </span> */}
                   <h4 className="mb-2 line-clamp-2 text-base font-semibold leading-snug text-gray-900">
                     <ScrollToTopLink
                       href={`/news/${story.urlKey}`}

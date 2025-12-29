@@ -179,6 +179,7 @@ export interface StorySummary {
     image?: string | null
     image_url_medium?: string | null
     urlKey: string
+    description?: string | null
     // Optional media fields for hero/video rendering
     video_name?: string | null
     video_embed?: string | null
@@ -208,6 +209,7 @@ export async function fetchSectionList(sectionId: number, { limit = 10, offset =
             image: item.image_name ? `${item.image_name}` : null,
             image_url_medium: item.image_url_medium || null,
             urlKey: item.url_key,
+            description: item.meta_description ?? item.story_short_description ?? null,
         }))
     } catch (e) {
         console.error('fetchSectionList error', e)
@@ -233,6 +235,7 @@ export async function fetchTrendingNewsList(
             image: item.image_url_big ?? item.image_name ?? null,
             image_url_medium: item.image_url_medium || null,
             urlKey: item.url_key,
+            description: item.meta_description ?? item.story_short_description ?? null,
             video_name: item.video_name ?? null,
             video_embed: item.video_embed ?? null,
             external_url: item.external_url ?? null,
@@ -260,6 +263,7 @@ export async function fetchCategoryList(categoryId: number, { limit = 10, offset
             image: item.image_name ? `${item.image_name}` : null,
             image_url_medium: item.image_url_medium || null,
             urlKey: item.url_key,
+            description: item.meta_description ?? item.story_short_description ?? null,
         }))
     } catch (e) {
         console.error('fetchCategoryList error', e)
@@ -310,6 +314,8 @@ export async function fetchStories(
             image: item.image_url_big ?? null,
             image_url_medium: item.image_url_medium ?? null,
             urlKey: item.url_key,
+
+            description: item.story_content ?? null,
             video_name: item.video_name ?? null,
             video_embed: item.video_embed ?? null,
             external_url: item.external_url ?? null,

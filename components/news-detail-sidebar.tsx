@@ -46,9 +46,9 @@ export function NewsDetailSidebar({ latestNews, popularNews }: NewsDetailSidebar
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="mb-1">
-                      <span className="inline-block px-2 py-0.5 text-xs font-semibold text-white bg-black">
+                      {/* <span className="inline-block px-2 py-0.5 text-xs font-semibold text-white bg-black">
                         {news.category}
-                      </span>
+                      </span> */}
                     </div>
                     <h3 className="font-semibold text-sm text-gray-900 group-hover:underline underline-offset-4 transition-colors line-clamp-2 mb-1">
                       {news.title}
@@ -101,9 +101,9 @@ export function NewsDetailSidebar({ latestNews, popularNews }: NewsDetailSidebar
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="mb-1">
-                      <span className="inline-block px-2 py-0.5 text-xs font-semibold text-white bg-black">
+                      {/* <span className="inline-block px-2 py-0.5 text-xs font-semibold text-white bg-black">
                         {news.category}
-                      </span>
+                      </span> */}
                     </div>
                     <h3 className="font-semibold text-sm text-gray-900 group-hover:underline underline-offset-4 transition-colors line-clamp-2 mb-1">
                       {news.title}

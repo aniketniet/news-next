@@ -215,7 +215,7 @@ export default function ProfilePage() {
         </div>
 
         {/* Additional Stats/Info */}
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-white p-6 rounded-lg shadow-lg text-center">
             <div className="w-12 h-12 bg-black/5 rounded-full flex items-center justify-center mx-auto mb-3">
               <svg className="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -245,7 +245,7 @@ export default function ProfilePage() {
             <h3 className="text-lg font-semibold text-gray-900">Comments</h3>
             <p className="text-2xl font-bold text-black mt-1">45</p>
           </div>
-        </div>
+        </div> */}
       </div>
       <SiteFooter/>
     </div>

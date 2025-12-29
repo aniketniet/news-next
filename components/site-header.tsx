@@ -84,19 +84,21 @@ export function SiteHeader() {
   const categories = [
     { label: "HOME", href: "/" },
     { label: "INDIA", href: "/section/india" },
-    { label: "DELHI", href: "/category/delhi" },
+    { label: "WORLD", href: "/section/world" },
     { label: "BUSINESS", href: "/section/business" },
     { label: "IMPACT", href: "/section/impact" },
-    { label: "WORLD", href: "/section/world" },
+    {label: "LAW", href: "/section/law-and-justice" },
     { label: "SPORTS", href: "/section/sport" },
     { label: "ENTERTAINMENT", href: "/section/entertainment" },
+    { label: "TECH", href: "/section/tech" },
     { label: "OPINION", href: "/category/opinion" },
     { label: "ANALYSIS", href: "/category/analysis" },
+    {label : "AGENDA", href: "/section/agenda" },
+    // { label: "DELHI", href: "/category/delhi" },
     // { label: "POLITICS", href: "/politics" },
     // { label: "EDUCATION", href: "/education" },
     { label: "STATE EDITIONS", href: "#" },
     { label: "E-PAPER", href: "/e-paper" },
-    { label: "TECH", href: "/section/tech" },
     { label: "MAGAZINE", href: "#" },
   ] as const;
 
@@ -135,43 +137,7 @@ export function SiteHeader() {
       {/* Global Google One Tap overlay for unauthenticated users */}
       <GoogleOneTap />
       <header className="sticky top-0 z-50 w-full bg-white">
-      {/* Breaking News Ticker */}
-      <div className="bg-white border-b border-black/10 text-xs text-black">
-        <div className="mx-auto max-w-7xl px-3 sm:px-4">
-          <div className="flex items-center gap-2 sm:gap-3 py-2 overflow-hidden">
-            <span className="bg-black text-white px-2 py-1 text-[10px] sm:text-xs font-bold tracking-wide whitespace-nowrap">
-              BREAKING NEWS
-            </span>
-            <div className="flex-1 relative overflow-hidden">
-              {breakingLoading && !breakingItems.length ? (
-                <div className="flex items-center gap-3">
-                  <Skeleton height={10} width={160} />
-                  <Skeleton height={10} width={200} />
-                </div>
-              ) : breakingItems.length ? (
-                <ul className="flex animate-[ticker_30s_linear_infinite] gap-6 whitespace-nowrap text-black">
-                  {breakingItems.concat(breakingItems).map((item, i) => (
-                    <li key={`${item.id}-${i}`} className="flex items-center">
-                      <Link
-                        href={`/news/${item.urlKey || item.id}`}
-                        className="hover:underline underline-offset-4 text-[11px] sm:text-sm"
-                      >
-                        {item.title}
-                      </Link>
-                      {i % breakingItems.length !==
-                        breakingItems.length - 1 && (
-                        <span className="mx-2 text-gray-500">•</span>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <div className="text-xs text-gray-400">No breaking news</div>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
+     
 
       {/* Main Header */}
       <div className="border-b border-black/10">
@@ -477,6 +443,44 @@ export function SiteHeader() {
           </ul>
         </div>
       </nav>
+
+       {/* Breaking News Ticker */}
+      <div className="bg-white border-b border-black/10 text-xs text-black">
+        <div className="mx-auto max-w-7xl px-3 sm:px-4">
+          <div className="flex items-center gap-2 sm:gap-3 py-2 overflow-hidden">
+            <span className="bg-black text-white px-2 py-1 text-[10px] sm:text-xs font-bold tracking-wide whitespace-nowrap">
+              BREAKING NEWS
+            </span>
+            <div className="flex-1 relative overflow-hidden">
+              {breakingLoading && !breakingItems.length ? (
+                <div className="flex items-center gap-3">
+                  <Skeleton height={10} width={160} />
+                  <Skeleton height={10} width={200} />
+                </div>
+              ) : breakingItems.length ? (
+                <ul className="flex animate-[ticker_30s_linear_infinite] gap-6 whitespace-nowrap text-black">
+                  {breakingItems.concat(breakingItems).map((item, i) => (
+                    <li key={`${item.id}-${i}`} className="flex items-center">
+                      <Link
+                        href={`/news/${item.urlKey || item.id}`}
+                        className="hover:underline underline-offset-4 text-[11px] sm:text-sm"
+                      >
+                        {item.title}
+                      </Link>
+                      {i % breakingItems.length !==
+                        breakingItems.length - 1 && (
+                        <span className="mx-2 text-gray-500">•</span>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <div className="text-xs text-gray-400">No breaking news</div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* Mobile Menu */}
       {isMenuOpen && (

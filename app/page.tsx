@@ -9,7 +9,7 @@ import { SecondaryStory } from "@/components/secondary-story";
 import { MainContent } from "@/components/main-content";
 import { BusinessSlider } from "@/components/business-slider";
 import { InternationalNews } from "@/components/international-news";
-import { CategorySections } from "@/components/category-sections";
+import { CategorySection } from "@/components/category-section";
 import { SportsSections } from "@/components/sports-sections";
 import { OpinionAnalysisSections } from "@/components/opinion-analysis-sections";
 import { VideosSection } from "@/components/videos-section";
@@ -25,7 +25,7 @@ import { PopularPosts } from "@/components/popular-posts";
 import { StateEditions } from "@/components/state-editions";
 
 import PhotoGallery from "@/components/PhotoGallery";
-import { fetchStories } from "@/lib/api/stories";
+import { fetchSectionList, fetchStories } from "@/lib/api/stories";
 import { getCategoriesNormalized } from "@/lib/api/categories";
 import { fetchGalleryAssets, mapVideosToSectionItems } from "@/lib/api/images";
 import { EPaperDownload } from "@/components/epaper-download";
@@ -137,10 +137,11 @@ export default async function HomePage() {
   // sections like Technology & Impact (which may have older dates and
   // were previously missing due to cached / truncated responses) appear
   // consistently with what you see in Postman.
-  const [{ latest, popular, stateEditions }, categories, gallery] = await Promise.all([
+  const [{ latest, popular, stateEditions }, categories, gallery, indiaSection] = await Promise.all([
     fetchStories({ limit: 20, offset: 0 }),
     getCategoriesNormalized({ limit: 12, offset: 0, noCache: true }),
     fetchGalleryAssets({ limit: 20, offset: 0 }),
+    fetchSectionList(1022, { limit: 12, offset: 0 }),
   ]);
 
   // console.log("Fetched Categories:", categories);
@@ -173,6 +174,20 @@ export default async function HomePage() {
       year: "numeric",
     }),
     urlKey: s.url_key || '',
+  }));
+
+  // Map India section stories -> BusinessSlider shape
+  const indiaStoriesMapped = (indiaSection || []).map((s) => ({
+    id: String(s.id),
+    title: s.title,
+    category: s.category || "India",
+    image: s.image_url_medium || s.image || "/news-image.jpg",
+    date: new Date(s.publishedDate).toLocaleDateString(undefined, {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    }),
+    urlKey: s.urlKey,
   }));
 
   // Sports mapping by category_id (1086: Cricket, 1087: Football, 1088: Hockey)
@@ -435,7 +450,7 @@ export default async function HomePage() {
               {/* Featured (top) */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {trendingNews.slice(0, 2).map((story, i) => (
-                  <article key={i} className="relative group">
+                  <article key={i} className="group">
                     <ScrollToTopLink
                       href={`/news/${story.urlKey}`}
                       className="relative block aspect-4/3 rounded-sm w-full overflow-hidden"
@@ -447,20 +462,18 @@ export default async function HomePage() {
                         className="object-cover transition-transform duration-300 group-hover:scale-105"
                         sizes="(max-width: 768px) 100vw, 50vw"
                       />
-                      <div className="absolute inset-0 bg-linear-to-t from-black/70 via-transparent to-transparent" />
-                      <div className="absolute bottom-4 left-4 right-4 text-white">
-                        <span className="inline-flex items-center text-[10px] uppercase tracking-wide font-bold bg-black text-white px-2 py-1 rounded mb-2">
-                          {story.category || "NEWS"}
-                        </span>
-                        <h3 className="text-lg font-bold leading-tight mb-2">
-                          {story.title}
-                        </h3>
-                        <p className="text-xs opacity-90">
-                          {(story as any).byline ? `By ${(story as any).byline} • ` : ""}
-                          {(story as any).time || ""}
-                        </p>
-                      </div>
                     </ScrollToTopLink>
+                    <div className="pt-3">
+                      <h3 className="text-lg font-bold leading-tight text-gray-900">
+                        <ScrollToTopLink
+                          href={`/news/${story.urlKey}`}
+                          className="hover:underline hover:text-gray-900 transition-colors"
+                        >
+                          {story.title}
+                        </ScrollToTopLink>
+                      </h3>
+                      <p className="mt-1 text-sm text-gray-500">{(story as any).time || ""}</p>
+                    </div>
                   </article>
                 ))}
               </div>
@@ -489,23 +502,35 @@ export default async function HomePage() {
           </div>
             </div>
             {/* Right: Sidebar */}
-            <PopularPosts popular={popular} />
+            {/* <PopularPosts popular={popular} /> */}
+             <SubscriptionSlider />
           </div>
         </Section>
 
-        {/* Main grid with Sidebar */}
-        <section className="px-3 md:px-6 py-6">
-          <div className="mx-auto w-full max-w-6xl">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
-              {/* <MainContent nation={nation} world={world} opinion={opinion} /> */}
-              <StateEditions stateEditions={stateEditions || {}} />
-              {/* <EPaperDownload /> */}
-              <SubscriptionSlider />
+        {/* India */}
+        {indiaStoriesMapped.length > 0 && (
+          <section id="section-india" className="px-3 md:px-6 py-6 scroll-mt-24">
+            <div className="mx-auto w-full max-w-6xl">
+              <BusinessSlider
+                stories={indiaStoriesMapped}
+                title="India"
+                seeMoreHref="/section/india"
+              />
             </div>
+          </section>
+        )}
+
+       
+     
+
+        {/* International News */}
+        <section id="section-world" className="px-3 md:px-6 py-6 scroll-mt-24">
+          <div className="mx-auto w-full max-w-6xl">
+            <InternationalNews stories={internationalWorldStories} seeMoreHref="/section/world" />
           </div>
         </section>
 
-        {/* Business & Money Slider */}
+           {/* Business & Money Slider */}
         <section
           id="section-business"
           className="px-3 md:px-6 py-6 scroll-mt-24"
@@ -519,13 +544,6 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* International News */}
-        <section id="section-world" className="px-3 md:px-6 py-6 scroll-mt-24">
-          <div className="mx-auto w-full max-w-6xl">
-            <InternationalNews stories={internationalWorldStories} seeMoreHref="/section/world" />
-          </div>
-        </section>
-
         {/* Impact Slider (repurposed carousel) */}
         {impactStoriesMapped.length > 0 && (
           <section id="section-impact" className="px-3 md:px-6 py-6 scroll-mt-24">
@@ -535,24 +553,29 @@ export default async function HomePage() {
           </section>
         )}
 
-        {/* Entertainment Slider */}
-        {entertainmentStories.length > 0 && (
-          <section id="section-entertainment" className="px-3 md:px-6 py-6 scroll-mt-24">
-            <div className="mx-auto w-full max-w-6xl">
-              <BusinessSlider stories={entertainmentStories} title="Entertainment" seeMoreHref="/section/entertainment" />
-            </div>
-          </section>
-        )}
+       
 
-        {/* Category Sections: Travel, Food & Wellness */}
+        {/* Category Sections: page1, lawAndJusticeStories and agendaStories */}
         <div id="section-health" className="scroll-mt-24" />
         <section className="px-3 md:px-6 py-6">
           <div className="mx-auto w-full max-w-6xl">
-            <CategorySections
-              page1={page1Stories}
-              lawAndJustice={lawAndJusticeStories}
-              agenda={agendaStories}
-            />
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+              <CategorySection
+                title="Law & Justice"
+                stories={lawAndJusticeStories}
+                accentColor="bg-black"
+                seeMoreHref="/section/law-and-justice"
+              />
+
+              <CategorySection
+                title="Agenda"
+                stories={agendaStories}
+                accentColor="bg-black"
+                seeMoreHref="/section/agenda"
+              />
+
+              <AdvertiseSection />
+            </div>
           </div>
         </section>
 
@@ -589,22 +612,15 @@ export default async function HomePage() {
           </section>
         )}
 
-        {/* Opinion & Analysis Sections with Advertisement */}
-        
-        <section
-          id="section-opinion"
-          className="px-3 md:px-6 py-6 scroll-mt-24"
-        >
-          <div className="mx-auto w-full max-w-6xl">
-            <OpinionAnalysisSections
-              opinion={dynamicOpinion}
-              analysis={dynamicAnalysis}
-              opinionSeeMoreHref="/category/opinion"
-              analysisSeeMoreHref="/category/analysis"
-            
-            />
-          </div>
-        </section>
+         {/* Entertainment Slider */}
+        {entertainmentStories.length > 0 && (
+          <section id="section-entertainment" className="px-3 md:px-6 py-6 scroll-mt-24">
+            <div className="mx-auto w-full max-w-6xl">
+              <BusinessSlider stories={entertainmentStories} title="Entertainment" seeMoreHref="/section/entertainment" />
+            </div>
+          </section>
+        )}
+
 
         {/* Videos Section (dynamic) */}
         {/* {dynamicVideos.length > 0 && (
@@ -630,19 +646,57 @@ export default async function HomePage() {
 
         {/* Technology and Tarot Sections */}
         {/* Anchors for technology and tarot in the combined section */}
-        <div id="section-technology" className="scroll-mt-24" />
-        <div id="section-tarot" className="scroll-mt-24" />
+        {/* <div id="section-technology" className="scroll-mt-24" /> */}
+        {/* <div id="section-tarot" className="scroll-mt-24" /> */}
         <section className="px-3 md:px-6 py-6">
           <div className="mx-auto w-full max-w-6xl">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <TechnologySection stories={technologyStories} limit={5} seeMoreHref="/section/tech" />
-              <TarotSection data={tarotData} />
+
+              <CategorySection
+                title="Page 1"
+                stories={page1Stories}
+                accentColor="bg-black"
+                seeMoreHref="/section/page1"
+              />
             </div>
           </div>
         </section>
       </main>
 
       {/* <PhotoGallery /> */}
+      
+        {/* Opinion & Analysis Sections with Advertisement */}
+        
+        <section
+          id="section-opinion"
+          className="px-3 md:px-6 py-6 scroll-mt-24"
+        >
+          <div className="mx-auto w-full max-w-6xl">
+            <OpinionAnalysisSections
+              opinion={dynamicOpinion}
+              analysis={dynamicAnalysis}
+              opinionSeeMoreHref="/category/opinion"
+              analysisSeeMoreHref="/category/analysis"
+            
+            />
+          </div>
+        </section>
+
+       {/* Main grid with Sidebar */}
+        <section className="px-3 md:px-6 py-6">
+          <div className="mx-auto w-full max-w-6xl">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
+              {/* <MainContent nation={nation} world={world} opinion={opinion} /> */}
+              <StateEditions stateEditions={stateEditions || {}} />
+              {/* <EPaperDownload /> */}
+
+                <AdvertiseSection />
+             
+            </div>
+          </div>
+        </section>
+
 
       <SiteFooter />
     </div>

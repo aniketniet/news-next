@@ -43,9 +43,9 @@ export default async function TrendingPage({ searchParams }: Props) {
                     />
                   </div>
                   <div className="p-4">
-                    <span className="inline-flex items-center text-[10px] rounded-sm uppercase tracking-wide font-bold bg-black text-white px-2 py-1 mb-2">
+                    {/* <span className="inline-flex items-center text-[10px] rounded-sm uppercase tracking-wide font-bold bg-black text-white px-2 py-1 mb-2">
                       {it.category || "Trending"}
-                    </span>
+                    </span> */}
                     <h3 className="font-semibold mb-1 line-clamp-2">{it.title}</h3>
                     <p className="text-xs text-gray-500">
                       {it.author ? `By ${it.author} • ` : ""}

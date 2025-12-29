@@ -9,9 +9,9 @@ export function AdvertiseSection() {
         </h2>
       </div>
 
-      <div className="w-full  overflow-hidden">
+      <div className="w-full p-10  overflow-hidden">
           <img
-            src="/transglobe.jpg"
+            src="/exceed.jpg"
             alt="Advertisement"
             className="object-contain w-full h-full"
           />
