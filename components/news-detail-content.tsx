@@ -130,11 +130,8 @@ export function NewsDetailContent({ article }: NewsDetailContentProps) {
 
       {/* Article Content */}
       <div 
-        className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-p:leading-relaxed prose-p:mb-4 prose-p:text-justify"
+        className="news-content"
         dangerouslySetInnerHTML={{ __html: article.content }}
-        style={{
-          lineHeight: '1.8',
-        }}
       />
 
       {/* Interactive Like/Dislike and Comments */}
