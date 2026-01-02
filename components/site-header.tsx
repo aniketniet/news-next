@@ -147,7 +147,11 @@ export function SiteHeader() {
             <div className="flex items-center gap-2 sm:gap-3 lg:flex-1">
               <button
                 className="lg:hidden text-black/70 hover:text-black"
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                onClick={() => {
+                  const next = !isMenuOpen;
+                  setIsMenuOpen(next);
+                  if (next) setIsSearchOpen(false);
+                }}
                 aria-label="Toggle menu"
               >
                 <svg
@@ -232,7 +236,11 @@ export function SiteHeader() {
               {/* Search Icon */}
               <button
                 className="text-black/70 hover:text-black"
-                onClick={() => setIsSearchOpen(!isSearchOpen)}
+                onClick={() => {
+                  const next = !isSearchOpen;
+                  setIsSearchOpen(next);
+                  if (next) setIsMenuOpen(false);
+                }}
                 aria-label="Search"
               >
                 <svg
@@ -485,188 +493,190 @@ export function SiteHeader() {
       {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="lg:hidden bg-white border-t border-black/10 animate-in slide-in-from-top">
-          <div className="border-b border-black/10 px-4 py-3">
-            {ready &&
-              (user ? (
-                <div className="text-sm text-black/80">
-                  Welcome, {user.name}
-                </div>
-              ) : (
-                <Link
-                  href="/login"
-                  className="text-sm text-black/80 hover:text-black font-medium"
-                >
-                  LOG IN
-                </Link>
-              ))}
-          </div>
-          <nav className="px-4 py-2 space-y-1">
-            {categories.map((category) => {
-              if (category.label === 'STATE EDITIONS') {
-                return (
-                  <div key={category.label}>
-                    <button
-                      onClick={() => setMobileStateEditionsOpen(!mobileStateEditionsOpen)}
-                      className="w-full flex items-center justify-between py-2 text-black font-medium border-b border-black/10"
-                    >
-                      <span>{category.label}</span>
-                      <svg
-                        className={`w-4 h-4 transition-transform ${mobileStateEditionsOpen ? 'rotate-180' : ''}`}
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
+          <div className="flex max-h-[calc(100dvh-7.5rem)] flex-col">
+            <div className="border-b border-black/10 px-4 py-3 shrink-0">
+              {ready &&
+                (user ? (
+                  <div className="text-sm text-black/80">
+                    Welcome, {user.name}
+                  </div>
+                ) : (
+                  <Link
+                    href="/login"
+                    className="text-sm text-black/80 hover:text-black font-medium"
+                  >
+                    LOG IN
+                  </Link>
+                ))}
+            </div>
+            <nav className="flex-1 overflow-y-auto overscroll-contain px-4 py-2 space-y-1">
+              {categories.map((category) => {
+                if (category.label === 'STATE EDITIONS') {
+                  return (
+                    <div key={category.label}>
+                      <button
+                        onClick={() => setMobileStateEditionsOpen(!mobileStateEditionsOpen)}
+                        className="w-full flex items-center justify-between py-2 text-black font-medium border-b border-black/10"
                       >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                      </svg>
-                    </button>
-                    {mobileStateEditionsOpen && statesData.length > 0 && (
-                      <div className="pl-4 py-2">
-                        <div className="grid grid-cols-2 gap-1">
-                          {statesData.map((state) => (
-                            <Link
-                              key={state.url_key}
-                              href={`/state/${state.category_id}`}
-                              className="text-xs text-black/80 hover:underline underline-offset-4 py-1"
-                              onClick={() => {
-                                setIsMenuOpen(false);
-                                setMobileStateEditionsOpen(false);
-                              }}
-                            >
-                              {state.category_name}
-                            </Link>
-                          ))}
+                        <span>{category.label}</span>
+                        <svg
+                          className={`w-4 h-4 transition-transform ${mobileStateEditionsOpen ? 'rotate-180' : ''}`}
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </button>
+                      {mobileStateEditionsOpen && statesData.length > 0 && (
+                        <div className="pl-4 py-2">
+                          <div className="grid grid-cols-2 gap-1">
+                            {statesData.map((state) => (
+                              <Link
+                                key={state.url_key}
+                                href={`/state/${state.category_id}`}
+                                className="text-xs text-black/80 hover:underline underline-offset-4 py-1"
+                                onClick={() => {
+                                  setIsMenuOpen(false);
+                                  setMobileStateEditionsOpen(false);
+                                }}
+                              >
+                                {state.category_name}
+                              </Link>
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                    )}
-                  </div>
-                );
-              }
-              if (category.label === 'E-PAPER') {
-                return (
-                  <div key={category.label}>
-                    <button
-                      onClick={() => setMobileEpaperOpen(!mobileEpaperOpen)}
-                      className="w-full flex items-center justify-between py-2 text-black font-medium border-b border-black/10"
-                    >
-                      <span>{category.label}</span>
-                      <svg
-                        className={`w-4 h-4 transition-transform ${mobileEpaperOpen ? 'rotate-180' : ''}`}
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
+                      )}
+                    </div>
+                  );
+                }
+                if (category.label === 'E-PAPER') {
+                  return (
+                    <div key={category.label}>
+                      <button
+                        onClick={() => setMobileEpaperOpen(!mobileEpaperOpen)}
+                        className="w-full flex items-center justify-between py-2 text-black font-medium border-b border-black/10"
                       >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                      </svg>
-                    </button>
-                    {mobileEpaperOpen && (
-                      <div className="pl-4 py-2 space-y-2">
-                        {epaperLoading ? (
-                          <div className="text-sm text-gray-600">Loading...</div>
-                        ) : epaperError ? (
-                          <div className="text-sm text-red-600">{epaperError}</div>
-                        ) : epaperData && epaperData.length > 0 ? (
-                          epaperData.map((lang) => (
-                            <div key={lang.language} className="mb-3">
-                              <div className="text-xs font-semibold text-gray-800 mb-1">
-                                {lang.language}
+                        <span>{category.label}</span>
+                        <svg
+                          className={`w-4 h-4 transition-transform ${mobileEpaperOpen ? 'rotate-180' : ''}`}
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </button>
+                      {mobileEpaperOpen && (
+                        <div className="pl-4 py-2 space-y-2">
+                          {epaperLoading ? (
+                            <div className="text-sm text-gray-600">Loading...</div>
+                          ) : epaperError ? (
+                            <div className="text-sm text-red-600">{epaperError}</div>
+                          ) : epaperData && epaperData.length > 0 ? (
+                            epaperData.map((lang) => (
+                              <div key={lang.language} className="mb-3">
+                                <div className="text-xs font-semibold text-gray-800 mb-1">
+                                  {lang.language}
+                                </div>
+                                <div className="grid grid-cols-2 gap-1">
+                                  {lang.locations.map((loc) => (
+                                    <a
+                                      key={loc.location}
+                                      href={loc.pdf_url}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="text-xs text-black/80 hover:underline underline-offset-4 py-1"
+                                      onClick={() => setIsMenuOpen(false)}
+                                    >
+                                      {loc.location}
+                                    </a>
+                                  ))}
+                                </div>
                               </div>
-                              <div className="grid grid-cols-2 gap-1">
-                                {lang.locations.map((loc) => (
-                                  <a
-                                    key={loc.location}
-                                    href={loc.pdf_url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-xs text-black/80 hover:underline underline-offset-4 py-1"
-                                    onClick={() => setIsMenuOpen(false)}
-                                  >
-                                    {loc.location}
-                                  </a>
-                                ))}
-                              </div>
-                            </div>
-                          ))
-                        ) : (
-                          <div className="text-sm text-gray-600">No e-paper available</div>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                );
-              }
-              if (category.label === 'MAGAZINE') {
-                return (
-                  <div key={category.label}>
-                    <button
-                      onClick={() => setMobileMagazineOpen(!mobileMagazineOpen)}
-                      className="w-full flex items-center justify-between py-2 text-black font-medium border-b border-black/10"
-                    >
-                      <span>{category.label}</span>
-                      <svg
-                        className={`w-4 h-4 transition-transform ${mobileMagazineOpen ? 'rotate-180' : ''}`}
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
+                            ))
+                          ) : (
+                            <div className="text-sm text-gray-600">No e-paper available</div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
+                if (category.label === 'MAGAZINE') {
+                  return (
+                    <div key={category.label}>
+                      <button
+                        onClick={() => setMobileMagazineOpen(!mobileMagazineOpen)}
+                        className="w-full flex items-center justify-between py-2 text-black font-medium border-b border-black/10"
                       >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                      </svg>
-                    </button>
-                    {mobileMagazineOpen && (
-                      <div className="pl-4 py-2 space-y-1">
-                        <a
-                          href="/Exotica_December_25.pdf"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="block text-xs text-black/80 hover:underline underline-offset-4 py-1"
-                          onClick={() => {
-                            setIsMenuOpen(false);
-                            setMobileMagazineOpen(false);
-                          }}
+                        <span>{category.label}</span>
+                        <svg
+                          className={`w-4 h-4 transition-transform ${mobileMagazineOpen ? 'rotate-180' : ''}`}
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
                         >
-                          EXOTICA
-                        </a>
-                        <a
-                          href="/FRESH_Dec_25.pdf"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="block text-xs text-black/80 hover:underline underline-offset-4 py-1"
-                          onClick={() => {
-                            setIsMenuOpen(false);
-                            setMobileMagazineOpen(false);
-                          }}
-                        >
-                          FRESH
-                        </a>
-                        <a
-                          href="/Essentia_DECEMBER.pdf"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="block text-xs text-black/80 hover:underline underline-offset-4 py-1"
-                          onClick={() => {
-                            setIsMenuOpen(false);
-                            setMobileMagazineOpen(false);
-                          }}
-                        >
-                          ESSENTIA
-                        </a>
-                      </div>
-                    )}
-                  </div>
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </button>
+                      {mobileMagazineOpen && (
+                        <div className="pl-4 py-2 space-y-1">
+                          <a
+                            href="/Exotica_December_25.pdf"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="block text-xs text-black/80 hover:underline underline-offset-4 py-1"
+                            onClick={() => {
+                              setIsMenuOpen(false);
+                              setMobileMagazineOpen(false);
+                            }}
+                          >
+                            EXOTICA
+                          </a>
+                          <a
+                            href="/FRESH_Dec_25.pdf"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="block text-xs text-black/80 hover:underline underline-offset-4 py-1"
+                            onClick={() => {
+                              setIsMenuOpen(false);
+                              setMobileMagazineOpen(false);
+                            }}
+                          >
+                            FRESH
+                          </a>
+                          <a
+                            href="/Essentia_DECEMBER.pdf"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="block text-xs text-black/80 hover:underline underline-offset-4 py-1"
+                            onClick={() => {
+                              setIsMenuOpen(false);
+                              setMobileMagazineOpen(false);
+                            }}
+                          >
+                            ESSENTIA
+                          </a>
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
+                return (
+                  <Link
+                    key={category.label}
+                    href={category.href}
+                    target={(category as any).target}
+                    className="block py-2 text-black font-medium border-b border-black/10"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {category.label}
+                  </Link>
                 );
-              }
-              return (
-                <Link
-                  key={category.label}
-                  href={category.href}
-                  target={(category as any).target}
-                  className="block py-2 text-black font-medium border-b border-black/10"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {category.label}
-                </Link>
-              );
-            })}
-          </nav>
+              })}
+            </nav>
+          </div>
         </div>
       )}
 

@@ -116,8 +116,8 @@ export function ExoticaHeader() {
 
         {/* Mobile Navigation Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden border-t border-gray-200 py-4">
-            <nav className="flex flex-col space-y-4">
+          <div className="md:hidden border-t border-gray-200">
+            <nav className="max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain flex flex-col space-y-4 py-4">
               {navItems.map((item) => (
                 <Link
                   key={item.label}
