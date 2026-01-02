@@ -39,6 +39,17 @@ export function SiteHeader() {
 
  
 
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMenuOpen]);
+
   const onSearchSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const q = query.trim();
@@ -146,7 +157,7 @@ export function SiteHeader() {
             {/* Left: Mobile Menu */}
             <div className="flex items-center gap-2 sm:gap-3 lg:flex-1">
               <button
-                className="lg:hidden text-black/70 hover:text-black"
+                className="lg:hidden text-black/70 hover:text-black p-2 -ml-2"
                 onClick={() => {
                   const next = !isMenuOpen;
                   setIsMenuOpen(next);
@@ -515,7 +526,11 @@ export function SiteHeader() {
                   return (
                     <div key={category.label}>
                       <button
-                        onClick={() => setMobileStateEditionsOpen(!mobileStateEditionsOpen)}
+                        onClick={() => {
+                          setMobileStateEditionsOpen(!mobileStateEditionsOpen);
+                          setMobileEpaperOpen(false);
+                          setMobileMagazineOpen(false);
+                        }}
                         className="w-full flex items-center justify-between py-2 text-black font-medium border-b border-black/10"
                       >
                         <span>{category.label}</span>
@@ -529,13 +544,13 @@ export function SiteHeader() {
                         </svg>
                       </button>
                       {mobileStateEditionsOpen && statesData.length > 0 && (
-                        <div className="pl-4 py-2">
-                          <div className="grid grid-cols-2 gap-1">
+                        <div className="pl-4 py-2 bg-gray-50/50 rounded-md my-1">
+                          <div className="grid grid-cols-2 gap-2">
                             {statesData.map((state) => (
                               <Link
                                 key={state.url_key}
                                 href={`/state/${state.category_id}`}
-                                className="text-xs text-black/80 hover:underline underline-offset-4 py-1"
+                                className="text-xs text-black/80 hover:text-black hover:underline underline-offset-4 py-1.5"
                                 onClick={() => {
                                   setIsMenuOpen(false);
                                   setMobileStateEditionsOpen(false);
@@ -554,7 +569,11 @@ export function SiteHeader() {
                   return (
                     <div key={category.label}>
                       <button
-                        onClick={() => setMobileEpaperOpen(!mobileEpaperOpen)}
+                        onClick={() => {
+                          setMobileEpaperOpen(!mobileEpaperOpen);
+                          setMobileStateEditionsOpen(false);
+                          setMobileMagazineOpen(false);
+                        }}
                         className="w-full flex items-center justify-between py-2 text-black font-medium border-b border-black/10"
                       >
                         <span>{category.label}</span>
@@ -568,25 +587,25 @@ export function SiteHeader() {
                         </svg>
                       </button>
                       {mobileEpaperOpen && (
-                        <div className="pl-4 py-2 space-y-2">
+                        <div className="pl-4 py-2 space-y-3 bg-gray-50/50 rounded-md my-1">
                           {epaperLoading ? (
                             <div className="text-sm text-gray-600">Loading...</div>
                           ) : epaperError ? (
                             <div className="text-sm text-red-600">{epaperError}</div>
                           ) : epaperData && epaperData.length > 0 ? (
                             epaperData.map((lang) => (
-                              <div key={lang.language} className="mb-3">
-                                <div className="text-xs font-semibold text-gray-800 mb-1">
+                              <div key={lang.language} className="mb-3 last:mb-0">
+                                <div className="text-xs font-bold text-gray-900 mb-1.5">
                                   {lang.language}
                                 </div>
-                                <div className="grid grid-cols-2 gap-1">
+                                <div className="grid grid-cols-2 gap-2">
                                   {lang.locations.map((loc) => (
                                     <a
                                       key={loc.location}
                                       href={loc.pdf_url}
                                       target="_blank"
                                       rel="noopener noreferrer"
-                                      className="text-xs text-black/80 hover:underline underline-offset-4 py-1"
+                                      className="text-xs text-black/80 hover:text-black hover:underline underline-offset-4 py-1"
                                       onClick={() => setIsMenuOpen(false)}
                                     >
                                       {loc.location}
@@ -607,7 +626,11 @@ export function SiteHeader() {
                   return (
                     <div key={category.label}>
                       <button
-                        onClick={() => setMobileMagazineOpen(!mobileMagazineOpen)}
+                        onClick={() => {
+                          setMobileMagazineOpen(!mobileMagazineOpen);
+                          setMobileStateEditionsOpen(false);
+                          setMobileEpaperOpen(false);
+                        }}
                         className="w-full flex items-center justify-between py-2 text-black font-medium border-b border-black/10"
                       >
                         <span>{category.label}</span>
@@ -621,12 +644,12 @@ export function SiteHeader() {
                         </svg>
                       </button>
                       {mobileMagazineOpen && (
-                        <div className="pl-4 py-2 space-y-1">
+                        <div className="pl-4 py-2 space-y-2 bg-gray-50/50 rounded-md my-1">
                           <a
                             href="/Exotica_December_25.pdf"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="block text-xs text-black/80 hover:underline underline-offset-4 py-1"
+                            className="block text-xs text-black/80 hover:text-black hover:underline underline-offset-4 py-1.5"
                             onClick={() => {
                               setIsMenuOpen(false);
                               setMobileMagazineOpen(false);
@@ -638,7 +661,7 @@ export function SiteHeader() {
                             href="/FRESH_Dec_25.pdf"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="block text-xs text-black/80 hover:underline underline-offset-4 py-1"
+                            className="block text-xs text-black/80 hover:text-black hover:underline underline-offset-4 py-1.5"
                             onClick={() => {
                               setIsMenuOpen(false);
                               setMobileMagazineOpen(false);
@@ -650,7 +673,7 @@ export function SiteHeader() {
                             href="/Essentia_DECEMBER.pdf"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="block text-xs text-black/80 hover:underline underline-offset-4 py-1"
+                            className="block text-xs text-black/80 hover:text-black hover:underline underline-offset-4 py-1.5"
                             onClick={() => {
                               setIsMenuOpen(false);
                               setMobileMagazineOpen(false);

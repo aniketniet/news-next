@@ -2,13 +2,25 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 
 
 export function ExoticaHeader() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { user, logout } = useAuth();
+
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMobileMenuOpen]);
+
   const navItems = [
     { label: "Travel", href: "/exotica/travel" },
     { label: "Lifestyle", href: "/exotica/lifestyle" },
@@ -99,7 +111,7 @@ export function ExoticaHeader() {
             </button>
             
             <button 
-              className="p-2 text-gray-600 hover:text-orange-600 transition-colors"
+              className="p-2 text-gray-600 hover:text-orange-600 transition-colors -mr-2"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label="Toggle menu"
             >
