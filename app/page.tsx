@@ -214,11 +214,7 @@ export default async function HomePage() {
   const cricketStories = mapSports(byCategoryId(1086));
   const footballStories = mapSports(byCategoryId(1087));
   const hockeyStories = mapSports(byCategoryId(1088));
-  const otherSportsStories = mapSports(
-    sportsRaw.filter(
-      (s) => ![1086, 1087, 1088].includes(Number((s as any).category_id))
-    )
-  );
+  const otherSportsStories = mapSports(sportsRaw); // Show all sports data
 
   // Technology mapping
   const technologyStories = categories.technology.map((s) => ({
@@ -593,24 +589,22 @@ export default async function HomePage() {
         </section>
 
         {/* Other Sports Slider presented like Business & Impact carousels */}
-        {otherSportsStories.length > 0 && (
-          <section className="px-3 md:px-6 py-6">
-            <div className="mx-auto w-full max-w-6xl">
-              <BusinessSlider
-                stories={otherSportsStories.map(s => ({
-                  id: s.id,
-                  title: s.title,
-                  category: s.category,
-                  image: s.image,
-                  date: s.time,
-                  urlKey: s.urlKey,
-                }))}
-                title="Other Sports"
-                seeMoreHref="/section/sport"
-              />
-            </div>
-          </section>
-        )}
+        <section className="px-3 md:px-6 py-6">
+          <div className="mx-auto w-full max-w-6xl">
+            <BusinessSlider
+              stories={otherSportsStories.map(s => ({
+                id: s.id,
+                title: s.title,
+                category: s.category,
+                image: s.image,
+                date: s.time,
+                urlKey: s.urlKey,
+              }))}
+              title="Other Sports"
+              seeMoreHref="/section/sport"
+            />
+          </div>
+        </section>
 
          {/* Entertainment Slider */}
         {entertainmentStories.length > 0 && (

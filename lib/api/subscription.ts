@@ -44,7 +44,7 @@ export interface PaymentVerification {
    * Kept as string for x-www-form-urlencoded compatibility.
    */
   service_names?: string; // comma-separated list
-  magazine_option?: 'Exotica' | 'Essentia' | 'Both';
+  magazine_option?: 'Exotica' | 'FRESH' | 'Both';
 }
 
 import Cookies from 'js-cookie';

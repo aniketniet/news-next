@@ -19,6 +19,14 @@ export function SiteHeader() {
   const { user, ready } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
   const [epaperOpen, setEpaperOpen] = useState(false);
   const [mobileEpaperOpen, setMobileEpaperOpen] = useState(false);
   const [stateEditionsOpen, setStateEditionsOpen] = useState(false);
@@ -218,13 +226,13 @@ export function SiteHeader() {
             </div>
 
             {/* Center: Logo */}
-            <Link href="/" className="shrink-0">
+            <Link href="/" className="shrink-0" onClick={scrollToTop}>
               <Image
                 src="/logo.png"
                 alt="The Pioneer"
-                width={320}
-                height={100}
-                className="w-[200px] sm:w-[250px] md:w-[320px] h-auto object-contain"
+                width={400}
+                height={120}
+                className="w-[240px] sm:w-[300px] md:w-[400px] h-auto object-contain"
               />
             </Link>
 
@@ -333,7 +341,10 @@ export function SiteHeader() {
                               key={state.url_key}
                               href={`/state/${state.category_id}`}
                               className="px-2 py-1.5 text-xs text-gray-800 hover:bg-black/5 hover:text-black rounded transition-colors"
-                              onClick={() => setStateEditionsOpen(false)}
+                              onClick={() => {
+                                setStateEditionsOpen(false);
+                                scrollToTop();
+                              }}
                             >
                               {state.category_name}
                             </Link>
@@ -453,6 +464,7 @@ export function SiteHeader() {
                     className={`block px-3 py-3 hover:underline underline-offset-4 transition-colors ${
                       isActive(category.href) ? 'font-semibold border-b-2 border-black' : ''
                     }`}
+                    onClick={scrollToTop}
                   >
                     {category.label}
                   </Link>
@@ -554,6 +566,7 @@ export function SiteHeader() {
                                 onClick={() => {
                                   setIsMenuOpen(false);
                                   setMobileStateEditionsOpen(false);
+                                  scrollToTop();
                                 }}
                               >
                                 {state.category_name}
@@ -692,7 +705,10 @@ export function SiteHeader() {
                     href={category.href}
                     target={(category as any).target}
                     className="block py-2 text-black font-medium border-b border-black/10"
-                    onClick={() => setIsMenuOpen(false)}
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      scrollToTop();
+                    }}
                   >
                     {category.label}
                   </Link>

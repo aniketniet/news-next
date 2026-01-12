@@ -2,6 +2,13 @@
 
 import { useState } from "react"
 
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+};
+
 export default function SiteHeader() {
   const [q, setQ] = useState("")
   const nav = [
@@ -42,8 +49,8 @@ export default function SiteHeader() {
 
       {/* Masthead */}
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 md:px-6">
-        <a href="/pioneer" className="block">
-          <h1 className="text-2xl font-bold tracking-tight text-black md:text-3xl">The Pioneer</h1>
+        <a href="/pioneer" className="block" onClick={scrollToTop}>
+          <h1 className="text-2xl font-bold tracking-tight text-black md:text-3xl lg:text-4xl">The Pioneer</h1>
           <span className="sr-only">Go to homepage</span>
         </a>
         <div className="flex w-64 items-center gap-2 md:w-80">
@@ -66,7 +73,7 @@ export default function SiteHeader() {
           <ul className="flex flex-wrap items-center gap-x-4 gap-y-2 py-2 text-sm font-medium text-black">
             {nav.map((item) => (
               <li key={item}>
-                <a href="#" className="inline-block rounded px-2 py-1 hover:bg-yellow-300">
+                <a href="#" className="inline-block rounded px-2 py-1 hover:bg-yellow-300" onClick={scrollToTop}>
                   {item}
                 </a>
               </li>

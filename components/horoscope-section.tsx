@@ -1,5 +1,5 @@
-import Image from "next/image";
-import Link from "next/link";
+// import Image from "next/image";
+// import Link from "next/link";
 import { AdvertiseSection } from "./advertise-section";
 import { NewsletterSection } from "./newsletter-section";
 

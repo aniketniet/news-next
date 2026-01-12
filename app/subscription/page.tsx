@@ -59,7 +59,7 @@ interface UserFormData {
   address: string;
 }
 
-type MagazineOption = "Exotica" | "Essentia" | "Both";
+type MagazineOption = "Exotica" | "FRESH" | "Both";
 
 const BLOCKED_PINS = new Set([
   // Greater Noida
@@ -279,7 +279,7 @@ export default function SubscriptionPage() {
     setErrors(newErrors);
 
     if ((selectedPlan?.code === "A" || selectedPlan?.code === "B") && !magazineOption) {
-      newPlanErrors.magazineOption = "Please choose Exotica or Essentia.";
+      newPlanErrors.magazineOption = "Please choose Exotica or FRESH.";
     }
     setPlanErrors(newPlanErrors);
 
@@ -652,7 +652,7 @@ export default function SubscriptionPage() {
               <div className="rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-sm text-gray-700">
                 This plan includes <span className="font-semibold">both</span> magazines:{" "}
                 <span className="font-semibold">Exotica</span> +{" "}
-                <span className="font-semibold">Essentia</span>.
+                <span className="font-semibold">FRESH</span>.
               </div>
             )}
 
@@ -684,16 +684,16 @@ export default function SubscriptionPage() {
                   <button
                     type="button"
                     onClick={() => {
-                      setMagazineOption("Essentia");
+                      setMagazineOption("FRESH");
                       if (planErrors.magazineOption) setPlanErrors({});
                     }}
                     className={`flex-1 border rounded-md px-3 py-2 text-sm font-semibold ${
-                      magazineOption === "Essentia"
+                      magazineOption === "FRESH"
                         ? "bg-black text-white border-black"
                         : "bg-white text-gray-800 border-gray-300"
                     }`}
                   >
-                    Essentia
+                    FRESH
                   </button>
                 </div>
                 {planErrors.magazineOption && (
