@@ -22,6 +22,9 @@ export default function LanguageSelector() {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Only run on client side
+    if (typeof window === 'undefined') return;
+
     // Get current language from cookie or default to English
     const updateCurrentLang = () => {
       const langCookie = document.cookie
@@ -30,33 +33,66 @@ export default function LanguageSelector() {
       
       if (langCookie) {
         const cookieValue = langCookie.split('=')[1];
-        if (cookieValue && cookieValue !== '') {
-          const langCode = cookieValue.split('/').pop() || 'en';
+        if (cookieValue && cookieValue !== '' && cookieValue !== 'null') {
+          // Parse cookie value like "/en/hi" or "/en/fr"
+          const parts = cookieValue.split('/');
+          const langCode = parts.length > 1 ? parts[parts.length - 1] : 'en';
           const foundLang = languages.find(l => l.code === langCode);
           if (foundLang) {
             setCurrentLang(foundLang);
+            return;
           }
-        } else {
-          setCurrentLang(languages[0]); // English
         }
-      } else {
-        setCurrentLang(languages[0]); // English
       }
+      setCurrentLang(languages[0]); // English
     };
 
     // Check initially
     updateCurrentLang();
 
+    // Listen for Google Translate ready event
+    const handleTranslateReady = () => {
+      updateCurrentLang();
+      const select = document.querySelector<HTMLSelectElement>('#google_translate_element select');
+      if (select) {
+        select.addEventListener('change', updateCurrentLang);
+      }
+    };
+
+    window.addEventListener('googleTranslateReady', handleTranslateReady);
+
     // Also check when Google Translate select changes
-    const select = document.querySelector<HTMLSelectElement>('#google_translate_element select');
-    if (select) {
-      select.addEventListener('change', updateCurrentLang);
-      return () => select.removeEventListener('change', updateCurrentLang);
-    }
+    const checkSelect = () => {
+      const select = document.querySelector<HTMLSelectElement>('#google_translate_element select');
+      if (select) {
+        select.addEventListener('change', updateCurrentLang);
+        return true;
+      }
+      return false;
+    };
+
+    // Try to find select element, with retries
+    let selectCheckAttempts = 0;
+    const maxSelectChecks = 20;
+    const selectInterval = setInterval(() => {
+      if (checkSelect() || selectCheckAttempts >= maxSelectChecks) {
+        clearInterval(selectInterval);
+      }
+      selectCheckAttempts++;
+    }, 200);
 
     // Periodically check for cookie changes
-    const interval = setInterval(updateCurrentLang, 1000);
-    return () => clearInterval(interval);
+    const cookieInterval = setInterval(updateCurrentLang, 2000);
+
+    return () => {
+      window.removeEventListener('googleTranslateReady', handleTranslateReady);
+      clearInterval(selectInterval);
+      clearInterval(cookieInterval);
+      const select = document.querySelector<HTMLSelectElement>('#google_translate_element select');
+      if (select) {
+        select.removeEventListener('change', updateCurrentLang);
+      }
+    };
   }, []);
 
   useEffect(() => {
@@ -77,61 +113,92 @@ export default function LanguageSelector() {
     setCurrentLang(lang);
     setIsOpen(false);
 
-    // Trigger Google Translate
-    const select = document.querySelector<HTMLSelectElement>('#google_translate_element select');
-    
-    if (select) {
-      // Map language codes to Google Translate format
-      const langMap: { [key: string]: string } = {
-        'en': '',
-        'hi': 'hi',
-        'fr': 'fr',
-        'ar': 'ar',
-        'ta': 'ta',
-        'te': 'te',
-      };
-
-      const targetLang = langMap[lang.code] || '';
+    // Wait a bit to ensure Google Translate is ready
+    setTimeout(() => {
+      // Trigger Google Translate
+      const select = document.querySelector<HTMLSelectElement>('#google_translate_element select');
       
-      // Find the option that matches the language
-      const options = Array.from(select.options);
-      let targetOption = null;
+      if (select && select.options.length > 0) {
+        // Map language codes to Google Translate format
+        const langMap: { [key: string]: string } = {
+          'en': '',
+          'hi': 'hi',
+          'fr': 'fr',
+          'ar': 'ar',
+          'ta': 'ta',
+          'te': 'te',
+        };
 
-      if (lang.code === 'en') {
-        // For English, find option with empty value or that contains 'en' but not other languages
-        targetOption = options.find(opt => {
-          const value = opt.value;
-          return value === '' || value === '0' || (!value.includes('/') && value.includes('en'));
-        });
-      } else {
-        // For other languages, find option containing the language code
-        targetOption = options.find(opt => {
-          const value = opt.value;
-          return value.includes(`/${targetLang}`) || value.includes(targetLang);
-        });
-      }
-
-      if (targetOption) {
-        select.value = targetOption.value;
-        // Trigger change event
-        const event = new Event('change', { bubbles: true });
-        select.dispatchEvent(event);
+        const targetLang = langMap[lang.code] || '';
         
-        // Also try click event
-        select.click();
+        // Find the option that matches the language
+        const options = Array.from(select.options);
+        let targetOption = null;
+
+        if (lang.code === 'en') {
+          // For English, find option with empty value or that contains 'en' but not other languages
+          targetOption = options.find(opt => {
+            const value = opt.value;
+            return value === '' || value === '0' || value === 'auto' || (!value.includes('/') && value.includes('en'));
+          });
+        } else {
+          // For other languages, find option containing the language code
+          targetOption = options.find(opt => {
+            const value = opt.value;
+            return value.includes(`/${targetLang}`) || value.includes(`|${targetLang}`) || value === targetLang;
+          });
+        }
+
+        if (targetOption) {
+          select.value = targetOption.value;
+          // Trigger change event with proper event creation
+          const event = new Event('change', { bubbles: true, cancelable: true });
+          select.dispatchEvent(event);
+          
+          // Also trigger input event
+          const inputEvent = new Event('input', { bubbles: true, cancelable: true });
+          select.dispatchEvent(inputEvent);
+        } else {
+          // Fallback to cookie method
+          setLanguageCookie(lang);
+        }
+      } else {
+        // Fallback: use cookie method
+        setLanguageCookie(lang);
       }
-    } else {
-      // Fallback: use cookie method and reload
-      const domain = window.location.hostname;
-      const langCode = lang.code === 'en' ? '' : lang.code;
-      const cookieValue = langCode ? `/en/${langCode}` : '';
-      document.cookie = `googtrans=${cookieValue}; path=/; domain=${domain}`;
-      
-      // Small delay before reload to ensure cookie is set
-      setTimeout(() => {
-        window.location.reload();
-      }, 100);
+    }, 200);
+  };
+
+  const setLanguageCookie = (lang: Language) => {
+    // Get domain - handle both localhost and production
+    const hostname = window.location.hostname;
+    let domain = hostname;
+    
+    // For production domains, use the root domain
+    if (hostname.includes('dailypioneer.com')) {
+      domain = '.dailypioneer.com';
+    } else if (hostname !== 'localhost' && !hostname.startsWith('127.0.0.1') && !hostname.startsWith('192.168.')) {
+      // Extract root domain
+      const parts = hostname.split('.');
+      if (parts.length >= 2) {
+        domain = '.' + parts.slice(-2).join('.');
+      }
     }
+
+    const langCode = lang.code === 'en' ? '' : lang.code;
+    const cookieValue = langCode ? `/en/${langCode}` : '';
+    
+    // Set cookie with proper domain
+    if (domain.startsWith('.')) {
+      document.cookie = `googtrans=${cookieValue}; path=/; domain=${domain}; max-age=31536000; SameSite=Lax`;
+    } else {
+      document.cookie = `googtrans=${cookieValue}; path=/; max-age=31536000; SameSite=Lax`;
+    }
+    
+    // Reload page to apply translation
+    setTimeout(() => {
+      window.location.reload();
+    }, 150);
   };
 
   // Hide Google Translate bar continuously

@@ -3,6 +3,9 @@ import {useEffect} from 'react';
 
 export default function GoogleTranslate() {
   useEffect(() => {
+    // Only run on client side
+    if (typeof window === 'undefined') return;
+
     // Hide Google Translate bar that appears at top
     const hideTranslateBar = () => {
       // Hide all possible Google Translate bars and banners
@@ -39,40 +42,85 @@ export default function GoogleTranslate() {
       });
     };
 
-    // Check if script already exists
-    if (document.querySelector('script[src*="translate_a/element.js"]')) {
-      // Script already loaded, wait for element and initialize
-      waitForElementAndInit();
-      hideTranslateBar();
-      // Set up observer to hide bar when it appears
-      const observer = new MutationObserver(hideTranslateBar);
-      observer.observe(document.body, { childList: true, subtree: true });
-      return () => observer.disconnect();
+    // Wait for DOM to be ready
+    const initTranslate = () => {
+      // Check if script already exists
+      const existingScript = document.querySelector('script[src*="translate_a/element.js"]');
+      
+      if (existingScript) {
+        // Script already loaded, wait for element and initialize
+        waitForElementAndInit();
+        hideTranslateBar();
+        // Set up observer to hide bar when it appears
+        const observer = new MutationObserver(hideTranslateBar);
+        observer.observe(document.body, { childList: true, subtree: true });
+        return () => observer.disconnect();
+      }
+
+      // Create script with proper protocol
+      const protocol = window.location.protocol === 'https:' ? 'https:' : 'http:';
+      const addScript = document.createElement('script');
+      addScript.src = `${protocol}//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit`;
+      addScript.async = true;
+      addScript.defer = true;
+      
+      // Set up callback before appending script
+      (window as any).googleTranslateElementInit = () => {
+        // Wait a bit for DOM to be ready
+        setTimeout(() => {
+          waitForElementAndInit();
+          hideTranslateBar();
+          
+          // Set up observer to continuously hide the bar
+          const observer = new MutationObserver(hideTranslateBar);
+          observer.observe(document.body, { childList: true, subtree: true });
+        }, 100);
+      };
+
+      // Handle script load errors
+      addScript.onerror = () => {
+        console.error('Failed to load Google Translate script');
+      };
+
+      document.body.appendChild(addScript);
+    };
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initTranslate);
+    } else {
+      // DOM already ready
+      setTimeout(initTranslate, 100);
     }
 
-    const addScript = document.createElement('script');
-    addScript.src =
-      '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-    addScript.async = true;
-    document.body.appendChild(addScript);
+    // Set up continuous hiding
+    const hideInterval = setInterval(hideTranslateBar, 500);
+    const observer = new MutationObserver(hideTranslateBar);
+    observer.observe(document.body, { childList: true, subtree: true });
 
-    (window as any).googleTranslateElementInit = () => {
-      // Wait for element to be available in DOM
-      waitForElementAndInit();
-      hideTranslateBar();
-      
-      // Set up observer to continuously hide the bar
-      const observer = new MutationObserver(hideTranslateBar);
-      observer.observe(document.body, { childList: true, subtree: true });
+    return () => {
+      clearInterval(hideInterval);
+      observer.disconnect();
     };
   }, []);
 
   const waitForElementAndInit = () => {
+    let attempts = 0;
+    const maxAttempts = 50; // 5 seconds max wait
+    
     const checkElement = () => {
+      attempts++;
+      
+      if (attempts > maxAttempts) {
+        console.warn('Google Translate initialization timeout');
+        return;
+      }
+
       const element = document.getElementById('google_translate_element');
+      
       if (element && (window as any).google?.translate) {
         // Check if already initialized
-        if (!element.hasChildNodes()) {
+        if (!element.hasChildNodes() || element.children.length === 0) {
           try {
             new (window as any).google.translate.TranslateElement(
               {
@@ -82,18 +130,34 @@ export default function GoogleTranslate() {
               },
               'google_translate_element'
             );
+            
+            // Wait a bit more for the select element to be created
+            setTimeout(() => {
+              const select = element.querySelector('select');
+              if (select) {
+                // Dispatch a custom event to notify LanguageSelector
+                window.dispatchEvent(new CustomEvent('googleTranslateReady'));
+              }
+            }, 300);
           } catch (e) {
             console.error('Error initializing Google Translate:', e);
+            // Retry after a delay
+            if (attempts < maxAttempts) {
+              setTimeout(checkElement, 200);
+            }
           }
+        } else {
+          // Already initialized, notify LanguageSelector
+          window.dispatchEvent(new CustomEvent('googleTranslateReady'));
         }
       } else {
-        // Element not found yet, try again after a short delay
+        // Element or Google Translate not ready yet, try again
         setTimeout(checkElement, 100);
       }
     };
     
-    // Start checking
-    checkElement();
+    // Start checking after a small delay to ensure DOM is ready
+    setTimeout(checkElement, 100);
   };
 
   return null;
