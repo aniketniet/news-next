@@ -270,6 +270,30 @@ export async function fetchCategoryList(categoryId: number, { limit = 10, offset
         return []
     }
 }
+
+export async function fetchSubcategoryList(subcategoryId: number, { limit = 10, offset = 0 }: { limit?: number; offset?: number } = {}): Promise<StorySummary[]> {
+    try {
+        const { data } = await axios.get<ListEnvelope>(
+            `${BASE}/news/subcategory/${subcategoryId}?limit=${limit}&offset=${offset}`,
+            { timeout: 15000 }
+        )
+        const arr = Array.isArray(data?.data) ? data.data : []
+        return arr.map((item: any) => ({
+            id: item.story_id,
+            title: item.story_title,
+            category: item.category_name || item.section_name || undefined,
+            author: item.author_name || undefined,
+            publishedDate: item.published_date || item.story_date,
+            image: item.image_name ? `${item.image_name}` : null,
+            image_url_medium: item.image_url_medium || null,
+            urlKey: item.url_key,
+            description: item.meta_description ?? item.story_short_description ?? null,
+        }))
+    } catch (e) {
+        console.error('fetchSubcategoryList error', e)
+        return []
+    }
+}
 // Return both latest_news and top_stories
 export interface StoriesGrouped {
     latest: StorySummary[]

@@ -339,6 +339,8 @@ export default async function HomePage() {
   // Videos: dynamic from images API combined payload
   const dynamicVideos = mapVideosToSectionItems(gallery?.videos || []);
 
+  console.log("Dynamic Videos:", dynamicVideos);
+
   // agenda 
   const agendaStories = (
     (categories as any).agenda ||
@@ -606,24 +608,26 @@ export default async function HomePage() {
           </div>
         </section>
 
-         {/* Entertainment Slider */}
-        {entertainmentStories.length > 0 && (
-          <section id="section-entertainment" className="px-3 md:px-6 py-6 scroll-mt-24">
-            <div className="mx-auto w-full max-w-6xl">
-              <BusinessSlider stories={entertainmentStories} title="Entertainment" seeMoreHref="/section/entertainment" />
-            </div>
-          </section>
-        )}
+         {/* Opinion & Analysis Sections with Advertisement */}
+        
+         <section
+          id="section-opinion"
+          className="px-3 md:px-6 py-6 scroll-mt-24"
+        >
+          <div className="mx-auto w-full max-w-6xl">
+            <OpinionAnalysisSections
+              opinion={dynamicOpinion}
+              analysis={dynamicAnalysis}
+              opinionSeeMoreHref="/category/opinion"
+              analysisSeeMoreHref="/category/analysis"
+            
+            />
+          </div>
+        </section>
 
+       
 
-        {/* Videos Section (dynamic) */}
-        {/* {dynamicVideos.length > 0 && (
-          <section id="section-videos" className="px-3 md:px-6 py-6 scroll-mt-24">
-            <div className="mx-auto w-full max-w-6xl">
-              <VideosSection videos={dynamicVideos} />
-            </div>
-          </section>
-        )} */}
+       
 
         {/* Podcast and Horoscope Sections */}
         {/* Anchors for podcast and horoscope in the combined section */}
@@ -660,22 +664,24 @@ export default async function HomePage() {
 
       {/* <PhotoGallery /> */}
       
-        {/* Opinion & Analysis Sections with Advertisement */}
-        
-        <section
-          id="section-opinion"
-          className="px-3 md:px-6 py-6 scroll-mt-24"
-        >
-          <div className="mx-auto w-full max-w-6xl">
-            <OpinionAnalysisSections
-              opinion={dynamicOpinion}
-              analysis={dynamicAnalysis}
-              opinionSeeMoreHref="/category/opinion"
-              analysisSeeMoreHref="/category/analysis"
-            
-            />
-          </div>
-        </section>
+         {/* Entertainment Slider */}
+         {entertainmentStories.length > 0 && (
+          <section id="section-entertainment" className="px-3 md:px-6 py-6 scroll-mt-24">
+            <div className="mx-auto w-full max-w-6xl">
+              <BusinessSlider stories={entertainmentStories} title="Entertainment" seeMoreHref="/section/entertainment" />
+            </div>
+          </section>
+        )}
+
+         {/* Videos Section (dynamic) */}
+         {dynamicVideos.length > 0 && (
+          <section id="section-videos" className="px-3 md:px-6 py-6 scroll-mt-24">
+            <div className="mx-auto w-full max-w-6xl">
+              <VideosSection videos={dynamicVideos} />
+            </div>
+          </section>
+        )}
+
 
        {/* Main grid with Sidebar */}
         <section className="px-3 md:px-6 py-6">

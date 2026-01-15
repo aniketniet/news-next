@@ -9,8 +9,10 @@ import { ProfileDropdown } from "./ProfileDropdown";
 import { useRouter, usePathname } from "next/navigation";
 import { fetchEpaper, type EpaperLanguage } from "@/lib/api/epaper";
 import { fetchStates, type State } from "@/lib/api/stories";
+import { fetchMagazines, type MagazineItem } from "@/lib/api/magazine";
 import Skeleton from "react-loading-skeleton";
 import { GoogleOneTap } from "./GoogleOneTap";
+import LanguageSelector from "./LanguageSelector";
 
 export function SiteHeader() {
   const [query, setQuery] = useState("");
@@ -33,6 +35,8 @@ export function SiteHeader() {
   const [mobileStateEditionsOpen, setMobileStateEditionsOpen] = useState(false);
   const [magazineOpen, setMagazineOpen] = useState(false);
   const [mobileMagazineOpen, setMobileMagazineOpen] = useState(false);
+  const [agendaOpen, setAgendaOpen] = useState(false);
+  const [mobileAgendaOpen, setMobileAgendaOpen] = useState(false);
   const [epaperLoading, setEpaperLoading] = useState(false);
   const [epaperError, setEpaperError] = useState<string | null>(null);
   const [epaperData, setEpaperData] = useState<EpaperLanguage[] | null>(null);
@@ -43,9 +47,18 @@ export function SiteHeader() {
     language: string;
     date: string;
   } | null>(null);
-  
+  const [magazines, setMagazines] = useState<MagazineItem[]>([]);
+  const [magazineLoading, setMagazineLoading] = useState(false);
+  const [magazineError, setMagazineError] = useState<string | null>(null);
 
- 
+  // Agenda subcategories
+  const agendaSubcategories = [
+    { id: 1003, name: "Cover Story" },
+    { id: 1038, name: "Food" },
+    { id: 1001, name: "Travel" },
+    { id: 1019, name: "Spirituality" },
+    { id: 1011, name: "Book Reviews" },
+  ];
 
   useEffect(() => {
     if (isMenuOpen) {
@@ -95,9 +108,24 @@ export function SiteHeader() {
     }
   };
 
+  const loadMagazines = async () => {
+    try {
+      setMagazineLoading(true);
+      setMagazineError(null);
+      const data = await fetchMagazines();
+      setMagazines(data);
+    } catch (e: any) {
+      console.error("Failed to load magazines", e);
+      setMagazineError(e?.message || "Failed to load magazines");
+    } finally {
+      setMagazineLoading(false);
+    }
+  };
+
   useEffect(() => {
     void ensureEpaperLoaded();
     void loadStateEditions();
+    void loadMagazines();
   }, []);
 
   const categories = [
@@ -251,6 +279,9 @@ export function SiteHeader() {
                     LOG IN
                   </Link>
                 ))}
+
+              {/* Language Translate Button */}
+              <LanguageSelector />
 
               {/* Search Icon */}
               <button
@@ -409,6 +440,45 @@ export function SiteHeader() {
                   </li>
                 );
               }
+              if (category.label === 'AGENDA') {
+                const isAgendaActive = pathname.startsWith('/subcategory/');
+                return (
+                  <li key={category.label} className="relative group">
+                    <button
+                      className={`block px-3 py-3 hover:underline underline-offset-4 transition-colors ${
+                        isAgendaActive ? 'font-semibold border-b-2 border-black' : ''
+                      }`}
+                      onMouseEnter={() => setAgendaOpen(true)}
+                      onMouseLeave={() => setAgendaOpen(false)}
+                    >
+                      {category.label}
+                    </button>
+                    {agendaOpen && (
+                      <div
+                        className="absolute left-0 top-full bg-white shadow-lg rounded-b-lg min-w-[180px] z-50"
+                        onMouseEnter={() => setAgendaOpen(true)}
+                        onMouseLeave={() => setAgendaOpen(false)}
+                      >
+                        <div className="py-2">
+                          {agendaSubcategories.map((subcat) => (
+                            <Link
+                              key={subcat.id}
+                              href={`/subcategory/${subcat.id}`}
+                              className="block px-4 py-2 text-xs text-gray-800 hover:bg-black/5 hover:text-black transition-colors"
+                              onClick={() => {
+                                setAgendaOpen(false);
+                                scrollToTop();
+                              }}
+                            >
+                              {subcat.name}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </li>
+                );
+              }
               if (category.label === 'MAGAZINE') {
                 return (
                   <li key={category.label} className="relative group">
@@ -421,35 +491,37 @@ export function SiteHeader() {
                     </button>
                     {magazineOpen && (
                       <div
-                        className="absolute left-0 top-full bg-white shadow-lg rounded-b-lg min-w-[150px] z-50"
+                        className="absolute left-0 top-full bg-white shadow-lg rounded-b-lg min-w-[180px] z-50"
                         onMouseEnter={() => setMagazineOpen(true)}
                         onMouseLeave={() => setMagazineOpen(false)}
                       >
                         <div className="py-2">
-                          <a
-                            href="/Exotica_December_25.pdf"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="block px-4 py-2 text-xs text-gray-800 hover:bg-black/5 hover:text-black transition-colors"
-                          >
-                            EXOTICA
-                          </a>
-                          <a
-                            href="/FRESH_Dec_25.pdf"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="block px-4 py-2 text-xs text-gray-800 hover:bg-black/5 hover:text-black transition-colors"
-                          >
-                            FRESH
-                          </a>
-                          <a
-                            href="/Essentia_DECEMBER.pdf"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="block px-4 py-2 text-xs text-gray-800 hover:bg-black/5 hover:text-black transition-colors"
-                          >
-                            ESSENTIA
-                          </a>
+                          {magazineLoading ? (
+                            <div className="px-4 py-2 text-xs text-gray-600">
+                              Loading...
+                            </div>
+                          ) : magazineError ? (
+                            <div className="px-4 py-2 text-xs text-red-600">
+                              {magazineError}
+                            </div>
+                          ) : magazines.length ? (
+                            magazines.map((mag) => (
+                              <a
+                                key={mag.magazine_id}
+                                href={`https://dailypioneer.com/uploads/magazine/${mag.pdf_file}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="block px-4 py-2 text-xs text-gray-800 hover:bg-black/5 hover:text-black transition-colors"
+                                download
+                              >
+                                {mag.magazine_name}
+                              </a>
+                            ))
+                          ) : (
+                            <div className="px-4 py-2 text-xs text-gray-600">
+                              No magazines available
+                            </div>
+                          )}
                         </div>
                       </div>
                     )}
@@ -542,6 +614,7 @@ export function SiteHeader() {
                           setMobileStateEditionsOpen(!mobileStateEditionsOpen);
                           setMobileEpaperOpen(false);
                           setMobileMagazineOpen(false);
+                          setMobileAgendaOpen(false);
                         }}
                         className="w-full flex items-center justify-between py-2 text-black font-medium border-b border-black/10"
                       >
@@ -578,6 +651,49 @@ export function SiteHeader() {
                     </div>
                   );
                 }
+                if (category.label === 'AGENDA') {
+                  return (
+                    <div key={category.label}>
+                      <button
+                        onClick={() => {
+                          setMobileAgendaOpen(!mobileAgendaOpen);
+                          setMobileStateEditionsOpen(false);
+                          setMobileEpaperOpen(false);
+                          setMobileMagazineOpen(false);
+                        }}
+                        className="w-full flex items-center justify-between py-2 text-black font-medium border-b border-black/10"
+                      >
+                        <span>{category.label}</span>
+                        <svg
+                          className={`w-4 h-4 transition-transform ${mobileAgendaOpen ? 'rotate-180' : ''}`}
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </button>
+                      {mobileAgendaOpen && (
+                        <div className="pl-4 py-2 space-y-2 bg-gray-50/50 rounded-md my-1">
+                          {agendaSubcategories.map((subcat) => (
+                            <Link
+                              key={subcat.id}
+                              href={`/subcategory/${subcat.id}`}
+                              className="block text-xs text-black/80 hover:text-black hover:underline underline-offset-4 py-1.5"
+                              onClick={() => {
+                                setIsMenuOpen(false);
+                                setMobileAgendaOpen(false);
+                                scrollToTop();
+                              }}
+                            >
+                              {subcat.name}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
                 if (category.label === 'E-PAPER') {
                   return (
                     <div key={category.label}>
@@ -585,6 +701,7 @@ export function SiteHeader() {
                         onClick={() => {
                           setMobileEpaperOpen(!mobileEpaperOpen);
                           setMobileStateEditionsOpen(false);
+                          setMobileAgendaOpen(false);
                           setMobileMagazineOpen(false);
                         }}
                         className="w-full flex items-center justify-between py-2 text-black font-medium border-b border-black/10"
@@ -643,6 +760,7 @@ export function SiteHeader() {
                           setMobileMagazineOpen(!mobileMagazineOpen);
                           setMobileStateEditionsOpen(false);
                           setMobileEpaperOpen(false);
+                          setMobileAgendaOpen(false);
                         }}
                         className="w-full flex items-center justify-between py-2 text-black font-medium border-b border-black/10"
                       >
@@ -658,42 +776,36 @@ export function SiteHeader() {
                       </button>
                       {mobileMagazineOpen && (
                         <div className="pl-4 py-2 space-y-2 bg-gray-50/50 rounded-md my-1">
-                          <a
-                            href="/Exotica_December_25.pdf"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="block text-xs text-black/80 hover:text-black hover:underline underline-offset-4 py-1.5"
-                            onClick={() => {
-                              setIsMenuOpen(false);
-                              setMobileMagazineOpen(false);
-                            }}
-                          >
-                            EXOTICA
-                          </a>
-                          <a
-                            href="/FRESH_Dec_25.pdf"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="block text-xs text-black/80 hover:text-black hover:underline underline-offset-4 py-1.5"
-                            onClick={() => {
-                              setIsMenuOpen(false);
-                              setMobileMagazineOpen(false);
-                            }}
-                          >
-                            FRESH
-                          </a>
-                          <a
-                            href="/Essentia_DECEMBER.pdf"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="block text-xs text-black/80 hover:text-black hover:underline underline-offset-4 py-1.5"
-                            onClick={() => {
-                              setIsMenuOpen(false);
-                              setMobileMagazineOpen(false);
-                            }}
-                          >
-                            ESSENTIA
-                          </a>
+                          {magazineLoading ? (
+                            <div className="text-xs text-gray-600">
+                              Loading...
+                            </div>
+                          ) : magazineError ? (
+                            <div className="text-xs text-red-600">
+                              {magazineError}
+                            </div>
+                          ) : magazines.length ? (
+                            magazines.map((mag) => (
+                              <a
+                                key={mag.magazine_id}
+                                href={`https://dailypioneer.com/magazine/${mag.pdf_file}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="block text-xs text-black/80 hover:text-black hover:underline underline-offset-4 py-1.5"
+                                onClick={() => {
+                                  setIsMenuOpen(false);
+                                  setMobileMagazineOpen(false);
+                                }}
+                                download
+                              >
+                                {mag.magazine_name}
+                              </a>
+                            ))
+                          ) : (
+                            <div className="text-xs text-gray-600">
+                              No magazines available
+                            </div>
+                          )}
                         </div>
                       )}
                     </div>

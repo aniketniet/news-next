@@ -6,6 +6,8 @@ import Link from "next/link";
 import { useAuth } from "@/contexts/AuthContext";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/footer";
+import { fetchBookmarks, addBookmark, type BookmarkItem } from "@/lib/api/bookmarks";
+import { toast } from "sonner";
 
 export default function ProfilePage() {
   const { user, updateProfile, loading, ready } = useAuth();
@@ -16,6 +18,8 @@ export default function ProfilePage() {
     email: "",
   });
   const [message, setMessage] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
+  const [bookmarks, setBookmarks] = useState<BookmarkItem[]>([]);
+  const [bookmarksLoading, setBookmarksLoading] = useState(false);
 
   console.log('Rendering ProfilePage, user:', user);
 
@@ -29,7 +33,35 @@ export default function ProfilePage() {
       name: user.name,
       email: user.email,
     });
+    loadBookmarks();
   }, [user, ready, router]);
+
+  const loadBookmarks = async () => {
+    if (!user) return;
+    try {
+      setBookmarksLoading(true);
+      const data = await fetchBookmarks();
+      setBookmarks(data);
+    } catch (e: any) {
+      console.error('Failed to load bookmarks', e);
+      if (e?.message !== 'Authentication required') {
+        toast.error('Failed to load bookmarks');
+      }
+      setBookmarks([]);
+    } finally {
+      setBookmarksLoading(false);
+    }
+  };
+
+  const handleRemoveBookmark = async (bookmark: BookmarkItem) => {
+    try {
+      await addBookmark(bookmark.story_id);
+      setBookmarks(prev => prev.filter(b => b.id !== bookmark.id));
+      toast.success('Bookmark removed');
+    } catch (e: any) {
+      toast.error(e?.message || 'Failed to remove bookmark');
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -214,38 +246,69 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        {/* Additional Stats/Info */}
-        {/* <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-white p-6 rounded-lg shadow-lg text-center">
-            <div className="w-12 h-12 bg-black/5 rounded-full flex items-center justify-center mx-auto mb-3">
-              <svg className="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+        {/* Bookmarks Section */}
+        <div id="bookmarks" className="mt-8 bg-white rounded-lg shadow-lg overflow-hidden">
+          <div className="bg-gradient-to-r from-black to-neutral-700 px-6 py-4">
+            <h2 className="text-xl font-semibold text-white flex items-center gap-2">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
               </svg>
-            </div>
-            <h3 className="text-lg font-semibold text-gray-900">Articles Read</h3>
-            <p className="text-2xl font-bold text-black mt-1">156</p>
+              My Bookmarks ({bookmarks.length})
+            </h2>
           </div>
-
-          <div className="bg-white p-6 rounded-lg shadow-lg text-center">
-            <div className="w-12 h-12 bg-black/5 rounded-full flex items-center justify-center mx-auto mb-3">
-              <svg className="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-              </svg>
-            </div>
-            <h3 className="text-lg font-semibold text-gray-900">Bookmarks</h3>
-            <p className="text-2xl font-bold text-black mt-1">23</p>
+          <div className="p-6">
+            {bookmarksLoading ? (
+              <div className="text-center py-8">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-black mx-auto mb-4"></div>
+                <p className="text-gray-600">Loading bookmarks...</p>
+              </div>
+            ) : bookmarks.length > 0 ? (
+              <div className="space-y-4">
+                {bookmarks.map((bookmark) => (
+                  <div
+                    key={bookmark.id}
+                    className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
+                  >
+                    <div className="flex items-start justify-between gap-4">
+                      <Link
+                        href={`/news/${bookmark.url_key}`}
+                        className="flex-1 hover:text-black transition-colors"
+                      >
+                        <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
+                          {bookmark.story_title}
+                        </h3>
+                        <p className="text-sm text-gray-500">
+                          {new Date(bookmark.published_date || bookmark.story_date).toLocaleDateString(undefined, {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                          })}
+                        </p>
+                      </Link>
+                      <button
+                        onClick={() => handleRemoveBookmark(bookmark)}
+                        className="flex-shrink-0 p-2 text-gray-400 hover:text-red-600 transition-colors"
+                        title="Remove bookmark"
+                      >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-12">
+                <svg className="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                </svg>
+                <p className="text-gray-600 text-lg mb-2">No bookmarks yet</p>
+                <p className="text-gray-500 text-sm">Start bookmarking articles to save them for later</p>
+              </div>
+            )}
           </div>
-
-          <div className="bg-white p-6 rounded-lg shadow-lg text-center">
-            <div className="w-12 h-12 bg-black/5 rounded-full flex items-center justify-center mx-auto mb-3">
-              <svg className="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-              </svg>
-            </div>
-            <h3 className="text-lg font-semibold text-gray-900">Comments</h3>
-            <p className="text-2xl font-bold text-black mt-1">45</p>
-          </div>
-        </div> */}
+        </div>
       </div>
       <SiteFooter/>
     </div>

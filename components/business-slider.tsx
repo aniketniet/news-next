@@ -49,7 +49,8 @@ export function BusinessSlider({ stories, title, seeMoreHref }: BusinessSliderPr
     }
   }, [api])
 
-  const progress = count > 1 ? ((current + 1) / count) * 100 : 100
+  // Progress bar always fully filled
+  const progress = 100
 
   return (
     <section className="w-full">
@@ -93,7 +94,7 @@ export function BusinessSlider({ stories, title, seeMoreHref }: BusinessSliderPr
 
       <div className="mt-2 h-1 w-full bg-gray-200 rounded mb-6 overflow-hidden">
         <div
-          className="h-full bg-black rounded transition-[width] duration-300"
+          className="h-full bg-black rounded"
           style={{ width: `${progress}%` }}
         />
       </div>
