@@ -113,9 +113,11 @@ export default function LanguageSelector() {
     setCurrentLang(lang);
     setIsOpen(false);
 
-    // Wait a bit to ensure Google Translate is ready
+    // Always use cookie method for reliability, especially on server
+    setLanguageCookie(lang);
+    
+    // Also try to trigger select element if available (for immediate feedback)
     setTimeout(() => {
-      // Trigger Google Translate
       const select = document.querySelector<HTMLSelectElement>('#google_translate_element select');
       
       if (select && select.options.length > 0) {
@@ -149,24 +151,26 @@ export default function LanguageSelector() {
           });
         }
 
-        if (targetOption) {
+        if (targetOption && select.value !== targetOption.value) {
+          // Only change if different from current value
           select.value = targetOption.value;
-          // Trigger change event with proper event creation
-          const event = new Event('change', { bubbles: true, cancelable: true });
-          select.dispatchEvent(event);
           
-          // Also trigger input event
-          const inputEvent = new Event('input', { bubbles: true, cancelable: true });
-          select.dispatchEvent(inputEvent);
-        } else {
-          // Fallback to cookie method
-          setLanguageCookie(lang);
+          // Create and dispatch multiple event types for better compatibility
+          const events = ['change', 'input', 'blur'];
+          events.forEach(eventType => {
+            const event = new Event(eventType, { bubbles: true, cancelable: true });
+            select.dispatchEvent(event);
+          });
+          
+          // Also try native change trigger
+          if ('createEvent' in document) {
+            const evt = document.createEvent('HTMLEvents');
+            evt.initEvent('change', true, true);
+            select.dispatchEvent(evt);
+          }
         }
-      } else {
-        // Fallback: use cookie method
-        setLanguageCookie(lang);
       }
-    }, 200);
+    }, 100);
   };
 
   const setLanguageCookie = (lang: Language) => {
@@ -188,17 +192,40 @@ export default function LanguageSelector() {
     const langCode = lang.code === 'en' ? '' : lang.code;
     const cookieValue = langCode ? `/en/${langCode}` : '';
     
-    // Set cookie with proper domain
+    // First, clear existing cookie by setting it to empty with past date
+    const pastDate = new Date(0).toUTCString();
     if (domain.startsWith('.')) {
-      document.cookie = `googtrans=${cookieValue}; path=/; domain=${domain}; max-age=31536000; SameSite=Lax`;
+      document.cookie = `googtrans=; path=/; domain=${domain}; expires=${pastDate}`;
+      // Also clear without domain
+      document.cookie = `googtrans=; path=/; expires=${pastDate}`;
     } else {
-      document.cookie = `googtrans=${cookieValue}; path=/; max-age=31536000; SameSite=Lax`;
+      document.cookie = `googtrans=; path=/; expires=${pastDate}`;
     }
     
-    // Reload page to apply translation
+    // Small delay to ensure cookie is cleared
     setTimeout(() => {
-      window.location.reload();
-    }, 150);
+      // Set new cookie with proper domain - set multiple times to ensure it sticks
+      const setCookie = (cookieString: string) => {
+        document.cookie = cookieString;
+      };
+      
+      if (domain.startsWith('.')) {
+        // Set with domain
+        setCookie(`googtrans=${cookieValue}; path=/; domain=${domain}; max-age=31536000; SameSite=Lax`);
+        // Also set without domain as fallback
+        setCookie(`googtrans=${cookieValue}; path=/; max-age=31536000; SameSite=Lax`);
+      } else {
+        setCookie(`googtrans=${cookieValue}; path=/; max-age=31536000; SameSite=Lax`);
+      }
+      
+      // Force reload to apply translation - use cache-busting for server
+      setTimeout(() => {
+        const currentUrl = window.location.href.split('?')[0].split('#')[0];
+        // Add cache-busting parameters to force server to recognize language change
+        const separator = currentUrl.includes('?') ? '&' : '?';
+        window.location.href = `${currentUrl}${separator}_lang=${lang.code}&_t=${Date.now()}`;
+      }, 100);
+    }, 50);
   };
 
   // Hide Google Translate bar continuously
