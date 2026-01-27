@@ -278,6 +278,7 @@ export async function fetchSubcategoryList(subcategoryId: number, { limit = 10, 
             { timeout: 15000 }
         )
         const arr = Array.isArray(data?.data) ? data.data : []
+        console.log(arr,"arr");
         return arr.map((item: any) => ({
             id: item.story_id,
             title: item.story_title,

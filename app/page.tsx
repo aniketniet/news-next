@@ -25,7 +25,7 @@ import { PopularPosts } from "@/components/popular-posts";
 import { StateEditions } from "@/components/state-editions";
 
 import PhotoGallery from "@/components/PhotoGallery";
-import { fetchSectionList, fetchStories } from "@/lib/api/stories";
+import { fetchSectionList, fetchStories, fetchSubcategoryList } from "@/lib/api/stories";
 import { getCategoriesNormalized } from "@/lib/api/categories";
 import { fetchGalleryAssets, mapVideosToSectionItems } from "@/lib/api/images";
 import { EPaperDownload } from "@/components/epaper-download";
@@ -137,11 +137,12 @@ export default async function HomePage() {
   // sections like Technology & Impact (which may have older dates and
   // were previously missing due to cached / truncated responses) appear
   // consistently with what you see in Postman.
-  const [{ latest, popular, stateEditions }, categories, gallery, indiaSection] = await Promise.all([
+  const [{ latest, popular, stateEditions }, categories, gallery, indiaSection, coverStoryItems] = await Promise.all([
     fetchStories({ limit: 20, offset: 0 }),
     getCategoriesNormalized({ limit: 12, offset: 0, noCache: true }),
     fetchGalleryAssets({ limit: 20, offset: 0 }),
     fetchSectionList(1022, { limit: 12, offset: 0 }),
+    fetchSubcategoryList(1003, { limit: 5, offset: 0 }),
   ]);
 
   // console.log("Fetched Categories:", categories);
@@ -341,24 +342,42 @@ export default async function HomePage() {
 
   console.log("Dynamic Videos:", dynamicVideos);
 
-  // agenda 
-  const agendaStories = (
-    (categories as any).agenda ||
-    (categories as any).section?.["Agenda"] ||
-    []
-  ).map((s: any) => ({
-    id: String(s.story_id),
-    title: s.story_title,
-    urlKey: s.url_key || '',
-    category: s.section_name || s.category_name || "AGENDA",
-    image: s.image_url_medium || s.image_url_big || "/news-image.jpg",
-    byline: s.author_name || "",
-    time: new Date(s.published_date).toLocaleDateString(undefined, {
+  // Cover Story (subcategory 1003) shown in place of Agenda on home page
+  const coverStoryStories = (coverStoryItems || []).map((s: any) => ({
+    id: String(s.id ?? s.story_id),
+    title: s.title ?? s.story_title,
+    urlKey: s.urlKey ?? s.url_key ?? "",
+    category: "Cover Story",
+    image: s.image_url_medium || s.image_url_big || s.image || "/news-image.jpg",
+    byline: s.author || s.author_name || "",
+    time: new Date(s.publishedDate ?? s.published_date).toLocaleDateString(undefined, {
       day: "2-digit",
       month: "short",
       year: "numeric",
     }),
   }));
+
+  // Fallback to Agenda stories from category payload if cover story list is empty
+  const agendaStories = (coverStoryStories.length > 0
+    ? coverStoryStories
+    : (
+        (categories as any).agenda ||
+        (categories as any).section?.["Agenda"] ||
+        []
+      ).map((s: any) => ({
+        id: String(s.story_id),
+        title: s.story_title,
+        urlKey: s.url_key || "",
+        category: s.section_name || s.category_name || "AGENDA",
+        image: s.image_url_medium || s.image_url_big || "/news-image.jpg",
+        byline: s.author_name || "",
+        time: new Date(s.published_date).toLocaleDateString(undefined, {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+        }),
+      }))
+  );
   
   // law and justice
   const lawAndJusticeStories = (
@@ -566,10 +585,10 @@ export default async function HomePage() {
               />
 
               <CategorySection
-                title="Agenda"
+                title={coverStoryStories.length > 0 ? "Agenda" : "Agenda"}
                 stories={agendaStories}
                 accentColor="bg-black"
-                seeMoreHref="/section/agenda"
+                seeMoreHref={coverStoryStories.length > 0 ? "/subcategory/1003" : "/section/agenda"}
               />
 
               <AdvertiseSection src="/exceed.jpg" />
