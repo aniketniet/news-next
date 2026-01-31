@@ -8,6 +8,7 @@ type ViewState = "hidden" | "expanded" | "collapsing" | "collapsed";
 
 const STORAGE_KEY = "floatBanner:viewState";
 const DISMISSED_KEY = "floatBanner:dismissed";
+const BANNER_HREF = "https://indiafif.dailypioneer.com/";
 
 export default function FloatBanner() {
   const pathname = usePathname();
@@ -150,7 +151,13 @@ export default function FloatBanner() {
               </button>
 
               {/* image only (no card/border), but keep rounded + shadow for readability */}
-              <div className="relative w-full aspect-4/3">
+              <a
+                href={BANNER_HREF}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Open IndiaFIF"
+                className="relative block w-full aspect-4/3 cursor-pointer"
+              >
                 <Image
                   src="/float-banner.jpeg"
                   alt="Banner"
@@ -159,7 +166,7 @@ export default function FloatBanner() {
                   sizes="(max-width: 400px) 92vw, 760px"
                   priority={false}
                 />
-              </div>
+              </a>
             </div>
           </div>
         </div>
