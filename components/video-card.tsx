@@ -20,9 +20,10 @@ export function VideoCard({
   href = "#",
   onClick,
 }: VideoCardProps) {
+  const hasDuration = Boolean(duration && duration.trim().length > 0)
   return (
-  <article className={cn("flex flex-col group", className)} onClick={onClick}>
-      <Link href={href} className="relative block aspect-[16/9] w-full overflow-hidden rounded">
+  <article className={cn("flex flex-col group h-full rounded-md", className)} onClick={onClick}>
+      <Link href={href} className="relative block aspect-video w-full overflow-hidden rounded-md">
         <Image
           src={image}
           alt={title}
@@ -42,16 +43,18 @@ export function VideoCard({
         </div>
         
         {/* Duration badge */}
-        <div className="absolute bottom-2 left-2">
-          <span className="bg-black/70 text-white text-xs px-2 py-1 rounded flex items-center gap-1">
-            <div className="w-2 h-2 bg-black rounded-full"></div>
-            {duration}
-          </span>
-        </div>
+        {hasDuration && (
+          <div className="absolute bottom-2 left-2">
+            <span className="bg-black/70 text-white text-xs px-2 py-1 rounded flex items-center gap-1">
+              <span className="w-2 h-2 bg-white rounded-full" aria-hidden="true" />
+              {duration}
+            </span>
+          </div>
+        )}
       </Link>
       
-      <div className="pt-3">
-        <h3 className="font-medium leading-snug text-gray-900 group-hover:text-blue-600 transition-colors duration-200">
+      <div className="pt-3 flex-1">
+        <h3 className="font-medium leading-snug text-gray-900 group-hover:text-blue-600 transition-colors duration-200 line-clamp-2 min-h-11">
           <Link href={href} className="hover:underline">
             {title}
           </Link>

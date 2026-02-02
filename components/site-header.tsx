@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect, type FormEvent } from "react";
+import { useState, useEffect, useRef, type FormEvent } from "react";
 import Image from "next/image";
 import { useAuth } from "@/contexts/AuthContext";
 import { fetchBreakingNews, mapBreakingTitles } from "@/lib/api/breakingNews";
@@ -133,6 +133,7 @@ export function SiteHeader() {
     { label: "INDIA", href: "/section/india" },
     { label: "WORLD", href: "/section/world" },
     { label: "BUSINESS", href: "/section/business" },
+    { label: "FINANCE & INNOVATION", href: "/section/finance-and-innovation" },
     { label: "IMPACT", href: "/section/impact" },
     {label: "LAW", href: "/section/law-and-justice" },
     { label: "SPORTS", href: "/section/sport" },
@@ -159,6 +160,10 @@ export function SiteHeader() {
   >([]);
   const [breakingLoading, setBreakingLoading] = useState(false);
 
+  const desktopNavScrollRef = useRef<HTMLDivElement | null>(null);
+  const [desktopNavCanPrev, setDesktopNavCanPrev] = useState(false);
+  const [desktopNavCanNext, setDesktopNavCanNext] = useState(false);
+
   useEffect(() => {
     let cancelled = false;
     async function load() {
@@ -176,6 +181,26 @@ export function SiteHeader() {
     return () => {
       cancelled = true;
       clearInterval(id);
+    };
+  }, []);
+
+  useEffect(() => {
+    const el = desktopNavScrollRef.current;
+    if (!el) return;
+
+    const update = () => {
+      const max = el.scrollWidth - el.clientWidth;
+      // small epsilon so it feels stable
+      setDesktopNavCanPrev(el.scrollLeft > 2);
+      setDesktopNavCanNext(el.scrollLeft < max - 2);
+    };
+
+    update();
+    el.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      el.removeEventListener("scroll", update as any);
+      window.removeEventListener("resize", update);
     };
   }, []);
 
@@ -344,8 +369,40 @@ export function SiteHeader() {
 
       {/* Desktop Navigation */}
       <nav className="hidden lg:block bg-white border-b border-black/10">
-        <div className="mx-auto max-w-7xl">
-          <ul className="flex flex-wrap items-center justify-center text-[12px] xl:text-[13px] text-black font-medium tracking-wider">
+        <div className="mx-auto max-w-7xl relative">
+          {/* scroll buttons */}
+          {desktopNavCanPrev && (
+            <button
+              type="button"
+              aria-label="Scroll menu left"
+              onClick={() => desktopNavScrollRef.current?.scrollBy({ left: -260, behavior: "smooth" })}
+              className="absolute left-2 top-1/2 -translate-y-1/2 z-10 grid h-8 w-8 place-items-center rounded-full bg-white shadow ring-1 ring-black/10 hover:bg-gray-50"
+            >
+              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+          )}
+          {desktopNavCanNext && (
+            <button
+              type="button"
+              aria-label="Scroll menu right"
+              onClick={() => desktopNavScrollRef.current?.scrollBy({ left: 260, behavior: "smooth" })}
+              className="absolute right-2 top-1/2 -translate-y-1/2 z-10 grid h-8 w-8 place-items-center rounded-full bg-white shadow ring-1 ring-black/10 hover:bg-gray-50"
+            >
+              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          )}
+
+          <div
+            ref={desktopNavScrollRef}
+            className="overflow-x-auto nav-scroll"
+            role="region"
+            aria-label="Primary navigation"
+          >
+            <ul className="flex flex-nowrap items-center justify-start whitespace-nowrap text-[12px] xl:text-[13px] text-black font-medium tracking-wider px-10">
             {categories.map((category) => {
               if (category.label === 'STATE EDITIONS') {
                 const isStateActive = pathname.startsWith('/state/');
@@ -543,7 +600,8 @@ export function SiteHeader() {
                 </li>
               );
             })}
-          </ul>
+            </ul>
+          </div>
         </div>
       </nav>
 
@@ -839,6 +897,15 @@ export function SiteHeader() {
           100% {
             transform: translateX(-50%);
           }
+        }
+
+        /* Hide scrollbar for desktop nav scroller */
+        .nav-scroll {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        .nav-scroll::-webkit-scrollbar {
+          display: none;
         }
       `}</style>
       {/* Helper for Delhi edition selection */}

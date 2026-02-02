@@ -9,7 +9,8 @@ export const SECTION_SLUG_TO_ID: Record<string, number> = {
   impact:1045,
   page1:1031,
   laws: 1106,
-  agenda:1107
+  agenda:1107,
+  "finance-and-innovation": 1108,
 }
 
 export const CATEGORY_SLUG_TO_ID: Record<string, number> = {

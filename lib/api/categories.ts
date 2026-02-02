@@ -30,6 +30,7 @@ export interface CategoryNewsData {
     trending_news?: Story[];
     section: {
         Business?: Story[];
+        "Finance and Innovation"?: Story[];
         World?: Story[];
         Sports?: Story[];
         Technology?: Story[];
@@ -56,6 +57,7 @@ export interface NormalizedCategories {
     analysis: Story[];
     trending_news: Story[];
     business: Story[];
+    financeAndInnovation: Story[];
     world: Story[];
     sports: Story[];
     technology: Story[];
@@ -95,6 +97,7 @@ export function normalizeCategoryNews(data: CategoryNewsData): NormalizedCategor
     const analysis = data.Analysis || [];
     const trending = data.trending_news || [];
     const business = data.section?.Business || [];
+    const financeAndInnovation = data.section?.["Finance and Innovation"] || [];
     const world = data.section?.World || [];
     const sports = data.section?.Sports || [];
     const technology = data.section?.Technology || [];
@@ -107,8 +110,24 @@ export function normalizeCategoryNews(data: CategoryNewsData): NormalizedCategor
     const agenda = data.section?.["Agenda"] || [];
 
     
-    const all = dedupeStories(opinion, analysis, trending, business, world, sports, technology, impact, entertainment, travel, healthFitness , page1, lawAndJustice, agenda);
-    return { opinion, analysis, trending_news: trending, business, world, sports, technology, impact, all, entertainment, travel, healthFitness , page1, lawAndJustice, agenda };
+    const all = dedupeStories(
+        opinion,
+        analysis,
+        trending,
+        business,
+        financeAndInnovation,
+        world,
+        sports,
+        technology,
+        impact,
+        entertainment,
+        travel,
+        healthFitness,
+        page1,
+        lawAndJustice,
+        agenda
+    );
+    return { opinion, analysis, trending_news: trending, business, financeAndInnovation, world, sports, technology, impact, all, entertainment, travel, healthFitness , page1, lawAndJustice, agenda };
 }
 
   

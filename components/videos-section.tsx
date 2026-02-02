@@ -1,10 +1,10 @@
 "use client"
 
-import { useMemo, useState } from "react"
+import * as React from "react"
 import { VideoCard } from "./video-card"
-import Image from "next/image"
-import Link from "next/link"
-import { Play } from "lucide-react"
+import { Swiper, SwiperSlide } from "swiper/react"
+import type { Swiper as SwiperType } from "swiper"
+import "swiper/css"
 
 type VideoStory = {
   id: string
@@ -22,109 +22,101 @@ type VideoStory = {
 type VideosSectionProps = { videos: VideoStory[] }
 
 export function VideosSection({ videos }: VideosSectionProps) {
+  const [swiper, setSwiper] = React.useState<SwiperType | null>(null)
+  const [canPrev, setCanPrev] = React.useState(false)
+  const [canNext, setCanNext] = React.useState(false)
 
-  console.log("VideosSection props:", videos)
-  const initial = useMemo(() => videos.find(v => v.featured) || videos[0], [videos])
-  const [selected, setSelected] = useState<VideoStory | undefined>(initial)
-  const sideVideos = useMemo(
-    () => videos.filter(v => v.id !== (selected?.id || initial?.id)).slice(0, 4),
-    [videos, selected, initial]
-  )
+  const syncNav = React.useCallback((s: SwiperType | null) => {
+    if (!s) return
+    setCanPrev(!s.isBeginning)
+    setCanNext(!s.isEnd)
+  }, [])
 
-  console.log("VideosSection state:", selected, sideVideos)
-  
+  React.useEffect(() => {
+    syncNav(swiper)
+  }, [swiper, syncNav])
 
   return (
     <section className="w-full">
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-gray-900 pb-2 inline-block">Videos</h2>
+        <div className="flex items-center justify-between gap-3">
+          <h2 className="text-2xl font-bold text-gray-900 pb-2 inline-block">Videos</h2>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => swiper?.slidePrev()}
+              disabled={!canPrev}
+              className="p-1 rounded transition disabled:opacity-30 disabled:cursor-not-allowed hover:bg-gray-100"
+              aria-label="Previous videos"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button
+              type="button"
+              onClick={() => swiper?.slideNext()}
+              disabled={!canNext}
+              className="p-1 rounded transition disabled:opacity-30 disabled:cursor-not-allowed hover:bg-gray-100"
+              aria-label="Next videos"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+        </div>
         <div className="mt-2 h-1 w-full bg-gray-200 rounded">
           <div className="h-full bg-black rounded" style={{ width: '20%' }} />
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
-        {/* Left Column */}
-        <div className="flex flex-col justify-center space-y-4">
-          {sideVideos.slice(0, 2).map(video => (
-            <VideoCard
-              key={video.id}
-              title={video.title}
-              image={video.image}
-              duration={video.duration}
-              href={video.href || '#'}
-              onClick={(e) => {
-                e.preventDefault();
-                setSelected(video);
-              }}
-            />
-          ))}
-        </div>
-
-        {/* Center Featured Player */}
-        <div className="lg:col-span-1">
-          <article className="group">
-            <div className="relative aspect-[16/9] w-full overflow-hidden rounded-lg bg-black">
-              {selected?.sourceType === 'embed' && selected?.embed ? (
-                <iframe
-                  key={selected.embed}
-                  src={selected.embed}
-                  className="w-full h-full"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                  title={selected.title}
-                  frameBorder="0"
+      {/* Horizontal slider */}
+      <div className="mt-2">
+        <Swiper
+          onSwiper={(s) => {
+            setSwiper(s)
+            syncNav(s)
+          }}
+          onSlideChange={(s) => syncNav(s)}
+          onResize={(s) => syncNav(s)}
+          watchOverflow
+          spaceBetween={16}
+          slidesPerView={2}
+          breakpoints={{
+            640: { slidesPerView: 3, spaceBetween: 16 },
+            768: { slidesPerView: 4, spaceBetween: 16 },
+            1280: { slidesPerView: 5, spaceBetween: 16 },
+          }}
+          className="videos-swiper"
+        >
+          {videos.map((video) => (
+            <SwiperSlide key={video.id}>
+              <div className="h-full">
+                <VideoCard
+                  title={video.title}
+                  image={video.image}
+                  duration={video.duration}
+                  href={video.href || "#"}
+                  className="h-full"
                 />
-              ) : selected?.sourceType === 'file' && selected?.src ? (
-                <video
-                  key={selected.src}
-                  controls
-                  poster={selected.poster}
-                  className="w-full h-full"
-                  src={selected.src}
-                />
-              ) : selected ? (
-                <Link href={selected.href || '#'} className="relative block w-full h-full">
-                  <Image
-                    src={selected.image}
-                    alt={selected.title}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 100vw, 33vw"
-                  />
-                  <div className="absolute inset-0 bg-black/30" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="bg-white/20 backdrop-blur-sm rounded-full p-4">
-                      <Play className="w-8 h-8 text-white fill-white" />
-                    </div>
-                  </div>
-                </Link>
-              ) : null}
-            </div>
-            <div className="mt-3">
-              <h3 className="text-gray-900 font-semibold text-lg leading-tight">
-                {selected?.title}
-              </h3>
-            </div>
-          </article>
-        </div>
-
-        {/* Right Column */}
-        <div className="flex flex-col justify-center space-y-4">
-          {sideVideos.slice(2, 4).map(video => (
-            <VideoCard
-              key={video.id}
-              title={video.title}
-              image={video.image}
-              duration={video.duration}
-              href={video.href || '#'}
-              onClick={(e) => {
-                e.preventDefault();
-                setSelected(video);
-              }}
-            />
+              </div>
+            </SwiperSlide>
           ))}
-        </div>
+        </Swiper>
+
+        <style jsx global>{`
+          .videos-swiper .swiper-wrapper {
+            align-items: stretch;
+          }
+          .videos-swiper .swiper-slide {
+            height: auto;
+            display: flex;
+          }
+          .videos-swiper .swiper-slide > div {
+            width: 100%;
+          }
+        `}</style>
       </div>
     </section>
   );
