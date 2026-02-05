@@ -82,7 +82,7 @@ export function SiteFooter() {
   <>
    <FloatBanner />
    {/* Floating Social Media Icons */}
-      <div className="fixed right-4 top-1/2 -translate-y-1/2 z-10 hidden lg:flex flex-col space-y-3">
+      <div className="fixed right-4 top-[70%] -translate-y-1/2 z-50 hidden lg:flex flex-col space-y-3">
         {socialLinks.map((social) => (
           <FooterLink
             key={social.name}

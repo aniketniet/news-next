@@ -160,10 +160,6 @@ export function SiteHeader() {
   >([]);
   const [breakingLoading, setBreakingLoading] = useState(false);
 
-  const desktopNavScrollRef = useRef<HTMLDivElement | null>(null);
-  const [desktopNavCanPrev, setDesktopNavCanPrev] = useState(false);
-  const [desktopNavCanNext, setDesktopNavCanNext] = useState(false);
-
   useEffect(() => {
     let cancelled = false;
     async function load() {
@@ -184,36 +180,16 @@ export function SiteHeader() {
     };
   }, []);
 
-  useEffect(() => {
-    const el = desktopNavScrollRef.current;
-    if (!el) return;
-
-    const update = () => {
-      const max = el.scrollWidth - el.clientWidth;
-      // small epsilon so it feels stable
-      setDesktopNavCanPrev(el.scrollLeft > 2);
-      setDesktopNavCanNext(el.scrollLeft < max - 2);
-    };
-
-    update();
-    el.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
-    return () => {
-      el.removeEventListener("scroll", update as any);
-      window.removeEventListener("resize", update);
-    };
-  }, []);
-
   return (
     <>
       {/* Global Google One Tap overlay for unauthenticated users */}
       <GoogleOneTap />
-      <header className="sticky top-0 z-50 w-full bg-white">
+      <header className="sticky top-0 z-[9999] w-full bg-white">
      
 
       {/* Main Header */}
       <div className="border-b border-black/10">
-        <div className="mx-auto max-w-7xl px-3 sm:px-4">
+        <div className="mx-auto max-w-[90%] px-3 sm:px-4">
           <div className="flex items-center justify-between py-3 sm:py-4">
             {/* Left: Mobile Menu */}
             <div className="flex items-center gap-2 sm:gap-3 lg:flex-1">
@@ -370,58 +346,34 @@ export function SiteHeader() {
       {/* Desktop Navigation */}
       <nav className="hidden lg:block bg-white border-b border-black/10">
         <div className="mx-auto max-w-7xl relative">
-          {/* scroll buttons */}
-          {desktopNavCanPrev && (
-            <button
-              type="button"
-              aria-label="Scroll menu left"
-              onClick={() => desktopNavScrollRef.current?.scrollBy({ left: -260, behavior: "smooth" })}
-              className="absolute left-2 top-1/2 -translate-y-1/2 z-10 grid h-8 w-8 place-items-center rounded-full bg-white shadow ring-1 ring-black/10 hover:bg-gray-50"
-            >
-              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
-          )}
-          {desktopNavCanNext && (
-            <button
-              type="button"
-              aria-label="Scroll menu right"
-              onClick={() => desktopNavScrollRef.current?.scrollBy({ left: 260, behavior: "smooth" })}
-              className="absolute right-2 top-1/2 -translate-y-1/2 z-10 grid h-8 w-8 place-items-center rounded-full bg-white shadow ring-1 ring-black/10 hover:bg-gray-50"
-            >
-              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
-          )}
-
-          <div
-            ref={desktopNavScrollRef}
-            className="overflow-x-auto nav-scroll"
-            role="region"
-            aria-label="Primary navigation"
-          >
-            <ul className="flex flex-nowrap items-center justify-start whitespace-nowrap text-[12px] xl:text-[13px] text-black font-medium tracking-wider px-10">
+          <div className="relative overflow-visible" role="region" aria-label="Primary navigation">
+            <ul className="flex flex-nowrap whitespace-nowrap items-center justify-center text-[12px] xl:text-[13px] text-black font-medium tracking-wider px-3">
             {categories.map((category) => {
               if (category.label === 'STATE EDITIONS') {
                 const isStateActive = pathname.startsWith('/state/');
                 return (
-                  <li key={category.label} className="relative group">
+                  <li
+                    key={category.label}
+                    className="relative"
+                    onMouseEnter={() => {
+                      setStateEditionsOpen(true);
+                      setEpaperOpen(false);
+                      setAgendaOpen(false);
+                      setMagazineOpen(false);
+                    }}
+                    onMouseLeave={() => setStateEditionsOpen(false)}
+                  >
                     <button
+                      type="button"
                       className={`block px-3 py-3 hover:underline underline-offset-4 transition-colors ${
                         isStateActive ? 'font-semibold border-b-2 border-black' : ''
                       }`}
-                      onMouseEnter={() => setStateEditionsOpen(true)}
-                      onMouseLeave={() => setStateEditionsOpen(false)}
                     >
                       {category.label}
                     </button>
                     {stateEditionsOpen && statesData.length > 0 && (
                       <div
                         className="absolute left-0 top-full bg-white shadow-lg rounded-b-lg min-w-[200px] z-50"
-                        onMouseEnter={() => setStateEditionsOpen(true)}
-                        onMouseLeave={() => setStateEditionsOpen(false)}
                       >
                         <div className="py-2 grid grid-cols-2 gap-1 px-2">
                           {statesData.map((state) => (
@@ -446,21 +398,28 @@ export function SiteHeader() {
               if (category.label === 'E-PAPER') {
                 const isEpaperActive = pathname === '/e-paper';
                 return (
-                  <li key={category.label} className="relative group">
+                  <li
+                    key={category.label}
+                    className="relative"
+                    onMouseEnter={() => {
+                      setEpaperOpen(true);
+                      setStateEditionsOpen(false);
+                      setAgendaOpen(false);
+                      setMagazineOpen(false);
+                    }}
+                    onMouseLeave={() => setEpaperOpen(false)}
+                  >
                     <button
+                      type="button"
                       className={`block px-3 py-3 hover:underline underline-offset-4 transition-colors ${
                         isEpaperActive ? 'font-semibold border-b-2 border-black' : ''
                       }`}
-                      onMouseEnter={() => setEpaperOpen(true)}
-                      onMouseLeave={() => setEpaperOpen(false)}
                     >
                       {category.label}
                     </button>
                     {epaperOpen && (
                       <div
                         className="absolute left-0 top-full bg-white shadow-lg rounded-b-lg min-w-[250px] z-50"
-                        onMouseEnter={() => setEpaperOpen(true)}
-                        onMouseLeave={() => setEpaperOpen(false)}
                       >
                         {epaperLoading ? (
                           <div className="p-4 text-gray-600 text-sm">Loading...</div>
@@ -500,21 +459,28 @@ export function SiteHeader() {
               if (category.label === 'AGENDA') {
                 const isAgendaActive = pathname.startsWith('/subcategory/');
                 return (
-                  <li key={category.label} className="relative group">
+                  <li
+                    key={category.label}
+                    className="relative"
+                    onMouseEnter={() => {
+                      setAgendaOpen(true);
+                      setStateEditionsOpen(false);
+                      setEpaperOpen(false);
+                      setMagazineOpen(false);
+                    }}
+                    onMouseLeave={() => setAgendaOpen(false)}
+                  >
                     <button
+                      type="button"
                       className={`block px-3 py-3 hover:underline underline-offset-4 transition-colors ${
                         isAgendaActive ? 'font-semibold border-b-2 border-black' : ''
                       }`}
-                      onMouseEnter={() => setAgendaOpen(true)}
-                      onMouseLeave={() => setAgendaOpen(false)}
                     >
                       {category.label}
                     </button>
                     {agendaOpen && (
                       <div
                         className="absolute left-0 top-full bg-white shadow-lg rounded-b-lg min-w-[180px] z-50"
-                        onMouseEnter={() => setAgendaOpen(true)}
-                        onMouseLeave={() => setAgendaOpen(false)}
                       >
                         <div className="py-2">
                           {agendaSubcategories.map((subcat) => (
@@ -538,19 +504,26 @@ export function SiteHeader() {
               }
               if (category.label === 'MAGAZINE') {
                 return (
-                  <li key={category.label} className="relative group">
+                  <li
+                    key={category.label}
+                    className="relative"
+                    onMouseEnter={() => {
+                      setMagazineOpen(true);
+                      setStateEditionsOpen(false);
+                      setEpaperOpen(false);
+                      setAgendaOpen(false);
+                    }}
+                    onMouseLeave={() => setMagazineOpen(false)}
+                  >
                     <button
+                      type="button"
                       className="block px-3 py-3 hover:underline underline-offset-4 transition-colors"
-                      onMouseEnter={() => setMagazineOpen(true)}
-                      onMouseLeave={() => setMagazineOpen(false)}
                     >
                       {category.label}
                     </button>
                     {magazineOpen && (
                       <div
                         className="absolute left-0 top-full bg-white shadow-lg rounded-b-lg min-w-[180px] z-50"
-                        onMouseEnter={() => setMagazineOpen(true)}
-                        onMouseLeave={() => setMagazineOpen(false)}
                       >
                         <div className="py-2">
                           {magazineLoading ? (
@@ -897,15 +870,6 @@ export function SiteHeader() {
           100% {
             transform: translateX(-50%);
           }
-        }
-
-        /* Hide scrollbar for desktop nav scroller */
-        .nav-scroll {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-        .nav-scroll::-webkit-scrollbar {
-          display: none;
         }
       `}</style>
       {/* Helper for Delhi edition selection */}
