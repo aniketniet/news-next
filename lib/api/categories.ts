@@ -92,7 +92,7 @@ function dedupeStories(...lists: (Story[] | undefined)[]): Story[] {
 }
 
 export function normalizeCategoryNews(data: CategoryNewsData): NormalizedCategories {
-    console.log("Normalizing Category News Data:", data);
+    // console.log("Normalizing Category News Data:", data);
     const opinion = data.Opinion || [];
     const analysis = data.Analysis || [];
     const trending = data.trending_news || [];
@@ -164,7 +164,7 @@ export async function fetchCategoryNews(
         signal
     });
 
-    console.log(`Fetched Category News from ${url}:`, res);
+    // console.log(`Fetched Category News from ${url}:`, res);
 
     if (!res.ok) {
         throw new CategoryNewsError(`Request failed (${res.status})`, res.status);
@@ -188,7 +188,7 @@ export async function fetchCategoryNews(
     }
 
     const raw = json as CategoryNewsResponse;
-    console.log("Fetched Category News Response:", raw);
+    // console.log("Fetched Category News Response:", raw);
 
     if (!raw.success) {
         throw new CategoryNewsError(raw.message || 'API reported failure');

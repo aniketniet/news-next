@@ -16,7 +16,7 @@ interface NewsDetailSidebarProps {
 }
 
 export function NewsDetailSidebar({ latestNews, popularNews }: NewsDetailSidebarProps) {
-  console.log(latestNews,"latestNews in sidebar");
+  // console.log(latestNews,"latestNews in sidebar");
   const limitedPopular = (popularNews || []).slice(0,6);  
   return (
     <aside className="space-y-8">

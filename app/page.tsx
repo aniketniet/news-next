@@ -340,7 +340,7 @@ export default async function HomePage() {
   // Videos: dynamic from images API combined payload
   const dynamicVideos = mapVideosToSectionItems(gallery?.videos || []);
 
-  console.log("Dynamic Videos:", dynamicVideos);
+  // console.log("Dynamic Videos:", dynamicVideos);
 
   // Cover Story (subcategory 1003) shown in place of Agenda on home page
   const coverStoryStories = (coverStoryItems || []).map((s: any) => ({

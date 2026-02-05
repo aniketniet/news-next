@@ -63,7 +63,7 @@ function processFile(filePath) {
   const after = applyReplacements(before);
   if (after !== before) {
     fs.writeFileSync(filePath, after, "utf8");
-    console.log("updated", path.relative(ROOT, filePath));
+    // console.log("updated", path.relative(ROOT, filePath));
   }
 }
 

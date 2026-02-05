@@ -18,7 +18,7 @@ interface TechnologySectionProps {
 }
 
 export function TechnologySection({ stories, limit, seeMoreHref }: TechnologySectionProps) {
-  console.log("Technology Stories:", stories);
+  // console.log("Technology Stories:", stories);
   const visibleStories = Array.isArray(stories)
     ? (typeof limit === "number" && limit > 0 ? stories.slice(0, limit) : stories)
     : [];

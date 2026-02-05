@@ -56,7 +56,7 @@ export async function generateMetadata({
 export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
   const { slug } = await params;
   const story = await fetchStory(slug);
-  console.log(story,"story");
+  // console.log(story,"story");
   
   if (!story) notFound();
 
@@ -82,7 +82,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
   };
 
   const latestNews = mapList(story?.recent)
-  console.log(latestNews,"latestNews");
+  // console.log(latestNews,"latestNews");
   const popularNews = mapList(story?.popular)
   const relatedArticles = mapList(story?.related)
   const recentNews = mapList(story?.recent)

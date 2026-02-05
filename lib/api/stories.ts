@@ -278,7 +278,7 @@ export async function fetchSubcategoryList(subcategoryId: number, { limit = 10, 
             { timeout: 15000 }
         )
         const arr = Array.isArray(data?.data) ? data.data : []
-        console.log(arr,"arr");
+        // console.log(arr,"arr");
         return arr.map((item: any) => ({
             id: item.story_id,
             title: item.story_title,
@@ -322,7 +322,7 @@ export async function fetchStories(
             `${BASE}/news/web/top-stories?limit=${limit}&offset=${offset}`,
             { timeout: 15000 }
         )
-        console.log(data,"data");
+        // console.log(data,"data");
     const latestRaw = data?.data?.latest_news ?? []
     const topRaw = data?.data?.top_stories ?? []
     const stateRaw = data?.data?.state_editions ?? {}
