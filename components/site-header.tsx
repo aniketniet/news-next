@@ -419,7 +419,7 @@ export function SiteHeader() {
                     </button>
                     {epaperOpen && (
                       <div
-                        className="absolute left-0 top-full bg-white shadow-lg rounded-b-lg min-w-[250px] z-50"
+                        className="absolute right-0 top-full bg-white shadow-lg rounded-b-lg min-w-[250px] max-w-[92vw] z-50"
                       >
                         {epaperLoading ? (
                           <div className="p-4 text-gray-600 text-sm">Loading...</div>
@@ -523,7 +523,7 @@ export function SiteHeader() {
                     </button>
                     {magazineOpen && (
                       <div
-                        className="absolute left-0 top-full bg-white shadow-lg rounded-b-lg min-w-[180px] z-50"
+                        className="absolute right-0 top-full bg-white shadow-lg rounded-b-lg min-w-[180px] max-w-[92vw] z-50"
                       >
                         <div className="py-2">
                           {magazineLoading ? (
