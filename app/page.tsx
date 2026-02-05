@@ -498,6 +498,7 @@ export default async function HomePage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {trendingNews.slice(2, 6).map((story, i) => (
                   <SecondaryStory
+                    key={story.urlKey || String(story.id) || String(i)}
                     id={String(story.id)}
                     urlKey={story.urlKey}
                     title={story.title}
