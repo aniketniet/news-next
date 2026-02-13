@@ -269,6 +269,30 @@
 
   .news-content img {
     @apply max-w-full h-auto rounded my-4;
+    max-width: 100% !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Override inline styles from backend - make images responsive */
+  .news-content img[style*="width"],
+  .news-content img[style*="height"] {
+    max-width: 100% !important;
+    width: auto !important;
+    height: auto !important;
+  }
+
+  /* Ensure images don't overflow on mobile */
+  @media (max-width: 768px) {
+    .news-content img {
+      width: 100% !important;
+      max-width: 100% !important;
+      height: auto !important;
+    }
   }
 
   .news-content blockquote {
