@@ -133,7 +133,7 @@ export function SiteHeader() {
     { label: "INDIA", href: "/section/india" },
     { label: "WORLD", href: "/section/world" },
     { label: "BUSINESS", href: "/section/business" },
-    { label: "FINANCE & INNOVATION", href: "/section/finance-and-innovation" },
+    { label: "IndiaFIF2026", href: "/section/indiafif2026" },
     { label: "IMPACT", href: "/section/impact" },
     {label: "LAW", href: "/section/law-and-justice" },
     { label: "SPORTS", href: "/section/sport" },

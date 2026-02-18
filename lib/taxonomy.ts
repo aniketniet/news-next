@@ -10,7 +10,7 @@ export const SECTION_SLUG_TO_ID: Record<string, number> = {
   page1:1031,
   laws: 1106,
   agenda:1107,
-  "finance-and-innovation": 1108,
+  indiafif2026: 1108,
 }
 
 export const CATEGORY_SLUG_TO_ID: Record<string, number> = {

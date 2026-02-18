@@ -30,7 +30,7 @@ export interface CategoryNewsData {
     trending_news?: Story[];
     section: {
         Business?: Story[];
-        "Finance and Innovation"?: Story[];
+        "IndiaFIF2026"?: Story[];
         World?: Story[];
         Sports?: Story[];
         Technology?: Story[];
@@ -97,7 +97,7 @@ export function normalizeCategoryNews(data: CategoryNewsData): NormalizedCategor
     const analysis = data.Analysis || [];
     const trending = data.trending_news || [];
     const business = data.section?.Business || [];
-    const financeAndInnovation = data.section?.["Finance and Innovation"] || [];
+    const financeAndInnovation = data.section?.["IndiaFIF2026"] || [];
     const world = data.section?.World || [];
     const sports = data.section?.Sports || [];
     const technology = data.section?.Technology || [];
