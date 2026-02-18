@@ -28,10 +28,12 @@ import PhotoGallery from "@/components/PhotoGallery";
 import { fetchSectionList, fetchStories, fetchSubcategoryList } from "@/lib/api/stories";
 import { getCategoriesNormalized } from "@/lib/api/categories";
 import { fetchGalleryAssets, mapVideosToSectionItems } from "@/lib/api/images";
+import { fetchBystanders, mapBystandersToGallery } from "@/lib/api/bystanders";
 import { EPaperDownload } from "@/components/epaper-download";
 import { ScrollToTopLink } from "@/components/scroll-to-top-link";
 import SubscriptionSlider from "@/components/SubscriptionSlider";
 import { Story } from "@/lib/api/categories";
+import { BystandersSection } from "@/components/bystanders-section";
 
 // Travel & Health & Fitness stories are derived inside HomePage from API
 
@@ -137,12 +139,13 @@ export default async function HomePage() {
   // sections like Technology & Impact (which may have older dates and
   // were previously missing due to cached / truncated responses) appear
   // consistently with what you see in Postman.
-  const [{ latest, popular, stateEditions }, categories, gallery, indiaSection, coverStoryItems] = await Promise.all([
+  const [{ latest, popular, stateEditions }, categories, gallery, indiaSection, coverStoryItems, bystandersData] = await Promise.all([
     fetchStories({ limit: 20, offset: 0 }),
     getCategoriesNormalized({ limit: 12, offset: 0, noCache: true }),
     fetchGalleryAssets({ limit: 20, offset: 0 }),
     fetchSectionList(1022, { limit: 12, offset: 0 }),
     fetchSubcategoryList(1003, { limit: 5, offset: 0 }),
+    fetchBystanders({ limit: 1, offset: 0 }).catch(() => []),
   ]);
 
   // console.log("Fetched Categories:", categories);
@@ -573,7 +576,7 @@ export default async function HomePage() {
 
        
 
-        {/* Category Sections: page1, lawAndJusticeStories and agendaStories */}
+        {/* Category Sections: page1, lawAndJusticeStories and bystanders */}
         <div id="section-health" className="scroll-mt-24" />
         <section className="px-3 md:px-6 py-6">
           <div className="mx-auto w-full max-w-6xl">
@@ -585,14 +588,18 @@ export default async function HomePage() {
                 seeMoreHref="/section/law-and-justice"
               />
 
+
               <CategorySection
                 title={coverStoryStories.length > 0 ? "Agenda" : "Agenda"}
                 stories={agendaStories}
                 accentColor="bg-black"
                 seeMoreHref={coverStoryStories.length > 0 ? "/subcategory/1003" : "/section/agenda"}
               />
-
-              <AdvertiseSection src="/exceed.jpg" />
+              <BystandersSection
+                bystanders={mapBystandersToGallery(bystandersData)}
+                title="Bystanders"
+                seeMoreHref="/bystanders"
+              />
             </div>
           </div>
         </section>
