@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { cache } from 'react'
+import { unstable_noStore as noStore } from 'next/cache'
 
 // Page list item
 export interface PageListItem {
@@ -54,6 +55,7 @@ const CACHE_DURATION = 5 * 60 * 1000 // 5 minutes
 
 // Fetch all pages for footer navigation - with caching
 export const fetchPages = cache(async (): Promise<PageListItem[]> => {
+    noStore()
     // Return cached data if still valid
     const now = Date.now()
     if (pagesCache && (now - pagesCacheTime) < CACHE_DURATION) {
@@ -63,7 +65,7 @@ export const fetchPages = cache(async (): Promise<PageListItem[]> => {
     try {
         const { data } = await axios.get<PageListEnvelope>(
             `${BASE}/pages`,
-            { timeout: 15000 }
+            { timeout: 30000 }
         )
 
         const arr = Array.isArray(data?.data) ? data.data : []
@@ -82,10 +84,11 @@ export const fetchPages = cache(async (): Promise<PageListItem[]> => {
 
 // Fetch a single page by URL key
 export async function fetchPage(urlKey: string): Promise<PageApiFull | null> {
+    noStore()
     try {
         const { data } = await axios.get<PageApiEnvelope>(
             `${BASE}/page/${urlKey}`,
-            { timeout: 15000 }
+            { timeout: 30000 }
         )
 
         if (data?.success && data?.data) {

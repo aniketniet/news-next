@@ -1,14 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   typescript: {
     ignoreBuildErrors: true,
   },
   images: {
     unoptimized: true,
-    domains: ["https://dailypioneer.com.comhttps://dailypioneer.comneer.com"],
+    remotePatterns: [
+      { protocol: "https", hostname: "dailypioneer.com", pathname: "/**" },
+      { protocol: "https", hostname: "www.dailypioneer.com", pathname: "/**" },
+    ],
   },
 };
 

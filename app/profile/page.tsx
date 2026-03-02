@@ -21,8 +21,6 @@ export default function ProfilePage() {
   const [bookmarks, setBookmarks] = useState<BookmarkItem[]>([]);
   const [bookmarksLoading, setBookmarksLoading] = useState(false);
 
-  console.log('Rendering ProfilePage, user:', user);
-
   useEffect(() => {
     if (!ready) return;
     if (!user) {

@@ -7,7 +7,7 @@ import Link from "next/link";
 export const dynamic = "force-dynamic";
 
 export default async function BystandersPage() {
-  let bystanders = [];
+  let bystanders: ReturnType<typeof mapBystandersToGallery> = [];
   try {
     const data = await fetchBystanders({ limit: 100, offset: 0 });
     bystanders = mapBystandersToGallery(data);
@@ -70,4 +70,3 @@ export default async function BystandersPage() {
     </div>
   );
 }
-

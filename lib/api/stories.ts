@@ -82,14 +82,33 @@ interface StoryListEnvelope<T = StoryApiFull[]> {
 }
 
 const BASE = `${process.env.NEXT_PUBLIC_API_URL}`
+const API_TIMEOUT_MS = Number(process.env.NEXT_PUBLIC_API_TIMEOUT_MS ?? process.env.API_TIMEOUT_MS ?? 25000)
+const RETRY_DELAYS_MS = [500, 1500, 3000]
+
+async function getWithRetry<T>(url: string, retries = 2): Promise<T> {
+    for (let attempt = 0; attempt <= retries; attempt += 1) {
+        try {
+            const { data } = await axios.get<T>(url, { timeout: API_TIMEOUT_MS })
+            return data
+        } catch (error) {
+            const isAxios = axios.isAxiosError(error)
+            const status = isAxios ? error.response?.status : undefined
+            const code = isAxios ? error.code : undefined
+            const retryable = code === 'ECONNABORTED' || (status !== undefined && status >= 500)
+            if (!retryable || attempt === retries) {
+                throw error
+            }
+            const delay = RETRY_DELAYS_MS[Math.min(attempt, RETRY_DELAYS_MS.length - 1)] ?? 500
+            await new Promise((resolve) => setTimeout(resolve, delay))
+        }
+    }
+    throw new Error('Request failed')
+}
 
 // Fetch all states
 export async function fetchStates(): Promise<State[]> {
     try {
-        const { data } = await axios.get<StatesApiResponse>(
-            `${BASE}/get-all-states`,
-            { timeout: 15000 }
-        )
+        const data = await getWithRetry<StatesApiResponse>(`${BASE}/get-all-states`)
         const states = Array.isArray(data?.data) ? data.data : []
         // Sort by position
         return states.sort((a, b) => a.position - b.position)
@@ -102,12 +121,7 @@ export async function fetchStates(): Promise<State[]> {
 // If you only want the raw/full API object (ALL fields)
 export async function fetchStoryFull(identifier: string): Promise<StoryApiFull | null> {
     try {
-        const { data } = await axios.get<StoryApiEnvelope>(
-            `${BASE}/news/${identifier}`,
-            { timeout: 15000 }
-        )
-
-        console.log(data,"data");
+        const data = await getWithRetry<StoryApiEnvelope>(`${BASE}/news/${identifier}`)
 
         const raw: StoryApiFull = data?.data
 
@@ -195,10 +209,7 @@ interface ListEnvelope<T = any[]> {
 
 export async function fetchSectionList(sectionId: number, { limit = 10, offset = 0 }: { limit?: number; offset?: number } = {}): Promise<StorySummary[]> {
     try {
-        const { data } = await axios.get<ListEnvelope>(
-            `${BASE}/news/section/${sectionId}?limit=${limit}&offset=${offset}`,
-            { timeout: 15000 }
-        )
+        const data = await getWithRetry<ListEnvelope>(`${BASE}/news/section/${sectionId}?limit=${limit}&offset=${offset}`)
         const arr = Array.isArray(data?.data) ? data.data : []
         return arr.map((item: any) => ({
             id: item.story_id,
@@ -221,10 +232,7 @@ export async function fetchTrendingNewsList(
     { limit = 10, offset = 0 }: { limit?: number; offset?: number } = {}
 ): Promise<StorySummary[]> {
     try {
-        const { data } = await axios.get<ListEnvelope>(
-            `${BASE}/news/web/trending-news?limit=${limit}&offset=${offset}`,
-            { timeout: 15000 }
-        )
+        const data = await getWithRetry<ListEnvelope>(`${BASE}/news/web/trending-news?limit=${limit}&offset=${offset}`)
         const arr = Array.isArray(data?.data) ? data.data : []
         return arr.map((item: any) => ({
             id: item.story_id,
@@ -249,10 +257,7 @@ export async function fetchTrendingNewsList(
 
 export async function fetchCategoryList(categoryId: number, { limit = 10, offset = 0 }: { limit?: number; offset?: number } = {}): Promise<StorySummary[]> {
     try {
-        const { data } = await axios.get<ListEnvelope>(
-            `${BASE}/news/category/${categoryId}?limit=${limit}&offset=${offset}`,
-            { timeout: 15000 }
-        )
+        const data = await getWithRetry<ListEnvelope>(`${BASE}/news/category/${categoryId}?limit=${limit}&offset=${offset}`)
         const arr = Array.isArray(data?.data) ? data.data : []
         return arr.map((item: any) => ({
             id: item.story_id,
@@ -273,10 +278,7 @@ export async function fetchCategoryList(categoryId: number, { limit = 10, offset
 
 export async function fetchSubcategoryList(subcategoryId: number, { limit = 10, offset = 0 }: { limit?: number; offset?: number } = {}): Promise<StorySummary[]> {
     try {
-        const { data } = await axios.get<ListEnvelope>(
-            `${BASE}/news/subcategory/${subcategoryId}?limit=${limit}&offset=${offset}`,
-            { timeout: 15000 }
-        )
+        const data = await getWithRetry<ListEnvelope>(`${BASE}/news/subcategory/${subcategoryId}?limit=${limit}&offset=${offset}`)
         const arr = Array.isArray(data?.data) ? data.data : []
         // console.log(arr,"arr");
         return arr.map((item: any) => ({
@@ -318,10 +320,7 @@ export async function fetchStories(
     { limit = 20, offset = 0 }: { limit?: number; offset?: number } = {}
 ): Promise<StoriesGrouped> {
     try {
-        const { data } = await axios.get<TopStoriesApiResponse>(
-            `${BASE}/news/web/top-stories?limit=${limit}&offset=${offset}`,
-            { timeout: 15000 }
-        )
+        const data = await getWithRetry<TopStoriesApiResponse>(`${BASE}/news/web/top-stories?limit=${limit}&offset=${offset}`)
         // console.log(data,"data");
     const latestRaw = data?.data?.latest_news ?? []
     const topRaw = data?.data?.top_stories ?? []
