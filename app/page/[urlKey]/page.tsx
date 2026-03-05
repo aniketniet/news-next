@@ -3,6 +3,8 @@ import { fetchPage } from '@/lib/api/pages'
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/footer'
 
+export const dynamic = 'force-dynamic'
+
 interface PageProps {
   params: Promise<{
     urlKey: string
