@@ -149,7 +149,7 @@ export default async function HomePage() {
   ]);
 
   // console.log("Fetched Categories:", categories);
-  console.log("Fetched Popular Stories:", popular);
+  // console.log("Fetched Popular Stories:", popular);
 
   // Map trending news from categories API to match StorySummary format
   const trendingNews = (categories.trending_news.length > 0 ? categories.trending_news || [] as Story[] : latest).map((s: any) => ({

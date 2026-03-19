@@ -42,7 +42,7 @@ export function NewsDetailContent({ article }: NewsDetailContentProps) {
     // { name: "Share", href: "#", bgColor: "bg-gray-600", icon: "share" },
   ];
 
-  console.log(article, "article");
+  // console.log(article, "article");
 
   return (
     <article className="space-y-6">

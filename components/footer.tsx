@@ -2,7 +2,7 @@ import { fetchPages } from "@/lib/api/pages"
 import { Suspense } from "react"
 import { SECTION_SLUG_TO_ID, CATEGORY_SLUG_TO_ID } from "@/lib/taxonomy"
 import { FooterLink } from "@/components/footer-link"
-import FloatBanner from "@/components/FloatBanner"
+// import FloatBanner from "@/components/FloatBanner"
 
 async function DynamicFooterLinks() {
   let pages = []
@@ -80,7 +80,7 @@ export function SiteFooter() {
 
   return (
   <>
-   <FloatBanner />
+   {/* <FloatBanner /> */}
    {/* Floating Social Media Icons */}
       <div className="fixed right-4 top-[55%] -translate-y-1/2 z-50 hidden lg:flex flex-col space-y-3">
         {socialLinks.map((social) => (
