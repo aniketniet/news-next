@@ -134,18 +134,44 @@ const tarotData = {
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
+  const safe = async <T,>(label: string, promise: Promise<T>, fallback: T): Promise<T> => {
+    try {
+      return await promise;
+    } catch (err) {
+      console.error(`${label} error`, err);
+      return fallback;
+    }
+  };
+
   // Fetch grouped stories (top + latest) and category news in parallel
   // NOTE: Increased limit & disabled cache for category news so that
   // sections like Technology & Impact (which may have older dates and
   // were previously missing due to cached / truncated responses) appear
   // consistently with what you see in Postman.
-  const [{ latest, popular, stateEditions }, categories, gallery, indiaSection, coverStoryItems, bystandersData] = await Promise.all([
-    fetchStories({ limit: 20, offset: 0 }),
-    getCategoriesNormalized({ limit: 12, offset: 0, noCache: true }),
-    fetchGalleryAssets({ limit: 20, offset: 0 }),
-    fetchSectionList(1022, { limit: 12, offset: 0 }),
-    fetchSubcategoryList(1003, { limit: 5, offset: 0 }),
-    fetchBystanders({ limit: 1, offset: 0 }).catch(() => []),
+  const [{ latest, popular, stateEditions, top }, categories, gallery, indiaSection, coverStoryItems, bystandersData] = await Promise.all([
+    safe('fetchStories', fetchStories({ limit: 20, offset: 0 }), { latest: [], top: [], popular: [], stateEditions: {} }),
+    safe('getCategoriesNormalized', getCategoriesNormalized({ limit: 12, offset: 0, noCache: false }), {
+      opinion: [],
+      analysis: [],
+      trending_news: [],
+      business: [],
+      financeAndInnovation: [],
+      world: [],
+      sports: [],
+      technology: [],
+      impact: [],
+      entertainment: [],
+      travel: [],
+      healthFitness: [],
+      page1: [],
+      lawAndJustice: [],
+      agenda: [],
+      all: [],
+    }),
+    safe('fetchGalleryAssets', fetchGalleryAssets({ limit: 20, offset: 0 }), { images: [], videos: [] }),
+    safe('fetchSectionList(1022)', fetchSectionList(1022, { limit: 12, offset: 0 }), []),
+    safe('fetchSubcategoryList(1003)', fetchSubcategoryList(1003, { limit: 5, offset: 0 }), []),
+    safe('fetchBystanders', fetchBystanders({ limit: 1, offset: 0 }), []),
   ]);
 
   // console.log("Fetched Categories:", categories);
@@ -458,7 +484,7 @@ export default async function HomePage() {
       <SiteHeader />
 
       <main id="main" className="pb-10">
-        <Hero />
+        <Hero initialTop={top} />
 
         {/* Trending News */}
         <div id="section-trending" className="scroll-mt-24" />

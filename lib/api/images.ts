@@ -49,14 +49,36 @@ export interface GalleryImagesAndVideosResponse {
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
-export async function fetchGalleryImages({ limit = 50, offset = 0, signal }: { limit?: number; offset?: number; signal?: AbortSignal } = {}) {
-  if (!BASE_URL) throw new Error('NEXT_PUBLIC_API_URL not set');
-  const url = `${BASE_URL}/news/web/images?limit=${encodeURIComponent(limit)}&offset=${encodeURIComponent(offset)}`;
-  const res = await fetch(url, { cache: 'no-store', signal, headers: { Accept: 'application/json' } });
-  if (!res.ok) throw new Error(`Images request failed ${res.status}`);
-  const json = (await res.json()) as GalleryImagesResponse;
-  if (!json.success) throw new Error(json.message || 'API failure');
-  return json.data;
+export async function fetchGalleryImages({
+  limit = 50,
+  offset = 0,
+  signal,
+  noCache = false,
+  revalidateSeconds = 120,
+}: {
+  limit?: number
+  offset?: number
+  signal?: AbortSignal
+  noCache?: boolean
+  revalidateSeconds?: number
+} = {}) {
+  try {
+    if (!BASE_URL) return [];
+    const url = `${BASE_URL}/news/web/images?limit=${encodeURIComponent(limit)}&offset=${encodeURIComponent(offset)}`;
+    const res = await fetch(url, {
+      cache: noCache ? "no-store" : "force-cache",
+      next: noCache ? undefined : { revalidate: revalidateSeconds },
+      signal,
+      headers: { Accept: "application/json" },
+    })
+    if (!res.ok) return [];
+    const json = (await res.json()) as GalleryImagesResponse;
+    if (!json.success) return [];
+    return Array.isArray(json.data) ? json.data : [];
+  } catch (e) {
+    console.error('fetchGalleryImages error', e);
+    return [];
+  }
 }
 
 export function mapGalleryImagesToPhotos(items: GalleryImageApiItem[]) {
@@ -74,18 +96,28 @@ export function mapGalleryImagesToPhotos(items: GalleryImageApiItem[]) {
 
 // New: fetch images and videos (if API provides combined payload). Safely handles legacy array shape.
 export async function fetchGalleryAssets({ limit = 50, offset = 0, signal }: { limit?: number; offset?: number; signal?: AbortSignal } = {}) {
-  if (!BASE_URL) throw new Error('NEXT_PUBLIC_API_URL not set');
-  const url = `${BASE_URL}/news/web/images?limit=${encodeURIComponent(limit)}&offset=${encodeURIComponent(offset)}`;
-  const res = await fetch(url, { cache: 'no-store', signal, headers: { Accept: 'application/json' } });
-  if (!res.ok) throw new Error(`Images request failed ${res.status}`);
-  const json: any = await res.json();
-  if (!json?.success) throw new Error(json?.message || 'API failure');
-  // Shape guard: if data is an array, it's only images; otherwise expect { images, videos }
-  if (Array.isArray(json.data)) {
-    return { images: json.data as GalleryImageApiItem[], videos: [] as VideoApiItem[] };
+  try {
+    if (!BASE_URL) return { images: [] as GalleryImageApiItem[], videos: [] as VideoApiItem[] };
+    const url = `${BASE_URL}/news/web/images?limit=${encodeURIComponent(limit)}&offset=${encodeURIComponent(offset)}`;
+    const res = await fetch(url, {
+      cache: "force-cache",
+      next: { revalidate: 120 },
+      signal,
+      headers: { Accept: "application/json" },
+    })
+    if (!res.ok) return { images: [] as GalleryImageApiItem[], videos: [] as VideoApiItem[] };
+    const json: any = await res.json();
+    if (!json?.success) return { images: [] as GalleryImageApiItem[], videos: [] as VideoApiItem[] };
+    // Shape guard: if data is an array, it's only images; otherwise expect { images, videos }
+    if (Array.isArray(json.data)) {
+      return { images: json.data as GalleryImageApiItem[], videos: [] as VideoApiItem[] };
+    }
+    const data = json.data as { images?: GalleryImageApiItem[]; videos?: VideoApiItem[] };
+    return { images: data?.images || [], videos: data?.videos || [] };
+  } catch (e) {
+    console.error('fetchGalleryAssets error', e);
+    return { images: [] as GalleryImageApiItem[], videos: [] as VideoApiItem[] };
   }
-  const data = json.data as { images?: GalleryImageApiItem[]; videos?: VideoApiItem[] };
-  return { images: data.images || [], videos: data.videos || [] };
 }
 
 export function mapVideosToSectionItems(videos: VideoApiItem[]) {

@@ -1,7 +1,5 @@
 import axios from "axios"
 
-const BASE = `${process.env.NEXT_PUBLIC_API_URL}`
-
 export interface RawSearchItem {
   story_id: number
   story_title: string
@@ -25,18 +23,19 @@ export interface SearchResultItem {
   urlKey: string
 }
 
-export async function searchNews(query: string, limit = 10, offset = 0): Promise<SearchResultItem[]> {
+export async function searchNews(
+  query: string,
+  year: number | undefined,
+  limit = 10,
+  offset = 0
+): Promise<SearchResultItem[]> {
   if (!query?.trim()) return []
   try {
-    const body = new URLSearchParams()
-    body.set("query", query)
-    body.set("limit", String(limit))
-    body.set("offset", String(offset))
-
-    const { data } = await axios.post<SearchResponse>(`${BASE}/news/search`, body, {
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      timeout: 15000,
-    })
+    const { data } = await axios.post<SearchResponse>(
+      "/api/news/search",
+      { query, year, limit, offset },
+      { headers: { "Content-Type": "application/json" } }
+    )
 
     const items = (data?.data ?? []) as RawSearchItem[]
     return items.map((i) => ({

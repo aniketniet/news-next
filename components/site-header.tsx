@@ -16,6 +16,7 @@ import LanguageSelector from "./LanguageSelector";
 
 export function SiteHeader() {
   const [query, setQuery] = useState("");
+  const [year, setYear] = useState<number>(Math.min(2025, Math.max(2011, new Date().getFullYear())));
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { user, ready } = useAuth();
@@ -75,7 +76,8 @@ export function SiteHeader() {
     e.preventDefault();
     const q = query.trim();
     if (q) {
-      router.push(`/search?q=${encodeURIComponent(q)}`);
+      const y = Number(year) || new Date().getFullYear();
+      router.push(`/search?q=${encodeURIComponent(q)}&year=${encodeURIComponent(String(y))}&run=${Date.now()}`);
       setIsMenuOpen(false);
       setIsSearchOpen(false);
     }
@@ -184,7 +186,7 @@ export function SiteHeader() {
     <>
       {/* Global Google One Tap overlay for unauthenticated users */}
       <GoogleOneTap />
-      <header className="sticky top-0 z-[9999] w-full bg-white">
+      <header className="sticky top-0 z-9999 w-full bg-white">
      
 
       {/* Main Header */}
@@ -315,6 +317,18 @@ export function SiteHeader() {
                 onSubmit={onSearchSubmit}
                 className="flex items-center rounded border border-black/20 bg-white w-full sm:max-w-2xl mx-auto"
               >
+                <select
+                  value={year}
+                  onChange={(e) => setYear(Number(e.target.value))}
+                  className="h-10 px-2 text-sm sm:text-base border-r border-black/10 bg-white text-gray-700 outline-none"
+                  aria-label="Search year"
+                >
+                  {Array.from({ length: 2025 - 2011 + 1 }, (_, i) => 2011 + i).map((y) => (
+                    <option key={y} value={y}>
+                      {y}
+                    </option>
+                  ))}
+                </select>
                 <input
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}

@@ -8,6 +8,21 @@ export default function SearchLoading() {
     <div className="min-h-screen bg-white">
       <div className="pt-6 pb-10">
         <div className="mx-auto max-w-7xl px-3 md:px-6">
+          <div className="mb-3 flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2">
+              <span
+                className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-gray-300 border-t-gray-900"
+                aria-hidden="true"
+              />
+              <p className="text-sm font-medium text-gray-700" aria-live="polite">
+                Searching…
+              </p>
+            </div>
+            <span className="sr-only" aria-live="polite">
+              Loading search results
+            </span>
+          </div>
+
           {/* Heading */}
           <div className="mb-4 flex items-baseline gap-3">
             <Skeleton width={180} height={28} />

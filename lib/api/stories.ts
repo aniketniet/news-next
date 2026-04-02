@@ -316,7 +316,11 @@ interface TopStoriesApiResponse {
     }
 }
 
-export async function fetchStories(
+/** Short TTL so home + hero + other callers don’t hammer top-stories in one session. */
+const TOP_STORIES_TTL_MS = 2 * 60 * 1000
+const topStoriesCache = new Map<string, { data: StoriesGrouped; expires: number }>()
+
+async function fetchStoriesUncached(
     { limit = 20, offset = 0 }: { limit?: number; offset?: number } = {}
 ): Promise<StoriesGrouped> {
     try {
@@ -376,4 +380,17 @@ export async function fetchStories(
         console.error('fetchStories error', e)
         return { latest: [], top: [], stateEditions: {}, popular: [] }
     }
+}
+
+export async function fetchStories(
+    { limit = 20, offset = 0 }: { limit?: number; offset?: number } = {}
+): Promise<StoriesGrouped> {
+    const key = `${limit}:${offset}`
+    const now = Date.now()
+    const hit = topStoriesCache.get(key)
+    if (hit && hit.expires > now) return hit.data
+
+    const result = await fetchStoriesUncached({ limit, offset })
+    topStoriesCache.set(key, { data: result, expires: now + TOP_STORIES_TTL_MS })
+    return result
 }

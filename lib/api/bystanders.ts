@@ -26,23 +26,33 @@ const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 export async function fetchBystanders({ 
   limit = 20, 
   offset = 0, 
-  signal 
+  signal,
+  noCache = false,
+  revalidateSeconds = 300,
 }: { 
   limit?: number; 
   offset?: number; 
-  signal?: AbortSignal 
+  signal?: AbortSignal;
+  noCache?: boolean;
+  revalidateSeconds?: number;
 } = {}) {
-  if (!BASE_URL) throw new Error('NEXT_PUBLIC_API_URL not set');
-  const url = `${BASE_URL}/bystanders?limit=${encodeURIComponent(limit)}&offset=${encodeURIComponent(offset)}`;
-  const res = await fetch(url, { 
-    cache: 'no-store', 
-    signal, 
-    headers: { Accept: 'application/json' } 
-  });
-  if (!res.ok) throw new Error(`Bystanders request failed ${res.status}`);
-  const json = (await res.json()) as BystandersResponse;
-  if (!json.success) throw new Error(json.message || 'API failure');
-  return json.data;
+  try {
+    if (!BASE_URL) return [];
+    const url = `${BASE_URL}/bystanders?limit=${encodeURIComponent(limit)}&offset=${encodeURIComponent(offset)}`;
+    const res = await fetch(url, { 
+      cache: noCache ? "no-store" : "force-cache",
+      next: noCache ? undefined : { revalidate: revalidateSeconds },
+      signal, 
+      headers: { Accept: 'application/json' } 
+    });
+    if (!res.ok) return [];
+    const json = (await res.json()) as BystandersResponse;
+    if (!json.success) return [];
+    return Array.isArray(json.data) ? json.data : [];
+  } catch (e) {
+    console.error('fetchBystanders error', e);
+    return [];
+  }
 }
 
 export function mapBystandersToGallery(items: BystanderApiItem[]) {

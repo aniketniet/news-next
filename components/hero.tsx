@@ -6,20 +6,32 @@ import { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import { ScrollToTopLink } from "./scroll-to-top-link";
 
-// Hero now client-fetches top stories and shows skeletons while loading
+// When `initialTop` is passed from the server (home), skip a duplicate client fetch.
 
-export function Hero() {
-  const [top, setTop] = useState<StorySummary[]>([]);
-  const [loading, setLoading] = useState(true);
+type HeroProps = {
+  initialTop?: StorySummary[];
+};
+
+export function Hero({ initialTop }: HeroProps) {
+  const hasServerTop = initialTop && initialTop.length > 0;
+  const [top, setTop] = useState<StorySummary[]>(() =>
+    hasServerTop ? initialTop!.slice(0, 12) : []
+  );
+  const [loading, setLoading] = useState(!hasServerTop);
 
   useEffect(() => {
+    if (initialTop && initialTop.length > 0) {
+      setTop(initialTop.slice(0, 12));
+      setLoading(false);
+      return;
+    }
     let alive = true;
     (async () => {
       try {
         setLoading(true);
-        const { top } = await fetchStories({ limit: 12, offset: 0 });
+        const { top: fetched } = await fetchStories({ limit: 12, offset: 0 });
         if (!alive) return;
-        setTop(top);
+        setTop(fetched);
       } catch (e) {
         if (!alive) return;
         setTop([]);
@@ -30,7 +42,7 @@ export function Hero() {
     return () => {
       alive = false;
     };
-  }, []);
+  }, [initialTop]);
 
   const [mainStory, ...rest] = top;
   const sideStories = rest.slice(0, 3);

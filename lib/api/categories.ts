@@ -150,6 +150,10 @@ export async function fetchCategoryNews(
         signal
     } = opts;
 
+    if (!BASE_URL) {
+        throw new CategoryNewsError('NEXT_PUBLIC_API_URL not set');
+    }
+
     const url = `${BASE_URL}/news/web/categorynews?limit=${encodeURIComponent(
         limit
     )}&offset=${encodeURIComponent(offset)}`;
@@ -202,7 +206,17 @@ export async function fetchCategoryNews(
 export async function getCategoriesNormalized(
     options?: FetchCategoryNewsOptions
 ): Promise<NormalizedCategories> {
-    const { normalized } = await fetchCategoryNews(options);
-    return normalized;
+    try {
+        const { normalized } = await fetchCategoryNews(options);
+        return normalized;
+    } catch (e) {
+        console.error('getCategoriesNormalized error', e);
+        return normalizeCategoryNews({
+            Opinion: [],
+            Analysis: [],
+            trending_news: [],
+            section: {},
+        });
+    }
 }
 
