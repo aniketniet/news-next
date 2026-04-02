@@ -183,6 +183,52 @@ export async function fetchStory(identifier: string): Promise<StoryMapped | null
     }
 }
 
+// Slug-lite API returns the core story fields + story_year (no sidebar lists)
+export interface StoryApiLite extends StoryApiFull {
+    story_year?: number
+    story_table?: string
+}
+
+export async function fetchStoryLiteFull(urlKey: string, year: number): Promise<StoryApiLite | null> {
+    if (!urlKey || !year || Number.isNaN(year)) return null
+    try {
+        const safeKey = encodeURIComponent(urlKey)
+        const data = await getWithRetry<StoryApiEnvelope<StoryApiLite>>(`${BASE}/news/slug-lite/${safeKey}?year=${year}`)
+        const raw: StoryApiLite = data?.data
+        return raw?.story_id ? raw : null
+    } catch (e) {
+        console.error('fetchStoryLiteFull error', e)
+        return null
+    }
+}
+
+export async function fetchStoryLite(urlKey: string, year: number): Promise<StoryMapped | null> {
+    const raw = await fetchStoryLiteFull(urlKey, year)
+    if (!raw) return null
+
+    return {
+        id: raw.story_id,
+        title: raw.story_title,
+        contentHtml: raw.story_content || '<p>No content available.</p>',
+        authorName: raw.author_name || 'Staff Reporter',
+        publishedDate: raw.published_date || raw.story_date,
+        urlKey: raw.url_key,
+        imageName: raw.image_url_big || raw.image_url_medium || null,
+        metaTitle: raw.meta_title ?? null,
+        metaKeywords: raw.meta_keyword ?? null,
+        metaDescription: raw.meta_description ?? null,
+        tags: raw.story_tags ? raw.story_tags.split(',').map(s => s.trim()).filter(Boolean) : [],
+        likeCount: raw.like_count ?? 0,
+        dislikeCount: raw.dislike_count ?? 0,
+        commentCount: raw.comment_count ?? 0,
+        comments: raw.comments ?? [],
+        trending: [],
+        recent: [],
+        related: [],
+        popular: []
+    }
+}
+
 // Summary shape for listings
 export interface StorySummary {
     id: number

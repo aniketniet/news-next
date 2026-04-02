@@ -128,7 +128,14 @@ export default function SearchPage() {
           <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {results.map((item) => (
               <li key={`${item.id}-${item.urlKey}`} className="border  overflow-hidden bg-white hover:shadow transition-shadow">
-                <Link href={`/news/${item.urlKey || item.id}`} className="block">
+                <Link
+                  href={
+                    item.urlKey && item.year
+                      ? `/news/slug-lite/${item.urlKey}?year=${encodeURIComponent(String(item.year))}`
+                      : `/news/${item.urlKey || item.id}`
+                  }
+                  className="block"
+                >
                   <div className="relative aspect-video w-full bg-gray-100">
                     <Image src={item.image || "/news-thumbnail.png"} alt={item.title} fill className="object-cover" />
                   </div>
