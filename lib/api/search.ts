@@ -13,7 +13,23 @@ export interface RawSearchItem {
 interface SearchResponse {
   success: boolean
   message: string
-  data: RawSearchItem[]
+  data: RawSearchItem[] | SearchResponsePayload
+}
+
+interface SearchPagination {
+  limit: number
+  offset: number
+  total: number
+  has_more: boolean
+  next_offset: number | null
+  page: number
+}
+
+interface SearchResponsePayload {
+  query?: string
+  match_type?: string
+  pagination?: SearchPagination
+  data?: RawSearchItem[]
 }
 
 export interface SearchResultItem {
@@ -23,6 +39,18 @@ export interface SearchResultItem {
   year?: number
   image: string
   urlKey: string
+}
+
+export interface SearchResultPage {
+  items: SearchResultItem[]
+  pagination: {
+    limit: number
+    offset: number
+    total: number
+    hasMore: boolean
+    nextOffset: number | null
+    page: number
+  }
 }
 
 function yearFromPublishedDate(publishedDate: string): number | undefined {
@@ -36,8 +64,20 @@ export async function searchNews(
   year: number | undefined,
   limit = 10,
   offset = 0
-): Promise<SearchResultItem[]> {
-  if (!query?.trim()) return []
+): Promise<SearchResultPage> {
+  if (!query?.trim()) {
+    return {
+      items: [],
+      pagination: {
+        limit,
+        offset,
+        total: 0,
+        hasMore: false,
+        nextOffset: null,
+        page: Math.floor(offset / Math.max(1, limit)) + 1,
+      },
+    }
+  }
   try {
     const { data } = await axios.post<SearchResponse>(
       "/api/news/search",
@@ -45,9 +85,27 @@ export async function searchNews(
       { headers: { "Content-Type": "application/json" } }
     )
 
-    const items = (data?.data ?? []) as RawSearchItem[]
+    const payload = data?.data
+    const list = Array.isArray(payload)
+      ? payload
+      : Array.isArray(payload?.data)
+        ? payload.data
+        : []
+
+    const upstreamPagination = !Array.isArray(payload) ? payload?.pagination : undefined
+    const resolvedLimit = Number(upstreamPagination?.limit ?? limit) || limit
+    const resolvedOffset = Number(upstreamPagination?.offset ?? offset) || offset
+    const resolvedTotal = Number(upstreamPagination?.total ?? 0) || 0
+    const nextOffsetRaw = upstreamPagination?.next_offset
+    const resolvedNextOffset = typeof nextOffsetRaw === "number" && Number.isFinite(nextOffsetRaw)
+      ? nextOffsetRaw
+      : null
+    const resolvedHasMore = typeof upstreamPagination?.has_more === "boolean"
+      ? upstreamPagination.has_more
+      : (resolvedOffset + list.length) < resolvedTotal
+    const resolvedPage = Number(upstreamPagination?.page) || (Math.floor(resolvedOffset / Math.max(1, resolvedLimit)) + 1)
    
-    return items.map((i) => ({
+    const items = list.map((i) => ({
      
       id: i.story_id,
       title: i.story_title,
@@ -56,8 +114,30 @@ export async function searchNews(
       image: i.image_url_medium || i.image_name || "/news-thumbnail.png",
       urlKey: i.url_key,
     }))
+
+    return {
+      items,
+      pagination: {
+        limit: resolvedLimit,
+        offset: resolvedOffset,
+        total: resolvedTotal,
+        hasMore: resolvedHasMore,
+        nextOffset: resolvedNextOffset,
+        page: resolvedPage,
+      },
+    }
   } catch (e) {
     console.error("searchNews error", e)
-    return []
+    return {
+      items: [],
+      pagination: {
+        limit,
+        offset,
+        total: 0,
+        hasMore: false,
+        nextOffset: null,
+        page: Math.floor(offset / Math.max(1, limit)) + 1,
+      },
+    }
   }
 }

@@ -76,7 +76,11 @@ export function SiteHeader() {
     e.preventDefault();
     const q = query.trim();
     if (q) {
-      const y = Number(year) || new Date().getFullYear();
+      let y = Number(year) || new Date().getFullYear();
+      // Map 2026 to 2025 because 2026 data is stored in 2025 table
+      if (y === 2026) {
+        y = 2025;
+      }
       router.push(`/search?q=${encodeURIComponent(q)}&year=${encodeURIComponent(String(y))}&run=${Date.now()}`);
       setIsMenuOpen(false);
       setIsSearchOpen(false);
@@ -323,7 +327,7 @@ export function SiteHeader() {
                   className="h-10 px-2 text-sm sm:text-base border-r border-black/10 bg-white text-gray-700 outline-none"
                   aria-label="Search year"
                 >
-                  {Array.from({ length: 2025 - 2011 + 1 }, (_, i) => 2011 + i).map((y) => (
+                  {Array.from({ length: 2026 - 2011 + 1 }, (_, i) => 2011 + i).map((y) => (
                     <option key={y} value={y}>
                       {y}
                     </option>

@@ -163,9 +163,7 @@ export async function fetchCategoryNews(
         headers: {
             Accept: 'application/json'
         },
-        cache: noCache ? 'no-store' : 'force-cache',
-        // For Next.js 13+ you could add: next: { revalidate: 300 }
-        signal
+        next: { revalidate: 300 } // Cache for 5 minutes, then refresh
     });
 
     // console.log(`Fetched Category News from ${url}:`, res);

@@ -1,7 +1,8 @@
 import axios from 'axios'
 
 /** In-memory TTL cache so header / ticker don’t hit the API on every mount or StrictMode double-run. */
-const BREAKING_TTL_MS = 5 * 60 * 1000
+/** For news website: reduced to 30 seconds to show breaking news updates quickly */
+const BREAKING_TTL_MS = 30 * 1000
 const breakingCache = new Map<string, { data: BreakingStoryRaw[]; expires: number }>()
 
 export interface BreakingStoryRaw {

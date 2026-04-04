@@ -6,7 +6,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { useEffect, useMemo, useRef, useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
-import { searchNews, type SearchResultItem } from "@/lib/api/search"
+import { searchNews, type SearchResultItem, type SearchResultPage } from "@/lib/api/search"
 
 export const dynamic = "force-dynamic"
 
@@ -26,8 +26,21 @@ export default function SearchPage() {
   const run = useMemo(() => searchParams.get("run") || "", [searchParams])
 
   const [results, setResults] = useState<SearchResultItem[]>([])
+  const [hasMore, setHasMore] = useState(false)
+  const [nextOffset, setNextOffset] = useState<number | null>(null)
+  const [total, setTotal] = useState(0)
   const [isLoading, setIsLoading] = useState(false)
-  const cacheRef = useRef<Map<string, SearchResultItem[]>>(new Map())
+  const cacheRef = useRef<Map<string, SearchResultPage>>(new Map())
+
+  const page = useMemo(() => Math.floor(offset / Math.max(1, limit)) + 1, [offset, limit])
+
+  const goToOffset = (nextOffsetValue: number) => {
+    const next = new URLSearchParams(searchParams.toString())
+    next.set("offset", String(Math.max(0, nextOffsetValue)))
+    next.set("limit", String(limit))
+    next.set("run", "1")
+    router.push(`/search?${next.toString()}`)
+  }
 
   useEffect(() => {
     let cancelled = false
@@ -40,6 +53,9 @@ export default function SearchPage() {
 
     if (!q) {
       setResults([])
+      setHasMore(false)
+      setNextOffset(null)
+      setTotal(0)
       setIsLoading(false)
       return
     }
@@ -47,7 +63,10 @@ export default function SearchPage() {
     const cacheKey = `${q}::${year ?? ""}::${limit}::${offset}`
     const cached = cacheRef.current.get(cacheKey)
     if (cached) {
-      setResults(cached)
+      setResults(cached.items)
+      setHasMore(cached.pagination.hasMore)
+      setNextOffset(cached.pagination.nextOffset)
+      setTotal(cached.pagination.total)
       setIsLoading(false)
       clearRunParam()
       return
@@ -58,9 +77,12 @@ export default function SearchPage() {
       const sessionKey = `search:${cacheKey}`
       const raw = sessionStorage.getItem(sessionKey)
       if (raw) {
-        const parsed = JSON.parse(raw) as SearchResultItem[]
+        const parsed = JSON.parse(raw) as SearchResultPage
         cacheRef.current.set(cacheKey, parsed)
-        setResults(parsed)
+        setResults(parsed.items)
+        setHasMore(parsed.pagination.hasMore)
+        setNextOffset(parsed.pagination.nextOffset)
+        setTotal(parsed.pagination.total)
         setIsLoading(false)
         clearRunParam()
         return
@@ -72,6 +94,9 @@ export default function SearchPage() {
     // Do not hit API unless user explicitly submitted (run param)
     if (!run) {
       setResults([])
+      setHasMore(false)
+      setNextOffset(null)
+      setTotal(0)
       setIsLoading(false)
       return
     }
@@ -81,7 +106,10 @@ export default function SearchPage() {
       const data = await searchNews(q, year, limit, offset)
       if (cancelled) return
       cacheRef.current.set(cacheKey, data)
-      setResults(data)
+      setResults(data.items)
+      setHasMore(data.pagination.hasMore)
+      setNextOffset(data.pagination.nextOffset)
+      setTotal(data.pagination.total)
       setIsLoading(false)
 
       try {
@@ -147,6 +175,39 @@ export default function SearchPage() {
               </li>
             ))}
           </ul>
+
+          {!!q && !isLoading && results.length > 0 && (
+            <div className="mt-8 flex items-center justify-center gap-3">
+              <button
+                type="button"
+                onClick={() => goToOffset(Math.max(0, offset - limit))}
+                disabled={offset <= 0}
+                className="px-4 py-2 border border-gray-300 text-sm font-medium text-gray-700 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-gray-50"
+              >
+                Previous
+              </button>
+
+              <span className="text-sm text-gray-600">
+                Page {page}
+                {total > 0 ? ` • ${total} results` : ""}
+              </span>
+
+              <button
+                type="button"
+                onClick={() => {
+                  if (typeof nextOffset === "number") {
+                    goToOffset(nextOffset)
+                    return
+                  }
+                  goToOffset(offset + limit)
+                }}
+                disabled={!hasMore}
+                className="px-4 py-2 border border-gray-900 bg-gray-900 text-white text-sm font-medium disabled:opacity-40 disabled:cursor-not-allowed hover:bg-black"
+              >
+                Next
+              </button>
+            </div>
+          )}
         </div>
       </main>
       <SiteFooter />

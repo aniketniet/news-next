@@ -364,7 +364,8 @@ interface TopStoriesApiResponse {
 }
 
 /** Short TTL so home + hero + other callers don’t hammer top-stories in one session. */
-const TOP_STORIES_TTL_MS = 2 * 60 * 1000
+/** For news website: 30 seconds to show updated articles quickly */
+const TOP_STORIES_TTL_MS = 30 * 1000
 const topStoriesCache = new Map<string, { data: StoriesGrouped; expires: number }>()
 
 async function fetchStoriesUncached(
