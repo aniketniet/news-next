@@ -34,6 +34,8 @@ interface NewsDetailContentProps {
 }
 
 export function NewsDetailContent({ article }: NewsDetailContentProps) {
+  const hasFeaturedImage = Boolean(article.image && !/noimage/i.test(article.image));
+
   const socialLinks = [
     { name: "Facebook", href: "https://www.facebook.com/dailypioneer/", bgColor: "bg-blue-600", icon: "facebook" },
     { name: "Twitter", href: "https://x.com/TheDailyPioneer", bgColor: "bg-sky-500", icon: "twitter" },
@@ -75,8 +77,8 @@ export function NewsDetailContent({ article }: NewsDetailContentProps) {
       </div>
 
       {/* Featured Image */}
-      {article.image ? (
-        <div className="relative aspect-[16/9] w-full overflow-hidden rounded-sm">
+      {hasFeaturedImage ? (
+        <div className="relative aspect-video w-full overflow-hidden rounded-sm">
           <Image
             src={article.image}
             alt={article.title}

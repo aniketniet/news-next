@@ -151,6 +151,8 @@
   .news-content {
     @apply text-gray-700 leading-relaxed;
     line-height: 1.8;
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
 
   .news-content p {
@@ -209,6 +211,9 @@
     border: 1px solid #e5e7eb;
     width: 100%;
     max-width: 100%;
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .news-content table[border] {
@@ -220,6 +225,8 @@
     @apply px-4 py-2 text-left;
     border: 1px solid #e5e7eb;
     padding: 0.5rem 1rem;
+    white-space: normal;
+    word-break: break-word;
   }
 
   .news-content table[border] td,
@@ -276,6 +283,17 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  .news-content iframe,
+  .news-content video,
+  .news-content embed,
+  .news-content object {
+    max-width: 100% !important;
+    width: 100% !important;
+    height: auto;
+    display: block;
+    margin: 1rem auto;
   }
 
   /* Override inline styles from backend - make images responsive */

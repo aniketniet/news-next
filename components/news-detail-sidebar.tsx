@@ -8,22 +8,26 @@ interface SidebarItem {
   category: string;
   publishedAt: string;
   urlKey?: string;
+  href?: string;
 }
 
 interface NewsDetailSidebarProps {
+  latestTitle?: string;
   latestNews: SidebarItem[];
   popularNews: SidebarItem[];
 }
 
-export function NewsDetailSidebar({ latestNews, popularNews }: NewsDetailSidebarProps) {
+export function NewsDetailSidebar({ latestTitle = "Latest News", latestNews, popularNews }: NewsDetailSidebarProps) {
   // console.log(latestNews,"latestNews in sidebar");
+  const limitedLatest = (latestNews || []).slice(0, 6);
   const limitedPopular = (popularNews || []).slice(0,6);  
   return (
     <aside className="space-y-8">
       {/* Related News Section */}
+      {limitedLatest.length > 0 ? (
       <div className="bg-white  overflow-hidden">
         <div className="bg-gray-50 px-4 pt-3 pb-2 border-b border-gray-200">
-          <h2 className="text-lg font-bold text-gray-900">Latest News</h2>
+          <h2 className="text-lg font-bold text-gray-900">{latestTitle}</h2>
           {/* Underline bar with 20% filled segment */}
           <div className="mt-2 h-1 w-full bg-gray-200 rounded">
             <div className="h-full bg-black rounded" style={{ width: '20%' }} />
@@ -31,11 +35,11 @@ export function NewsDetailSidebar({ latestNews, popularNews }: NewsDetailSidebar
         </div>
         
         <div className="">
-          {latestNews.map((news) => (
+          {limitedLatest.map((news) => (
             <article key={news.id} className="p-4 hover:bg-gray-50 transition-colors">
-              <Link href={`/news/${news.urlKey || news.id}`} className="block group">
+              <Link href={news.href || `/news/${news.urlKey || news.id}`} className="block group">
                 <div className="flex gap-3">
-                  <div className="relative w-20 h-16 flex-shrink-0 rounded-sm overflow-hidden">
+                  <div className="relative w-20 h-16 shrink-0 rounded-sm overflow-hidden">
                     <Image
                       src={news.image}
                       alt={news.title}
@@ -61,9 +65,10 @@ export function NewsDetailSidebar({ latestNews, popularNews }: NewsDetailSidebar
           ))}
         </div>
       </div>
+      ) : null}
 
       {/* Advertisement Section */}
-      <div className="bg-gradient-to-br from-black to-neutral-800 p-6 text-white text-center">
+      <div className="bg-linear-to-br from-black to-neutral-800 p-6 text-white text-center">
         <h3 className="text-lg font-bold mb-2">Advertisement</h3>
         <p className="text-sm opacity-90 mb-4">
           Your ad could be here. Contact us for advertising opportunities.
@@ -77,6 +82,7 @@ export function NewsDetailSidebar({ latestNews, popularNews }: NewsDetailSidebar
       </div>
 
       {/* Popular Posts Section */}
+      {limitedPopular.length > 0 ? (
       <div className="bg-white  overflow-hidden">
         <div className="bg-gray-50 px-4 py-3 border-b border-gray-200">
           <h2 className="text-lg font-bold text-gray-900">Popular News</h2>
@@ -88,9 +94,9 @@ export function NewsDetailSidebar({ latestNews, popularNews }: NewsDetailSidebar
         <div>
           {limitedPopular.map((news) => (
             <article key={news.id} className="p-4 hover:bg-gray-50 transition-colors">
-              <Link href={`/news/${news.urlKey || news.id}`} className="block group">
+              <Link href={news.href || `/news/${news.urlKey || news.id}`} className="block group">
                 <div className="flex gap-3">
-                  <div className="relative w-20 h-16 flex-shrink-0 rounded-sm overflow-hidden">
+                  <div className="relative w-20 h-16 shrink-0 rounded-sm overflow-hidden">
                     <Image
                       src={news.image}
                       alt={news.title}
@@ -116,6 +122,7 @@ export function NewsDetailSidebar({ latestNews, popularNews }: NewsDetailSidebar
           ))}
         </div>
       </div>
+      ) : null}
 
       {/* Newsletter Signup */}
       <div className="bg-white border border-black/10 p-6">

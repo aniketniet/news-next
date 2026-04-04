@@ -63,6 +63,7 @@ export interface StoryApiFull {
     comment_count?: number
     comments?: Comment[]
     trending_news?: StoryListItem[]
+    latest_news?: StoryListItem[]
     recent_news?: StoryListItem[]
     related_articles?: StoryListItem[]
     popular_news?: StoryListItem[]
@@ -177,7 +178,7 @@ export async function fetchStory(identifier: string): Promise<StoryMapped | null
         commentCount: raw.comment_count ?? 0,
         comments: raw.comments ?? [],
         trending: raw.trending_news ?? [],
-        recent: raw.recent_news ?? [],
+        recent: raw.recent_news ?? raw.latest_news ?? [],
         related: raw.related_articles ?? [],
         popular: raw.popular_news ?? []
     }
@@ -222,10 +223,10 @@ export async function fetchStoryLite(urlKey: string, year: number): Promise<Stor
         dislikeCount: raw.dislike_count ?? 0,
         commentCount: raw.comment_count ?? 0,
         comments: raw.comments ?? [],
-        trending: [],
-        recent: [],
-        related: [],
-        popular: []
+        trending: raw.trending_news ?? raw.latest_news ?? [],
+        recent: raw.recent_news ?? raw.latest_news ?? [],
+        related: raw.related_articles ?? [],
+        popular: raw.popular_news ?? []
     }
 }
 
