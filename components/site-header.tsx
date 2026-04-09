@@ -16,7 +16,7 @@ import LanguageSelector from "./LanguageSelector";
 
 export function SiteHeader() {
   const [query, setQuery] = useState("");
-  const [year, setYear] = useState<number>(Math.min(2025, Math.max(2011, new Date().getFullYear())));
+  const [year, setYear] = useState<number>(Math.min(2026, Math.max(2011, new Date().getFullYear())));
   const [searchType, setSearchType] = useState<"title" | "author">("title");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
