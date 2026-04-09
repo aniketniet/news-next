@@ -63,7 +63,8 @@ export async function searchNews(
   query: string,
   year: number | undefined,
   limit = 10,
-  offset = 0
+  offset = 0,
+  searchType: "title" | "author" = "title"
 ): Promise<SearchResultPage> {
   if (!query?.trim()) {
     return {
@@ -79,9 +80,17 @@ export async function searchNews(
     }
   }
   try {
+    const requestPayload = {
+      ...(searchType === "author" ? { author: query } : { query }),
+      search_type: searchType,
+      year,
+      limit,
+      offset,
+    }
+
     const { data } = await axios.post<SearchResponse>(
       "/api/news/search",
-      { query, year, limit, offset },
+      requestPayload,
       { headers: { "Content-Type": "application/json" } }
     )
 

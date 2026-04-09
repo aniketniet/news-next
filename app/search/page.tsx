@@ -15,6 +15,10 @@ export default function SearchPage() {
   const router = useRouter()
 
   const q = useMemo(() => (searchParams.get("q") || "").trim(), [searchParams])
+  const searchType = useMemo<"title" | "author">(() => {
+    const raw = (searchParams.get("search_type") || "title").toLowerCase()
+    return raw === "author" ? "author" : "title"
+  }, [searchParams])
   const year = useMemo(() => {
     const raw = searchParams.get("year")
     const y = raw ? Number(raw) : undefined
@@ -60,7 +64,7 @@ export default function SearchPage() {
       return
     }
 
-    const cacheKey = `${q}::${year ?? ""}::${limit}::${offset}`
+    const cacheKey = `${searchType}::${q}::${year ?? ""}::${limit}::${offset}`
     const cached = cacheRef.current.get(cacheKey)
     if (cached) {
       setResults(cached.items)
@@ -103,7 +107,7 @@ export default function SearchPage() {
 
     setIsLoading(true)
     void (async () => {
-      const data = await searchNews(q, year, limit, offset)
+      const data = await searchNews(q, year, limit, offset, searchType)
       if (cancelled) return
       cacheRef.current.set(cacheKey, data)
       setResults(data.items)
@@ -125,14 +129,17 @@ export default function SearchPage() {
     return () => {
       cancelled = true
     }
-  }, [q, year, limit, offset, run, router, searchParams])
+  }, [q, searchType, year, limit, offset, run, router, searchParams])
 
   return (
     <div className="min-h-screen bg-white">
       <SiteHeader />
       <main className="pt-6 pb-10">
         <div className="mx-auto max-w-7xl px-3 md:px-6">
-          <h1 className="text-2xl font-bold mb-4">Search results for: <span className="text-gray-600">{q || ""}</span></h1>
+          <h1 className="text-2xl font-bold mb-4">
+            Search results for: <span className="text-gray-600">{q || ""}</span>
+            <span className="ml-2 text-base font-medium text-gray-500">({searchType === "author" ? "Author" : "Title"})</span>
+          </h1>
           {!!q && isLoading && (
             <div className="mb-4 rounded-md border border-gray-200 bg-gray-50 px-3 py-2">
               <div className="flex items-center gap-2">
@@ -141,7 +148,7 @@ export default function SearchPage() {
                   aria-hidden="true"
                 />
                 <p className="text-sm text-gray-700" aria-live="polite">
-                  Searching news for <span className="font-semibold">“{q}”</span>
+                  Searching {searchType === "author" ? "by author" : "news"} for <span className="font-semibold">“{q}”</span>
                   {year ? <span className="text-gray-500"> ({year})</span> : null}
                 </p>
               </div>
