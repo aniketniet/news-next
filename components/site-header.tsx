@@ -16,7 +16,7 @@ import LanguageSelector from "./LanguageSelector";
 
 export function SiteHeader() {
   const [query, setQuery] = useState("");
-  const [year, setYear] = useState<number>(Math.min(2026, Math.max(2011, new Date().getFullYear())));
+  const [year, setYear] = useState<number | "">(2026);
   const [searchType, setSearchType] = useState<"title" | "author">("title");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -77,14 +77,22 @@ export function SiteHeader() {
     e.preventDefault();
     const q = query.trim();
     if (q) {
-      let y = Number(year) || new Date().getFullYear();
-      // Map 2026 to 2025 because 2026 data is stored in 2025 table
-      if (y === 2026) {
-        y = 2025;
+      const params = new URLSearchParams();
+      params.set("q", q);
+      params.set("search_type", searchType);
+      params.set("run", String(Date.now()));
+
+      const hasYear = year !== "" && Number.isFinite(Number(year));
+      if (hasYear) {
+        let y = Number(year);
+        // Map 2026 to 2025 because 2026 data is stored in 2025 table
+        if (y === 2026) {
+          y = 2025;
+        }
+        params.set("year", String(y));
       }
-      router.push(
-        `/search?q=${encodeURIComponent(q)}&year=${encodeURIComponent(String(y))}&search_type=${encodeURIComponent(searchType)}&run=${Date.now()}`
-      );
+
+      router.push(`/search?${params.toString()}`);
       setIsMenuOpen(false);
       setIsSearchOpen(false);
     }
@@ -335,10 +343,11 @@ export function SiteHeader() {
                 </select>
                 <select
                   value={year}
-                  onChange={(e) => setYear(Number(e.target.value))}
+                  onChange={(e) => setYear(e.target.value === "" ? "" : Number(e.target.value))}
                   className="h-10 px-2 text-sm sm:text-base border-r border-black/10 bg-white text-gray-700 outline-none"
                   aria-label="Search year"
                 >
+                  <option value="">All Years</option>
                   {Array.from({ length: 2026 - 2011 + 1 }, (_, i) => 2011 + i).map((y) => (
                     <option key={y} value={y}>
                       {y}
