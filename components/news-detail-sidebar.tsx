@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { NewsImage } from "./news-image";
 import Link from "next/link";
 
 interface SidebarItem {
@@ -40,10 +40,9 @@ export function NewsDetailSidebar({ latestTitle = "Latest News", latestNews, pop
               <Link href={news.href || `/news/${news.urlKey || news.id}`} className="block group">
                 <div className="flex gap-3">
                   <div className="relative w-20 h-16 shrink-0 rounded-sm overflow-hidden">
-                    <Image
+                    <NewsImage
                       src={news.image}
                       alt={news.title}
-                      fill
                       className="object-cover transition-transform duration-300 group-hover:scale-105"
                       sizes="80px"
                     />
@@ -97,10 +96,9 @@ export function NewsDetailSidebar({ latestTitle = "Latest News", latestNews, pop
               <Link href={news.href || `/news/${news.urlKey || news.id}`} className="block group">
                 <div className="flex gap-3">
                   <div className="relative w-20 h-16 shrink-0 rounded-sm overflow-hidden">
-                    <Image
+                    <NewsImage
                       src={news.image}
                       alt={news.title}
-                      fill
                       className="object-cover transition-transform duration-300 group-hover:scale-105"
                       sizes="80px"
                     />

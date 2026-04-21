@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { NewsDetailFeaturedImage } from "./news-detail-featured-image";
 import Link from "next/link";
 import { NewsInteractions } from "./news-interactions";
 import { ArticleShareButtons } from "./article-share-buttons";
@@ -35,7 +35,7 @@ interface NewsDetailContentProps {
 }
 
 export function NewsDetailContent({ article }: NewsDetailContentProps) {
-  const hasFeaturedImage = Boolean(article.image && !/noimage/i.test(article.image));
+  const featuredImageSrc = article.image && !/noimage/i.test(article.image) ? article.image : null;
 
   const socialLinks = [
     { name: "Facebook", href: "https://www.facebook.com/dailypioneer/", bgColor: "bg-blue-600", icon: "facebook" },
@@ -80,18 +80,7 @@ export function NewsDetailContent({ article }: NewsDetailContentProps) {
       </div>
 
       {/* Featured Image */}
-      {hasFeaturedImage ? (
-        <div className="relative aspect-video w-full overflow-hidden rounded-sm">
-          <Image
-            src={article.image}
-            alt={article.title}
-            fill
-          className="object-cover"
-          sizes="(max-width: 768px) 100vw, 66vw"
-          priority
-        />
-      </div>
-      ) : null}
+      <NewsDetailFeaturedImage src={featuredImageSrc} alt={article.title} />
 
 
       {/* Social Share Buttons */}

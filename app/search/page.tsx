@@ -10,6 +10,30 @@ import { searchNews, type SearchResultItem, type SearchResultPage } from "@/lib/
 
 export const dynamic = "force-dynamic"
 
+type NewsImageProps = {
+  src?: string | null
+  alt: string
+}
+
+const NewsImage = ({ src, alt }: NewsImageProps) => {
+  const fallbackSrc = "/news-image.jpg"
+  const [imgSrc, setImgSrc] = useState(src || fallbackSrc)
+
+  useEffect(() => {
+    setImgSrc(src || fallbackSrc)
+  }, [src])
+
+  return (
+    <Image
+      src={imgSrc}
+      alt={alt}
+      fill
+      className="object-cover"
+      onError={() => setImgSrc(fallbackSrc)}
+    />
+  )
+}
+
 export default function SearchPage() {
   const searchParams = useSearchParams()
   const router = useRouter()
@@ -172,7 +196,7 @@ export default function SearchPage() {
                   className="block"
                 >
                   <div className="relative aspect-video w-full bg-gray-100">
-                    <Image src={item.image || "/news-thumbnail.png"} alt={item.title} fill className="object-cover" />
+                    <NewsImage src={item.image} alt={item.title} />
                   </div>
                   <div className="p-4">
                     <h3 className="font-semibold mb-1 line-clamp-2">{item.title}</h3>

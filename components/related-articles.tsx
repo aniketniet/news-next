@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { NewsImage } from "./news-image";
 import Link from "next/link";
 
 interface ArticleItem { id: string; title: string; image: string; category: string; publishedAt: string; urlKey?: string }
@@ -26,11 +26,10 @@ export function RelatedArticles({ articles, topNews }: RelatedArticlesProps) {
                 <article key={article.id} className="group">
                   <Link href={`/news/${article.urlKey || article.id}`} className="block">
                     <div className="bg-white border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-200">
-                      <div className="relative aspect-[16/9] overflow-hidden">
-                        <Image
+                      <div className="relative aspect-video overflow-hidden">
+                        <NewsImage
                           src={article.image}
                           alt={article.title}
-                          fill
                           className="object-cover transition-transform duration-300 group-hover:scale-105"
                           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         />
