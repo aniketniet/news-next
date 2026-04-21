@@ -16,7 +16,7 @@ import LanguageSelector from "./LanguageSelector";
 
 export function SiteHeader() {
   const [query, setQuery] = useState("");
-  const [year, setYear] = useState<number | "">(2026);
+  const [year, setYear] = useState<number | "">("");
   const [searchType, setSearchType] = useState<"title" | "author">("title");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -332,15 +332,28 @@ export function SiteHeader() {
                 onSubmit={onSearchSubmit}
                 className="flex items-center rounded border border-black/20 bg-white w-full sm:max-w-2xl mx-auto"
               >
-                <select
-                  value={searchType}
-                  onChange={(e) => setSearchType(e.target.value === "author" ? "author" : "title")}
-                  className="h-10 px-2 text-sm sm:text-base border-r border-black/10 bg-white text-gray-700 outline-none"
-                  aria-label="Search type"
-                >
-                  <option value="title">Title</option>
-                  <option value="author">Author</option>
-                </select>
+                <div className="h-10 px-3 border-r border-black/10 bg-white text-gray-700 flex items-center gap-4">
+                  <label className="flex items-center gap-1.5 text-xs sm:text-sm cursor-pointer select-none">
+                    <input
+                      type="checkbox"
+                      checked={searchType === "title"}
+                      onChange={() => setSearchType("title")}
+                      className="h-4 w-4 accent-black"
+                      aria-label="Search by title"
+                    />
+                    <span>Title</span>
+                  </label>
+                  <label className="flex items-center gap-1.5 text-xs sm:text-sm cursor-pointer select-none">
+                    <input
+                      type="checkbox"
+                      checked={searchType === "author"}
+                      onChange={() => setSearchType("author")}
+                      className="h-4 w-4 accent-black"
+                      aria-label="Search by author"
+                    />
+                    <span>Author</span>
+                  </label>
+                </div>
                 <select
                   value={year}
                   onChange={(e) => setYear(e.target.value === "" ? "" : Number(e.target.value))}

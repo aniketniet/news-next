@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { NewsInteractions } from "./news-interactions";
+import { ArticleShareButtons } from "./article-share-buttons";
 
 interface Comment {
   comment_id?: number;
@@ -61,6 +62,8 @@ export function NewsDetailContent({ article }: NewsDetailContentProps) {
         <h1 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
           {article.title}
         </h1>
+
+        <ArticleShareButtons />
         
         {/* Subtitle */}
         {/* <p className="text-lg text-gray-600 leading-relaxed">
