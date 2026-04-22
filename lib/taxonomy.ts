@@ -8,7 +8,7 @@ export const SECTION_SLUG_TO_ID: Record<string, number> = {
   trending:1046,
   impact:1045,
   page1:1031,
-  laws: 1106,
+  "Law & Justice": 1106,
   agenda:1107,
   // indiafif2026: 1108,
 }
