@@ -135,7 +135,7 @@ export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
     // TEMP: Artificial delay for visual slow loading (remove/comment when not needed)
-  await new Promise(resolve => setTimeout(resolve, 6000)); // 6 seconds
+  await new Promise(resolve => setTimeout(resolve, 10000)); // 10 seconds
   const safe = async <T,>(label: string, promise: Promise<T>, fallback: T): Promise<T> => {
     try {
       return await promise;
