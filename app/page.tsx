@@ -132,12 +132,10 @@ const tarotData = {
 };
 
 export const dynamic = "force-dynamic";
-export const revalidate = 0;          // optional but recommended
-export const fetchCache = "force-no-store"; // optional
 
 export default async function HomePage() {
-    // TEMP: Artificial delay for visual slow loading (remove/comment when not needed)
- 
+    // Artificial delay for loader demo: show loader for 10 seconds
+  await new Promise(resolve => setTimeout(resolve, 10000)); // 10 seconds
   const safe = async <T,>(label: string, promise: Promise<T>, fallback: T): Promise<T> => {
     try {
       return await promise;
@@ -152,7 +150,6 @@ export default async function HomePage() {
   // sections like Technology & Impact (which may have older dates and
   // were previously missing due to cached / truncated responses) appear
   // consistently with what you see in Postman.
-  
   const [{ latest, popular, stateEditions, top }, categories, gallery, indiaSection, coverStoryItems, bystandersData] = await Promise.all([
     safe('fetchStories', fetchStories({ limit: 20, offset: 0 }), { latest: [], top: [], popular: [], stateEditions: {} }),
     safe('getCategoriesNormalized', getCategoriesNormalized({ limit: 12, offset: 0, noCache: false }), {
@@ -178,8 +175,6 @@ export default async function HomePage() {
     safe('fetchSubcategoryList(1003)', fetchSubcategoryList(1003, { limit: 5, offset: 0 }), []),
     safe('fetchBystanders', fetchBystanders({ limit: 1, offset: 0 }), []),
   ]);
-
-   await new Promise(resolve => setTimeout(resolve, 10000)); // 10 seconds
 
   // console.log("Fetched Categories:", categories);
   // console.log("Fetched Popular Stories:", popular);
