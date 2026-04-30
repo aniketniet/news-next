@@ -13,6 +13,7 @@ type HeroProps = {
 };
 
 export function Hero({ initialTop }: HeroProps) {
+  
   const hasServerTop = initialTop && initialTop.length > 0;
   const [top, setTop] = useState<StorySummary[]>(() =>
     hasServerTop ? initialTop!.slice(0, 12) : []

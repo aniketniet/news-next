@@ -53,8 +53,8 @@ export async function fetchGalleryImages({
   limit = 50,
   offset = 0,
   signal,
-  noCache = false,
-  revalidateSeconds = 120,
+  noCache = true,
+  revalidateSeconds = 0,
 }: {
   limit?: number
   offset?: number

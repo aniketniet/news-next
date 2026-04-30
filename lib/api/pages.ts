@@ -51,7 +51,8 @@ const BASE = `${process.env.NEXT_PUBLIC_API_URL}`
 // Cache for pages data - prevents repeated API calls
 let pagesCache: PageListItem[] | null = null
 let pagesCacheTime: number = 0
-const CACHE_DURATION = 5 * 60 * 1000 // 5 minutes
+// const CACHE_DURATION = 5 * 60 * 1000 // 5 minutes
+const CACHE_DURATION = 0 // Disable caching for development/testing - set to 0 or a very short duration
 
 // Fetch all pages for footer navigation - with caching
 export const fetchPages = cache(async (): Promise<PageListItem[]> => {
