@@ -89,7 +89,7 @@ const RETRY_DELAYS_MS = [500, 1500, 3000]
 async function getWithRetry<T>(url: string, retries = 2): Promise<T> {
     for (let attempt = 0; attempt <= retries; attempt += 1) {
         try {
-            //  await new Promise((res) => setTimeout(res, 7000)) // 1.5 sec delay
+             await new Promise((res) => setTimeout(res,10000)) // 1.5 sec delay
             const { data } = await axios.get<T>(url, { timeout: API_TIMEOUT_MS })
             return data
         } catch (error) {

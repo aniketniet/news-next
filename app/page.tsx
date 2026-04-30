@@ -132,10 +132,12 @@ const tarotData = {
 };
 
 export const dynamic = "force-dynamic";
+export const revalidate = 0;          // optional but recommended
+export const fetchCache = "force-no-store"; // optional
 
 export default async function HomePage() {
     // TEMP: Artificial delay for visual slow loading (remove/comment when not needed)
-  await new Promise(resolve => setTimeout(resolve, 10000)); // 10 seconds
+ 
   const safe = async <T,>(label: string, promise: Promise<T>, fallback: T): Promise<T> => {
     try {
       return await promise;
@@ -175,6 +177,8 @@ export default async function HomePage() {
     safe('fetchSubcategoryList(1003)', fetchSubcategoryList(1003, { limit: 5, offset: 0 }), []),
     safe('fetchBystanders', fetchBystanders({ limit: 1, offset: 0 }), []),
   ]);
+
+   await new Promise(resolve => setTimeout(resolve, 10000)); // 10 seconds
 
   // console.log("Fetched Categories:", categories);
   // console.log("Fetched Popular Stories:", popular);
