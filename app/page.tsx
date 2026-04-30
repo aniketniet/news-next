@@ -131,6 +131,7 @@ const tarotData = {
   promoSubtitle: "Discover your inner power with our tarot readings",
 };
 
+export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
     // Artificial delay for loader demo: show loader for 10 seconds
@@ -482,7 +483,7 @@ export default async function HomePage() {
         Skip to content
       </a>
 
-      {/* <SiteHeader /> */}
+      <SiteHeader />
 
       <main id="main" className="pb-10">
         <Hero initialTop={top} />
