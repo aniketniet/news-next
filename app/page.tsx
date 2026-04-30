@@ -152,6 +152,7 @@ export default async function HomePage() {
   // sections like Technology & Impact (which may have older dates and
   // were previously missing due to cached / truncated responses) appear
   // consistently with what you see in Postman.
+  
   const [{ latest, popular, stateEditions, top }, categories, gallery, indiaSection, coverStoryItems, bystandersData] = await Promise.all([
     safe('fetchStories', fetchStories({ limit: 20, offset: 0 }), { latest: [], top: [], popular: [], stateEditions: {} }),
     safe('getCategoriesNormalized', getCategoriesNormalized({ limit: 12, offset: 0, noCache: false }), {
