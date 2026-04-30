@@ -136,8 +136,7 @@ const tarotData = {
 
 
 export default async function HomePage() {
-    // Artificial delay for loader demo: show loader for 10 seconds
-  await new Promise(resolve => setTimeout(resolve, 10000)); // 10 seconds
+
   const safe = async <T,>(label: string, promise: Promise<T>, fallback: T): Promise<T> => {
     try {
       return await promise;
