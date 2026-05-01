@@ -34,8 +34,6 @@ import { ScrollToTopLink } from "@/components/scroll-to-top-link";
 import SubscriptionSlider from "@/components/SubscriptionSlider";
 import { Story } from "@/lib/api/categories";
 import { BystandersSection } from "@/components/bystanders-section";
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
 
 // Travel & Health & Fitness stories are derived inside HomePage from API
 
@@ -133,10 +131,11 @@ const tarotData = {
   promoSubtitle: "Discover your inner power with our tarot readings",
 };
 
-
+export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
-
+    // TEMP: Artificial delay for visual slow loading (remove/comment when not needed)
+  // await new Promise(resolve => setTimeout(resolve, 10000)); // 10 seconds
   const safe = async <T,>(label: string, promise: Promise<T>, fallback: T): Promise<T> => {
     try {
       return await promise;

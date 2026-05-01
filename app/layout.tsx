@@ -19,18 +19,14 @@ export const metadata: Metadata = {
   manifest: '/site.webmanifest',
 }
 
-export default async function RootLayout({
-
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
-     // Artificial delay for loader demo: show loader for 10 seconds
-  await new Promise(resolve => setTimeout(resolve, 10000)); // 10 seconds
   return (
     <html lang="en">
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
-        
         <GoogleTranslate />
         <AuthProvider>
           {children}

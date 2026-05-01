@@ -55,7 +55,7 @@ export async function generateMetadata({
 
 export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
     // TEMP: Artificial delay for visual slow loading (remove/comment when not needed)
-  await new Promise(resolve => setTimeout(resolve, 10000)); // 10 seconds
+  // await new Promise(resolve => setTimeout(resolve, 10000)); // 10 seconds
   const { slug } = await params;
   const story = await fetchStory(slug);
   // console.log(story,"story");
