@@ -109,7 +109,7 @@ export default function SubscriptionPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingPlans, setIsLoadingPlans] = useState(true);
   const [apiPlans, setApiPlans] = useState<APIPlan[]>([]);
-  const [magazineOption, setMagazineOption] = useState<MagazineOption | null>(null);
+  const [magazineOption, setMagazineOption] = useState<MagazineOption | null>("Exotica");
   const [formData, setFormData] = useState<UserFormData>({
     phone: "",
     pincode: "",
@@ -182,7 +182,7 @@ export default function SubscriptionPage() {
           ? ((originalPrice - sellingPrice) / originalPrice) * 100
           : 0;
       const discountPercent = Math.max(0, Math.trunc(rawDiscountPercent * 100) / 100);
-      
+
       // Parse features from points JSON
       let features: string[] = [];
       try {
@@ -234,7 +234,7 @@ export default function SubscriptionPage() {
     setSelectedPlan(plan);
     // Plan A/B: user must choose Exotica or Essentia
     // Plan C/D: includes both
-    if (plan.code === "A" || plan.code === "B") setMagazineOption(null);
+    if (plan.code === "A" || plan.code === "B") setMagazineOption("Exotica");
     else if (plan.code === "C" || plan.code === "D") setMagazineOption("Both");
     else setMagazineOption(null);
     setFormData({
@@ -434,63 +434,63 @@ export default function SubscriptionPage() {
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black"></div>
           </div>
         ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 space-y-24 sm:space-y-0 gap-6 sm:gap-8 max-w-5xl mx-auto pt-24 sm:pt-20 mb-16  sm:mb-24 px-2 sm:px-0">
-          {firstRowPlans.map((plan) => (
-            <div key={plan.id} className="relative">
-              {/* Colored Header */}
-              <div
-                className={`absolute -top-8 sm:-top-10 left-1/2 transform -translate-x-1/2 -translate-y-10 sm:-translate-y-14 ${plan.colorClass} text-white text-center py-3 sm:py-4 px-3 sm:px-4 shadow-2xl z-10 w-[90%] sm:w-[85%] rounded-lg sm:rounded-none`}
-                style={{ boxShadow: "0 15px 25px rgba(0,0,0,0.35)" }}
-              >
-                <h3 className="text-xs sm:text-sm font-extrabold mb-1 uppercase tracking-wide">
-                  {plan.name}
-                </h3>
-                <h4 className="text-sm sm:text-base font-bold mb-1">{plan.duration}</h4>
-                <div className="mb-1">
-                  <div className="text-xs line-through text-gray-300">
-                    ₹{plan.originalPrice}
-                  </div>
-                  <div className="text-xl sm:text-2xl font-extrabold">₹{plan.price}</div>
-                </div>
-                <div className="text-xs uppercase tracking-wide font-semibold">
-                  {plan.discountPercent.toFixed(2)}% OFF
-                </div>
-              </div>
-
-              {/* Main Card Body */}
-              <div className="bg-white shadow-xl border border-gray-200 pt-14 sm:pt-16 pb-4 sm:pb-5 px-3 sm:px-4 mt-4 sm:mt-6 rounded-lg h-full flex flex-col min-h-[180px] sm:min-h-[200px]">
-                {/* Features List */}
-                <ul className="space-y-2 sm:space-y-3 mb-4 sm:mb-6 grow">
-                  {plan.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-start">
-                      <svg
-                        className="w-4 h-4 text-black mr-2 shrink-0 mt-0.5"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                      <span className="text-gray-700 font-semibold text-xs sm:text-sm">
-                        {feature}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-
-                <button
-                  onClick={() => handleChoosePlan(plan)}
-                  className="w-full bg-black hover:bg-black/90 text-white font-bold py-2 sm:py-2.5 px-3 sm:px-4 uppercase tracking-wide transition-colors rounded-md text-xs sm:text-sm"
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 space-y-24 sm:space-y-0 gap-6 sm:gap-8 max-w-5xl mx-auto pt-24 sm:pt-20 mb-16  sm:mb-24 px-2 sm:px-0">
+            {firstRowPlans.map((plan) => (
+              <div key={plan.id} className="relative">
+                {/* Colored Header */}
+                <div
+                  className={`absolute -top-8 sm:-top-10 left-1/2 transform -translate-x-1/2 -translate-y-10 sm:-translate-y-14 ${plan.colorClass} text-white text-center py-3 sm:py-4 px-3 sm:px-4 shadow-2xl z-10 w-[90%] sm:w-[85%] rounded-lg sm:rounded-none`}
+                  style={{ boxShadow: "0 15px 25px rgba(0,0,0,0.35)" }}
                 >
-                  CHOOSE PLAN
-                </button>
+                  <h3 className="text-xs sm:text-sm font-extrabold mb-1 uppercase tracking-wide">
+                    {plan.name}
+                  </h3>
+                  <h4 className="text-sm sm:text-base font-bold mb-1">{plan.duration}</h4>
+                  <div className="mb-1">
+                    <div className="text-xs line-through text-gray-300">
+                      ₹{plan.originalPrice}
+                    </div>
+                    <div className="text-xl sm:text-2xl font-extrabold">₹{plan.price}</div>
+                  </div>
+                  <div className="text-xs uppercase tracking-wide font-semibold">
+                    {plan.discountPercent.toFixed(2)}% OFF
+                  </div>
+                </div>
+
+                {/* Main Card Body */}
+                <div className="bg-white shadow-xl border border-gray-200 pt-14 sm:pt-16 pb-4 sm:pb-5 px-3 sm:px-4 mt-4 sm:mt-6 rounded-lg h-full flex flex-col min-h-[180px] sm:min-h-[200px]">
+                  {/* Features List */}
+                  <ul className="space-y-2 sm:space-y-3 mb-4 sm:mb-6 grow">
+                    {plan.features.map((feature, idx) => (
+                      <li key={idx} className="flex items-start">
+                        <svg
+                          className="w-4 h-4 text-black mr-2 shrink-0 mt-0.5"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                        <span className="text-gray-700 font-semibold text-xs sm:text-sm">
+                          {feature}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <button
+                    onClick={() => handleChoosePlan(plan)}
+                    className="w-full bg-black hover:bg-black/90 text-white font-bold py-2 sm:py-2.5 px-3 sm:px-4 uppercase tracking-wide transition-colors rounded-md text-xs sm:text-sm"
+                  >
+                    CHOOSE PLAN
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
         )}
 
         {/* Second Row: Plan D, E */}
@@ -663,7 +663,7 @@ export default function SubscriptionPage() {
               </div>
             )}
 
-            {(selectedPlan?.code === "A" || selectedPlan?.code === "B") && (
+            {/* {(selectedPlan?.code === "A" || selectedPlan?.code === "B") && (
               <div className="grid gap-2">
                 <Label className="text-gray-700">Choose Magazine *</Label>
                 <div className="flex gap-2">
@@ -673,11 +673,10 @@ export default function SubscriptionPage() {
                       setMagazineOption("Exotica");
                       if (planErrors.magazineOption) setPlanErrors({});
                     }}
-                    className={`flex-1 border rounded-md px-3 py-2 text-sm font-semibold ${
-                      magazineOption === "Exotica"
-                        ? "bg-black text-white border-black"
-                        : "bg-white text-gray-800 border-gray-300"
-                    }`}
+                    className={`flex-1 border rounded-md px-3 py-2 text-sm font-semibold ${magazineOption === "Exotica"
+                      ? "bg-black text-white border-black"
+                      : "bg-white text-gray-800 border-gray-300"
+                      }`}
                   >
                     Exotica
                   </button>
@@ -687,11 +686,10 @@ export default function SubscriptionPage() {
                       setMagazineOption("FRESH");
                       if (planErrors.magazineOption) setPlanErrors({});
                     }}
-                    className={`flex-1 border rounded-md px-3 py-2 text-sm font-semibold ${
-                      magazineOption === "FRESH"
-                        ? "bg-black text-white border-black"
-                        : "bg-white text-gray-800 border-gray-300"
-                    }`}
+                    className={`flex-1 border rounded-md px-3 py-2 text-sm font-semibold ${magazineOption === "FRESH"
+                      ? "bg-black text-white border-black"
+                      : "bg-white text-gray-800 border-gray-300"
+                      }`}
                   >
                     FRESH
                   </button>
@@ -700,7 +698,7 @@ export default function SubscriptionPage() {
                   <span className="text-red-500 text-sm">{planErrors.magazineOption}</span>
                 )}
               </div>
-            )}
+            )} */}
             <div className="grid gap-2">
               <Label htmlFor="phone" className="text-gray-700">
                 Mobile Number *
@@ -751,9 +749,8 @@ export default function SubscriptionPage() {
                   onChange={(e) => handleInputChange("address", e.target.value)}
                   placeholder="Enter your complete delivery address"
                   rows={3}
-                  className={`flex w-full rounded-md border ${
-                    errors.address ? "border-red-500" : "border-input"
-                  } bg-transparent px-3 py-2 text-sm shadow-xs placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring`}
+                  className={`flex w-full rounded-md border ${errors.address ? "border-red-500" : "border-input"
+                    } bg-transparent px-3 py-2 text-sm shadow-xs placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring`}
                 />
                 {errors.address && (
                   <span className="text-red-500 text-sm">{errors.address}</span>

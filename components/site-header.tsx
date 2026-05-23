@@ -201,7 +201,7 @@ export function SiteHeader() {
     <>
       {/* Global Google One Tap overlay for unauthenticated users */}
       <GoogleOneTap />
-      <header className="sticky top-0 z-9999 w-full bg-white">
+      <header className="sticky top-0 z-40 w-full bg-white">
      
 
       {/* Main Header */}
