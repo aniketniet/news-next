@@ -22,14 +22,7 @@ export default function SubscriptionSlider() {
       id: 3,
       image: '/sub2.png',
     },
-    {
-      id: 4,
-      image: '/sub3.png',
-    },
-    {
-      id: 5,
-      image: '/sub4.png',
-    },
+  
 
   ];
 
