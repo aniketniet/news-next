@@ -744,11 +744,15 @@ export default async function HomePage() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
               {/* <MainContent nation={nation} world={world} opinion={opinion} /> */}
               <StateEditions stateEditions={stateEditions || {}} />
-              {/* <EPaperDownload /> */}
-
-                <AdvertiseSection src="/exceed.jpg" />
+              <AdvertiseSection src="/exceed.jpg" />
              
             </div>
+          </div>
+        </section>
+
+        <section className="px-3 md:px-6 pb-6">
+          <div className="mx-auto w-full max-w-6xl">
+            <EPaperDownload />
           </div>
         </section>
 

@@ -423,9 +423,9 @@ export default function SubscriptionPage() {
           <h2 className="text-2xl sm:text-3xl font-bold text-center text-gray-900 mb-3 sm:mb-4">
             Subscription Plans
           </h2>
-          <p className="text-center text-gray-600 text-sm sm:text-base px-4 sm:px-0">
+          {/* <p className="text-center text-gray-600 text-sm sm:text-base px-4 sm:px-0">
             Choose from Magazine, Both Magazines, or Newspaper subscriptions
-          </p>
+          </p> */}
         </div>
 
         {/* First Row: Plan A, B, C */}

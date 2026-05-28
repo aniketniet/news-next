@@ -594,7 +594,6 @@ export function SiteHeader() {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="block px-4 py-2 text-xs text-gray-800 hover:bg-black/5 hover:text-black transition-colors"
-                                download
                               >
                                 {mag.magazine_name}
                               </a>
@@ -879,7 +878,6 @@ export function SiteHeader() {
                                   setIsMenuOpen(false);
                                   setMobileMagazineOpen(false);
                                 }}
-                                download
                               >
                                 {mag.magazine_name}
                               </a>
